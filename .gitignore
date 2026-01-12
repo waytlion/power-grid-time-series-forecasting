@@ -1,0 +1,4 @@
+gridfm-datakit/
+.venv/
+data_out/
+generation/preprocessing/df_load_buses.parquet
