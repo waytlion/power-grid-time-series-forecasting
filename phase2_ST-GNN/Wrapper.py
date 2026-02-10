@@ -10,8 +10,7 @@ import torch.nn as nn
 from torch_scatter import scatter_add
 from typing import Dict, Tuple
 
-from gridfm_graphkit.models.gnn_heterogeneous_gns import GNS_heterogeneous
-
+from models.gnn_heterogenous_gns_thesis import GNS_heterogeneous_thesis
 
 class GridFMEncoder(nn.Module):
     """
@@ -19,7 +18,7 @@ class GridFMEncoder(nn.Module):
     
     Responsibilities:
         1. Extract physics-informed embeddings (h_bus, h_gen)
-        2. Aggregate generator embeddings onto parent buses (Option C)
+        2. Aggregate generator embeddings onto parent buses 
         3. Optionally return reconstruction outputs for multi-task training
     
     Args:
@@ -35,7 +34,7 @@ class GridFMEncoder(nn.Module):
         >>> embeddings = out["embedding"]  # [N_bus, hidden_dim * heads]
     """
     
-    def __init__(self, gridfm_model: GNS_heterogeneous):
+    def __init__(self, gridfm_model: GNS_heterogeneous_thesis):
         super().__init__()
         self.gridfm = gridfm_model
         
@@ -49,9 +48,9 @@ class GridFMEncoder(nn.Module):
     def reset_parameters(self) -> None:
         """
         Reset all parameters for fresh end-to-end training.
-        
-        Uses Xavier uniform for Linear layers, ones/zeros for LayerNorm,
-        and calls native reset_parameters() where available.
+        - calls native reset_parameters() where available.
+        - Linear layers: Uses Xavier uniform for weights, zeros for biases. 
+        - LayerNorm: ones for weights zeros for biases. So it is initialised as identity function,
         """
         reset_count = 0
         for name, module in self.gridfm.named_modules():
@@ -71,7 +70,7 @@ class GridFMEncoder(nn.Module):
                 nn.init.zeros_(module.bias)
                 reset_count += 1
         
-        print(f"GridFMEncoder: Reset {reset_count} modules")
+        print(f"GridFMEncoder: Reseted parameters of: {reset_count} modules")
     
     def _aggregate_gen_to_bus(
         self,
@@ -80,11 +79,7 @@ class GridFMEncoder(nn.Module):
         edge_index_dict: Dict[Tuple[str, str, str], torch.Tensor],
     ) -> torch.Tensor:
         """
-        Aggregate generator embeddings onto their parent buses.
-        
-        This implements "Option C" from our discussion:
-        - Preserves IEEE-14 topology (14 nodes, not 19)
-        - Generator info is merged into the bus it's connected to
+        generator embeddings are summed to the embeddings of their parent buses.
         
         Args:
             h_bus: Bus embeddings [N_bus, D]
@@ -94,17 +89,12 @@ class GridFMEncoder(nn.Module):
         Returns:
             h_merged: Enriched bus embeddings [N_bus, D]
         """
-        num_bus = h_bus.size(0)
-        
-        # edge_index[1] = target bus index for each generator
-        gen_to_bus_index = edge_index_dict[("gen", "connected_to", "bus")][1]
-        
-        # Sum generator embeddings at their connected buses
+        # Sum generator embeddings for each bus
         h_gen_aggregated = scatter_add(
             src=h_gen,
-            index=gen_to_bus_index,
+            index=edge_index_dict[("gen", "connected_to", "bus")][1], #target bus index for each generator
             dim=0,
-            dim_size=num_bus,
+            dim_size=h_bus.size(0),
         )
         
         # Combine: bus + aggregated generator info
@@ -124,7 +114,7 @@ class GridFMEncoder(nn.Module):
         Args:
             x_dict: Node features {"bus": [N_bus, F], "gen": [N_gen, F]}
             edge_index_dict: Edge connectivity for each relation type
-            edge_attr_dict: Edge attributes (G, B for branches)
+            edge_attr_dict: Edge attributes 
             mask_dict: Masks indicating which values to predict
             return_reconstruction: If True, include physics predictions
             
