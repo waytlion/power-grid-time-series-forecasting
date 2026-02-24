@@ -165,7 +165,7 @@ def print_metrics(res, scale_mae, scale_mse):
     truth = res["true"].flatten()
     
     print("\n=== FINAL BENCHMARK RESULTS ===")
-    header = f"{'Model':<10} | {'RMSE':<10} | {'MAE':<10} | {'MAPE':<10} | {'MASE':<10} | {'MSSE':<10}"
+    header = f"{'Model':<10} | {'RMSE [MW]':<10} | {'MAE [MW]':<10} | {'MAPE [%]':<10} | {'MASE':<10} | {'MSSE':<10}"
     print(header)
     print("-" * len(header))
     
