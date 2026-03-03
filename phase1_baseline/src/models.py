@@ -45,7 +45,7 @@ class TemporalBlock(nn.Module):
         y = self.ff(x); x=self.ln2(x+y); return x
 
 class TinyTGT(nn.Module):
-    def __init__(self, n_nodes, d_model=64, n_heads=4, n_temporal_layers=2, in_feat=7, out_steps=33):
+    def __init__(self, n_nodes, d_model=64, n_heads=4, n_temporal_layers=2, in_feat=7, out_steps=1):
         super().__init__()
         self.n_nodes = n_nodes
         

@@ -106,7 +106,11 @@ def run_evaluation(full_data, test_idx, xgb, tgt, sarima, mask, scaler, cfg, dev
     win, hor = cfg["INPUT_WINDOW"], cfg["FORECAST_HORIZON"]
     n_time_feats = F - 1
     
-    starts = [t for t in test_idx if t % 24 == cfg["EVAL_HOUR"] and t >= win and t <= T - hor]
+    # Handle EVAL_HOUR: None = all test times; int = filter by hour
+    if cfg["EVAL_HOUR"] is None:
+        starts = [t for t in test_idx if t >= win and t <= T - hor]
+    else:
+        starts = [t for t in test_idx if t % 24 == cfg["EVAL_HOUR"] and t >= win and t <= T - hor]
     
     tgt.eval()
     sigma, mu = np.sqrt(scaler.var_[0]), scaler.mean_[0]
@@ -148,8 +152,11 @@ def run_evaluation(full_data, test_idx, xgb, tgt, sarima, mask, scaler, cfg, dev
         with torch.no_grad():
             pred_tgt = tgt(X_tgt, mask).cpu().numpy().squeeze(0).T
 
-        # Inverse Scale & Slice Target Day (9-33)
-        s, e = 9, 33
+        # Inverse Scale & Slice Target Day (adaptive based on FORECAST_HORIZON)
+        s = cfg.get("TARGET_DAY_START_IDX", 0)
+        e = hor
+        if s >= e:
+            s = 0  # Safety check: if slice indices invalid, use full horizon
         Y_true = full_data[t:t+hor, :, 0].T
         
         results["xgb"].append((pred_xgb[:, s:e] * sigma) + mu)
@@ -158,7 +165,7 @@ def run_evaluation(full_data, test_idx, xgb, tgt, sarima, mask, scaler, cfg, dev
         results["sarima"].append(pred_sarima[:, s:e])
         results["true"].append((Y_true[:, s:e] * sigma) + mu)
 
-    return {k: np.array(v) for k, v in results.items()}
+    return {k: np.array(v) for k, v in results.items()}, starts
 
 def print_metrics(res, scale_mae, scale_mse):
     """calc RMSE, MAE, MAPE, MASE, MSSE."""
