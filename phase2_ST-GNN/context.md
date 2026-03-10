@@ -1,13 +1,3 @@
-# Context for going further
-
-There are two overarching repos (dont worry if you only see one - than you can ignore everyting regarding the other)
-
-1. Repo: gridfm-graphkit 
-- This repo is a clone of Gridfm-Graphkit module and IT SHOULD REMAIN UNCHANGED!.
-
-2. Repo: Thesis Repo
-- This repo i am developing in right now.
-
 ## Tesis Repo description
 1. phase1_baseline folder is an experiment to forecast loads only. It is finished for now. 
 2. phase2_ST-GNN folder is an experiment to build a spatio temporal graph transformer to forecast power flows. This is work in progress. 
