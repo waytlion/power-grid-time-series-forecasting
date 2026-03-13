@@ -36,9 +36,9 @@ CONFIG = {
     "SUBSET_PERCENT": 0.01,
     "USE_ONLY_LOAD": True,
     "BINARY_ADJACENCY": True,
-    "BATCH_SIZE": 32,
+    "BATCH_SIZE": 64,
     "EPOCHS": 10,
-    "INPUT_WINDOW": 168,
+    "INPUT_WINDOW": 336,
     "FORECAST_HORIZON": 1,
     "EVAL_HOUR": None,
     "SNAIVE_LAG": 48,
@@ -67,6 +67,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--xgb-device", choices=["cuda", "cpu"], default=None)
     parser.add_argument("--output-path", default="benchmark_results.parquet")
     parser.add_argument("--seed", type=int, default=None)
+    parser.add_argument("--skip-tgt", action="store_true", help="Skip TinyTGT training")
     return parser.parse_args()
 
 
@@ -225,46 +226,50 @@ def main() -> None:
 
     torch.cuda.empty_cache()
 
-    tgt_model = TinyTGT(
-        n_nodes=14,
-        d_model=64,
-        n_heads=4,
-        in_feat=7,
-        out_steps=config["FORECAST_HORIZON"],
-    ).to(device)
-    opt = optim.Adam(tgt_model.parameters(), lr=1e-3)
-    loss_fn = nn.MSELoss()
+    tgt_model = None
+    if not args.skip_tgt:
+        tgt_model = TinyTGT(
+            n_nodes=14,
+            d_model=64,
+            n_heads=4,
+            in_feat=7,
+            out_steps=config["FORECAST_HORIZON"],
+        ).to(device)
+        opt = optim.Adam(tgt_model.parameters(), lr=1e-3)
+        loss_fn = nn.MSELoss()
 
-    for ep in range(1, config["EPOCHS"] + 1):
-        tgt_model.train()
-        train_loss, batch_count = 0.0, 0
+        for ep in range(1, config["EPOCHS"] + 1):
+            tgt_model.train()
+            train_loss, batch_count = 0.0, 0
 
-        for xb, yb in train_loader:
-            xb = xb.float().to(device)
-            yb = yb.float().to(device)
-
-            opt.zero_grad()
-            yhat = tgt_model(xb, A_mask)
-            loss = loss_fn(yhat, yb[..., 0])
-            loss.backward()
-            opt.step()
-
-            train_loss += loss.item()
-            batch_count += 1
-
-        tgt_model.eval()
-        val_loss, val_batches = 0.0, 0
-        with torch.no_grad():
-            for xb, yb in val_loader:
+            for xb, yb in train_loader:
                 xb = xb.float().to(device)
-                y_true = yb[..., 0].float().to(device)
-                yhat = tgt_model(xb, A_mask)
-                val_loss += loss_fn(yhat, y_true).item()
-                val_batches += 1
+                yb = yb.float().to(device)
 
-        print(
-            f"Epoch {ep}: Train MSE={train_loss/batch_count:.6f} | Val MSE={val_loss/val_batches:.6f}"
-        )
+                opt.zero_grad()
+                yhat = tgt_model(xb, A_mask)
+                loss = loss_fn(yhat, yb[..., 0])
+                loss.backward()
+                opt.step()
+
+                train_loss += loss.item()
+                batch_count += 1
+
+            tgt_model.eval()
+            val_loss, val_batches = 0.0, 0
+            with torch.no_grad():
+                for xb, yb in val_loader:
+                    xb = xb.float().to(device)
+                    y_true = yb[..., 0].float().to(device)
+                    yhat = tgt_model(xb, A_mask)
+                    val_loss += loss_fn(yhat, y_true).item()
+                    val_batches += 1
+
+            print(
+                f"Epoch {ep}: Train MSE={train_loss/batch_count:.6f} | Val MSE={val_loss/val_batches:.6f}"
+            )
+    else:
+        print("Skipping TinyTGT training (--skip-tgt flag set)")
 
     sarima_model = GlobalFitLocalApplySARIMA(order=(2, 0, 0), seasonal_order=(1, 0, 1, 24))
     sarima_model.fit(scaled_tensor.astype(np.float32), train_idx, None)
@@ -301,9 +306,10 @@ def main() -> None:
                     "true": results["true"][eval_idx, bus_id, h],
                     "xgb": results["xgb"][eval_idx, bus_id, h],
                     "snaive": results["snaive"][eval_idx, bus_id, h],
-                    "tgt": results["tgt"][eval_idx, bus_id, h],
-                    "sarima": results["sarima"][eval_idx, bus_id, h],
                 }
+                if "tgt" in results:
+                    row["tgt"] = results["tgt"][eval_idx, bus_id, h]
+                row["sarima"] = results["sarima"][eval_idx, bus_id, h]
                 data_list.append(row)
 
     df_results = pd.DataFrame(data_list)

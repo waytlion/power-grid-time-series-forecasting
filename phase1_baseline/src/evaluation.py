@@ -100,7 +100,9 @@ def get_scaling_factors(full_data, train_idx, scaler, m=24):
     return denom_mae, denom_mse
 
 def run_evaluation(full_data, test_idx, xgb, tgt, sarima, mask, scaler, cfg, device='cpu'):
-    results = {"true": [], "xgb": [], "snaive": [], "tgt": [], "sarima": []}
+    results = {"true": [], "xgb": [], "snaive": [], "sarima": []}
+    if tgt is not None:
+        results["tgt"] = []
     
     T, N, F = full_data.shape
     win, hor = cfg["INPUT_WINDOW"], cfg["FORECAST_HORIZON"]
@@ -112,7 +114,8 @@ def run_evaluation(full_data, test_idx, xgb, tgt, sarima, mask, scaler, cfg, dev
     else:
         starts = [t for t in test_idx if t % 24 == cfg["EVAL_HOUR"] and t >= win and t <= T - hor]
     
-    tgt.eval()
+    if tgt is not None:
+        tgt.eval()
     sigma, mu = np.sqrt(scaler.var_[0]), scaler.mean_[0]
     
     print(f"Evaluating {len(starts)} days...")
@@ -149,8 +152,11 @@ def run_evaluation(full_data, test_idx, xgb, tgt, sarima, mask, scaler, cfg, dev
             
         pred_sarima = np.array(pred_sarima)
         
-        with torch.no_grad():
-            pred_tgt = tgt(X_tgt, mask).cpu().numpy().squeeze(0).T
+        if tgt is not None:
+            with torch.no_grad():
+                pred_tgt = tgt(X_tgt, mask).cpu().numpy().squeeze(0).T
+        else:
+            pred_tgt = None
 
         # Inverse Scale & Slice Target Day (adaptive based on FORECAST_HORIZON)
         s = cfg.get("TARGET_DAY_START_IDX", 0)
@@ -161,7 +167,8 @@ def run_evaluation(full_data, test_idx, xgb, tgt, sarima, mask, scaler, cfg, dev
         
         results["xgb"].append((pred_xgb[:, s:e] * sigma) + mu)
         results["snaive"].append((pred_naive[:, s:e] * sigma) + mu)
-        results["tgt"].append((pred_tgt[:, s:e] * sigma) + mu)
+        if tgt is not None:
+            results["tgt"].append((pred_tgt[:, s:e] * sigma) + mu)
         results["sarima"].append(pred_sarima[:, s:e])
         results["true"].append((Y_true[:, s:e] * sigma) + mu)
 
@@ -179,7 +186,10 @@ def print_metrics(res, scale_mae, scale_mse):
     metrics_store = {}
     
     for model_name in ["snaive", "xgb", "sarima", "tgt"]:
-        if len(res[model_name]) == 0: continue
+        if model_name not in res:
+            continue  # Skip if model was not evaluated
+        if len(res[model_name]) == 0:
+            continue
         pred = res[model_name].flatten()
         
         rmse = np.sqrt(mean_squared_error(truth, pred))
