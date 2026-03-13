@@ -3,4 +3,4 @@ gridfm-datakit/
 venv/
 data_out/
 *parquet
-*.sbatch
+*.sbatch__pycache__/
