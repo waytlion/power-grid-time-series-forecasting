@@ -74,11 +74,8 @@ def main() -> None:
     args = parse_args()
 
     config = CONFIG.copy()
-    env_data_path = os.getenv("DATA")
     if args.data_path is not None:
         config["DATA_PATH"] = args.data_path
-    elif env_data_path:
-        config["DATA_PATH"] = env_data_path
     config["USE_SUBSET"] = bool(args.use_subset)
     config["SUBSET_PERCENT"] = float(args.subset_percent)
     config["EPOCHS"] = int(args.epochs)
@@ -102,7 +99,7 @@ def main() -> None:
 
     print("Device:", device)
 
-    data_source = "cli" if args.data_path is not None else ("env" if env_data_path else "default")
+    data_source = "cli" if args.data_path is not None else "default"
     resolved_data_path = Path(config["DATA_PATH"]).expanduser().resolve()
     print(f"Using DATA_PATH (source={data_source}): {resolved_data_path}")
 
