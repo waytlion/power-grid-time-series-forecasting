@@ -4,6 +4,23 @@ from torch.utils.data import Dataset
 from tqdm import tqdm
 from sklearn.metrics import mean_squared_error, mean_absolute_error
 from numpy.lib.stride_tricks import sliding_window_view
+from joblib import Parallel, delayed
+
+def _infer_single_bus(b, starts, full_data, win, hor, sarima, sigma, mu):
+    """
+    Worker function to run SARIMA inference for a single bus across all test hours.
+    """
+    bus_preds = []
+    for t in starts:
+        try:
+            hist_scaled = full_data[t-win:t, b, 0]
+            fc_scaled = sarima.predict(hist_scaled, bus_idx=b, horizon=hor)
+            bus_preds.append(fc_scaled * sigma + mu)
+        except Exception:
+            # If SARIMA math explodes on a specific hour, output NaNs
+            bus_preds.append(np.full(hor, np.nan))
+    
+    return b, np.array(bus_preds) # Shape: (len(starts), horizon)
 
 class RollingDataset(Dataset):
     def __init__(self, data, split_indices, input_window, forecast_horizon):
@@ -119,8 +136,23 @@ def run_evaluation(full_data, test_idx, xgb, tgt, sarima, mask, scaler, cfg, dev
     sigma, mu = np.sqrt(scaler.var_[0]), scaler.mean_[0]
     
     print(f"Evaluating {len(starts)} days...")
+
+    # --- 1. THE MASSIVE PARALLEL SARIMA INFERENCE ---
+    print(f"Parallelizing SARIMA inference across {N} buses...")
+    sarima_results = Parallel(n_jobs=-1, verbose=10)(
+        delayed(_infer_single_bus)(
+            b, starts, full_data, win, hor, sarima, sigma, mu
+        ) for b in range(N)
+    )
     
-    for t in tqdm(starts):
+    # Reconstruct SARIMA predictions matrix: Shape (len(starts), N, horizon)
+    sarima_all_preds = np.zeros((len(starts), N, hor))
+    for b, preds in sarima_results:
+        sarima_all_preds[:, b, :] = preds
+
+    # --- 2. THE LIGHTNING FAST XGB/TGT INFERENCE LOOP ---
+    print("Running XGBoost and PyTorch inference...")
+    for idx, t in enumerate(tqdm(starts)):
         # XGB Input
         xgb_in = []
         for b in range(N):
@@ -130,27 +162,18 @@ def run_evaluation(full_data, test_idx, xgb, tgt, sarima, mask, scaler, cfg, dev
                 [b]
             ]))
         X_xgb = np.array(xgb_in)
+        
         # TGT Input
         X_tgt = torch.from_numpy(full_data[t-win:t]).unsqueeze(0).float().to(device)
 
-        # 1. XGB Predict
+        # Predict
         pred_xgb = xgb.predict(X_xgb)
         
-        # 2. SNaive Predict
         lag = cfg["SNAIVE_LAG"]
         pred_naive = full_data[t-lag : t-lag+hor, :, 0].T
         
-        # 3. SARIMA Predict (Using Pre-fitted, Rolling Apply)
-        pred_sarima = []
-        for b in range(N):
-            # We pass SCALED history to match the global fit domain
-            hist_scaled = full_data[t-win:t, b, 0]
-            # Predict
-            fc_scaled = sarima.predict(hist_scaled, bus_idx=b, horizon=hor)
-            # Denormalize output
-            pred_sarima.append(fc_scaled * sigma + mu)
-            
-        pred_sarima = np.array(pred_sarima)
+        # Grab the pre-calculated SARIMA prediction for this timestep!
+        pred_sarima = sarima_all_preds[idx]
         
         if tgt is not None:
             with torch.no_grad():
@@ -158,21 +181,31 @@ def run_evaluation(full_data, test_idx, xgb, tgt, sarima, mask, scaler, cfg, dev
         else:
             pred_tgt = None
 
-        # Inverse Scale & Slice Target Day (adaptive based on FORECAST_HORIZON)
+        # Inverse Scale & Slice Target Day
         s = cfg.get("TARGET_DAY_START_IDX", 0)
         e = hor
         if s >= e:
-            s = 0  # Safety check: if slice indices invalid, use full horizon
+            s = 0  # Safety check
         Y_true = full_data[t:t+hor, :, 0].T
         
         results["xgb"].append((pred_xgb[:, s:e] * sigma) + mu)
         results["snaive"].append((pred_naive[:, s:e] * sigma) + mu)
-        if tgt is not None:
-            results["tgt"].append((pred_tgt[:, s:e] * sigma) + mu)
         results["sarima"].append(pred_sarima[:, s:e])
         results["true"].append((Y_true[:, s:e] * sigma) + mu)
+        if tgt is not None:
+            results["tgt"].append((pred_tgt[:, s:e] * sigma) + mu)
 
-    return {k: np.array(v) for k, v in results.items()}, starts
+    # --- 3. THE SCIENTIFIC FALLBACK STRATEGY ---
+    final_results = {k: np.array(v) for k, v in results.items()}
+    
+    # Find any NaNs from exploding SARIMA math and replace with SNAIVE
+    sarima_nans = np.isnan(final_results["sarima"])
+    num_failures = np.sum(sarima_nans)
+    if num_failures > 0:
+        print(f"SARIMA inference failed on {num_failures} timesteps. Applying SNAIVE fallback.")
+        final_results["sarima"][sarima_nans] = final_results["snaive"][sarima_nans]
+
+    return final_results, starts
 
 def print_metrics(res, scale_mae, scale_mse):
     """calc RMSE, MAE, MAPE, MASE, MSSE."""

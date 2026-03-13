@@ -51,9 +51,6 @@ def set_seed(seed: int) -> None:
     torch.manual_seed(seed)
     torch.cuda.manual_seed_all(seed)
 
-
-
-
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Run temporal benchmark.")
     parser.add_argument("--data-path", default=None)
@@ -289,7 +286,6 @@ def main() -> None:
         device=device,
     )
 
-    print_metrics(results, denom_mae, denom_mse)
 
     n_evals, n_buses, n_horizon = results["true"].shape
     scenario_indices = loads_pivot.index.values
@@ -317,6 +313,8 @@ def main() -> None:
     print(f"Results saved to {args.output_path}")
     print(f"Shape: {df_results.shape}")
     print(df_results.head())
+
+    print_metrics(results, denom_mae, denom_mse)
 
     gc.collect()
 
