@@ -205,17 +205,19 @@ def main() -> None:
     print(f"XGB Train Shape: {X_train_xgb.shape}")
 
     xgb_estimator = xgb.XGBRegressor(
-        n_estimators=100,
-        learning_rate=0.1,
-        max_depth=4,
+        n_estimators=500,
+        learning_rate=0.05,
+        max_depth=7,
+        subsample=0.8,              # Randomly sample 80% of data per tree (prevents overfitting)
+        colsample_bytree=0.8,       # Randomly sample 80% of features per tree
         objective="reg:squarederror",
         device=xgb_device,
         tree_method="hist",
-        n_jobs=4,
+        n_jobs=32,
         random_state=args.seed,
     )
 
-    xgb_model = MultiOutputRegressor(xgb_estimator, n_jobs=1)
+    xgb_model = MultiOutputRegressor(xgb_estimator, n_jobs=32)
 
     print("Training Global XGBoost...")
     xgb_model.fit(X_train_xgb, Y_train_xgb)

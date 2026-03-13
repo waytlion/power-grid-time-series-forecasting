@@ -139,7 +139,7 @@ def run_evaluation(full_data, test_idx, xgb, tgt, sarima, mask, scaler, cfg, dev
 
     # --- 1. THE MASSIVE PARALLEL SARIMA INFERENCE ---
     print(f"Parallelizing SARIMA inference across {N} buses...")
-    sarima_results = Parallel(n_jobs=-1, verbose=10)(
+    sarima_results = Parallel(n_jobs=32, verbose=10)(
         delayed(_infer_single_bus)(
             b, starts, full_data, win, hor, sarima, sigma, mu
         ) for b in range(N)
