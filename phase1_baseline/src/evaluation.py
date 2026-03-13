@@ -1,4 +1,5 @@
 import numpy as np
+import os
 import torch
 from torch.utils.data import Dataset
 from tqdm import tqdm
@@ -137,9 +138,15 @@ def run_evaluation(full_data, test_idx, xgb, tgt, sarima, mask, scaler, cfg, dev
     
     print(f"Evaluating {len(starts)} days...")
 
-    # --- 1. THE MASSIVE PARALLEL SARIMA INFERENCE ---
-    print(f"Parallelizing SARIMA inference across {N} buses...")
-    sarima_results = Parallel(n_jobs=32, verbose=10)(
+    # Use threads here to avoid pickling fitted SARIMA result wrappers across processes.
+    n_jobs = int(os.environ.get("SLURM_CPUS_PER_TASK", "1"))
+    if n_jobs < 1:
+        n_jobs = 1
+    n_jobs = min(n_jobs, N)
+
+    # --- 1.  PARALLEL SARIMA INFERENCE ---
+    print(f"Parallelizing SARIMA inference across {N} buses with {n_jobs} threads...")
+    sarima_results = Parallel(n_jobs=n_jobs, backend="threading", prefer="threads", verbose=10)(
         delayed(_infer_single_bus)(
             b, starts, full_data, win, hor, sarima, sigma, mu
         ) for b in range(N)
