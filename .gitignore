@@ -4,3 +4,9 @@ venv/
 data_out/
 *parquet
 *.sbatch__pycache__/
+
+__pycache__/
+*.pyc
+*.pyo
+logs/
+
