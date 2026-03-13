@@ -102,7 +102,11 @@ def main() -> None:
 
     print("Device:", device)
 
-    data_path = Path(config["DATA_PATH"]).resolve()
+    data_source = "cli" if args.data_path is not None else ("env" if env_data_path else "default")
+    resolved_data_path = Path(config["DATA_PATH"]).expanduser().resolve()
+    print(f"Using DATA_PATH (source={data_source}): {resolved_data_path}")
+
+    data_path = resolved_data_path
     if not data_path.exists():
         raise FileNotFoundError(f"Data path not found: {data_path}")
 
