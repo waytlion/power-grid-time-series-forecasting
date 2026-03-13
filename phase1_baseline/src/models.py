@@ -4,7 +4,24 @@ import math
 import numpy as np
 from statsmodels.tsa.statespace.sarimax import SARIMAX
 from tqdm import tqdm
+from joblib import Parallel, delayed
+import os
 
+def _fit_single_bus(b, bus_data, order, seasonal_order):
+    try:
+        model = SARIMAX(
+            bus_data,
+            order=order,
+            seasonal_order=seasonal_order,
+            enforce_stationarity=False,
+            enforce_invertibility=False
+        )
+        fitted_model = model.fit(disp=False, method='powell')
+        return b, fitted_model
+    except Exception as e:
+        print(f" Fit failed for Bus {b}: {e}")
+        return b, None
+    
 class SNaiveModel:
     def __init__(self, lag=48, forecast_horizon=33):
         self.lag = lag
@@ -101,21 +118,22 @@ class GlobalFitLocalApplySARIMA:
         dataset_subset = full_data[train_block_idx, :, 0]
         dataset_subset = full_data[train_block_idx, :, 0] # [T_sub, N_buses]
         
-        for b in tqdm(range(full_data.shape[1]), desc="Fitting Bus Models"):
-            try:
-                # Fit on the training block
-                model = SARIMAX(
-                    dataset_subset[:, b],
-                    order=self.order,
-                    seasonal_order=self.seasonal_order,
-                    enforce_stationarity=False,
-                    enforce_invertibility=False
-                )
-                # 'powell' is robust; disp=False hides logs
-                self.bus_params[b] = model.fit(disp=False, method='powell')
-            except Exception as e:
-                print(f" Fit failed for Bus {b}: {e}")
-                self.bus_params[b] = None
+        # joblib's 'verbose=10' acts as built-in progress bar (similar to tqdm)
+        n_jobs = int(os.environ.get("SLURM_CPUS_PER_TASK", -1))
+        print(f"Firing up parallel SARIMAX fitting on {full_data.shape[1]} buses...")
+        
+        results = Parallel(n_jobs=n_jobs, verbose=10)(
+            delayed(_fit_single_bus)(
+                b, 
+                dataset_subset[:, b], 
+                self.order, 
+                self.seasonal_order
+            ) for b in range(full_data.shape[1])
+        )
+
+        # Reconstruct  bus_params dictionary/list from the parallel results
+        for b, fitted_model in results:
+            self.bus_params[b] = fitted_model
 
     def predict(self, history, bus_idx, horizon=33):
         """
