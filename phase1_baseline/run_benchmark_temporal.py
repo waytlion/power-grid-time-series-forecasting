@@ -30,7 +30,7 @@ from src.splitting import get_temporal_splits
 
 CONFIG = {
     "START_DATE": "2019-01-01",
-    "FREQUENCY": "H",
+    "FREQUENCY": "h",
     "DATA_PATH": "../../data/data_out/Three_Years_2019-2021/case118_ieee/raw",
     "USE_SUBSET": False,
     "SUBSET_PERCENT": 0.01,

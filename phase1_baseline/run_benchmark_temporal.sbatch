@@ -39,4 +39,4 @@ mkdir -p "${REPO_DIR}/phase1_baseline/logs"
 
 python "${SCRIPT_PATH}" \
   --data-path "${DATA}" \
-  --seed 42 \
+  --seed 42
