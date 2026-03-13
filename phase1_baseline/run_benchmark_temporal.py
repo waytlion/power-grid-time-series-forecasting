@@ -56,7 +56,7 @@ def set_seed(seed: int) -> None:
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Run temporal benchmark.")
-    parser.add_argument("--data-path", default=CONFIG["DATA_PATH"])
+    parser.add_argument("--data-path", default=None)
     parser.add_argument("--use-subset", action="store_true")
     parser.add_argument("--subset-percent", type=float, default=CONFIG["SUBSET_PERCENT"])
     parser.add_argument("--epochs", type=int, default=CONFIG["EPOCHS"])
@@ -74,7 +74,11 @@ def main() -> None:
     args = parse_args()
 
     config = CONFIG.copy()
-    config["DATA_PATH"] = args.data_path
+    env_data_path = os.getenv("DATA")
+    if args.data_path is not None:
+        config["DATA_PATH"] = args.data_path
+    elif env_data_path:
+        config["DATA_PATH"] = env_data_path
     config["USE_SUBSET"] = bool(args.use_subset)
     config["SUBSET_PERCENT"] = float(args.subset_percent)
     config["EPOCHS"] = int(args.epochs)

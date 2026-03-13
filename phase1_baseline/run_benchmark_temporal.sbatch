@@ -21,5 +21,7 @@ cd "${REPO_DIR}"
 
 mkdir -p "${SCRIPT_DIR}/logs"
 
+DATA="/data/horse/ws/tibo990i-thesis_data/data_out/3yr_2019-2021/case118_ieee/raw"
+
 python phase1_baseline/run_benchmark_temporal.py \
   --seed 42 \
