@@ -4,9 +4,13 @@
 # This is a sanity check before integrating the encoder into the full training loop.
 
 
+import logging
 import torch
 from models.gnn_heterogenous_gns_thesis import GNS_heterogeneous_thesis
 from Wrapper import GridFMEncoder
+
+logging.basicConfig(level=logging.INFO, format="%(asctime)s | %(levelname)s | %(message)s")
+LOGGER = logging.getLogger(__name__)
 
 # 1. Mock Configuration (Nested structure to match GNS_heterogeneous expectatons)
 class MockModelConfig:
@@ -31,7 +35,7 @@ class MockArgs:
 args = MockArgs()
 
 # 2. Instantiate Model & Encoder
-print("Initializing GridFM...")
+LOGGER.info("Initializing GridFM")
 gridfm = GNS_heterogeneous_thesis(args)
 encoder = GridFMEncoder(gridfm)
 encoder.reset_parameters()
@@ -78,13 +82,16 @@ mask_dict = {
 }
 
 # 4. RUN FORWARD PASS
-print("\n--- Running Forward Pass (Mode: Inference) ---")
+LOGGER.info("Running forward pass (mode: inference)")
 out_inference = encoder(x_dict, edge_index_dict, edge_attr_dict, mask_dict, return_reconstruction=False)
-print("Keys in output:", out_inference.keys())
-print("Embedding Shape:", out_inference["embedding"].shape)
+LOGGER.info("Keys in output: %s", out_inference.keys())
+LOGGER.info("Embedding shape: %s", out_inference["embedding"].shape)
 
-print("\n--- Running Forward Pass (Mode: Training/Reconstruction) ---")
+LOGGER.info("Running forward pass (mode: training/reconstruction)")
 out_train = encoder(x_dict, edge_index_dict, edge_attr_dict, mask_dict, return_reconstruction=True)
-print("Keys in output:", out_train.keys())
+LOGGER.info("Keys in output: %s", out_train.keys())
 
-print(f"\nExpected Embedding Dim = hidden_size * attention_head: {args.model.hidden_size * args.model.attention_head}")
+LOGGER.info(
+    "Expected embedding dim = hidden_size * attention_head: %s",
+    args.model.hidden_size * args.model.attention_head,
+)

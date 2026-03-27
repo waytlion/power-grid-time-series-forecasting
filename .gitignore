@@ -1,12 +1,26 @@
 gridfm-datakit/
 .venv/
 venv/
+.idea/
+.vscode/*.code-workspace
+*.ipynb_checkpoints/
+*.egg-info/
+dist/
+build/
+site/
+
 data_out/
-*parquet
-*.sbatch__pycache__/
+*.parquet
 
 __pycache__/
 *.pyc
 *.pyo
+*.pyd
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
 logs/
+
+.DS_Store
+Thumbs.db
 

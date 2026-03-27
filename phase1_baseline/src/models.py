@@ -1,11 +1,13 @@
+import logging
 import torch
 import torch.nn as nn
 import math
 import numpy as np
 from statsmodels.tsa.statespace.sarimax import SARIMAX
-from tqdm import tqdm
 from joblib import Parallel, delayed
 import os
+
+LOGGER = logging.getLogger(__name__)
 
 def _fit_single_bus(b, bus_data, order, seasonal_order):
     try:
@@ -19,7 +21,7 @@ def _fit_single_bus(b, bus_data, order, seasonal_order):
         fitted_model = model.fit(disp=False, method='powell')
         return b, fitted_model
     except Exception as e:
-        print(f" Fit failed for Bus {b}: {e}")
+        LOGGER.warning("Fit failed for bus %s: %s", b, e)
         return b, None
     
 class SNaiveModel:
@@ -115,12 +117,11 @@ class GlobalFitLocalApplySARIMA:
             valid_train_range = train_indices[train_indices < train_limit]
             train_block_idx = valid_train_range if len(valid_train_range) > 0 else train_indices[:train_limit]
         
-        dataset_subset = full_data[train_block_idx, :, 0]
-        dataset_subset = full_data[train_block_idx, :, 0] # [T_sub, N_buses]
+        dataset_subset = full_data[train_block_idx, :, 0]  # [T_sub, N_buses]
         
         # joblib's 'verbose=10' acts as built-in progress bar (similar to tqdm)
         n_jobs = int(os.environ.get("SLURM_CPUS_PER_TASK", -1))
-        print(f"Firing up parallel SARIMAX fitting on {full_data.shape[1]} buses...")
+        LOGGER.info("Firing up parallel SARIMAX fitting on %s buses", full_data.shape[1])
         
         results = Parallel(n_jobs=n_jobs, verbose=10)(
             delayed(_fit_single_bus)(
@@ -151,7 +152,7 @@ class GlobalFitLocalApplySARIMA:
             # using the frozen parameters from training.
             new_res = model_res.apply(history)
             return new_res.forecast(steps=horizon)
-        except:
+        except Exception:
             self.failure_count += 1
             return self._naive_fallback(history, horizon)
 

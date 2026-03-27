@@ -1,6 +1,6 @@
 import argparse
 import gc
-import os
+import logging
 import random
 import sys
 from pathlib import Path
@@ -44,6 +44,8 @@ CONFIG = {
     "SNAIVE_LAG": 48,
 }
 
+LOGGER = logging.getLogger(__name__)
+
 
 def set_seed(seed: int) -> None:
     random.seed(seed)
@@ -69,6 +71,7 @@ def parse_args() -> argparse.Namespace:
 
 
 def main() -> None:
+    logging.basicConfig(level=logging.INFO, format="%(asctime)s | %(levelname)s | %(message)s")
     args = parse_args()
 
     config = CONFIG.copy()
@@ -93,13 +96,13 @@ def main() -> None:
 
     if args.seed is not None:
         set_seed(args.seed)
-        print(f"Seed set to {args.seed}")
+        LOGGER.info("Seed set to %s", args.seed)
 
-    print("Device:", device)
+    LOGGER.info("Device: %s", device)
 
     data_source = "cli" if args.data_path is not None else "default"
     resolved_data_path = Path(config["DATA_PATH"]).expanduser().resolve()
-    print(f"Using DATA_PATH (source={data_source}): {resolved_data_path}")
+    LOGGER.info("Using DATA_PATH (source=%s): %s", data_source, resolved_data_path)
 
     data_path = resolved_data_path
     if not data_path.exists():
@@ -113,20 +116,20 @@ def main() -> None:
 
     m = len(edge_index)
     n = bus_df["bus"].nunique()
-    print(f"Topology Loaded: n={n} Nodes, m={m} Edges")
+    LOGGER.info("Topology loaded: n=%s nodes, m=%s edges", n, m)
 
     loads_pivot = bus_df.pivot(index="load_scenario_idx", columns="bus", values="Pd").fillna(0)
     flows_pivot = branch_df.pivot(index="load_scenario_idx", columns="idx", values="pf").fillna(0)
 
     loads_matrix = loads_pivot.values.astype(np.float32)
     flows_matrix = flows_pivot.values.astype(np.float32)
-    print(f"shapes: Loads: {loads_matrix.shape}, Flows: {flows_matrix.shape}")
+    LOGGER.info("Matrix shapes: loads=%s, flows=%s", loads_matrix.shape, flows_matrix.shape)
 
     if config["USE_SUBSET"]:
         subset_size = int(len(loads_matrix) * config["SUBSET_PERCENT"])
         loads_matrix = loads_matrix[:subset_size]
         flows_matrix = flows_matrix[:subset_size]
-        print(f"Using {subset_size} samples ({config['SUBSET_PERCENT']*100:.1f}%)")
+        LOGGER.info("Using subset: %s samples (%.1f%%)", subset_size, config["SUBSET_PERCENT"] * 100)
 
     A = np.zeros((n, n), dtype=bool)
     for i, j in edge_index:
@@ -140,7 +143,7 @@ def main() -> None:
     time_features_global = generate_cyclical_features(
         T, config["START_DATE"], config["FREQUENCY"]
     )
-    print(f"Time Features generated. Shape: {time_features_global.shape}")
+    LOGGER.info("Time features generated with shape=%s", time_features_global.shape)
 
     load_tensor = loads_matrix[:, :, np.newaxis]
     time_tensor_expanded = np.broadcast_to(
@@ -148,17 +151,16 @@ def main() -> None:
         (time_features_global.shape[0], loads_matrix.shape[1], time_features_global.shape[1]),
     )
     X = np.concatenate([load_tensor, time_tensor_expanded], axis=2)
-    print(f"Final Input Tensor Shape: {X.shape} (Time, Buses, Features)")
+    LOGGER.info("Final input tensor shape=%s (time, buses, features)", X.shape)
 
     train_idx, val_idx, test_idx = get_temporal_splits(T)
-    print(f"Train Hours: {len(train_idx)}")
-    print(f"Val Hours:   {len(val_idx)}")
-    print(f"Test Hours:  {len(test_idx)}")
+    LOGGER.info("Split sizes: train=%s, val=%s, test=%s", len(train_idx), len(val_idx), len(test_idx))
 
     scaled_tensor, scaler = scale_data_selectively(X, train_idx)
-    print(f"Scaled Mean (Load): {scaled_tensor[:,:,0].mean():.4f}")
-    print(
-        f"Scaled Mean (Hour_Sin): {scaled_tensor[:,:,1].mean():.4f} (Should be near 0 but unscaled)"
+    LOGGER.info("Scaled mean (load)=%.4f", scaled_tensor[:, :, 0].mean())
+    LOGGER.info(
+        "Scaled mean (hour_sin)=%.4f (expected near 0 but unscaled)",
+        scaled_tensor[:, :, 1].mean(),
     )
 
     train_dataset = RollingDataset(
@@ -187,13 +189,7 @@ def main() -> None:
     )
 
     x_batch, y_batch = next(iter(train_loader))
-    print("Batch Shapes:")
-    print(
-        f"X (Input):  {x_batch.shape}  -> [Batch, {config['INPUT_WINDOW']}, 14, 7]"
-    )
-    print(
-        f"Y (Target): {y_batch.shape}  -> [Batch, {config['FORECAST_HORIZON']}, 14, 7]"
-    )
+    LOGGER.info("Batch shapes: X=%s, Y=%s", x_batch.shape, y_batch.shape)
 
     X_train_xgb, Y_train_xgb = prepare_xgb_data(
         scaled_tensor,
@@ -202,7 +198,7 @@ def main() -> None:
         config["FORECAST_HORIZON"],
         step_size=1,
     )
-    print(f"XGB Train Shape: {X_train_xgb.shape}")
+    LOGGER.info("XGB training data shape=%s", X_train_xgb.shape)
 
     xgb_estimator = xgb.XGBRegressor(
         n_estimators=500,
@@ -219,9 +215,9 @@ def main() -> None:
 
     xgb_model = MultiOutputRegressor(xgb_estimator, n_jobs=32)
 
-    print("Training Global XGBoost...")
+    LOGGER.info("Training global XGBoost model")
     xgb_model.fit(X_train_xgb, Y_train_xgb)
-    print("XGBoost Training Complete.")
+    LOGGER.info("XGBoost training complete")
 
     torch.cuda.empty_cache()
 
@@ -264,17 +260,20 @@ def main() -> None:
                     val_loss += loss_fn(yhat, y_true).item()
                     val_batches += 1
 
-            print(
-                f"Epoch {ep}: Train MSE={train_loss/batch_count:.6f} | Val MSE={val_loss/val_batches:.6f}"
+            LOGGER.info(
+                "Epoch %s: train_mse=%.6f | val_mse=%.6f",
+                ep,
+                train_loss / batch_count,
+                val_loss / val_batches,
             )
     else:
-        print("Skipping TinyTGT training (--skip-tgt flag set)")
+        LOGGER.info("Skipping TinyTGT training (--skip-tgt flag set)")
 
     sarima_model = GlobalFitLocalApplySARIMA(order=(2, 0, 0), seasonal_order=(1, 0, 1, 24))
     sarima_model.fit(scaled_tensor.astype(np.float32), train_idx, None)
 
     denom_mae, denom_mse = get_scaling_factors(scaled_tensor, train_idx, scaler, m=24)
-    print(f"Scaling Baseline (Train): MAE={denom_mae:.4f}, MSE={denom_mse:.4f}")
+    LOGGER.info("Scaling baseline (train): MAE=%.4f, MSE=%.4f", denom_mae, denom_mse)
 
     results, starts = run_evaluation(
         scaled_tensor,
@@ -312,9 +311,9 @@ def main() -> None:
 
     df_results = pd.DataFrame(data_list)
     df_results.to_parquet(args.output_path, index=False, compression="snappy")
-    print(f"Results saved to {args.output_path}")
-    print(f"Shape: {df_results.shape}")
-    print(df_results.head())
+    LOGGER.info("Results saved to %s", args.output_path)
+    LOGGER.info("Result shape=%s", df_results.shape)
+    LOGGER.info("Preview:\n%s", df_results.head().to_string(index=False))
 
     print_metrics(results, denom_mae, denom_mse)
 

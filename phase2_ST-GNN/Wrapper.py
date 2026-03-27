@@ -5,12 +5,15 @@ Wraps GNS_heterogeneous to extract physics-informed embeddings
 and aggregate them for temporal modeling (TGT).
 """
 
+import logging
 import torch
 import torch.nn as nn
 from torch_scatter import scatter_add
 from typing import Dict, Tuple
 
 from models.gnn_heterogenous_gns_thesis import GNS_heterogeneous_thesis
+
+LOGGER = logging.getLogger(__name__)
 
 class GridFMEncoder(nn.Module):
     """
@@ -70,7 +73,7 @@ class GridFMEncoder(nn.Module):
                 nn.init.zeros_(module.bias)
                 reset_count += 1
         
-        print(f"GridFMEncoder: Reseted parameters of: {reset_count} modules")
+        LOGGER.info("GridFMEncoder reset parameters for %s modules", reset_count)
     
     def _aggregate_gen_to_bus(
         self,

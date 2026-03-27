@@ -1,11 +1,13 @@
+import logging
 import numpy as np
 import os
 import torch
 from torch.utils.data import Dataset
 from tqdm import tqdm
 from sklearn.metrics import mean_squared_error, mean_absolute_error
-from numpy.lib.stride_tricks import sliding_window_view
 from joblib import Parallel, delayed
+
+LOGGER = logging.getLogger(__name__)
 
 def _infer_single_bus(b, starts, full_data, win, hor, sarima, sigma, mu):
     """
@@ -74,7 +76,7 @@ def prepare_xgb_data(full_data_scaled, indices, input_window, forecast_horizon, 
     n_samples = len(sampled_indices) * N_buses
     # input_window lags + time features + 1 bus id
     n_features = input_window + n_time_feats + 1
-    print(f"Allocating RAM for {n_samples} samples...")
+    LOGGER.info("Allocating RAM for %s samples", n_samples)
     
     X = np.empty((n_samples, n_features), dtype=np.float32)
     Y = np.empty((n_samples, forecast_horizon), dtype=np.float32)
@@ -136,7 +138,7 @@ def run_evaluation(full_data, test_idx, xgb, tgt, sarima, mask, scaler, cfg, dev
         tgt.eval()
     sigma, mu = np.sqrt(scaler.var_[0]), scaler.mean_[0]
     
-    print(f"Evaluating {len(starts)} days...")
+    LOGGER.info("Evaluating %s days", len(starts))
 
     # Use threads here to avoid pickling fitted SARIMA result wrappers across processes.
     n_jobs = int(os.environ.get("SLURM_CPUS_PER_TASK", "1"))
@@ -145,7 +147,7 @@ def run_evaluation(full_data, test_idx, xgb, tgt, sarima, mask, scaler, cfg, dev
     n_jobs = min(n_jobs, N)
 
     # --- 1.  PARALLEL SARIMA INFERENCE ---
-    print(f"Parallelizing SARIMA inference across {N} buses with {n_jobs} threads...")
+    LOGGER.info("Parallelizing SARIMA inference across %s buses with %s threads", N, n_jobs)
     sarima_results = Parallel(n_jobs=n_jobs, backend="threading", prefer="threads", verbose=10)(
         delayed(_infer_single_bus)(
             b, starts, full_data, win, hor, sarima, sigma, mu
@@ -158,7 +160,7 @@ def run_evaluation(full_data, test_idx, xgb, tgt, sarima, mask, scaler, cfg, dev
         sarima_all_preds[:, b, :] = preds
 
     # --- 2. THE LIGHTNING FAST XGB/TGT INFERENCE LOOP ---
-    print("Running XGBoost and PyTorch inference...")
+    LOGGER.info("Running XGBoost and PyTorch inference")
     for idx, t in enumerate(tqdm(starts)):
         # XGB Input
         xgb_in = []
@@ -209,7 +211,7 @@ def run_evaluation(full_data, test_idx, xgb, tgt, sarima, mask, scaler, cfg, dev
     sarima_nans = np.isnan(final_results["sarima"])
     num_failures = np.sum(sarima_nans)
     if num_failures > 0:
-        print(f"SARIMA inference failed on {num_failures} timesteps. Applying SNAIVE fallback.")
+        LOGGER.warning("SARIMA inference failed on %s timesteps. Applying SNAIVE fallback.", num_failures)
         final_results["sarima"][sarima_nans] = final_results["snaive"][sarima_nans]
 
     return final_results, starts
@@ -217,11 +219,11 @@ def run_evaluation(full_data, test_idx, xgb, tgt, sarima, mask, scaler, cfg, dev
 def print_metrics(res, scale_mae, scale_mse):
     """calc RMSE, MAE, MAPE, MASE, MSSE."""
     truth = res["true"].flatten()
-    
-    print("\n=== FINAL BENCHMARK RESULTS ===")
+
+    LOGGER.info("=== FINAL BENCHMARK RESULTS ===")
     header = f"{'Model':<10} | {'RMSE [MW]':<10} | {'MAE [MW]':<10} | {'MAPE [%]':<10} | {'MASE':<10} | {'MSSE':<10}"
-    print(header)
-    print("-" * len(header))
+    LOGGER.info(header)
+    LOGGER.info("%s", "-" * len(header))
     
     metrics_store = {}
     
@@ -247,6 +249,9 @@ def print_metrics(res, scale_mae, scale_mse):
         metrics_store[model_name] = rmse
         
         name_display = "TinyTGT" if model_name == "tgt" else model_name.upper()
-        print(f"{name_display:<10} | {rmse:.4f}     | {mae:.4f}     | {mape:.2f}%     | {mase:.4f}     | {msse:.4f}")
-    
-    print("-" * len(header))
+        LOGGER.info(
+            "%s",
+            f"{name_display:<10} | {rmse:.4f}     | {mae:.4f}     | {mape:.2f}%     | {mase:.4f}     | {msse:.4f}",
+        )
+
+    LOGGER.info("%s", "-" * len(header))
