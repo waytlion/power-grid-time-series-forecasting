@@ -12,7 +12,6 @@
 This repository benchmarks forecasting approaches for electrical grid load scenarios and develops a next-step spatio-temporal graph neural network pipeline.
 
 - Phase 1 (`phase1_baseline`): temporal benchmark of SNaive, SARIMA, XGBoost, and TinyTGT on bus-level load forecasting.
-- Phase 2 (`phase2_ST-GNN`): Graph encoder integration work for physics-informed spatio-temporal modeling.
 
 The goal is to compare strong statistical and ML baselines, then extend toward topology-aware deep learning models for power system forecasting.
 
@@ -73,7 +72,6 @@ sbatch run_benchmark_temporal.sbatch
 ## Repository Layout
 
 - `phase1_baseline/`: baseline experiments, notebooks, benchmark script, and core forecasting modules.
-- `phase2_ST-GNN/`: spatio-temporal GNN encoder wrapper and model development.
 - `requirements.txt`: Python dependencies.
 
 ## License
