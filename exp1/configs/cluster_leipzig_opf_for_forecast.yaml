@@ -1,0 +1,40 @@
+network:
+  name: "case118_ieee" # Name of the power grid network (without extension)
+  source: "pglib" # Data source for the grid; options: pglib, file
+  network_dir: "scripts/grids" # if using source "file", this is the directory containing the network file
+
+load:
+  generator: "precomputed_profile"
+  agg_profile: ""
+  scenario_file: "exp1/data/precomputed_profiles/case118_ieee_horizon6_3yr/xgb.csv"
+  scenarios: 23622 #! Number of flattened scenarios in scenario_file (horizon6: 3937 origins x 6 steps = 23622)
+  # (horizon24: 3919 origins x 118 steps = 94056) (horizon1: 3942 origins)
+  sigma: 0.00
+  change_reactive_power: true
+  global_range: 0.4
+  max_scaling_factor: 1.2
+  step_size: 0.1
+  start_scaling_factor: 1.0
+
+topology_perturbation:
+  type: "none"
+
+generation_perturbation:
+  type: "none"
+
+admittance_perturbation:
+  type: "none"
+
+settings:
+  num_processes: 64 # Number of parallel processes to use
+  #! Update data_dir for each run:
+  # data_dir: "exp1/data/data_out/case118_horizon_6_3yr/xgb"  # local
+  data_dir: "data/data_out/3yr_2019-2021/baseline_preds/case118_horizon_6_3yr/xgb"
+  large_chunk_size: 1000
+  overwrite: true
+  mode: "opf"
+  include_dc_res: false
+  enable_solver_logs: true
+  pf_fast: true
+  dcpf_fast: true
+  max_iter: 200
