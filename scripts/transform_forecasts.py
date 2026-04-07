@@ -27,6 +27,9 @@ def get_ieee_base(case_n: int):
     """Return (P_base, Q_base) arrays for `pglib_opf_case{case_n}_...m`."""
     # Handle naming conventions
     case_str = str(case_n).strip()
+    # Strip leading "case" prefix if present (e.g. "case14_ieee" -> "14_ieee", "case14" -> "14")
+    if case_str.startswith("case"):
+        case_str = case_str[4:]
     if case_str.endswith(("_ieee", "_goc", "_api", "_sad")):
         filename = f"pglib_opf_case{case_str}.m"
     else:
