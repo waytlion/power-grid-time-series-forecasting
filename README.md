@@ -33,22 +33,6 @@ This repo imports two forked libraries as editable installs:
 | `gridfm-datakit-fork` | AC-OPF data generation via Julia/PowerModels.jl | `pip install -e ../gridfm-datakit-fork` |
 | `gridfm-graphkit` | GNN-based OPF proxy model | `pip install -e ../gridfm-graphkit` |
 
-Both forks are kept **clean** — all custom thesis code lives in this repo.
-
-## Tech Stack
-
-- Python, NumPy, pandas, pyarrow
-- scikit-learn, statsmodels (SARIMAX), XGBoost
-- PyTorch, torch-geometric, torch-scatter
-- gridfm-datakit (Julia/PowerModels.jl + IPOPT)
-- joblib, tqdm
-
-## Prerequisites
-
-- Python 3.11+
-- Access to prepared parquet input data (bus and branch data)
-- HPC cluster access for OPF computation (**Leipzig University Cluster "Paula" / "Polaris"**)
-- Optional: CUDA-compatible GPU locally for deep learning experiments
 
 ## Installation
 
@@ -64,8 +48,6 @@ pip install -e ../gridfm-datakit-fork   # OPF data generation
 ```
 
 ## Usage: Full Pipeline Automation
-
-The entire 3-phase pipeline runs on the Leipzig cluster without any manual data transfers between clusters or local machines.
 
 ```bash
 # From the root of Thesis_Repo

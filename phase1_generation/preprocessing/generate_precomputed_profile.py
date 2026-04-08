@@ -22,7 +22,7 @@ from matpowercaseframes import CaseFrames
 
 # --- 1. Configuration ---
 CASE_NAME = "case500_goc"  # Options: case14, case30, case57, case118, case300, case500_goc, case2383, case2746wp, etc.
-LOAD_PROFILE_PATH = "D:/Data/studium/Master/MA_Code/data/updated_load_profiles/df_load_bus_2019-2021.parquet"
+LOAD_PROFILE_PATH = /data/horse/ws/tibo990i-thesis_data/phase_1a/data_out/data_in/df_load_bus_2019-2021.parquet
 OUTPUT_DIR = Path(__file__).resolve().parent  # Output alongside this script
 OUTPUT_FILE = OUTPUT_DIR / f"{CASE_NAME.strip()}_3yr_precomputed_load_profiles.csv"
 RANDOM_SEED = 42

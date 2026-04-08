@@ -29,7 +29,7 @@ admittance_perturbation:
 
 settings:
   num_processes: 4 # Number of parallel processes to use
-  data_dir: "data/data_out/phase1_baseline" #* Directory to save generated data relative to CWD
+  data_dir: "~/data/horse/ws/tibo990i-thesis_data/phase_1a/data_out/3yr_2019-2021/case14_ieee" #* Directory to save generated data relative to CWD
   large_chunk_size: 1000 # Number of load scenarios processed before saving
   overwrite: true # If true, overwrites existing files, if false, appends to files
   mode: "opf" # Mode of the script; options: pf, opf

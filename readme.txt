@@ -9,6 +9,7 @@
 # =============================================================================
 ### Configuring the Pipeline (Changing Horizons or Networks)
 # =============================================================================
+
 To run a different network (e.g., Case 14) or forecast horizon (e.g., 6 or 24),  change variables in the top sections of the sbatch files:
 
 **1. Update `phase1_baseline/run_benchmark_temporal.sbatch` (Phase 1b):**
@@ -26,44 +27,63 @@ DATAKIT_BASE_YAML="exp1/configs/case14_generate_opf_for_forecast_cluster.yaml"
 ```
 
 # =============================================================================
-# PHASE 1a: Generate OPF Ground Truth Data
+# PHASE 1a : Generate OPF Ground Truth Data 
 # =============================================================================
 
+! Execute Once For Each Network Case!
+! ADJUST PATHS MANUALLY!
+
 1. Preprocess realistic load profiles into datakit format
-        -> INPUT: realistic load profiles .parquet (from Marcus)
+        -> INPUT: 
+                - realistic load profiles .parquet (from Marcus)
+                - Cluster: /data/horse/ws/tibo990i-thesis_data/phase_1a/data_in/df_load_bus_2019-2021.parquet
+                - local: D:\Data\studium\Master\MA_Code\data\phase_1a\data_in
         -> EXECUTE:
                 - Cluster: python phase1_generation/preprocessing/generate_precomputed_profile.py
                 - Local:   phase1_generation/preprocessing/generate_precomputed_profile.ipynb
-        -> OUTPUT: phase1_generation/preprocessing/*_precomputed_load_profiles.csv
+        -> OUTPUT: phase1_generation/preprocessing/f"{CASE_NAME.strip()}_3yr_precomputed_load_profiles.csv"
 
 2. Run datakit to solve AC-OPF (on cluster — too computationally intensive for local)
         -> CONFIG: phase1_generation/configs/phase1_config.yaml
         -> EXECUTE: sbatch scripts/cluster_leipzig.sh
-        -> OUTPUT: data/data_out/
+        -> OUTPUT: 
+                - Cluster: ~/data/horse/ws/tibo990i-thesis_data/data_out/3yr_2019-2021/phase_1a/data_out/case14_ieee
 
 # =============================================================================
 # PHASE 1b: Temporal Baseline Forecasting
 # =============================================================================
+! Execute Once For Each Network Case, Forecast Horizon !
+! ADJUST PATHS MANUALLY!
 
 3. Run baseline models (SNaive, SARIMA, XGBoost, TGT) on Leipzig
         -> SET PARAMS: in <run_benchmark_temporal.sbatch>
                 --data-path
                 --output-path
                 --forecast_horizon
-        -> EXECUTE: cd phase1_baseline && sbatch run_benchmark_temporal.sbatch
+        -> EXECUTE: cd phase1_baseline -> sbatch run_benchmark_temporal.sbatch
 
 # =============================================================================
 # PHASE 1c: Two-Step OPF Evaluation
 # =============================================================================
 
+! Execute Once For Each Network Case, Forecast Horizon !
+! ADJUST PATHS MANUALLY!
+
 4. Evaluate baseline forecasts via full Two-Step OPF approach
         -> CONFIG: scripts/phase1c_eval.sbatch
+                - CASE
+                - HORIZON
         -> EXECUTE: sbatch scripts/phase1c_eval.sbatch
         -> THIS SCRIPT SEQUENTIALLY:
              a) Transforms baseline predictions into datakit inputs via scripts/transform_forecasts.py
              b) Runs datakit loop over each model sequentially via scripts/run_datakit_batch.py
              c) Computes & compares OPF metrics via exp1/generate_metrics/compare.py
         -> OUTPUT: exp1/results/
+
+
+# =============================================================================
+## ALL PHASES AUTOMATED (One-Click)
+# =============================================================================
 
 # ALL PHASES AUTOMATED (One-Click)
         -> EXECUTE: bash scripts/submit_pipeline.sh

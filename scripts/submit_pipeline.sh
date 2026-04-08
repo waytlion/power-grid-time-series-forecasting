@@ -22,7 +22,6 @@ echo "  -> Job ID: $JOB1_ID"
 # Only runs after Job 1 completes successfully
 echo "Submitting Phase 1b (Temporal Benchmarking)..."
 cd phase1_baseline
-# Note: Ensure paths in run_benchmark_temporal.sbatch point to Leipzig shared storage!
 JOB2_ID=$(sbatch --parsable --dependency=afterok:$JOB1_ID run_benchmark_temporal.sbatch)
 echo "  -> Job ID: $JOB2_ID"
 cd ..

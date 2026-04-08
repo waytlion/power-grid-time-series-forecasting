@@ -11,16 +11,16 @@
 set -euo pipefail
 
 # --- Configuration ---
-CASE="case118"
-CASE_DIR="case118_ieee"
+CASE="case14"
 HORIZON="1"
+CASE_DIR="${CASE}_ieee"
 
 VENV_PATH="$SLURM_SUBMIT_DIR/../thesis_env"
-DATA_IN_PARQUET="phase1_baseline/${CASE_DIR}_horizon${HORIZON}.parquet"
-PRECOMPUTED_DIR="exp1/data/precomputed_profiles/${CASE_DIR}_horizon${HORIZON}_3yr"
-DATAKIT_BASE_YAML="exp1/configs/cluster_leipzig_opf_for_forecast.yaml"
-OPF_OUT_DIR="data/data_out/3yr_2019-2021/baseline_preds/${CASE_DIR}_horizon_${HORIZON}_3yr"
-GROUND_TRUTH_DIR="data/data_out/3yr_2019-2021/${CASE_DIR}/raw" # from phase1a
+DATA_IN_PARQUET="phase1_baseline/output/${CASE_DIR}_horizon${HORIZON}.parquet"
+PRECOMPUTED_DIR="exp1/temp_precomputed_profiles/${CASE_DIR}_horizon${HORIZON}_3yr"
+DATAKIT_BASE_YAML="exp1/configs/base_yaml_phase_1c.yaml"
+OPF_OUT_DIR="~/data/horse/ws/tibo990i-thesis_data/data_out/3yr_2019-2021/phase_1c/data_out/${CASE_DIR}_horizon_${HORIZON}_3yr"
+GROUND_TRUTH_DIR="~/data/horse/ws/tibo990i-thesis_data/data_out/3yr_2019-2021/phase_1a/data_out/${CASE_DIR}/raw" # from phase1a
 FINAL_RESULTS_DIR="exp1/results/${CASE_DIR}_horizon${HORIZON}_3yr"
 # ---------------------
 

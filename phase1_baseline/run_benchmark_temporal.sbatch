@@ -14,8 +14,8 @@ module --force purge
 source ~/Thesis_Repo/.venv/bin/activate
 
 python run_benchmark_temporal.py \
-  --data-path ../data/data_out/3yr_2019-2021/case118_ieee/raw \
-  --output-path case118_ieee_horizon1.parquet \
+  --data-path  ~/data/horse/ws/tibo990i-thesis_data/data_out/3yr_2019-2021/phase_1a/data_out/case118_ieee/raw \
+  --output-path ./output/case118_ieee_horizon1.parquet \
   --seed 42 \
   --skip-tgt \
   --xgb-device cpu 
