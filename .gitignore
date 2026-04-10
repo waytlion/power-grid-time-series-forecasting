@@ -29,9 +29,7 @@ build/
 data/
 data_out/
 *.parquet
-phase1_generation/preprocessing/*.csv
-exp1/data/
-exp1/results/
+*.csv
 
 # --- Logs ---
 logs/

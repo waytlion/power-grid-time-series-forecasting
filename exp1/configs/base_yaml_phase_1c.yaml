@@ -27,7 +27,7 @@ admittance_perturbation:
   type: "none"
 
 settings:
-  num_processes: 64 # Number of parallel processes to use
+  num_processes:  #* Gets overwritten by run_datakit_batch.py # Number of parallel processes to use
   #! Update data_dir for each run:
   # data_dir: "exp1/data/data_out/case118_horizon_6_3yr/xgb"  # local
   data_dir:  #* Gets overwritten by run_datakit_batch.py

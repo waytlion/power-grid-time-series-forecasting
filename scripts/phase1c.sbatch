@@ -3,10 +3,10 @@
 #SBATCH --partition=barnard
 #SBATCH --nodes=1
 #SBATCH --cpus-per-task=64
-#SBATCH --mem=128G
+#SBATCH --mem=300G
 #SBATCH --time=12:00:00
-#SBATCH --output=logs/phase1c_eval_%j.out
-#SBATCH --error=logs/phase1c_eval_%j.err
+#SBATCH --output=logs/phase1c_eval_case118_h1%j.out
+#SBATCH --error=logs/phase1c_eval_case118_h1%j.err
 
 set -euo pipefail
 
@@ -25,7 +25,13 @@ FINAL_RESULTS_DIR="exp1/results/${CASE_DIR}_horizon${HORIZON}_3yr"
 # ---------------------
 
 module purge
-module load Anaconda3
+module load GCC/14.2.0
+
+# Always invoke the runtime preflight script placed in tests/scripts
+if ! /usr/bin/env python3 "$SLURM_SUBMIT_DIR/tests/scripts/phase1c_preflight.py" --case "$CASE"; then
+    echo "Preflight failed; aborting job." >&2
+    exit 1
+fi
 
 source "$VENV_PATH/bin/activate"
 mkdir -p logs
@@ -47,6 +53,7 @@ echo "Step 2: Generate OPF results for predictions via DataKit..."
 python scripts/phase1c_run_datakit_batch.py \
     --base-yaml "$DATAKIT_BASE_YAML" \
     --network-name "$CASE_DIR" \
+    --num-processes "${SLURM_CPUS_PER_TASK:-1}" \
     --data-in-dir "$PRECOMPUTED_DIR" \
     --out-dir "$OPF_OUT_DIR" \
     --models xgb sarima snaive tgt "true"

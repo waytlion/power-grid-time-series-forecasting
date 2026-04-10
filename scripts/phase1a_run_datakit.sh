@@ -17,7 +17,7 @@ CONFIG="exp1/configs/cluster_leipzig_opf_for_forecast.yaml"
 # ---------------------
 
 module purge
-module load Anaconda3
+module load GCC/14.2.0
 
 source $VENV_PATH/bin/activate
 

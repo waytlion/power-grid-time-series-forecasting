@@ -19,16 +19,25 @@ import yaml
 from pathlib import Path
 
 
-def main():
+def build_parser():
+    """Build and return the argparse.ArgumentParser for the datakit batch runner.
+
+    Exported so tests can import and inspect the CLI without executing the script.
+    """
     parser = argparse.ArgumentParser(description="Run DataKit over multiple models sequentially.")
     parser.add_argument("--base-yaml", type=Path, required=True, help="Base datakit YAML config file")
     parser.add_argument("--data-in-dir", type=Path, required=True, help="Directory containing <model>.csv files")
     parser.add_argument("--out-dir", type=Path, required=True, help="Base directory to save output data")
     parser.add_argument("--models", nargs="+", default=["xgb", "sarima", "snaive", "tgt", "true"], help="Models to evaluate")
     parser.add_argument("--scenarios", type=int, default=None, help="Number of scenarios (auto-detected if omitted)")
-    parser.add_argument("--network-name", type=str, default=None, help="Override config network.name from base YAML")
-    
-    args = parser.parse_args()
+    parser.add_argument("--network-name", type=str, required=True, help="Override config network.name from base YAML")
+    parser.add_argument("--num-processes", type=int, default=None, help="Override config settings.num_processes from base YAML")
+    return parser
+
+
+def main(argv=None):
+    parser = build_parser()
+    args = parser.parse_args(argv)
 
     # Load base yaml
     with open(args.base_yaml, 'r') as f:
@@ -36,6 +45,11 @@ def main():
 
 
     config['network']['name'] = args.network_name
+
+    if args.num_processes is not None:
+        if 'settings' not in config or not isinstance(config['settings'], dict):
+            config['settings'] = {}
+        config['settings']['num_processes'] = int(args.num_processes)
 
     temp_yaml_path = args.base_yaml.parent / f"temp_batch_{args.base_yaml.name}"
 
@@ -57,6 +71,9 @@ def main():
             # Update config for this model
             config['load']['scenario_file'] = str(model_csv)
             config['settings']['data_dir'] = str(model_out_dir)
+
+            print(f"Using network case: {config['network']['name']}")
+            print(f"Using num_processes: {config['settings'].get('num_processes', 'unset')}")
 
             # Auto-detect scenarios if not provided
             if args.scenarios is not None:
