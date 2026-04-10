@@ -1,5 +1,5 @@
 network:
-  name: "case118_ieee" # Name of the power grid network (without extension)
+  name: "case14_ieee" # Name of the power grid network (without extension)
   source: "pglib" # Data source for the grid; options: pglib, file
   network_dir: "scripts/grids" # if using source "file", this is the directory containing the network file
 

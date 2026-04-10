@@ -26,12 +26,16 @@ def main():
     parser.add_argument("--out-dir", type=Path, required=True, help="Base directory to save output data")
     parser.add_argument("--models", nargs="+", default=["xgb", "sarima", "snaive", "tgt", "true"], help="Models to evaluate")
     parser.add_argument("--scenarios", type=int, default=None, help="Number of scenarios (auto-detected if omitted)")
+    parser.add_argument("--network-name", type=str, default=None, help="Override config network.name from base YAML")
     
     args = parser.parse_args()
 
     # Load base yaml
     with open(args.base_yaml, 'r') as f:
         config = yaml.safe_load(f)
+
+
+    config['network']['name'] = args.network_name
 
     temp_yaml_path = args.base_yaml.parent / f"temp_batch_{args.base_yaml.name}"
 

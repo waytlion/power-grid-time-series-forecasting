@@ -1,2 +1,0 @@
-# Orinigial Tiny TGT
-Epoch 100: train MSE=0.126401 | val MSE=0.154149

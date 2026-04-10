@@ -5,27 +5,6 @@
 # All commands assume CWD = Thesis_Repo root.
 # gridfm-datakit must be installed: pip install -e ../gridfm-datakit-fork
 
-
-# =============================================================================
-### Configuring the Pipeline (Changing Horizons or Networks)
-# =============================================================================
-
-To run a different network (e.g., Case 14) or forecast horizon (e.g., 6 or 24),  change variables in the top sections of the sbatch files:
-
-**1. Update `phase1_baseline/run_benchmark_temporal.sbatch` (Phase 1b):**
-- Update `--data-path` to the raw data input.
-- Update `--output-path` naming (e.g., `case14_ieee_horizon6.parquet`).
-- Add `--forecast-horizon 6` to the python arguments.
-
-**2. Update `scripts/phase1c_eval.sbatch` (Phase 1c):**
-Change the variables at the very top of the script:
-```bash
-CASE="case14"               # The datakit case name
-CASE_DIR="case14_ieee"      # Data export directory naming
-HORIZON="6"                 # Horizon size (1, 6, 24)
-DATAKIT_BASE_YAML="exp1/configs/case14_generate_opf_for_forecast_cluster.yaml"
-```
-
 # =============================================================================
 # PHASE 1a : Generate OPF Ground Truth Data 
 # =============================================================================
@@ -45,9 +24,9 @@ DATAKIT_BASE_YAML="exp1/configs/case14_generate_opf_for_forecast_cluster.yaml"
 
 2. Run datakit to solve AC-OPF (on cluster — too computationally intensive for local)
         -> CONFIG: phase1_generation/configs/phase1_config.yaml
-        -> EXECUTE: sbatch scripts/cluster_leipzig.sh
+        -> EXECUTE: sbatch scripts/phase1a_run_datakit.sh
         -> OUTPUT: 
-                - Cluster: ~/data/horse/ws/tibo990i-thesis_data/data_out/3yr_2019-2021/phase_1a/data_out/case14_ieee
+                - Cluster: /data/horse/ws/tibo990i-thesis_data/data_out/3yr_2019-2021/phase_1a/data_out/case14_ieee
 
 # =============================================================================
 # PHASE 1b: Temporal Baseline Forecasting
@@ -56,15 +35,15 @@ DATAKIT_BASE_YAML="exp1/configs/case14_generate_opf_for_forecast_cluster.yaml"
 ! ADJUST PATHS MANUALLY!
 
 3. Run baseline models (SNaive, SARIMA, XGBoost, TGT) on Leipzig
-        -> SET PARAMS: in <run_benchmark_temporal.sbatch>
+        -> SET PARAMS: in <phase1b.sbatch>
                 --data-path
                 --output-path
                 --forecast_horizon
         -> EXECUTE: cd phase1_baseline -> sbatch run_benchmark_temporal.sbatch
 
-# =============================================================================
+# ==========================================================================
 # PHASE 1c: Two-Step OPF Evaluation
-# =============================================================================
+===========================================================================
 
 ! Execute Once For Each Network Case, Forecast Horizon !
 ! ADJUST PATHS MANUALLY!
@@ -73,24 +52,20 @@ DATAKIT_BASE_YAML="exp1/configs/case14_generate_opf_for_forecast_cluster.yaml"
         -> CONFIG: scripts/phase1c_eval.sbatch
                 - CASE
                 - HORIZON
-        -> EXECUTE: sbatch scripts/phase1c_eval.sbatch
+        -> EXECUTE: sbatch scripts/phase1c.sbatch
         -> THIS SCRIPT SEQUENTIALLY:
-             a) Transforms baseline predictions into datakit inputs via scripts/transform_forecasts.py
-             b) Runs datakit loop over each model sequentially via scripts/run_datakit_batch.py
+             a) Transforms baseline predictions into datakit inputs via scripts/phase1c_transform_forecasts.py
+             b) Runs datakit loop over each model sequentially via scripts/phase1c_run_datakit_batch.py
              c) Computes & compares OPF metrics via exp1/generate_metrics/compare.py
         -> OUTPUT: exp1/results/
 
-
-# =============================================================================
-## ALL PHASES AUTOMATED (One-Click)
-# =============================================================================
-
-# ALL PHASES AUTOMATED (One-Click)
-        -> EXECUTE: bash scripts/submit_pipeline.sh
-        -> This uses SLURM job dependencies to chain Phase 1a -> 1b -> 1c.
+===========================================================================
+# NOTES
+==========================================================================
 - If Forecast Horizon > 1 -> The number of scenarios/timesteps predicted is less.
         - Example: if T=100 and test indices are 85..99:
                 -> h=1 starts: 85..99 -> 15 starts
                 -> h=6 starts: 85..94 -> 10 starts
 - Qd is not forecasted by baseline models -> derived by applying scaling factor to Pd
-- Datakit on cluster cannot be run in parallel -> Julia makes probs
+- I believe Datakit on cluster cannot be run in parallel -> Julia makes probs.
+--> mby this is also only a problem, when they operate on same compute node, meaning if every datakit job has own compute node, they might not have problems parallelizing
