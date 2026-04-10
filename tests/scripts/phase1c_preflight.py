@@ -61,6 +61,25 @@ def check_case_cpus(case: Optional[str]) -> bool:
     return True
 
 
+def check_julia_offline_env() -> bool:
+    """
+    If `PYTHON_JULIAPKG_OFFLINE` is set to 'yes', ensure a Julia
+    environment manifest exists at $HOME/thesis_env/julia_env/Manifest.toml.
+    """
+    if os.environ.get("PYTHON_JULIAPKG_OFFLINE", "").lower() != "yes":
+        return True
+
+    manifest = os.path.expanduser("~/thesis_env/julia_env/Manifest.toml")
+    if not os.path.isfile(manifest):
+        print(f"CRITICAL ERROR: Julia environment not found at {manifest}.", file=sys.stderr)
+        print("You have OFFLINE=yes set. Please run 'gridfm_datakit setup_pm' manually before submitting.", file=sys.stderr)
+        print("REMINDER: If you updated your code or changed juliapkg.json,", file=sys.stderr)
+        print("you MUST rerun 'gridfm_datakit setup_pm' in an interactive session.", file=sys.stderr)
+        return False
+
+    return True
+
+
 def main(argv: Optional[list[str]] = None) -> int:
     p = argparse.ArgumentParser(description="Phase1c runtime preflight checks")
     p.add_argument("--case", help="Dataset CASE name (optional, can also be provided via CASE env var)")
@@ -80,6 +99,9 @@ def main(argv: Optional[list[str]] = None) -> int:
         ok = False
 
     if not check_case_cpus(case):
+        ok = False
+
+    if not check_julia_offline_env():
         ok = False
 
     if not ok:

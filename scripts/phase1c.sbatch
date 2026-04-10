@@ -1,18 +1,18 @@
 #!/bin/bash
 #SBATCH --job-name=phase1c_eval
 #SBATCH --partition=barnard
-#SBATCH --nodes=1
-#SBATCH --cpus-per-task=64
+#SBATCH --nodes=1 --exclusive
+#SBATCH --cpus-per-task=26
 #SBATCH --mem=300G
 #SBATCH --time=12:00:00
-#SBATCH --output=logs/phase1c_eval_case118_h1%j.out
-#SBATCH --error=logs/phase1c_eval_case118_h1%j.err
+#SBATCH --output=logs/phase1c_eval_case118_h24%j.out
+#SBATCH --error=logs/phase1c_eval_case118_h24%j.err
 
 set -euo pipefail
 
 # --- Configuration ---
 CASE="case118"
-HORIZON="1"
+HORIZON="24"
 CASE_DIR="${CASE}_ieee"
 
 VENV_PATH="$SLURM_SUBMIT_DIR/../thesis_env"
@@ -26,6 +26,14 @@ FINAL_RESULTS_DIR="exp1/results/${CASE_DIR}_horizon${HORIZON}_3yr"
 
 module purge
 module load GCC/14.2.0
+# 1. Prevent the Julia-Python bridge from checking/resolving dependencies
+export PYTHON_JULIAPKG_OFFLINE=yes
+# 2. Prevent Julia from attempting to precompile code during execution
+# This avoids creating .ji files and associated locks in the shared cache
+export JULIA_PKG_PRECOMPILE_AUTO=0
+# 3. Ensure underlying BLAS/OpenMP libraries don't over-subscribe threads
+export OMP_NUM_THREADS=1
+export OPENBLAS_NUM_THREADS=1
 
 # Always invoke the runtime preflight script placed in tests/scripts
 if ! /usr/bin/env python3 "$SLURM_SUBMIT_DIR/tests/scripts/phase1c_preflight.py" --case "$CASE"; then

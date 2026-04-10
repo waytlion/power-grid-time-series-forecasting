@@ -45,11 +45,7 @@ def main(argv=None):
 
 
     config['network']['name'] = args.network_name
-
-    if args.num_processes is not None:
-        if 'settings' not in config or not isinstance(config['settings'], dict):
-            config['settings'] = {}
-        config['settings']['num_processes'] = int(args.num_processes)
+    config['settings']['num_processes'] = int(args.num_processes)
 
     temp_yaml_path = args.base_yaml.parent / f"temp_batch_{args.base_yaml.name}"
 
