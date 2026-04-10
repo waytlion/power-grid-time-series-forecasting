@@ -112,10 +112,10 @@ def _attach_seasonal_naive_baseline(
     seasonality: int,
     horizon_col: str | None,
 ) -> pd.DataFrame:
-    """Attach naive baseline per row using value from 48 origins earlier.
+    """Attach seasonal naive baseline per row using y_{t+h-seasonality}.
 
-    Matches ST-GNN behavior: for a given forecast origin, take one past value and
-    repeat it across all future horizon steps.
+    For each row (origin t, horizon h), the baseline prediction is the observed
+    value at target index (t+h) shifted by `seasonality`.
     """
     out = df.copy()
     out["load_scenario_idx"] = pd.to_numeric(out["load_scenario_idx"], errors="raise").astype(int)
@@ -124,16 +124,24 @@ def _attach_seasonal_naive_baseline(
 
     if horizon_col:
         out[horizon_col] = pd.to_numeric(out[horizon_col], errors="raise").astype(int)
-        min_horizon = int(out[horizon_col].min())
-        base = out[out[horizon_col] == min_horizon][["load_scenario_idx", "bus_id", "true"]].copy()
+        out["target_load_scenario_idx"] = out["load_scenario_idx"] + out[horizon_col]
     else:
-        base = out[["load_scenario_idx", "bus_id", "true"]].copy()
+        out["target_load_scenario_idx"] = out["load_scenario_idx"]
 
-    base = base.sort_values(["bus_id", "load_scenario_idx"], kind="stable")
+    # Build true time series by bus and target time index, then shift by seasonality.
+    base = (
+        out[["bus_id", "target_load_scenario_idx", "true"]]
+        .drop_duplicates(subset=["bus_id", "target_load_scenario_idx"], keep="first")
+        .sort_values(["bus_id", "target_load_scenario_idx"], kind="stable")
+    )
     base["naive"] = base.groupby("bus_id", sort=False)["true"].shift(seasonality)
-    base = base[["load_scenario_idx", "bus_id", "naive"]]
 
-    out = out.merge(base, on=["load_scenario_idx", "bus_id"], how="left")
+    out = out.merge(
+        base[["bus_id", "target_load_scenario_idx", "naive"]],
+        on=["bus_id", "target_load_scenario_idx"],
+        how="left",
+    )
+    out = out.drop(columns=["target_load_scenario_idx"])
     return out
 
 
