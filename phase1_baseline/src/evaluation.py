@@ -12,17 +12,53 @@ LOGGER = logging.getLogger(__name__)
 def _infer_single_bus(b, starts, full_data, win, hor, sarima, sigma, mu):
     """
     Worker function to run SARIMA inference for a single bus across all test hours.
+    Optimized to use .extend() for contiguous test blocks, drastically reducing inference time.
     """
     bus_preds = []
-    for t in starts:
-        try:
-            hist_scaled = full_data[t-win:t, b, 0]
-            fc_scaled = sarima.predict(hist_scaled, bus_idx=b, horizon=hor)
-            bus_preds.append(fc_scaled * sigma + mu)
-        except Exception:
-            # If SARIMA math explodes on a specific hour, output NaNs
-            bus_preds.append(np.full(hor, np.nan))
     
+    if len(starts) == 0:
+        return b, np.array(bus_preds)
+        
+    model_wrapper = sarima.bus_params.get(b)
+    if model_wrapper is None:
+        for _ in starts:
+            bus_preds.append(np.full(hor, np.nan))
+        return b, np.array(bus_preds)
+        
+    # Check if starts are contiguous (step exactly 1 hour)
+    is_contiguous = False
+    if len(starts) > 1:
+        is_contiguous = all((starts[i] - starts[i-1]) == 1 for i in range(1, len(starts)))
+        
+    try:
+        t0 = starts[0]
+        # Always run apply for the first step
+        hist_scaled = full_data[t0-win:t0, b, 0]
+        current_res = model_wrapper.apply(hist_scaled)
+        fc = current_res.forecast(steps=hor)
+        bus_preds.append(fc * sigma + mu)
+        
+        for i in range(1, len(starts)):
+            t_curr = starts[i]
+            
+            if is_contiguous:
+                # FAST PATH: only feed newly observed data points since last step validation
+                new_data = full_data[starts[i-1]:t_curr, b, 0]
+                current_res = current_res.extend(new_data)
+                fc = current_res.forecast(steps=hor)
+                bus_preds.append(fc * sigma + mu)
+            else:
+                # SLOW PATH: required if skipping hours
+                hist_scaled = full_data[t_curr-win:t_curr, b, 0]
+                current_res = model_wrapper.apply(hist_scaled)
+                fc = current_res.forecast(steps=hor)
+                bus_preds.append(fc * sigma + mu)
+                
+    except Exception as e:
+        # If SARIMA math explodes, pad remainder with NaNs
+        while len(bus_preds) < len(starts):
+            bus_preds.append(np.full(hor, np.nan))
+            
     return b, np.array(bus_preds) # Shape: (len(starts), horizon)
 
 class RollingDataset(Dataset):
