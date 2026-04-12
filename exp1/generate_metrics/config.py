@@ -23,7 +23,7 @@ GEN_COLUMNS = ["load_scenario_idx", "idx", "bus", "p_mw", "q_mvar", "cp0_eur", "
 PARQUET_FILES = {
     "bus": "bus_data.parquet",
     "gen": "gen_data.parquet",
-    "branch": "branch_fdata.parquet",
+    "branch": "branch_data.parquet",
 }
 
 OUTPUT_TEMPLATES = {

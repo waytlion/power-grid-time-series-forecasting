@@ -24,6 +24,7 @@ from loaders import (
     load_forecasts,
     load_datakit_bus,
     load_datakit_gen,
+    load_datakit_branch,
     prepare_load_forecast_comparison,
     align_opf_results,
 )
@@ -33,6 +34,7 @@ from metrics import (
     compute_generator_rmse,
     compute_cost_metrics,
     compute_forecast_metrics_table,
+    compute_algebraic_power_residuals,
 )
 
 
@@ -77,6 +79,7 @@ def compare_single_method(
     output_dir: Path,
     dataset: str,
     pred_scenario_map: dict[int, int],
+    true_branch: pd.DataFrame,
 ) -> dict:
     """
     Run complete comparison for a single forecast method.
@@ -115,6 +118,10 @@ def compare_single_method(
     pred_gen = load_datakit_gen(predicted_opf_dir)
     true_gen = load_datakit_gen(ground_truth_dir)
     
+    # Preserve original flattened indices for graph contiguity
+    pred_bus["pred_flat_idx"] = pred_bus["load_scenario_idx"].copy()
+    pred_gen["pred_flat_idx"] = pred_gen["load_scenario_idx"].copy()
+
     # Remap predicted OPF scenario indices (0-based) to match ground-truth indices
     pred_bus["load_scenario_idx"] = pred_bus["load_scenario_idx"].map(pred_scenario_map)
     pred_gen["load_scenario_idx"] = pred_gen["load_scenario_idx"].map(pred_scenario_map)
@@ -152,6 +159,10 @@ def compare_single_method(
     print("Computing cost/optimality gap...")
     cost_metrics = compute_cost_metrics(gen_aligned)
     
+    # 6.5 Compute AC Power Residuals
+    print("Computing exact AC algebraic power residuals...")
+    residuals = compute_algebraic_power_residuals(bus_aligned, true_branch)
+    
     # 7. Save metrics summary
     metrics_df = pd.DataFrame([{
         "Metric": "Generator Pg RMSE",
@@ -170,9 +181,13 @@ def compare_single_method(
         "Value": cost_metrics["max_optimality_gap_pct"],
         "Unit": "%",
     }, {
-        "Metric": "Physics Constraint Violations",
-        "Value": "N/A - AC-OPF solver guarantees feasibility",
-        "Unit": "-",
+        "Metric": "Residual P (MAE)",
+        "Value": residuals["mae_residual_p_mw"],
+        "Unit": "MW",
+    }, {
+        "Metric": "Residual Q (MAE)",
+        "Value": residuals["mae_residual_q_mvar"],
+        "Unit": "MVA",
     }])
     
     metrics_path = method_output_dir / OUTPUT_TEMPLATES["metrics"].format(dataset=dataset)
@@ -186,9 +201,10 @@ def compare_single_method(
         "rmse_vm": rmse_summary.get("Vm", float("nan")),
         "rmse_va": rmse_summary.get("Va", float("nan")),
         "rmse_pg_bus": rmse_summary.get("Pg", float("nan")),  # Bus-level aggregated
-        "rmse_qg": rmse_summary.get("Qg", float("nan")),
         "rmse_pg_gen": gen_rmse,  # Generator-level
         "optimality_gap_pct": cost_metrics["mean_optimality_gap_pct"],
+        "res_p": residuals["mae_residual_p_mw"],
+        "res_q": residuals["mae_residual_q_mvar"],
     }
 
 
@@ -262,6 +278,10 @@ def main():
 
     pred_scenario_map = _build_predicted_scenario_map(forecasts_df)
 
+    # 0. Load ground truth branch data (static topology) once
+    print("Loading static branch topology...")
+    true_branch = load_datakit_branch(args.ground_truth_dir)
+
     # Save combined forecast metrics table (all selected methods)
     forecast_table = compute_forecast_metrics_table(
         forecasts_df=forecasts_df,
@@ -291,6 +311,7 @@ def main():
                 output_dir=args.output_dir,
                 dataset=args.dataset,
                 pred_scenario_map=pred_scenario_map,
+                true_branch=true_branch,
             )
             summaries.append(summary)
         except Exception as e:

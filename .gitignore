@@ -31,6 +31,12 @@ data_out/
 *.parquet
 *.csv
 
+# --- Phase1b→1c regression test intermediate outputs (regenerated on each run) ---
+tests/phase1b_1c/tmp/
+
+# Exception: committed golden baseline files are tracked despite *.csv rule
+!tests/phase1b_1c/golden/*.csv
+
 # --- Logs ---
 logs/
 

@@ -54,6 +54,13 @@ def load_datakit_gen(parquet_dir: Path) -> pd.DataFrame:
     return df
 
 
+def load_datakit_branch(parquet_dir: Path) -> pd.DataFrame:
+    """Load branch topology data from datakit parquet output."""
+    path = parquet_dir / PARQUET_FILES["branch"]
+    df = pd.read_parquet(path)
+    return df
+
+
 def prepare_load_forecast_comparison(
     forecasts_df: pd.DataFrame, method: str
 ) -> pd.DataFrame:

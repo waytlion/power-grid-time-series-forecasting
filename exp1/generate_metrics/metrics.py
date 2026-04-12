@@ -4,7 +4,33 @@ Metric computation functions matching GraphKit's ForecastOPFTask.
 
 import pandas as pd
 import numpy as np
+import sys
+from pathlib import Path
 from typing import Dict
+
+# Provide access to gridfm-graphkit-dev
+_kit_path = Path(__file__).resolve().parents[3] / "gridfm-graphkit-dev"
+if str(_kit_path) not in sys.path:
+    sys.path.insert(0, str(_kit_path))
+
+try:
+    from gridfm_graphkit.datasets.globals import (
+        VM_OUT, VA_OUT, PG_OUT, QG_OUT,
+        PD_H, QD_H, GS, BS,
+        YFF_TT_R, YFF_TT_I, YFT_TF_R, YFT_TF_I
+    )
+    from gridfm_graphkit.models.utils import (
+        ComputeBranchFlow,
+        ComputeNodeInjection,
+        ComputeNodeResiduals
+    )
+except ImportError as e:
+    raise ImportError(
+        f"Failed to load physics modules from {str(_kit_path)}. "
+        f"Ensure gridfm-graphkit-dev is located side-by-side with Thesis_Repo."
+    ) from e
+
+import torch
 
 
 _EPS = 1e-8
@@ -104,6 +130,154 @@ def compute_cost_metrics(gen_df: pd.DataFrame) -> Dict[str, float]:
         "mean_optimality_gap_pct": cost_per_scenario["gap_pct"].mean(),
         "median_optimality_gap_pct": cost_per_scenario["gap_pct"].median(),
         "max_optimality_gap_pct": cost_per_scenario["gap_pct"].max(),
+    }
+
+
+def format_2step_tensors(
+    predictions_dict: Dict[str, np.ndarray],
+    true_data_dict: Dict[str, np.ndarray],
+    topology_dict: Dict[str, np.ndarray],
+    num_nodes: int,
+    num_scenarios: int
+):
+    """
+    Map flat arrays from datakit into exactly scaled PyG disjoint graphs.
+    """
+    S = num_scenarios
+    N = num_nodes
+    num_nodes_total = S * N
+    
+    # 1. Bus data
+    bus_data_pred = torch.zeros((num_nodes_total, max(VM_OUT, VA_OUT, PG_OUT, QG_OUT) + 1), dtype=torch.float32)
+    bus_data_pred[:, VM_OUT] = torch.tensor(predictions_dict["VM_OUT"], dtype=torch.float32)
+    bus_data_pred[:, VA_OUT] = torch.tensor(predictions_dict["VA_OUT"], dtype=torch.float32)
+    bus_data_pred[:, PG_OUT] = torch.tensor(predictions_dict["PG_OUT"], dtype=torch.float32)
+    bus_data_pred[:, QG_OUT] = torch.tensor(predictions_dict["QG_OUT"], dtype=torch.float32)
+
+    bus_data_orig = torch.zeros((num_nodes_total, max(PD_H, QD_H, GS, BS) + 1), dtype=torch.float32)
+    bus_data_orig[:, PD_H] = torch.tensor(true_data_dict["PD_H"], dtype=torch.float32)
+    bus_data_orig[:, QD_H] = torch.tensor(true_data_dict["QD_H"], dtype=torch.float32)
+    bus_data_orig[:, GS] = torch.tensor(true_data_dict["GS"], dtype=torch.float32)
+    bus_data_orig[:, BS] = torch.tensor(true_data_dict["BS"], dtype=torch.float32)
+
+    # 2. Topology expansion
+    base_from = torch.tensor(topology_dict["from_bus"], dtype=torch.long)
+    base_to = torch.tensor(topology_dict["to_bus"], dtype=torch.long)
+    E = len(base_from)
+    
+    # Batch shift logic:
+    offsets = torch.arange(S, dtype=torch.long).unsqueeze(1) * N  # [S, 1]
+    
+    from_bus_global = (base_from.unsqueeze(0) + offsets).flatten() # [S * E]
+    to_bus_global = (base_to.unsqueeze(0) + offsets).flatten()     # [S * E]
+    
+    # Admittances (repeat identical topology S times)
+    Yff_r = torch.tensor(topology_dict["Yff_r"], dtype=torch.float32).repeat(S)
+    Yff_i = torch.tensor(topology_dict["Yff_i"], dtype=torch.float32).repeat(S)
+    Yft_r = torch.tensor(topology_dict["Yft_r"], dtype=torch.float32).repeat(S)
+    Yft_i = torch.tensor(topology_dict["Yft_i"], dtype=torch.float32).repeat(S)
+    
+    Ytf_r = torch.tensor(topology_dict["Ytf_r"], dtype=torch.float32).repeat(S)
+    Ytf_i = torch.tensor(topology_dict["Ytf_i"], dtype=torch.float32).repeat(S)
+    Ytt_r = torch.tensor(topology_dict["Ytt_r"], dtype=torch.float32).repeat(S)
+    Ytt_i = torch.tensor(topology_dict["Ytt_i"], dtype=torch.float32).repeat(S)
+
+    # Bi-directional Forward Edge mapping (from_bus -> to_bus)
+    edge_index_fwd = torch.stack([from_bus_global, to_bus_global], dim=0)
+    edge_attr_fwd = torch.zeros((E * S, max(YFF_TT_R, YFF_TT_I, YFT_TF_R, YFT_TF_I) + 1), dtype=torch.float32)
+    edge_attr_fwd[:, YFF_TT_R] = Yff_r
+    edge_attr_fwd[:, YFF_TT_I] = Yff_i
+    edge_attr_fwd[:, YFT_TF_R] = Yft_r
+    edge_attr_fwd[:, YFT_TF_I] = Yft_i
+
+    # Bi-directional Reverse Edge mapping (to_bus -> from_bus)
+    edge_index_rev = torch.stack([to_bus_global, from_bus_global], dim=0)
+    edge_attr_rev = torch.zeros((E * S, max(YFF_TT_R, YFF_TT_I, YFT_TF_R, YFT_TF_I) + 1), dtype=torch.float32)
+    # Important: the physics equations view 'from' from the first element of edge_index.
+    # Therefore, the reversed perspective requires mapping Ytt to Yff.
+    edge_attr_rev[:, YFF_TT_R] = Ytt_r
+    edge_attr_rev[:, YFF_TT_I] = Ytt_i
+    edge_attr_rev[:, YFT_TF_R] = Ytf_r
+    edge_attr_rev[:, YFT_TF_I] = Ytf_i
+    
+    edge_index = torch.cat([edge_index_fwd, edge_index_rev], dim=1)
+    edge_attr = torch.cat([edge_attr_fwd, edge_attr_rev], dim=0)
+    
+    return bus_data_pred, bus_data_orig, edge_index, edge_attr
+
+
+def compute_algebraic_power_residuals(
+    bus_aligned: pd.DataFrame, 
+    topology_df: pd.DataFrame
+) -> Dict[str, float]:
+    """
+    Offline calculation mapping DataFrames -> Tensors and returning exactly computed P/Q residuals
+    via purely algebraic PhysicsModules natively on CPU.
+    """
+    if bus_aligned.empty:
+        return {"mae_residual_p_mw": float("nan"), "mae_residual_q_mvar": float("nan")}
+        
+    num_scenarios = bus_aligned["pred_flat_idx"].nunique()
+    num_nodes = len(bus_aligned) // num_scenarios
+    
+    # Sort rigorously so arrays map natively 0 -> N_total elements logically (grouped by prediction instance!)
+    bus_aligned = bus_aligned.sort_values(["pred_flat_idx", "bus"]).reset_index(drop=True)
+    
+    # Base MVA for per-unit scaling
+    # GridFM physics modules natively evaluate residuals in per-unit (p.u.) space.
+    # While DataKit exports Y-bus and shunts (GS/BS) in p.u., active/reactive 
+    # generation (Pg/Qg) and demand (Pd/Qd) are exported in absolute physical units (MW/MVAR).
+    baseMVA = 100.0
+    
+    pred_dict = {
+        "VM_OUT": bus_aligned["Vm_pred"].values,
+        # DataKit exports voltage angles natively in degrees. PyTorch trigonometric 
+        # operations (used in ComputeBranchFlow) mathematically require radians.
+        "VA_OUT": bus_aligned["Va_pred"].values * (np.pi / 180.0),
+        "PG_OUT": bus_aligned["Pg_pred"].values / baseMVA,
+        "QG_OUT": bus_aligned["Qg_pred"].values / baseMVA,
+    }
+    
+    true_dict = {
+        "PD_H": bus_aligned["Pd_true"].values / baseMVA,
+        "QD_H": bus_aligned["Qd_true"].values / baseMVA,
+        # GS and BS are already structured as per-unit admittances by DataKit.
+        "GS": bus_aligned["GS_true"].values,
+        "BS": bus_aligned["BS_true"].values,
+    }
+    
+    # Obtain static base topology from any one scenario (e.g. index 0).
+    base_topology = topology_df[topology_df['load_scenario_idx'] == topology_df['load_scenario_idx'].iloc[0]]
+    topo_dict = {
+        "from_bus": base_topology["from_bus"].values,
+        "to_bus": base_topology["to_bus"].values,
+        "Yff_r": base_topology["Yff_r"].values,
+        "Yff_i": base_topology["Yff_i"].values,
+        "Yft_r": base_topology["Yft_r"].values,
+        "Yft_i": base_topology["Yft_i"].values,
+        "Ytf_r": base_topology["Ytf_r"].values,
+        "Ytf_i": base_topology["Ytf_i"].values,
+        "Ytt_r": base_topology["Ytt_r"].values,
+        "Ytt_i": base_topology["Ytt_i"].values,
+    }
+    
+    bus_pred, bus_orig, edge_index, edge_attr = format_2step_tensors(
+        pred_dict, true_dict, topo_dict, num_nodes, num_scenarios
+    )
+    
+    branch_flow = ComputeBranchFlow()
+    node_inj = ComputeNodeInjection()
+    node_res = ComputeNodeResiduals()
+    
+    with torch.no_grad():
+        Pft, Qft = branch_flow(bus_pred, edge_index, edge_attr)
+        P_in, Q_in = node_inj(Pft, Qft, edge_index, num_nodes * num_scenarios)
+        res_P, res_Q = node_res(P_in, Q_in, bus_pred, bus_orig)
+        
+    return {
+        # Rescale the evaluated per-unit residuals back into MW/MVAR for reporting
+        "mae_residual_p_mw": float(torch.abs(res_P).mean()) * baseMVA,
+        "mae_residual_q_mvar": float(torch.abs(res_Q).mean()) * baseMVA,
     }
 
 

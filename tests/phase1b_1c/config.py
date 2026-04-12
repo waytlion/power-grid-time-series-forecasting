@@ -92,4 +92,6 @@ CHECKED_METRICS = [
     "rmse_vm",
     "rmse_va",
     "optimality_gap_pct",
+    "res_p",
+    "res_q",
 ]
