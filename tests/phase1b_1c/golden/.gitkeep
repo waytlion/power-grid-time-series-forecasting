@@ -1,0 +1,3 @@
+# Golden baseline files are committed to git.
+# Add new golden files here when creating new smoke test variants.
+smoke_case14_h6.csv
