@@ -49,7 +49,8 @@ def _load_summary(path: Path) -> pd.DataFrame:
     if not path.exists():
         print(f"ERROR  File not found: {path}", file=sys.stderr)
         sys.exit(2)
-    df = pd.read_csv(path)
+    # Auto-detect delimiter so both comma- and tab-separated summaries are supported.
+    df = pd.read_csv(path, sep=None, engine="python")
     df.columns = [c.strip() for c in df.columns]
     return df
 
@@ -88,6 +89,22 @@ def _check_metric(
     return ok, msg
 
 
+def _normalize_summary_schema(df: pd.DataFrame) -> pd.DataFrame:
+    """Normalize summary columns across schema versions.
+
+    New schema keeps `rmse_pg_gen` and renamed several columns.
+    We map aliases to canonical names used by CHECKED_METRICS.
+    """
+    out = df.copy()
+    alias_map = {
+        "Mean optimality gap (%)": "mean_optimality_gap_pct",
+        "Avg. active res. (MW)": "avg_active_res_mw",
+        "Avg. reactive res. (MVar)": "avg_reactive_res_mvar",
+    }
+    out = out.rename(columns=alias_map)
+    return out
+
+
 # ──────────────────────────────────────────────────────────────────────────────
 # Main
 # ──────────────────────────────────────────────────────────────────────────────
@@ -116,7 +133,7 @@ def main(argv=None):
     args = parser.parse_args(argv)
 
     summary_path = args.results_dir / "comparison_summary.csv"
-    new_df = _load_summary(summary_path)
+    new_df = _normalize_summary_schema(_load_summary(summary_path))
 
     # ── Generate-golden mode ───────────────────────────────────────────────
     if args.generate_golden:
@@ -128,7 +145,29 @@ def main(argv=None):
         sys.exit(0)
 
     # ── Comparison mode ────────────────────────────────────────────────────
-    golden_df = _load_summary(args.golden)
+    golden_df = _normalize_summary_schema(_load_summary(args.golden))
+
+    required_cols = ["method", *CHECKED_METRICS]
+    missing_new = [c for c in required_cols if c not in new_df.columns]
+    missing_golden = [c for c in required_cols if c not in golden_df.columns]
+    if missing_new or missing_golden:
+        if missing_new:
+            print(
+                "ERROR  New results are missing required columns: "
+                f"{missing_new}",
+                file=sys.stderr,
+            )
+        if missing_golden:
+            print(
+                "ERROR  Golden file is missing required columns: "
+                f"{missing_golden}",
+                file=sys.stderr,
+            )
+        print(
+            "HINT   Schema likely changed. Re-generate golden with --generate-golden.",
+            file=sys.stderr,
+        )
+        sys.exit(1)
 
     print("\n" + "=" * 70)
     print("  Smoke Test: Regression Check")

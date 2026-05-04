@@ -15,7 +15,7 @@
 1. Preprocess realistic load profiles into datakit format
         -> INPUT: 
                 - realistic load profiles .parquet (from Marcus)
-                - Cluster: /data/horse/ws/tibo990i-thesis_data/phase_1a/data_in/df_load_bus_2019-2021.parquet
+                - Cluster: /data/horse/ws/tibo990i-thesis_data/2002-2025/phase_1a/data_in/df_load_bus_2002-2025.parquet
                 - local: D:\Data\studium\Master\MA_Code\data\phase_1a\data_in
         -> EXECUTE:
                 - Cluster: python phase1_generation/preprocessing/generate_precomputed_profile.py
@@ -23,10 +23,12 @@
         -> OUTPUT: phase1_generation/preprocessing/f"{CASE_NAME.strip()}_3yr_precomputed_load_profiles.csv"
 
 2. Run datakit to solve AC-OPF (on cluster — too computationally intensive for local)
-        -> CONFIG: phase1_generation/configs/phase1_config.yaml
+        -> SET PARAMS IN <phase1_generation/configs/phase1_config.yaml>
+                -- scenario_file, data_dir, scenarios
+                -- num_processes, large_chunk_size
         -> EXECUTE: sbatch scripts/phase1a_run_datakit.sh
         -> OUTPUT: 
-                - Cluster: /data/horse/ws/tibo990i-thesis_data/data_out/3yr_2019-2021/phase_1a/data_out/case14_ieee
+                - Cluster: /data/horse/ws/tibo990i-thesis_data/2002-2023/phase_1a/data_out/
 
 # =============================================================================
 # PHASE 1b: Temporal Baseline Forecasting

@@ -19,7 +19,11 @@ def _fit_single_bus(b, bus_data, order, seasonal_order):
             enforce_invertibility=False
         )
         fitted_model = model.fit(disp=False, method='powell')
-        return b, fitted_model
+        # Store ONLY the fitted parameter values (~5 floats), NOT the full
+        # SARIMAXResults object which stores T × state_dim² Kalman matrices
+        # (~200-300 MB per bus in float64). At inference time we reconstruct
+        # a fresh model from params + the current history window.
+        return b, fitted_model.params.copy()
     except Exception as e:
         LOGGER.warning("Fit failed for bus %s: %s", b, e)
         return b, None
@@ -94,36 +98,42 @@ class TinyTGT(nn.Module):
 
 # --- SARIMA ---
 class GlobalFitLocalApplySARIMA:
-    def __init__(self, order=(2, 0, 0), seasonal_order=(1, 0, 1, 24)):
+    def __init__(self, order=(2, 0, 0), seasonal_order=(1, 0, 1, 24), n_jobs=-1):
         self.order = order
         self.seasonal_order = seasonal_order
+        self.n_jobs = n_jobs
         self.bus_params = {} # Stores the fitted result wrapper per bus
         self.failure_count = 0 
         self.call_count = 0
 
     def fit(self, full_data, train_indices, max_fit_hours=None):
         """
-        max_fit_hours: If None, use all training data. 
-                    If set (e.g., 672), limit to that many hours 
-                    -> This is implemented for interleaved splitting and
-                    should be removed once we dont need interleaved splitting anymore.
+        Fit one SARIMAX model per bus using a window of training data.
+
+        max_fit_hours: If None, use all training data.
+                       If set (e.g. 17_520 = 2 years), use the LAST max_fit_hours
+                       timesteps of train_indices so that the model captures the
+                       most recent seasonal patterns rather than very old data.
         """
         if max_fit_hours is None:
-            # Use all training indices (for temporal split)
             train_block_idx = train_indices
         else:
-            # Use limited contiguous block (for interleaved split)
-            train_limit = max_fit_hours
-            valid_train_range = train_indices[train_indices < train_limit]
-            train_block_idx = valid_train_range if len(valid_train_range) > 0 else train_indices[:train_limit]
+            # Take the tail of the sorted training indices (most recent data)
+            sorted_idx = np.sort(train_indices)
+            train_block_idx = sorted_idx[-max_fit_hours:]
+            LOGGER.info(
+                "SARIMA fit capped at %s hours: using indices [%s … %s]",
+                len(train_block_idx),
+                train_block_idx[0],
+                train_block_idx[-1],
+            )
         
         dataset_subset = full_data[train_block_idx, :, 0]  # [T_sub, N_buses]
         
         # joblib's 'verbose=10' acts as built-in progress bar (similar to tqdm)
-        n_jobs = int(os.environ.get("SLURM_CPUS_PER_TASK", -1))
         LOGGER.info("Firing up parallel SARIMAX fitting on %s buses", full_data.shape[1])
         
-        results = Parallel(n_jobs=n_jobs, verbose=10)(
+        results = Parallel(n_jobs=self.n_jobs, verbose=10)(
             delayed(_fit_single_bus)(
                 b, 
                 dataset_subset[:, b], 
@@ -138,20 +148,26 @@ class GlobalFitLocalApplySARIMA:
 
     def predict(self, history, bus_idx, horizon=33):
         """
-        Uses pre-learned parameters to filter the new 'history' window and forecast.
+        Reconstruct a SARIMAX model from the frozen params and forecast.
+        `bus_params[bus_idx]` is now a small params array, not a Results object.
         """
         self.call_count += 1
-        model_res = self.bus_params.get(bus_idx)
-        
-        if model_res is None:
+        params = self.bus_params.get(bus_idx)
+
+        if params is None:
             self.failure_count += 1
             return self._naive_fallback(history, horizon)
-        
+
         try:
-            # .apply() updates the state (Kalman Filter) with the new observation window
-            # using the frozen parameters from training.
-            new_res = model_res.apply(history)
-            return new_res.forecast(steps=horizon)
+            model = SARIMAX(
+                history,
+                order=self.order,
+                seasonal_order=self.seasonal_order,
+                enforce_stationarity=False,
+                enforce_invertibility=False,
+            )
+            res = model.filter(params)
+            return res.forecast(steps=horizon)
         except Exception:
             self.failure_count += 1
             return self._naive_fallback(history, horizon)

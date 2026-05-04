@@ -220,7 +220,7 @@ def compute_algebraic_power_residuals(
     num_scenarios = bus_aligned["pred_flat_idx"].nunique()
     num_nodes = len(bus_aligned) // num_scenarios
     
-    # Sort rigorously so arrays map natively 0 -> N_total elements logically (grouped by prediction instance!)
+    # Sort so arrays map natively 0 -> N_total elements logically (grouped by prediction instance!)
     bus_aligned = bus_aligned.sort_values(["pred_flat_idx", "bus"]).reset_index(drop=True)
     
     # Base MVA for per-unit scaling

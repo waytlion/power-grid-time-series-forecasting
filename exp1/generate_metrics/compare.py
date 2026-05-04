@@ -19,6 +19,7 @@ Usage (from Thesis_Repo root):
 import argparse
 from pathlib import Path
 import pandas as pd
+import numpy as np
 from config import FORECAST_METHODS, OUTPUT_TEMPLATES, FORECASTS_PARQUET, FORECAST_SEASONALITY
 from loaders import (
     load_forecasts,
@@ -100,6 +101,7 @@ def compare_single_method(
     # Rename for compute_mae which expects {feature}_pred and {feature}_true
     forecast_for_mae = forecast_comparison.rename(columns={"pred": "Pd_pred", "true": "Pd_true"})
     mae_pd = compute_mae(forecast_for_mae, ["Pd"])["Pd"]
+    rmse_pd = float(np.sqrt(((forecast_for_mae["Pd_pred"] - forecast_for_mae["Pd_true"]) ** 2).mean()))
     
     # Save forecast MAE
     forecast_mae_df = pd.DataFrame([{
@@ -154,6 +156,7 @@ def compare_single_method(
     # 5. Compute generator RMSE
     print("Computing generator-level RMSE...")
     gen_rmse = compute_generator_rmse(gen_aligned)
+    mae_pg_gen = float(np.abs(gen_aligned["p_mw_pred"] - gen_aligned["p_mw_true"]).mean())
     
     # 6. Compute cost metrics
     print("Computing cost/optimality gap...")
@@ -198,21 +201,54 @@ def compare_single_method(
     return {
         "method": method,
         "mae_pd": mae_pd,
-        "rmse_vm": rmse_summary.get("Vm", float("nan")),
-        "rmse_va": rmse_summary.get("Va", float("nan")),
-        "rmse_pg_bus": rmse_summary.get("Pg", float("nan")),  # Bus-level aggregated
+        "rmse_pd": rmse_pd,
+        "mae_pg": mae_pg_gen,
         "rmse_pg_gen": gen_rmse,  # Generator-level
-        "optimality_gap_pct": cost_metrics["mean_optimality_gap_pct"],
-        "res_p": residuals["mae_residual_p_mw"],
-        "res_q": residuals["mae_residual_q_mvar"],
+        "avg_active_res_mw": residuals["mae_residual_p_mw"],
+        "avg_reactive_res_mvar": residuals["mae_residual_q_mvar"],
+        "mean_optimality_gap_pct": cost_metrics["mean_optimality_gap_pct"],
+        "mean_branch_thermal_violation_from_mva": float("nan"),
+        "mean_branch_thermal_violation_to_mva": float("nan"),
+        "mean_branch_angle_difference_violation_rad": float("nan"),
     }
 
 
 def generate_comparison_summary(summaries: list, output_dir: Path, dataset: str):
     """Generate side-by-side comparison table across all methods."""
     summary_df = pd.DataFrame(summaries)
+    summary_df = summary_df.reindex(columns=[
+        "method",
+        "mae_pd",
+        "rmse_pd",
+        "mae_pg",
+        "rmse_pg_gen",
+        "avg_active_res_mw",
+        "avg_reactive_res_mvar",
+        "mean_optimality_gap_pct",
+        "mean_branch_thermal_violation_from_mva",
+        "mean_branch_thermal_violation_to_mva",
+        "mean_branch_angle_difference_violation_rad",
+    ])
+
+    summary_df = summary_df.rename(columns={
+        "method": "method",
+        "mae_pd": "mae_pd",
+        "rmse_pd": "rmse_pd",
+        "mae_pg": "mae_pg",
+        "rmse_pg_gen": "rmse_pg_gen",
+        "avg_active_res_mw": "Avg. active res. (MW)",
+        "avg_reactive_res_mvar": "Avg. reactive res. (MVar)",
+        "mean_optimality_gap_pct": "Mean optimality gap (%)",
+        "mean_branch_thermal_violation_from_mva": "Mean branch thermal violation from (MVA)",
+        "mean_branch_thermal_violation_to_mva": "Mean branch thermal violation to (MVA)",
+        "mean_branch_angle_difference_violation_rad": "Mean branch angle difference violation (radians)",
+    })
+
+    numeric_cols = summary_df.select_dtypes(include=["number"]).columns
+    summary_df[numeric_cols] = summary_df[numeric_cols].round(4)
+
     summary_path = output_dir / OUTPUT_TEMPLATES["summary"].format(dataset=dataset)
-    summary_df.to_csv(summary_path, index=False)
+    summary_df.to_csv(summary_path, index=False, sep="\t")
     
     print(f"\n{'='*60}")
     print("Comparison Summary")

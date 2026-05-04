@@ -6,60 +6,80 @@ from torch.utils.data import Dataset
 from tqdm import tqdm
 from sklearn.metrics import mean_squared_error, mean_absolute_error
 from joblib import Parallel, delayed
+from statsmodels.tsa.statespace.sarimax import SARIMAX
 
 LOGGER = logging.getLogger(__name__)
 
 def _infer_single_bus(b, starts, full_data, win, hor, sarima, sigma, mu):
     """
     Worker function to run SARIMA inference for a single bus across all test hours.
-    Optimized to use .extend() for contiguous test blocks, drastically reducing inference time.
+
+    `sarima.bus_params[b]` is a small params array (NOT a SARIMAXResults object).
+    We reconstruct a temporary SARIMAX model from the frozen params + the current
+    history window, so only one bus's Kalman state lives in memory at a time.
+
+    Uses a "hybrid" Sliding Window: we .extend() statsmodels object for 240 steps 
+    (10 days), then periodically reset to a fixed `win` slice. 
     """
     bus_preds = []
-    
+
     if len(starts) == 0:
         return b, np.array(bus_preds)
-        
-    model_wrapper = sarima.bus_params.get(b)
-    if model_wrapper is None:
+
+    params = sarima.bus_params.get(b)
+    if params is None:
         for _ in starts:
             bus_preds.append(np.full(hor, np.nan))
         return b, np.array(bus_preds)
-        
-    # Check if starts are contiguous (step exactly 1 hour)
-    is_contiguous = False
-    if len(starts) > 1:
-        is_contiguous = all((starts[i] - starts[i-1]) == 1 for i in range(1, len(starts)))
-        
+
+    def _build_result(history):
+        """Reconstruct a SARIMAXResults from frozen params + new history."""
+        model = SARIMAX(
+            history,
+            order=sarima.order,
+            seasonal_order=sarima.seasonal_order,
+            enforce_stationarity=False,
+            enforce_invertibility=False,
+        )
+        return model.filter(params)
+
     try:
         t0 = starts[0]
-        # Always run apply for the first step
-        hist_scaled = full_data[t0-win:t0, b, 0]
-        current_res = model_wrapper.apply(hist_scaled)
+        hist_scaled = full_data[t0 - win : t0, b, 0]
+        current_res = _build_result(hist_scaled)
         fc = current_res.forecast(steps=hor)
         bus_preds.append(fc * sigma + mu)
         
+        # Keep track of how many times we've called extend()
+        extend_count = 0
+
         for i in range(1, len(starts)):
             t_curr = starts[i]
-            
-            if is_contiguous:
-                # FAST PATH: only feed newly observed data points since last step validation
-                new_data = full_data[starts[i-1]:t_curr, b, 0]
+
+            is_contiguous = (t_curr - starts[i-1]) == 1
+            if is_contiguous and extend_count < 240:
+                # FAST PATH: `.extend()` is fast for short sequences, 
+                # but slows down exponentially as history length explodes.
+                new_data = full_data[starts[i - 1] : t_curr, b, 0]
                 current_res = current_res.extend(new_data)
-                fc = current_res.forecast(steps=hor)
-                bus_preds.append(fc * sigma + mu)
+                extend_count += 1
             else:
-                # SLOW PATH: required if skipping hours
-                hist_scaled = full_data[t_curr-win:t_curr, b, 0]
-                current_res = model_wrapper.apply(hist_scaled)
-                fc = current_res.forecast(steps=hor)
-                bus_preds.append(fc * sigma + mu)
-                
+                # RESET BLOCK: Periodically dump the massive history arrays 
+                # and re-instantiate a fresh bounded state window to keep 
+                # statsmodels inference computationally O(1) and memory safe.
+                hist_scaled = full_data[t_curr - win : t_curr, b, 0]
+                current_res = _build_result(hist_scaled)
+                extend_count = 0
+            
+            fc = current_res.forecast(steps=hor)
+            bus_preds.append(fc * sigma + mu)
+
     except Exception as e:
         # If SARIMA math explodes, pad remainder with NaNs
         while len(bus_preds) < len(starts):
             bus_preds.append(np.full(hor, np.nan))
-            
-    return b, np.array(bus_preds) # Shape: (len(starts), horizon)
+
+    return b, np.array(bus_preds)  # Shape: (len(starts), horizon)
 
 class RollingDataset(Dataset):
     def __init__(self, data, split_indices, input_window, forecast_horizon):

@@ -1,5 +1,5 @@
 network:
-  name: "case500_goc" # Name of the power grid network (without extension)
+  name: "case118_ieee" # Name of the power grid network (without extension)
   source: "pglib" # Data source for the grid; options: pglib, file
   # WARNING: the following parameter is only used if source is "file"
   network_dir: "scripts/grids" # if using source "file", this is the directory containing the network file
@@ -7,8 +7,8 @@ network:
 load:
   generator: "precomputed_profile" # Name of the load generator; options: agg_load_profile, powergraph
   agg_profile: "" # Name of the aggregated load profile
-  scenario_file: "phase1_generation/preprocessing/case500_goc_3yr_precomputed_load_profiles.csv" # precomputed scenarios (cols: load_scenario, load, p_mw, q_mvar)
-  scenarios: 26280 #* Number of different load scenarios to generate
+  scenario_file: "phase1_generation/preprocessing/case118_21yr_precomputed_load_profiles.csv" #! precomputed scenarios (cols: load_scenario, load, p_mw, q_mvar)
+  scenarios: 209640 #! Number of different load scenarios to generate (209640 for 23yr, 26280 for 3yr)
   # WARNING: the following parameters are only used if generator is "agg_load_profile"
   # if using generator "powergraph", these parameters are ignored
   sigma: 0.00 #* max local noise
@@ -28,9 +28,9 @@ admittance_perturbation:
   type: "none"
 
 settings:
-  num_processes: 4 # Number of parallel processes to use
-  data_dir: "/data/horse/ws/tibo990i-thesis_data/phase_1a/data_out/3yr_2019-2021/case14_ieee" #* Directory to save generated data relative to CWD
-  large_chunk_size: 1000 # Number of load scenarios processed before saving
+  num_processes: 52 #! Number of parallel processes to use
+  data_dir: "/data/horse/ws/tibo990i-thesis_data/2002-2025/phase_1a/data_out/" #! Directory to save generated data relative to CWD
+  large_chunk_size: 5000 #! Number of load scenarios processed before saving 
   overwrite: true # If true, overwrites existing files, if false, appends to files
   mode: "opf" # Mode of the script; options: pf, opf
   include_dc_res: false # If true, also stores the results of dc power flow or dc optimal power flow

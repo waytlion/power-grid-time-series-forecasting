@@ -67,6 +67,14 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--output-path", default="benchmark_results.parquet")
     parser.add_argument("--seed", type=int, default=None)
     parser.add_argument("--skip-tgt", action="store_true", help="Skip TinyTGT training")
+    parser.add_argument("--n-jobs", type=int, default=1, help="Number of jobs for XGBoost")
+    parser.add_argument(
+        "--sarima-fit-hours",
+        type=int,
+        default=17_520,
+        help="Max training hours fed to SARIMA fit (default 17520 = 2 years). "
+             "Use None-equivalent 0 to use ALL training data (may OOM on long series).",
+    )
     return parser.parse_args()
 
 
@@ -209,16 +217,19 @@ def main() -> None:
         objective="reg:squarederror",
         device=xgb_device,
         tree_method="hist",
-        n_jobs=32,
+        n_jobs=args.n_jobs,
         random_state=args.seed,
     )
 
-    xgb_model = MultiOutputRegressor(xgb_estimator, n_jobs=32)
+    xgb_model = MultiOutputRegressor(xgb_estimator, n_jobs=1)
 
     LOGGER.info("Training global XGBoost model")
     xgb_model.fit(X_train_xgb, Y_train_xgb)
     LOGGER.info("XGBoost training complete")
-
+    del X_train_xgb
+    del Y_train_xgb
+    import gc
+    gc.collect()
     torch.cuda.empty_cache()
 
     tgt_model = None
@@ -269,8 +280,14 @@ def main() -> None:
     else:
         LOGGER.info("Skipping TinyTGT training (--skip-tgt flag set)")
 
-    sarima_model = GlobalFitLocalApplySARIMA(order=(2, 0, 0), seasonal_order=(1, 0, 1, 24))
-    sarima_model.fit(scaled_tensor.astype(np.float32), train_idx, None)
+    sarima_model = GlobalFitLocalApplySARIMA(order=(2, 0, 0), seasonal_order=(1, 0, 1, 24), n_jobs=args.n_jobs)
+    sarima_fit_hours = args.sarima_fit_hours if args.sarima_fit_hours > 0 else None
+    LOGGER.info(
+        "SARIMA fit window: %s hours (%s)",
+        sarima_fit_hours,
+        f"{sarima_fit_hours / 8760:.1f} years" if sarima_fit_hours else "ALL training data",
+    )
+    sarima_model.fit(scaled_tensor.astype(np.float32), train_idx, max_fit_hours=sarima_fit_hours)
 
     denom_mae, denom_mse = get_scaling_factors(scaled_tensor, train_idx, scaler, m=24)
     LOGGER.info("Scaling baseline (train): MAE=%.4f, MSE=%.4f", denom_mae, denom_mse)

@@ -13,13 +13,13 @@ from pathlib import Path
 
 # Phase1a ground-truth OPF data for case14
 GROUND_TRUTH_DIR = Path(
-    "/data/horse/ws/tibo990i-thesis_data/data_out"
+    "/data/horse/ws/tibo990i-thesis_data"
     "/3yr_2019-2021/phase_1a/data_out/case14_ieee/raw"
 )
 
 # Phase1a raw load data (input to phase1b)
 DATA_PATH = Path(
-    "/data/horse/ws/tibo990i-thesis_data/data_out"
+    "/data/horse/ws/tibo990i-thesis_data"
     "/3yr_2019-2021/phase_1a/data_out/case14_ieee/raw"
 )
 
@@ -88,10 +88,10 @@ ABS_TOL_GAP_PCT = 0.05  # 5 percentage-point absolute tolerance for optimality g
 # Metrics checked against the golden file (columns of comparison_summary.csv)
 CHECKED_METRICS = [
     "mae_pd",
+    "rmse_pd",
+    "mae_pg",
     "rmse_pg_gen",
-    "rmse_vm",
-    "rmse_va",
-    "optimality_gap_pct",
-    "res_p",
-    "res_q",
+    "mean_optimality_gap_pct",
+    "avg_active_res_mw",
+    "avg_reactive_res_mvar",
 ]
