@@ -103,6 +103,7 @@ def compute_cost_metrics(gen_df: pd.DataFrame) -> Dict[str, float]:
     
     Returns:
         Dict with 'mean_optimality_gap_pct' and related statistics.
+        If 'horizon_step' is present in gen_df, also returns 'horizon_gaps' dict.
     """
     # Compute cost per generator. Uses parquet names: p_mw, cp0_eur, cp1_eur_per_mw, cp2_eur_per_mw2
     for suffix in ["pred", "true"]:
@@ -114,10 +115,14 @@ def compute_cost_metrics(gen_df: pd.DataFrame) -> Dict[str, float]:
         )
     
     # Aggregate cost per scenario
-    cost_per_scenario = gen_df.groupby("load_scenario_idx").agg({
+    group_cols = ["load_scenario_idx"]
+    if "horizon_step" in gen_df.columns:
+        group_cols.append("horizon_step")
+
+    cost_per_scenario = gen_df.groupby(group_cols).agg({
         "cost_pred": "sum",
         "cost_true": "sum",
-    })
+    }).reset_index()
     
     # Compute optimality gap (%)
     cost_per_scenario["gap_pct"] = (
@@ -126,11 +131,18 @@ def compute_cost_metrics(gen_df: pd.DataFrame) -> Dict[str, float]:
         * 100
     )
     
-    return {
+    results = {
         "mean_optimality_gap_pct": cost_per_scenario["gap_pct"].mean(),
         "median_optimality_gap_pct": cost_per_scenario["gap_pct"].median(),
         "max_optimality_gap_pct": cost_per_scenario["gap_pct"].max(),
     }
+
+    if "horizon_step" in gen_df.columns:
+        # Compute mean gap per horizon
+        horizon_gaps = cost_per_scenario.groupby("horizon_step")["gap_pct"].mean().to_dict()
+        results["horizon_gaps"] = horizon_gaps
+
+    return results
 
 
 def format_2step_tensors(

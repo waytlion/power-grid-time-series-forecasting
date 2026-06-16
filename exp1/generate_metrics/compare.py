@@ -39,8 +39,12 @@ from metrics import (
 )
 
 
-def _build_predicted_scenario_map(forecasts_df: pd.DataFrame) -> dict[int, int]:
-    """Map predicted OPF flattened scenario indices to ground-truth scenario indices."""
+def _build_predicted_scenario_map(forecasts_df: pd.DataFrame) -> tuple[dict[int, int], dict[int, int]]:
+    """
+    Map predicted OPF flattened scenario indices to both:
+    1. Ground-truth scenario indices (target_load_scenario_idx)
+    2. Horizon steps (if present)
+    """
     if "horizon_step" in forecasts_df.columns:
         keys = (
             forecasts_df[["load_scenario_idx", "horizon_step"]]
@@ -61,15 +65,14 @@ def _build_predicted_scenario_map(forecasts_df: pd.DataFrame) -> dict[int, int]:
         keys["target_load_scenario_idx"] = (
             keys["load_scenario_idx"] + keys["horizon_step"]
         ).astype(int)
-        return dict(
-            zip(
-                keys["pred_flat_idx"].tolist(),
-                keys["target_load_scenario_idx"].tolist(),
-            )
-        )
+        
+        target_map = dict(zip(keys["pred_flat_idx"].tolist(), keys["target_load_scenario_idx"].tolist()))
+        horizon_map = dict(zip(keys["pred_flat_idx"].tolist(), keys["horizon_step"].tolist()))
+        return target_map, horizon_map
 
     forecast_scenarios = sorted(pd.to_numeric(forecasts_df["load_scenario_idx"], errors="raise").astype(int).unique())
-    return dict(enumerate(forecast_scenarios))
+    target_map = dict(enumerate(forecast_scenarios))
+    return target_map, {}
 
 
 def compare_single_method(
@@ -81,6 +84,7 @@ def compare_single_method(
     dataset: str,
     pred_scenario_map: dict[int, int],
     true_branch: pd.DataFrame,
+    pred_horizon_map: dict[int, int] = None,
 ) -> dict:
     """
     Run complete comparison for a single forecast method.
@@ -123,6 +127,11 @@ def compare_single_method(
     # Preserve original flattened indices for graph contiguity
     pred_bus["pred_flat_idx"] = pred_bus["load_scenario_idx"].copy()
     pred_gen["pred_flat_idx"] = pred_gen["load_scenario_idx"].copy()
+
+    # Attach horizon steps if map provided
+    if pred_horizon_map:
+        pred_bus["horizon_step"] = pred_bus["pred_flat_idx"].map(pred_horizon_map)
+        pred_gen["horizon_step"] = pred_gen["pred_flat_idx"].map(pred_horizon_map)
 
     # Remap predicted OPF scenario indices (0-based) to match ground-truth indices
     pred_bus["load_scenario_idx"] = pred_bus["load_scenario_idx"].map(pred_scenario_map)
@@ -198,7 +207,7 @@ def compare_single_method(
     print(f"  Saved metrics: {metrics_path}")
     
     # Return summary for aggregation
-    return {
+    res = {
         "method": method,
         "mae_pd": mae_pd,
         "rmse_pd": rmse_pd,
@@ -211,6 +220,9 @@ def compare_single_method(
         "mean_branch_thermal_violation_to_mva": float("nan"),
         "mean_branch_angle_difference_violation_rad": float("nan"),
     }
+    if "horizon_gaps" in cost_metrics:
+        res["horizon_gaps"] = cost_metrics["horizon_gaps"]
+    return res
 
 
 def generate_comparison_summary(summaries: list, output_dir: Path, dataset: str):
@@ -312,25 +324,25 @@ def main():
     if not available_methods:
         raise ValueError("None of the requested forecast methods are present in forecasts parquet")
 
-    pred_scenario_map = _build_predicted_scenario_map(forecasts_df)
+    # Update scenario and horizon mapping
+    pred_scenario_map, pred_horizon_map = _build_predicted_scenario_map(forecasts_df)
 
     # 0. Load ground truth branch data (static topology) once
     print("Loading static branch topology...")
     true_branch = load_datakit_branch(args.ground_truth_dir)
 
-    # Save combined forecast metrics table (all selected methods)
+    # Prepare combined forecast metrics table (all selected methods)
+    # We will finalize and save it AFTER metrics are collected for the OPF gap.
     forecast_table = compute_forecast_metrics_table(
         forecasts_df=forecasts_df,
         methods=available_methods,
         seasonality=args.forecast_seasonality,
     )
-    forecast_table_path = args.output_dir / OUTPUT_TEMPLATES["forecast"].format(dataset=args.dataset)
-    args.output_dir.mkdir(parents=True, exist_ok=True)
-    forecast_table.to_csv(forecast_table_path, index=False)
-    print(f"Saved forecast metrics table: {forecast_table_path}")
     
     # Process each method
     summaries = []
+    horizon_gap_column = "Opt. Gap (%)"
+
     for method in available_methods:
         predicted_opf_dir = args.predicted_opf_base_dir / method / args.dataset / "raw"
         
@@ -348,12 +360,37 @@ def main():
                 dataset=args.dataset,
                 pred_scenario_map=pred_scenario_map,
                 true_branch=true_branch,
+                pred_horizon_map=pred_horizon_map,
             )
             summaries.append(summary)
+
+            # If optimality gap is present, update the forecast_table
+            if "horizon_gaps" in summary:
+                # Add overall global gap
+                forecast_table.loc[
+                    (forecast_table["Model"] == method) & (forecast_table["Horizon"] == "GLOBAL"), 
+                    horizon_gap_column
+                ] = summary["mean_optimality_gap_pct"]
+
+                # Add per-horizon gaps
+                min_h = min(pred_horizon_map.values()) if pred_horizon_map else 0
+                for h_step, gap_val in summary["horizon_gaps"].items():
+                    h_label = f"t+{h_step + 1}" if min_h == 0 else f"t+{h_step}"
+                    forecast_table.loc[
+                        (forecast_table["Model"] == method) & (forecast_table["Horizon"] == h_label), 
+                        horizon_gap_column
+                    ] = gap_val
+
         except Exception as e:
             print(f"\nERROR processing {method}: {e}")
             raise
     
+    # Save the updated forecast table
+    forecast_table_path = args.output_dir / OUTPUT_TEMPLATES["forecast"].format(dataset=args.dataset)
+    args.output_dir.mkdir(parents=True, exist_ok=True)
+    forecast_table.to_csv(forecast_table_path, index=False)
+    print(f"Saved forecast metrics table with optimality gaps: {forecast_table_path}")
+
     # Generate comparison summary
     if summaries:
         generate_comparison_summary(summaries, args.output_dir, args.dataset)
