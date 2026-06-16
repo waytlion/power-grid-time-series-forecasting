@@ -176,9 +176,11 @@ def get_scaling_factors(full_data, train_idx, scaler, m=24):
     return denom_mae, denom_mse
 
 def run_evaluation(full_data, test_idx, xgb, tgt, sarima, mask, scaler, cfg, device='cpu'):
-    results = {"true": [], "xgb": [], "snaive": [], "sarima": []}
+    results = {"true": [], "xgb": [], "snaive": []}
     if tgt is not None:
         results["tgt"] = []
+    if sarima is not None:
+        results["sarima"] = []
     
     T, N, F = full_data.shape
     win, hor = cfg["INPUT_WINDOW"], cfg["FORECAST_HORIZON"]
@@ -202,18 +204,20 @@ def run_evaluation(full_data, test_idx, xgb, tgt, sarima, mask, scaler, cfg, dev
         n_jobs = 1
     n_jobs = min(n_jobs, N)
 
-    # --- 1.  PARALLEL SARIMA INFERENCE ---
-    LOGGER.info("Parallelizing SARIMA inference across %s buses with %s threads", N, n_jobs)
-    sarima_results = Parallel(n_jobs=n_jobs, backend="threading", prefer="threads", verbose=10)(
-        delayed(_infer_single_bus)(
-            b, starts, full_data, win, hor, sarima, sigma, mu
-        ) for b in range(N)
-    )
-    
-    # Reconstruct SARIMA predictions matrix: Shape (len(starts), N, horizon)
-    sarima_all_preds = np.zeros((len(starts), N, hor))
-    for b, preds in sarima_results:
-        sarima_all_preds[:, b, :] = preds
+    sarima_all_preds = None
+    if sarima is not None:
+        # --- 1.  PARALLEL SARIMA INFERENCE ---
+        LOGGER.info("Parallelizing SARIMA inference across %s buses with %s threads", N, n_jobs)
+        sarima_results = Parallel(n_jobs=n_jobs, backend="threading", prefer="threads", verbose=10)(
+            delayed(_infer_single_bus)(
+                b, starts, full_data, win, hor, sarima, sigma, mu
+            ) for b in range(N)
+        )
+
+        # Reconstruct SARIMA predictions matrix: Shape (len(starts), N, horizon)
+        sarima_all_preds = np.zeros((len(starts), N, hor))
+        for b, preds in sarima_results:
+            sarima_all_preds[:, b, :] = preds
 
     # --- 2. THE LIGHTNING FAST XGB/TGT INFERENCE LOOP ---
     LOGGER.info("Running XGBoost and PyTorch inference")
@@ -237,8 +241,9 @@ def run_evaluation(full_data, test_idx, xgb, tgt, sarima, mask, scaler, cfg, dev
         lag = cfg["SNAIVE_LAG"]
         pred_naive = full_data[t-lag : t-lag+hor, :, 0].T
         
-        # Grab the pre-calculated SARIMA prediction for this timestep!
-        pred_sarima = sarima_all_preds[idx]
+        if sarima is not None:
+            # Grab the pre-calculated SARIMA prediction for this timestep!
+            pred_sarima = sarima_all_preds[idx]
         
         if tgt is not None:
             with torch.no_grad():
@@ -255,7 +260,8 @@ def run_evaluation(full_data, test_idx, xgb, tgt, sarima, mask, scaler, cfg, dev
         
         results["xgb"].append((pred_xgb[:, s:e] * sigma) + mu)
         results["snaive"].append((pred_naive[:, s:e] * sigma) + mu)
-        results["sarima"].append(pred_sarima[:, s:e])
+        if sarima is not None:
+            results["sarima"].append(pred_sarima[:, s:e])
         results["true"].append((Y_true[:, s:e] * sigma) + mu)
         if tgt is not None:
             results["tgt"].append((pred_tgt[:, s:e] * sigma) + mu)
@@ -264,11 +270,12 @@ def run_evaluation(full_data, test_idx, xgb, tgt, sarima, mask, scaler, cfg, dev
     final_results = {k: np.array(v) for k, v in results.items()}
     
     # Find any NaNs from exploding SARIMA math and replace with SNAIVE
-    sarima_nans = np.isnan(final_results["sarima"])
-    num_failures = np.sum(sarima_nans)
-    if num_failures > 0:
-        LOGGER.warning("SARIMA inference failed on %s timesteps. Applying SNAIVE fallback.", num_failures)
-        final_results["sarima"][sarima_nans] = final_results["snaive"][sarima_nans]
+    if "sarima" in final_results:
+        sarima_nans = np.isnan(final_results["sarima"])
+        num_failures = np.sum(sarima_nans)
+        if num_failures > 0:
+            LOGGER.warning("SARIMA inference failed on %s timesteps. Applying SNAIVE fallback.", num_failures)
+            final_results["sarima"][sarima_nans] = final_results["snaive"][sarima_nans]
 
     return final_results, starts
 

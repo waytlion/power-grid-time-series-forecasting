@@ -13,6 +13,13 @@ import torch.optim as optim
 import xgboost as xgb
 from sklearn.multioutput import MultiOutputRegressor
 from torch.utils.data import DataLoader
+import optuna
+from sklearn.metrics import mean_squared_error
+
+try:
+    import cupy as cp
+except ImportError:
+    cp = None
 
 SCRIPT_DIR = Path(__file__).resolve().parent
 sys.path.insert(0, str(SCRIPT_DIR))
@@ -47,6 +54,12 @@ CONFIG = {
 LOGGER = logging.getLogger(__name__)
 
 
+def as_xgb_input(array, device: str):
+    if device == "cuda" and cp is not None:
+        return cp.asarray(array)
+    return array
+
+
 def set_seed(seed: int) -> None:
     random.seed(seed)
     np.random.seed(seed)
@@ -67,6 +80,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--output-path", default="benchmark_results.parquet")
     parser.add_argument("--seed", type=int, default=None)
     parser.add_argument("--skip-tgt", action="store_true", help="Skip TinyTGT training")
+    parser.add_argument("--skip-sarima", action="store_true", help="Skip SARIMA training and evaluation")
     parser.add_argument("--n-jobs", type=int, default=1, help="Number of jobs for XGBoost")
     parser.add_argument(
         "--sarima-fit-hours",
@@ -77,6 +91,41 @@ def parse_args() -> argparse.Namespace:
     )
     return parser.parse_args()
 
+
+
+def run_xgb_hyperparam_opt(X_train, Y_train, X_val, Y_val, xgb_device, seed, n_jobs=1):    
+    fixed_params = {
+        "objective": "reg:squarederror",
+        "device": xgb_device,
+        "tree_method": "hist",
+        "random_state": seed,
+        "n_jobs": n_jobs
+    }
+    def objective(trial):
+        tunable_params = {
+            "n_estimators": trial.suggest_int("n_estimators", 100, 400, step=50),
+            "max_depth": trial.suggest_int("max_depth", 3, 7),
+            "learning_rate": trial.suggest_float("learning_rate", 0.02, 0.1, log=True),
+            "subsample": trial.suggest_float("subsample", 0.7, 1.0),
+            "colsample_bytree": trial.suggest_float("colsample_bytree", 0.7, 1.0),
+            "reg_lambda": trial.suggest_float("reg_lambda", 1e-2, 5.0, log=True),
+        }
+        full_params = {**fixed_params, **tunable_params}
+        xgb_estimator = xgb.XGBRegressor(**full_params)
+        model = MultiOutputRegressor(xgb_estimator, n_jobs=-1)
+        X_val_eval = as_xgb_input(X_val, xgb_device)
+        
+        model.fit(X_train, Y_train)
+        preds = model.predict(X_val_eval)
+        
+        rmse = np.sqrt(mean_squared_error(Y_val, preds))
+        return rmse
+
+    study = optuna.create_study(direction="minimize")
+    study.optimize(objective, n_trials=20)
+    
+    LOGGER.info("Optuna opt complete. Best val RMSE: %.6f", study.best_value)
+    return {**fixed_params, **study.best_params}
 
 def main() -> None:
     logging.basicConfig(level=logging.INFO, format="%(asctime)s | %(levelname)s | %(message)s")
@@ -207,28 +256,36 @@ def main() -> None:
         step_size=1,
     )
     LOGGER.info("XGB training data shape=%s", X_train_xgb.shape)
-
-    xgb_estimator = xgb.XGBRegressor(
-        n_estimators=500,
-        learning_rate=0.05,
-        max_depth=7,
-        subsample=0.8,              # Randomly sample 80% of data per tree (prevents overfitting)
-        colsample_bytree=0.8,       # Randomly sample 80% of features per tree
-        objective="reg:squarederror",
-        device=xgb_device,
-        tree_method="hist",
-        n_jobs=args.n_jobs,
-        random_state=args.seed,
+    X_val_xgb, Y_val_xgb = prepare_xgb_data(
+        scaled_tensor,
+        val_idx,
+        config["INPUT_WINDOW"],
+        config["FORECAST_HORIZON"],
+        step_size=1,
     )
 
+    # HPO on static train/val split (same split as 1-step model)
+    best_params = run_xgb_hyperparam_opt(
+        X_train_xgb, Y_train_xgb, 
+        X_val_xgb, Y_val_xgb, 
+        xgb_device=xgb_device, seed=args.seed, n_jobs=args.n_jobs
+    )
+
+    # Free VRAM / RAM
+    del X_val_xgb
+    del Y_val_xgb
+    gc.collect()
+
+    # Train final model using the tuned parameters
+    xgb_estimator = xgb.XGBRegressor(**best_params)
     xgb_model = MultiOutputRegressor(xgb_estimator, n_jobs=1)
 
-    LOGGER.info("Training global XGBoost model")
+    LOGGER.info("Training XGBoost model with HPO params...")
     xgb_model.fit(X_train_xgb, Y_train_xgb)
+
     LOGGER.info("XGBoost training complete")
     del X_train_xgb
     del Y_train_xgb
-    import gc
     gc.collect()
     torch.cuda.empty_cache()
 
@@ -280,14 +337,18 @@ def main() -> None:
     else:
         LOGGER.info("Skipping TinyTGT training (--skip-tgt flag set)")
 
-    sarima_model = GlobalFitLocalApplySARIMA(order=(2, 0, 0), seasonal_order=(1, 0, 1, 24), n_jobs=args.n_jobs)
-    sarima_fit_hours = args.sarima_fit_hours if args.sarima_fit_hours > 0 else None
-    LOGGER.info(
-        "SARIMA fit window: %s hours (%s)",
-        sarima_fit_hours,
-        f"{sarima_fit_hours / 8760:.1f} years" if sarima_fit_hours else "ALL training data",
-    )
-    sarima_model.fit(scaled_tensor.astype(np.float32), train_idx, max_fit_hours=sarima_fit_hours)
+    sarima_model = None
+    if not args.skip_sarima:
+        sarima_model = GlobalFitLocalApplySARIMA(order=(2, 0, 0), seasonal_order=(1, 0, 1, 24), n_jobs=args.n_jobs)
+        sarima_fit_hours = args.sarima_fit_hours if args.sarima_fit_hours > 0 else None
+        LOGGER.info(
+            "SARIMA fit window: %s hours (%s)",
+            sarima_fit_hours,
+            f"{sarima_fit_hours / 8760:.1f} years" if sarima_fit_hours else "ALL training data",
+        )
+        sarima_model.fit(scaled_tensor.astype(np.float32), train_idx, max_fit_hours=sarima_fit_hours)
+    else:
+        LOGGER.info("Skipping SARIMA training (--skip-sarima flag set)")
 
     denom_mae, denom_mse = get_scaling_factors(scaled_tensor, train_idx, scaler, m=24)
     LOGGER.info("Scaling baseline (train): MAE=%.4f, MSE=%.4f", denom_mae, denom_mse)
@@ -323,7 +384,8 @@ def main() -> None:
                 }
                 if "tgt" in results:
                     row["tgt"] = results["tgt"][eval_idx, bus_id, h]
-                row["sarima"] = results["sarima"][eval_idx, bus_id, h]
+                if "sarima" in results:
+                    row["sarima"] = results["sarima"][eval_idx, bus_id, h]
                 data_list.append(row)
 
     df_results = pd.DataFrame(data_list)
