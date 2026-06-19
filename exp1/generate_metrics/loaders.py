@@ -6,7 +6,11 @@ import pandas as pd
 from pathlib import Path
 from typing import Tuple, Dict
 import config 
-from config import PARQUET_FILES, FORECAST_METHODS, FORECASTS_PARQUET, BUS_COLUMNS, GEN_COLUMNS
+from config import (
+    PARQUET_FILES, FORECAST_METHODS, FORECASTS_PARQUET,
+    BUS_COLUMNS, GEN_COLUMNS,
+    DC_BUS_COLUMNS, DC_GEN_COLUMNS, DC_BRANCH_COLUMNS,
+)
 
 
 def load_forecasts(forecasts_parquet: Path = FORECASTS_PARQUET) -> pd.DataFrame:
@@ -38,7 +42,12 @@ def load_datakit_bus(parquet_dir: Path) -> pd.DataFrame:
     if missing_cols:
         raise ValueError(f"Missing columns in bus_data.parquet: {missing_cols}")
     
-    return df
+    keep = [
+        "load_scenario_idx", "bus", "Pd", "Qd", "Pg", "Qg", "Vm", "Va", 
+        "PQ", "PV", "REF", "min_vm_pu", "max_vm_pu", "GS", "BS", "Va_dc", "Pg_dc"
+    ]
+    existing = [c for c in keep if c in df.columns]
+    return df[existing].copy()
 
 
 def load_datakit_gen(parquet_dir: Path) -> pd.DataFrame:
@@ -51,14 +60,32 @@ def load_datakit_gen(parquet_dir: Path) -> pd.DataFrame:
     if missing_cols:
         raise ValueError(f"Missing columns in gen_data.parquet: {missing_cols}")
     
-    return df
+    keep = [
+        "load_scenario_idx", "idx", "bus", "p_mw", "q_mvar", "min_p_mw", "max_p_mw", 
+        "cp0_eur", "cp1_eur_per_mw", "cp2_eur_per_mw2", "p_mw_dc"
+    ]
+    existing = [c for c in keep if c in df.columns]
+    return df[existing].copy()
 
 
 def load_datakit_branch(parquet_dir: Path) -> pd.DataFrame:
     """Load branch topology data from datakit parquet output."""
     path = parquet_dir / PARQUET_FILES["branch"]
     df = pd.read_parquet(path)
-    return df
+    keep = [
+        "load_scenario_idx", "idx", "from_bus", "to_bus", "pf", "qf", "pt", "qt", 
+        "Yff_r", "Yff_i", "Yft_r", "Yft_i", "Ytf_r", "Ytf_i", "Ytt_r", "Ytt_i", 
+        "ang_min", "ang_max", "rate_a", "pf_dc", "pt_dc"
+    ]
+    existing = [c for c in keep if c in df.columns]
+    return df[existing].copy()
+
+
+def has_dc_columns(bus_df: pd.DataFrame, gen_df: pd.DataFrame) -> bool:
+    """Check whether datakit output contains DC-OPF result columns."""
+    bus_has_dc = all(col in bus_df.columns for col in DC_BUS_COLUMNS)
+    gen_has_dc = all(col in gen_df.columns for col in DC_GEN_COLUMNS)
+    return bus_has_dc and gen_has_dc
 
 
 def prepare_load_forecast_comparison(
@@ -122,3 +149,24 @@ def align_opf_results(
         )
     
     return bus_merged, gen_merged
+
+
+def align_branch_results(
+    pred_branch: pd.DataFrame,
+    true_branch: pd.DataFrame,
+) -> pd.DataFrame:
+    """
+    Align predicted and ground-truth branch data.
+
+    Returns:
+        branch_merged with _pred and _true suffixes.
+        DC columns (pf_dc, pt_dc) from pred are kept without suffix.
+    """
+    branch_merged = pred_branch.merge(
+        true_branch,
+        on=["load_scenario_idx", "idx"],
+        how="inner",
+        suffixes=("_pred", "_true"),
+    )
+    return branch_merged
+

@@ -3,12 +3,17 @@
 #SBATCH --partition=barnard
 #SBATCH --nodes=1 --exclusive
 #SBATCH --cpus-per-task=26
-#SBATCH --mem=300G
+#SBATCH --mem=500G
 #SBATCH --time=12:00:00
 #SBATCH --output=logs/phase1c_eval_case118_h24%j.out
 #SBATCH --error=logs/phase1c_eval_case118_h24%j.err
 
 set -euo pipefail
+
+# Some module files reference LD_PRELOAD under `set -u`; define it so the
+# environment setup does not fail before the job reaches Python.
+export LD_PRELOAD="${LD_PRELOAD-}"
+export LD_LIBRARY_PATH="${LD_LIBRARY_PATH-}"
 
 # --- Configuration ---
 CASE="case118"
@@ -25,8 +30,12 @@ GROUND_TRUTH_DIR="/data/horse/ws/tibo990i-thesis_data/2019-2021/phase_1a/data_ou
 FINAL_RESULTS_DIR="exp1/results/${CASE_DIR}_horizon${HORIZON}_3yr_HPO_xgb"
 # ---------------------
 
-module purge
-module load GCC/14.2.0
+
+set +u
+module --force purge
+module load release/2026 GCC/14.2.0
+set -u
+
 # 1. Prevent the Julia-Python bridge from checking/resolving dependencies
 export PYTHON_JULIAPKG_OFFLINE=yes
 # 2. Prevent Julia from attempting to precompile code during execution

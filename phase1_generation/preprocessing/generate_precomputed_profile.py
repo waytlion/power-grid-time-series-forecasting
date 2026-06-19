@@ -9,6 +9,9 @@ Requirements:
     pip install -e <path-to-gridfm-datakit-fork>   # for grid file lookup
 """
 
+import numpy as np
+np.Inf = np.inf
+
 import os
 from importlib import resources
 from pathlib import Path
@@ -21,15 +24,15 @@ from matpowercaseframes import CaseFrames
 
 
 # --- 1. Configuration ---
-CASE_NAME = "case118"  # Options: case14, case30, case57, case118, case300, case500_goc, case2383, case2746wp, etc.
-LOAD_PROFILE_PATH = "/data/horse/ws/tibo990i-thesis_data/2002-2023/phase_1a/data_in/df_load_bus_2002-2025.parquet"
+CASE_NAME = "case500_goc"  # Options: case14, case30, case57, case118, case300, case500_goc, case2383, case2746wp, etc.
+LOAD_PROFILE_PATH = "/data/horse/ws/tibo990i-thesis_data/2019-2021/phase_1a/data_in/df_load_bus_2019-2021.parquet"
 OUTPUT_DIR = Path(__file__).resolve().parent  # Output alongside this script
-OUTPUT_FILE = OUTPUT_DIR / f"{CASE_NAME.strip()}_21yr_precomputed_load_profiles.csv"
+OUTPUT_FILE = OUTPUT_DIR / f"{CASE_NAME.strip()}_3yr_precomputed_load_profiles.csv"
 RANDOM_SEED = 42
 
 
 def get_ieee_base_loads(case_name: str) -> pd.DataFrame:
-    """Return base P (MW) and Q (MVar) for all buses of the selected case."""
+    """returns  P(MW) and Q(MVar) for all buses of the selected case"""
     t0 = perf_counter()
     normalized_case = case_name.strip()
     if normalized_case.endswith(("_ieee", "_goc", "_api", "_sad")):
@@ -40,7 +43,7 @@ def get_ieee_base_loads(case_name: str) -> pd.DataFrame:
 
     pglib_path = Path(str(resources.files("gridfm_datakit.grids").joinpath(filename)))
 
-    # Download once if missing, then parse directly with CaseFrames (no Julia dependency).
+    # Download case once if missing, then parse directly with CaseFrames (no Julia dependency).
     if not pglib_path.is_file():
         url = f"https://raw.githubusercontent.com/power-grid-lib/pglib-opf/master/{filename}"
         response = requests.get(url, timeout=30)

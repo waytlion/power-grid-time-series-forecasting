@@ -34,7 +34,7 @@ settings:
   large_chunk_size: 1000
   overwrite: true
   mode: "opf"
-  include_dc_res: false
+  include_dc_res: true
   enable_solver_logs: true
   pf_fast: true
   dcpf_fast: true

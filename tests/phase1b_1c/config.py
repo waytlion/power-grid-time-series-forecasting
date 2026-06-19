@@ -14,13 +14,13 @@ from pathlib import Path
 # Phase1a ground-truth OPF data for case14
 GROUND_TRUTH_DIR = Path(
     "/data/horse/ws/tibo990i-thesis_data"
-    "/3yr_2019-2021/phase_1a/data_out/case14_ieee/raw"
+    "/2019-2021/phase_1a/data_out/case14_ieee/raw"
 )
 
 # Phase1a raw load data (input to phase1b)
 DATA_PATH = Path(
     "/data/horse/ws/tibo990i-thesis_data"
-    "/3yr_2019-2021/phase_1a/data_out/case14_ieee/raw"
+    "/2019-2021/phase_1a/data_out/case14_ieee/raw"
 )
 
 DATAKIT_BASE_YAML = Path("exp1/configs/base_yaml_phase_1c.yaml")

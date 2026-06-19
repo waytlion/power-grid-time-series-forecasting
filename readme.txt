@@ -15,7 +15,7 @@
 1. Preprocess realistic load profiles into datakit format
         -> INPUT: 
                 - realistic load profiles .parquet (from Marcus)
-                - Cluster: /data/horse/ws/tibo990i-thesis_data/2002-2025/phase_1a/data_in/df_load_bus_2002-2025.parquet
+                - Cluster: "/data/horse/ws/tibo990i-thesis_data/2019-2021/phase_1a/data_in/df_load_bus_2019-2021.parquet"
                 - local: D:\Data\studium\Master\MA_Code\data\phase_1a\data_in
         -> EXECUTE:
                 - Cluster: python phase1_generation/preprocessing/generate_precomputed_profile.py

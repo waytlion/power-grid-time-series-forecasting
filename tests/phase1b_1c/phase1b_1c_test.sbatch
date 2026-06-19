@@ -10,8 +10,10 @@
 
 set -euo pipefail
 
+set +u
 module --force purge
 module load release/2026 GCC/14.2.0
+set -u
 
 # Julia / Python bridge settings (mirrors phase1c.sbatch)
 export PYTHON_JULIAPKG_OFFLINE=yes

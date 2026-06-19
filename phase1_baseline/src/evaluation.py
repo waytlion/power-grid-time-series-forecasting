@@ -1,4 +1,5 @@
 import logging
+import time
 import numpy as np
 import os
 import torch
@@ -177,6 +178,7 @@ def get_scaling_factors(full_data, train_idx, scaler, m=24):
 
 def run_evaluation(full_data, test_idx, xgb, tgt, sarima, mask, scaler, cfg, device='cpu'):
     results = {"true": [], "xgb": [], "snaive": []}
+    infer_times = {"xgb": 0.0, "snaive": 0.0, "tgt": 0.0, "sarima": 0.0}
     if tgt is not None:
         results["tgt"] = []
     if sarima is not None:
@@ -208,11 +210,13 @@ def run_evaluation(full_data, test_idx, xgb, tgt, sarima, mask, scaler, cfg, dev
     if sarima is not None:
         # --- 1.  PARALLEL SARIMA INFERENCE ---
         LOGGER.info("Parallelizing SARIMA inference across %s buses with %s threads", N, n_jobs)
+        t0_sarima = time.time()
         sarima_results = Parallel(n_jobs=n_jobs, backend="threading", prefer="threads", verbose=10)(
             delayed(_infer_single_bus)(
                 b, starts, full_data, win, hor, sarima, sigma, mu
             ) for b in range(N)
         )
+        infer_times["sarima"] += time.time() - t0_sarima
 
         # Reconstruct SARIMA predictions matrix: Shape (len(starts), N, horizon)
         sarima_all_preds = np.zeros((len(starts), N, hor))
@@ -236,18 +240,24 @@ def run_evaluation(full_data, test_idx, xgb, tgt, sarima, mask, scaler, cfg, dev
         X_tgt = torch.from_numpy(full_data[t-win:t]).unsqueeze(0).float().to(device)
 
         # Predict
+        t0_xgb = time.time()
         pred_xgb = xgb.predict(X_xgb)
+        infer_times["xgb"] += time.time() - t0_xgb
         
         lag = cfg["SNAIVE_LAG"]
+        t0_snaive = time.time()
         pred_naive = full_data[t-lag : t-lag+hor, :, 0].T
+        infer_times["snaive"] += time.time() - t0_snaive
         
         if sarima is not None:
             # Grab the pre-calculated SARIMA prediction for this timestep!
             pred_sarima = sarima_all_preds[idx]
         
         if tgt is not None:
+            t0_tgt = time.time()
             with torch.no_grad():
                 pred_tgt = tgt(X_tgt, mask).cpu().numpy().squeeze(0).T
+            infer_times["tgt"] += time.time() - t0_tgt
         else:
             pred_tgt = None
 
@@ -277,7 +287,7 @@ def run_evaluation(full_data, test_idx, xgb, tgt, sarima, mask, scaler, cfg, dev
             LOGGER.warning("SARIMA inference failed on %s timesteps. Applying SNAIVE fallback.", num_failures)
             final_results["sarima"][sarima_nans] = final_results["snaive"][sarima_nans]
 
-    return final_results, starts
+    return final_results, starts, infer_times
 
 def print_metrics(res, scale_mae, scale_mse):
     """calc RMSE, MAE, MAPE, MASE, MSSE."""

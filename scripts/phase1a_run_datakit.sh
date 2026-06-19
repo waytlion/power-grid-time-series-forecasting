@@ -16,6 +16,8 @@ VENV_PATH="$SLURM_SUBMIT_DIR/../thesis_env"
 CONFIG="phase1_generation/configs/phase1_config.yaml"
 # ---------------------
 
+start_time=$(date +%s)
+
 module purge
 module load GCC/14.2.0
 # 1. Prevent the Julia-Python bridge from checking/resolving dependencies
@@ -34,3 +36,9 @@ mkdir -p logs
 # Execute the datakit generation pipeline
 # NOTE: gridfm-datakit must be installed in the venv: pip install -e ../gridfm-datakit-fork
 srun python -m gridfm_datakit.cli generate $CONFIG
+
+end_time=$(date +%s)
+elapsed=$((end_time - start_time))
+elapsed_min=$((elapsed / 60))
+elapsed_sec=$((elapsed % 60))
+echo "Total job runtime: ${elapsed}s (${elapsed_min}m ${elapsed_sec}s)"

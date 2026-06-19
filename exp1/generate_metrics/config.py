@@ -12,13 +12,14 @@ FORECAST_SEASONALITY = 48
 # Forecast methods available in forecasts.parquet
 FORECAST_METHODS = ["xgb", "snaive", "tgt", "sarima"]
 
-# Parquet column names (single source of truth - uses parquet names directly)
-FORECAST_COLUMNS = ["load_scenario_idx", "bus_id", "true", "xgb", "snaive", "tgt", "sarima"]
 BUS_COLUMNS = ["load_scenario_idx", "bus", "Pd", "Qd", "Pg", "Qg", "Vm", "Va", "PQ", "PV", "REF"]
-GEN_COLUMNS = ["load_scenario_idx", "idx", "bus", "p_mw", "q_mvar", "cp0_eur", "cp1_eur_per_mw", "cp2_eur_per_mw2"]
+DC_BUS_COLUMNS = ["Va_dc", "Pg_dc"]
 
-# NOTE: Pg in bus_data.parquet is assumed to be pre-aggregated per bus. Verify with colleague if needed.
-# NOTE: All units assumed as-labeled (MW, MVar, p.u., rad, EUR). No conversion applied.
+GEN_COLUMNS = ["load_scenario_idx", "idx", "bus", "p_mw", "q_mvar", "cp0_eur", "cp1_eur_per_mw", "cp2_eur_per_mw2"]
+DC_GEN_COLUMNS = ["p_mw_dc"]
+
+BRANCH_COLUMNS = ["load_scenario_idx", "idx", "from_bus", "to_bus", "pf", "qf", "pt", "qt"]
+DC_BRANCH_COLUMNS = ["pf_dc", "pt_dc"]
 
 PARQUET_FILES = {
     "bus": "bus_data.parquet",
@@ -33,3 +34,4 @@ OUTPUT_TEMPLATES = {
     "metrics": "{dataset}_metrics.csv",
     "summary": "comparison_summary.csv",
 }
+
