@@ -3,6 +3,7 @@ import gc
 import logging
 import random
 import sys
+import time
 from pathlib import Path
 
 import numpy as np
@@ -78,6 +79,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--device", choices=["cuda", "cpu"], default=None)
     parser.add_argument("--xgb-device", choices=["cuda", "cpu"], default=None)
     parser.add_argument("--output-path", default="benchmark_results.parquet")
+    parser.add_argument("--timing-output", default="timing_results.csv", help="CSV path to append timing metrics")
     parser.add_argument("--seed", type=int, default=None)
     parser.add_argument("--skip-tgt", action="store_true", help="Skip TinyTGT training")
     parser.add_argument("--skip-sarima", action="store_true", help="Skip SARIMA training and evaluation")
@@ -130,6 +132,8 @@ def run_xgb_hyperparam_opt(X_train, Y_train, X_val, Y_val, xgb_device, seed, n_j
 def main() -> None:
     logging.basicConfig(level=logging.INFO, format="%(asctime)s | %(levelname)s | %(message)s")
     args = parse_args()
+    
+    train_times = {"xgb": 0.0, "tgt": 0.0, "sarima": 0.0}
 
     config = CONFIG.copy()
     if args.data_path is not None:
@@ -265,6 +269,7 @@ def main() -> None:
     )
 
     # HPO on static train/val split (same split as 1-step model)
+    t0_xgb = time.time()
     best_params = run_xgb_hyperparam_opt(
         X_train_xgb, Y_train_xgb, 
         X_val_xgb, Y_val_xgb, 
@@ -282,6 +287,7 @@ def main() -> None:
 
     LOGGER.info("Training XGBoost model with HPO params...")
     xgb_model.fit(X_train_xgb, Y_train_xgb)
+    train_times["xgb"] = time.time() - t0_xgb
 
     LOGGER.info("XGBoost training complete")
     del X_train_xgb
@@ -301,6 +307,7 @@ def main() -> None:
         opt = optim.Adam(tgt_model.parameters(), lr=1e-3)
         loss_fn = nn.MSELoss()
 
+        t0_tgt = time.time()
         for ep in range(1, config["EPOCHS"] + 1):
             tgt_model.train()
             train_loss, batch_count = 0.0, 0
@@ -334,6 +341,7 @@ def main() -> None:
                 train_loss / batch_count,
                 val_loss / val_batches,
             )
+        train_times["tgt"] = time.time() - t0_tgt
     else:
         LOGGER.info("Skipping TinyTGT training (--skip-tgt flag set)")
 
@@ -346,14 +354,16 @@ def main() -> None:
             sarima_fit_hours,
             f"{sarima_fit_hours / 8760:.1f} years" if sarima_fit_hours else "ALL training data",
         )
+        t0_sarima = time.time()
         sarima_model.fit(scaled_tensor.astype(np.float32), train_idx, max_fit_hours=sarima_fit_hours)
+        train_times["sarima"] = time.time() - t0_sarima
     else:
         LOGGER.info("Skipping SARIMA training (--skip-sarima flag set)")
 
     denom_mae, denom_mse = get_scaling_factors(scaled_tensor, train_idx, scaler, m=24)
     LOGGER.info("Scaling baseline (train): MAE=%.4f, MSE=%.4f", denom_mae, denom_mse)
 
-    results, starts = run_evaluation(
+    results, starts, infer_times = run_evaluation(
         scaled_tensor,
         test_idx,
         xgb_model,
@@ -395,6 +405,50 @@ def main() -> None:
     LOGGER.info("Preview:\n%s", df_results.head().to_string(index=False))
 
     print_metrics(results, denom_mae, denom_mse)
+
+    # --- SAVE TIMING RESULTS ---
+    case_name = resolved_data_path.parent.name
+    horizon = config["FORECAST_HORIZON"]
+    n_buses = bus_df["bus"].nunique()
+    
+    train_timesteps = len(train_idx)
+    val_timesteps = len(val_idx)
+    test_timesteps = len(starts)
+    
+    n_train_samples = train_timesteps * n_buses
+    n_infer_samples = test_timesteps * n_buses
+    
+    timing_data = {
+        "case": [case_name],
+        "forecast_horizon": [horizon],
+        "n_buses": [n_buses],
+        "train_timesteps": [train_timesteps],
+        "val_timesteps": [val_timesteps],
+        "test_timesteps": [test_timesteps],
+        "xgb_train_time": [train_times["xgb"]],
+        "tgt_train_time": [train_times["tgt"]],
+        "sarima_train_time": [train_times["sarima"]],
+        "xgb_infer_time": [infer_times["xgb"]],
+        "tgt_infer_time": [infer_times["tgt"]],
+        "sarima_infer_time": [infer_times["sarima"]],
+        "xgb_amortized_train": [train_times["xgb"] / n_train_samples if n_train_samples > 0 else 0],
+        "tgt_amortized_train": [train_times["tgt"] / n_train_samples if n_train_samples > 0 else 0],
+        "sarima_amortized_train": [train_times["sarima"] / n_train_samples if n_train_samples > 0 else 0],
+        "xgb_amortized_infer": [infer_times["xgb"] / n_infer_samples if n_infer_samples > 0 else 0],
+        "tgt_amortized_infer": [infer_times["tgt"] / n_infer_samples if n_infer_samples > 0 else 0],
+        "sarima_amortized_infer": [infer_times["sarima"] / n_infer_samples if n_infer_samples > 0 else 0],
+    }
+    
+    df_timing = pd.DataFrame(timing_data)
+    timing_output = Path(args.timing_output).resolve()
+    timing_output.parent.mkdir(parents=True, exist_ok=True)
+    
+    if timing_output.exists():
+        df_timing.to_csv(timing_output, mode='a', header=False, index=False)
+    else:
+        df_timing.to_csv(timing_output, mode='w', header=True, index=False)
+        
+    LOGGER.info("Timing results appended to %s", timing_output)
 
     gc.collect()
 
