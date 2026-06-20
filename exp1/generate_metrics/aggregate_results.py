@@ -107,6 +107,29 @@ def _normalize_metric(name):
     return _METRIC_ALIASES.get(name, name)
 
 
+def collect_datakit_timing(datakit_out_dir, network, case, horizon):
+    """Datakit solve time per scenario from runtime_data.parquet (col 'ac' = AC solve s).
+
+    Layout: <datakit_out_dir>/<model>/<network>/raw/runtime_data.parquet. approach=exact.
+    This is the exact arm's 'inference time' (== solve time), comparable to the
+    surrogate's forward-pass infer_time_per_sample_s.
+    """
+    rows = []
+    for rd in glob(os.path.join(datakit_out_dir, "*", network, "raw", "runtime_data.parquet")):
+        model = Path(rd).parents[2].name
+        df = pd.read_parquet(rd)
+        if "ac" not in df.columns:
+            continue
+        vals = df["ac"].dropna()
+        if not len(vals):
+            continue
+        base = {"approach": "exact", "case": case, "horizon": str(horizon),
+                "model": model, "seed": None, "split": None}
+        rows.append({**base, "metric": "infer_time_per_sample_s", "value": float(vals.mean())})
+        rows.append({**base, "metric": "infer_time_total_s", "value": float(vals.sum())})
+    return pd.DataFrame(rows)
+
+
 def reduce_over_seed(tidy):
     """mean ± std over seed for ML arms; pass-through for exact (seed is NaN)."""
     keys = ["approach", "case", "horizon", "model", "metric"]
@@ -123,12 +146,17 @@ def main(argv=None):
     p.add_argument("--horizon", required=True)
     p.add_argument("--compare-results-dir", type=Path, default=None,
                    help="exp1/results/<...> dir with datakit compare.py CSVs (optional)")
+    p.add_argument("--datakit-out-dir", type=Path, default=None,
+                   help="datakit OPF output base (<dir>/<model>/<network>/raw/) for solve-time (optional)")
+    p.add_argument("--network", default=None, help="network name for datakit timing, e.g. case118_ieee")
     p.add_argument("--out", type=Path, required=True, help="output tidy CSV")
     args = p.parse_args(argv)
 
     frames = [collect_mlflow(str(args.mlruns_dir))]
     if args.compare_results_dir is not None and args.compare_results_dir.exists():
         frames.append(collect_compare_csvs(str(args.compare_results_dir), args.case, args.horizon))
+    if args.datakit_out_dir is not None and args.network and args.datakit_out_dir.exists():
+        frames.append(collect_datakit_timing(str(args.datakit_out_dir), args.network, args.case, args.horizon))
     tidy = pd.concat([f for f in frames if not f.empty], ignore_index=True)
 
     # restrict to this case/horizon for the comparison
