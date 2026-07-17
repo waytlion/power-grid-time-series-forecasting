@@ -6,8 +6,8 @@
 #SBATCH --nodes=1
 #SBATCH --mem=350G               
 #SBATCH --time=26:00:00
-#SBATCH --output=logs/case500_goc_horizon24%j.out
-#SBATCH --error=logs/case500_goc_horizon24%j.err
+#SBATCH --output=logs/case500_goc_horizon6%j.out
+#SBATCH --error=logs/case500_goc_horizon6%j.err
 
 set -euo pipefail
 

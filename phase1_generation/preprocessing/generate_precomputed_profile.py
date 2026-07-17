@@ -28,7 +28,8 @@ CASE_NAME = "case500_goc"  # Options: case14, case30, case57, case118, case300, 
 LOAD_PROFILE_PATH = "/data/horse/ws/tibo990i-thesis_data/2019-2021/phase_1a/data_in/df_load_bus_2019-2021.parquet"
 OUTPUT_DIR = Path(__file__).resolve().parent  # Output alongside this script
 OUTPUT_FILE = OUTPUT_DIR / f"{CASE_NAME.strip()}_3yr_precomputed_load_profiles.csv"
-RANDOM_SEED = 42
+RANDOM_SEED = 1
+SCALE = 0.5
 
 
 def get_ieee_base_loads(case_name: str) -> pd.DataFrame:
@@ -121,8 +122,8 @@ def main() -> None:
 
     p_mat = np.zeros((n_scenarios, n_buses_case))
     q_mat = np.zeros((n_scenarios, n_buses_case))
-    p_mat[:, load_mask] = norm_profiles * ieee.loc[load_mask, "P_base"].values
-    q_mat[:, load_mask] = norm_profiles * ieee.loc[load_mask, "Q_base"].values
+    p_mat[:, load_mask] = norm_profiles * ieee.loc[load_mask, "P_base"].values * SCALE
+    q_mat[:, load_mask] = norm_profiles * ieee.loc[load_mask, "Q_base"].values * SCALE
 
     out_df = pd.DataFrame(
         {

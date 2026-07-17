@@ -16,9 +16,9 @@ export LD_PRELOAD="${LD_PRELOAD-}"
 export LD_LIBRARY_PATH="${LD_LIBRARY_PATH-}"
 
 # --- Configuration ---
-CASE="case118"
+CASE_DIR="case500_goc"
+#CASE_DIR="case118_ieee"
 HORIZON="24"
-CASE_DIR="${CASE}_ieee"
 
 VENV_PATH="$SLURM_SUBMIT_DIR/../thesis_env"
 #DATA_IN_PARQUET="phase1_baseline/output/2019-2021/${CASE_DIR}_horizon${HORIZON}.parquet"

@@ -19,7 +19,7 @@ VENV_PATH="$SLURM_SUBMIT_DIR/../thesis_env"
 DATA_IN_PARQUET="phase1_baseline/output/2019-2021/case118_ieee_horizon24_HPO_xgb.parquet"
 OPF_OUT_DIR="/data/horse/ws/tibo990i-thesis_data/2019-2021/phase_1c/data_out/${CASE_DIR}_horizon_${HORIZON}_3yr_HPO_xgb"
 GROUND_TRUTH_DIR="/data/horse/ws/tibo990i-thesis_data/2019-2021/phase_1a/data_out/${CASE_DIR}/raw"
-FINAL_RESULTS_DIR="exp1/results/${CASE_DIR}_horizon${HORIZON}_3yr_HPO_xgb"
+FINAL_RESULTS_DIR="exp1/results/${CASE_DIR}_horizon${HORIZON}_3yr_HPO_xgb_fixed"
 # ---------------------
 
 module purge

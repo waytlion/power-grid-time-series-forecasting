@@ -18,8 +18,11 @@ CONFIG="phase1_generation/configs/phase1_config.yaml"
 
 start_time=$(date +%s)
 
-module purge
-module load GCC/14.2.0
+
+set +u
+module --force purge
+module load release/2026 GCC/14.2.0
+set -u
 # 1. Prevent the Julia-Python bridge from checking/resolving dependencies
 export PYTHON_JULIAPKG_OFFLINE=yes
 # 2. Prevent Julia from attempting to precompile code during execution
@@ -35,7 +38,7 @@ mkdir -p logs
 
 # Execute the datakit generation pipeline
 # NOTE: gridfm-datakit must be installed in the venv: pip install -e ../gridfm-datakit-fork
-srun python -m gridfm_datakit.cli generate $CONFIG
+python -m gridfm_datakit.cli generate $CONFIG
 
 end_time=$(date +%s)
 elapsed=$((end_time - start_time))
