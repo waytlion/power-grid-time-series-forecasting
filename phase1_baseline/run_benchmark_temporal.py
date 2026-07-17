@@ -98,6 +98,7 @@ def parse_args() -> argparse.Namespace:
 def run_xgb_hyperparam_opt(X_train, Y_train, X_val, Y_val, xgb_device, seed, n_jobs=1):    
     fixed_params = {
         "objective": "reg:squarederror",
+        "multi_strategy": "multi_output_tree",
         "device": xgb_device,
         "tree_method": "hist",
         "random_state": seed,
@@ -113,8 +114,7 @@ def run_xgb_hyperparam_opt(X_train, Y_train, X_val, Y_val, xgb_device, seed, n_j
             "reg_lambda": trial.suggest_float("reg_lambda", 1e-2, 5.0, log=True),
         }
         full_params = {**fixed_params, **tunable_params}
-        xgb_estimator = xgb.XGBRegressor(**full_params)
-        model = MultiOutputRegressor(xgb_estimator, n_jobs=-1)
+        model = xgb.XGBRegressor(**full_params)
         X_val_eval = as_xgb_input(X_val, xgb_device)
         
         model.fit(X_train, Y_train)
@@ -282,8 +282,7 @@ def main() -> None:
     gc.collect()
 
     # Train final model using the tuned parameters
-    xgb_estimator = xgb.XGBRegressor(**best_params)
-    xgb_model = MultiOutputRegressor(xgb_estimator, n_jobs=1)
+    xgb_model = xgb.XGBRegressor(**best_params)
 
     LOGGER.info("Training XGBoost model with HPO params...")
     xgb_model.fit(X_train_xgb, Y_train_xgb)
@@ -437,6 +436,11 @@ def main() -> None:
         "xgb_amortized_infer": [infer_times["xgb"] / n_infer_samples if n_infer_samples > 0 else 0],
         "tgt_amortized_infer": [infer_times["tgt"] / n_infer_samples if n_infer_samples > 0 else 0],
         "sarima_amortized_infer": [infer_times["sarima"] / n_infer_samples if n_infer_samples > 0 else 0],
+        # Per dispatch decision = per scenario (one timestep = full-grid forecast).
+        # This is the unit combined with the OPF-step solve/forward time downstream.
+        "xgb_infer_per_scenario": [infer_times["xgb"] / test_timesteps if test_timesteps > 0 else 0],
+        "tgt_infer_per_scenario": [infer_times["tgt"] / test_timesteps if test_timesteps > 0 else 0],
+        "sarima_infer_per_scenario": [infer_times["sarima"] / test_timesteps if test_timesteps > 0 else 0],
     }
     
     df_timing = pd.DataFrame(timing_data)
