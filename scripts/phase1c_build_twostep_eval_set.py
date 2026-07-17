@@ -2,7 +2,7 @@
 Build gridfm-graphkit eval datasets for the 2-step ML-surrogate OPF arm (Phase 1c).
 
 For each forecast model, emit a graphkit raw/ dir consumed by the
-`OptimalPowerFlowTwoStep` task. Per (flattened) scenario:
+OptimalPowerFlowTwoStep task. Per (flattened) scenario:
   - model INPUT load  -> bus.Pd / bus.Qd        (the forecast)
   - true-future label -> bus.Qg/Vm/Va, gen.p_mw (Phase 1a OPF at the realized step)
   - true realized load-> bus.Pd_true / bus.Qd_true (for the residual-vs-true metric)
