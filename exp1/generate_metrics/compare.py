@@ -44,8 +44,54 @@ from metrics import (
     compute_dc_branch_rmse,
     compute_dc_algebraic_power_residuals,
     compute_ac_branch_rmse,
-    compute_violations,
+    compute_feasibility_metrics,
 )
+
+
+# Canonical physical units per constraint type (used for both AC and DC rows).
+_CT_UNITS = {"vm": "p.u.", "pg": "MW", "qg": "MVAr", "thermal": "MVA", "angle": "deg"}
+
+# Slim debug summary = a PURE PROJECTION of the exhaustive metrics file. Each entry
+# is a verbatim "Metric" name from metrics_rows; the summary never recomputes.
+# To add a column here it must first exist in the exhaustive file.
+SUMMARY_METRICS = [
+    "MAE Pd", "RMSE Pd",
+    "AC Vm RMSE", "AC Va RMSE", "AC Pg bus RMSE",
+    "Generator Pg MAE", "Generator Pg RMSE",
+    "Mean Optimality Gap",
+    "Residual P (MAE)", "Residual Q (MAE)",
+    "AC vm viol. rate", "AC pg viol. rate", "AC qg viol. rate",
+    "AC thermal viol. rate", "AC angle viol. rate",
+    "AC fully feasible scenario viol. rate",
+    "Solver time per scenario (s)",
+    # DC headline
+    "DC Mean Optimality Gap",
+    "DC vm viol. rate", "DC pg viol. rate",
+    "DC thermal viol. rate", "DC angle viol. rate",
+    "DC fully feasible scenario viol. rate",
+]
+
+
+def _violation_rows(feas: dict, prefix: str) -> list[dict]:
+    """Build the canonical violation quintet rows from a compute_feasibility_metrics
+    output dict. ``prefix`` is "AC " or "DC "; feasibility keys use ""/"dc_"."""
+    fp = "" if prefix == "AC " else "dc_"
+    rows = []
+    for ct, unit in _CT_UNITS.items():
+        if f"{fp}{ct}_viol_max" not in feas:
+            continue  # e.g. qg is absent in DC mode
+        rows.extend([
+            {"Metric": f"{prefix}{ct} viol. count", "Value": feas[f"{fp}{ct}_viol_count"], "Unit": "count"},
+            {"Metric": f"{prefix}{ct} viol. mean", "Value": feas[f"{fp}{ct}_viol_mean"], "Unit": unit},
+            {"Metric": f"{prefix}{ct} viol. max", "Value": feas[f"{fp}{ct}_viol_max"], "Unit": unit},
+            {"Metric": f"{prefix}{ct} viol. rate", "Value": feas[f"{fp}{ct}_viol_rate"], "Unit": "frac"},
+            {"Metric": f"{prefix}{ct} scenario viol. rate", "Value": feas[f"{fp}{ct}_scenario_viol_rate"], "Unit": "frac"},
+        ])
+    rows.append(
+        {"Metric": f"{prefix}fully feasible scenario viol. rate",
+         "Value": feas[f"{fp}fully_scenario_viol_rate"], "Unit": "frac"}
+    )
+    return rows
 
 
 def _build_predicted_scenario_map(forecasts_df: pd.DataFrame) -> tuple[dict[int, int], dict[int, int]]:
@@ -205,171 +251,40 @@ def compare_single_method(
     print("Computing AC branch flow RMSE...")
     ac_branch_metrics = compute_ac_branch_rmse(branch_aligned)
 
-    # 6.7 Compute AC constraint violations
+    # 6.7 Feasibility / constraint-violation statistics (canonical quintet per type)
     print("Computing AC constraint violations...")
-    ac_viols = compute_violations(bus_aligned, gen_aligned, branch_aligned, mode="ac")
+    ac_feas = compute_feasibility_metrics(bus_aligned, gen_aligned, branch_aligned, mode="ac")
 
-    # To compute these exactly for the AC prediction:
-    rate_a_vals = branch_aligned["rate_a_true"].values
-    valid_rate_vals = (rate_a_vals > 0.0) & (~np.isnan(rate_a_vals))
-    
-    pf_pred_vals = branch_aligned["pf_pred"].values
-    qf_pred_vals = branch_aligned["qf_pred"].values
-    pt_pred_vals = branch_aligned["pt_pred"].values
-    qt_pred_vals = branch_aligned["qt_pred"].values
-    
-    s_from_vals = np.sqrt(pf_pred_vals**2 + qf_pred_vals**2)
-    s_to_vals = np.sqrt(pt_pred_vals**2 + qt_pred_vals**2)
-    
-    viol_from_vals = np.zeros_like(s_from_vals)
-    viol_to_vals = np.zeros_like(s_to_vals)
-    
-    viol_from_vals[valid_rate_vals] = np.maximum(0.0, s_from_vals[valid_rate_vals] - rate_a_vals[valid_rate_vals])
-    viol_to_vals[valid_rate_vals] = np.maximum(0.0, s_to_vals[valid_rate_vals] - rate_a_vals[valid_rate_vals])
-    
-    mean_branch_thermal_violation_from = float(viol_from_vals[valid_rate_vals].mean()) if valid_rate_vals.any() else 0.0
-    mean_branch_thermal_violation_to = float(viol_to_vals[valid_rate_vals].mean()) if valid_rate_vals.any() else 0.0
-    
-    # For angle difference:
-    from_col_name = "from_bus_true" if "from_bus_true" in branch_aligned.columns else "from_bus"
-    to_col_name = "to_bus_true" if "to_bus_true" in branch_aligned.columns else "to_bus"
-    
-    # Determine the unique scenario alignment column
-    align_col = "pred_flat_idx" if "pred_flat_idx" in branch_aligned.columns and "pred_flat_idx" in bus_aligned.columns else "load_scenario_idx"
+    # 7. Build the exhaustive metrics rows (AC). This file is the SINGLE SOURCE OF
+    #    TRUTH; comparison_summary is a pure projection of these rows (see
+    #    generate_comparison_summary). Add a new metric here, never in the summary.
+    metrics_rows = [
+        {"Metric": "MAE Pd", "Value": mae_pd, "Unit": "MW"},
+        {"Metric": "RMSE Pd", "Value": rmse_pd, "Unit": "MW"},
+        {"Metric": "AC Vm RMSE", "Value": rmse_summary.get("Vm", float("nan")), "Unit": "p.u."},
+        {"Metric": "AC Va RMSE", "Value": rmse_summary.get("Va", float("nan")), "Unit": "deg"},
+        {"Metric": "AC Pg bus RMSE", "Value": rmse_summary.get("Pg", float("nan")), "Unit": "MW"},
+        {"Metric": "Generator Pg MAE", "Value": mae_pg_gen, "Unit": "MW"},
+        {"Metric": "Generator Pg RMSE", "Value": gen_rmse, "Unit": "MW"},
+        {"Metric": "Mean Optimality Gap", "Value": cost_metrics["mean_optimality_gap_pct"], "Unit": "%"},
+        {"Metric": "Median Optimality Gap", "Value": cost_metrics["median_optimality_gap_pct"], "Unit": "%"},
+        {"Metric": "Max Optimality Gap", "Value": cost_metrics["max_optimality_gap_pct"], "Unit": "%"},
+        {"Metric": "Residual P (MAE)", "Value": residuals["mae_residual_p_mw"], "Unit": "MW"},
+        {"Metric": "Residual Q (MAE)", "Value": residuals["mae_residual_q_mvar"], "Unit": "MVAr"},
+        # Branch flow RMSE kept in the exhaustive file but NOT projected to the
+        # summary (redundant accuracy metric — flow error is captured on the
+        # feasibility side via thermal violations).
+        {"Metric": "AC Branch pf RMSE", "Value": ac_branch_metrics["rmse_pf"], "Unit": "MW"},
+        {"Metric": "AC Branch pt RMSE", "Value": ac_branch_metrics["rmse_pt"], "Unit": "MW"},
+    ]
+    metrics_rows.extend(_violation_rows(ac_feas, "AC "))
 
-    # Merge va_col chunk by chunk to keep peak memory low
-    unique_scenarios = sorted(branch_aligned[align_col].unique())
-    chunk_size = 1000
-    branch_merged_chunks = []
-    for j in range(0, len(unique_scenarios), chunk_size):
-        chunk_sc = unique_scenarios[j : j + chunk_size]
-        chunk_branch = branch_aligned[branch_aligned[align_col].isin(chunk_sc)]
-        chunk_bus = bus_aligned[bus_aligned[align_col].isin(chunk_sc)]
-        
-        chunk_merged = chunk_branch[[align_col, "load_scenario_idx", from_col_name, to_col_name, "ang_min_true", "ang_max_true"]].merge(
-            chunk_bus[[align_col, "bus", "Va_pred"]],
-            left_on=[align_col, from_col_name],
-            right_on=[align_col, "bus"],
-            how="left"
-        ).rename(columns={"Va_pred": "va_from"})
-        
-        chunk_merged = chunk_merged.merge(
-            chunk_bus[[align_col, "bus", "Va_pred"]],
-            left_on=[align_col, to_col_name],
-            right_on=[align_col, "bus"],
-            how="left"
-        ).rename(columns={"Va_pred": "va_to"})
-        
-        branch_merged_chunks.append(chunk_merged)
-        
-    branch_merged_vals = pd.concat(branch_merged_chunks, ignore_index=True)
-    
-    ang_diff_vals = branch_merged_vals["va_from"].values - branch_merged_vals["va_to"].values
-    
-    ang_min_vals = branch_aligned["ang_min_true"].values
-    ang_max_vals = branch_aligned["ang_max_true"].values
-    
-    valid_ang_vals = (~np.isnan(ang_min_vals)) & (~np.isnan(ang_max_vals)) & (ang_min_vals > -359.0) & (ang_max_vals < 359.0)
-    
-    ang_viols_vals = np.zeros_like(ang_diff_vals)
-    under_ang_vals = np.maximum(0.0, ang_min_vals - ang_diff_vals)
-    over_ang_vals = np.maximum(0.0, ang_diff_vals - ang_max_vals)
-    ang_viols_vals[valid_ang_vals] = under_ang_vals[valid_ang_vals] + over_ang_vals[valid_ang_vals]
-    
-    mean_branch_angle_difference_violation_deg = float(ang_viols_vals[valid_ang_vals].mean()) if valid_ang_vals.any() else 0.0
-    
-    # 7. Build metrics rows (AC)
-    metrics_rows = [{
-        "Metric": "Generator Pg RMSE",
-        "Value": gen_rmse,
-        "Unit": "MW",
-    }, {
-        "Metric": "Mean Optimality Gap",
-        "Value": cost_metrics["mean_optimality_gap_pct"],
-        "Unit": "%",
-    }, {
-        "Metric": "Median Optimality Gap",
-        "Value": cost_metrics["median_optimality_gap_pct"],
-        "Unit": "%",
-    }, {
-        "Metric": "Max Optimality Gap",
-        "Value": cost_metrics["max_optimality_gap_pct"],
-        "Unit": "%",
-    }, {
-        "Metric": "Residual P (MAE)",
-        "Value": residuals["mae_residual_p_mw"],
-        "Unit": "MW",
-    }, {
-        "Metric": "Residual Q (MAE)",
-        "Value": residuals["mae_residual_q_mvar"],
-        "Unit": "MVA",
-    }, {
-        "Metric": "AC Branch pf RMSE",
-        "Value": ac_branch_metrics["rmse_pf"],
-        "Unit": "MW",
-    }, {
-        "Metric": "AC Branch pt RMSE",
-        "Value": ac_branch_metrics["rmse_pt"],
-        "Unit": "MW",
-    }, {
-        "Metric": "AC Vm Violations Count",
-        "Value": ac_viols["vm"]["count"],
-        "Unit": "count",
-    }, {
-        "Metric": "AC Vm Violations Mean",
-        "Value": ac_viols["vm"]["mean_magnitude"],
-        "Unit": "p.u.",
-    }, {
-        "Metric": "AC Pg Violations Count",
-        "Value": ac_viols["pg"]["count"],
-        "Unit": "count",
-    }, {
-        "Metric": "AC Pg Violations Mean",
-        "Value": ac_viols["pg"]["mean_magnitude"],
-        "Unit": "MW",
-    }, {
-        "Metric": "AC Thermal Violations Count",
-        "Value": ac_viols["thermal"]["count"],
-        "Unit": "count",
-    }, {
-        "Metric": "AC Thermal Violations Mean",
-        "Value": ac_viols["thermal"]["mean_magnitude"],
-        "Unit": "MVA",
-    }, {
-        "Metric": "AC Angle Violations Count",
-        "Value": ac_viols["angle"]["count"],
-        "Unit": "count",
-    }, {
-        "Metric": "AC Angle Violations Mean",
-        "Value": ac_viols["angle"]["mean_magnitude"],
-        "Unit": "deg",
-    }]
-    
-    # Return summary for aggregation
-    res = {
-        "method": method,
-        "mae_pd": mae_pd,
-        "rmse_pd": rmse_pd,
-        "ac_rmse_vm": rmse_summary.get("Vm", float("nan")),
-        "ac_rmse_va": rmse_summary.get("Va", float("nan")),
-        "ac_rmse_pg_bus": rmse_summary.get("Pg", float("nan")),
-        "mae_pg": mae_pg_gen,
-        "rmse_pg_gen": gen_rmse,  # Generator-level
-        "ac_rmse_pf_branch": ac_branch_metrics["rmse_pf"],
-        "ac_rmse_pt_branch": ac_branch_metrics["rmse_pt"],
-        "avg_active_res_mw": residuals["mae_residual_p_mw"],
-        "avg_reactive_res_mvar": residuals["mae_residual_q_mvar"],
-        "mean_optimality_gap_pct": cost_metrics["mean_optimality_gap_pct"],
-        "mean_branch_thermal_violation_from_mva": mean_branch_thermal_violation_from,
-        "mean_branch_thermal_violation_to_mva": mean_branch_thermal_violation_to,
-        "mean_branch_angle_difference_violation_rad": mean_branch_angle_difference_violation_deg,
-        "ac_violations_vm_count": ac_viols["vm"]["count"],
-        "ac_violations_pg_count": ac_viols["pg"]["count"],
-        "ac_violations_thermal_count": ac_viols["thermal"]["count"],
-        "ac_violations_angle_count": ac_viols["angle"]["count"],
-    }
+    # Return summary for aggregation (main() also reads horizon_gaps for the
+    # forecast table). Summary column values are pulled from metrics_rows below.
+    res = {"method": method}
     if "horizon_gaps" in cost_metrics:
         res["horizon_gaps"] = cost_metrics["horizon_gaps"]
+        res["mean_optimality_gap_pct"] = cost_metrics["mean_optimality_gap_pct"]
 
     # -----------------------------------------------------------------------
     # 8. DC-OPF analysis (if DC columns are present in predicted data)
@@ -401,108 +316,30 @@ def compare_single_method(
         print("  Computing DC exact algebraic residuals (AC equations)...")
         dc_residuals = compute_dc_algebraic_power_residuals(bus_aligned, true_branch)
 
-        # 8f. DC Constraint Violations
+        # 8f. DC Constraint Violations (canonical quintet per type)
         print("  Computing DC constraint violations...")
-        dc_viols = compute_violations(bus_aligned, gen_aligned, branch_aligned, mode="dc")
+        dc_feas = compute_feasibility_metrics(bus_aligned, gen_aligned, branch_aligned, mode="dc")
 
-        # Append DC metric rows
-        metrics_rows.extend([{
-            "Metric": "DC Vm Deviation RMSE (1.0 vs AC)",
-            "Value": dc_rmse_summary.get("Vm_dc", float("nan")),
-            "Unit": "p.u.",
-        }, {
-            "Metric": "DC Va RMSE",
-            "Value": dc_rmse_summary.get("Va_dc", float("nan")),
-            "Unit": "deg",
-        }, {
-            "Metric": "DC Pg Bus RMSE",
-            "Value": dc_rmse_summary.get("dc_Pg_bus", float("nan")),
-            "Unit": "MW",
-        }, {
-            "Metric": "DC Generator Pg RMSE",
-            "Value": dc_gen_rmse,
-            "Unit": "MW",
-        }, {
-            "Metric": "DC Mean Optimality Gap",
-            "Value": dc_cost_metrics["dc_mean_optimality_gap_pct"],
-            "Unit": "%",
-        }, {
-            "Metric": "DC Median Optimality Gap",
-            "Value": dc_cost_metrics["dc_median_optimality_gap_pct"],
-            "Unit": "%",
-        }, {
-            "Metric": "DC Max Optimality Gap",
-            "Value": dc_cost_metrics["dc_max_optimality_gap_pct"],
-            "Unit": "%",
-        }, {
-            "Metric": "DC Branch pf RMSE",
-            "Value": dc_branch_metrics["dc_rmse_pf"],
-            "Unit": "MW",
-        }, {
-            "Metric": "DC Branch pt RMSE",
-            "Value": dc_branch_metrics["dc_rmse_pt"],
-            "Unit": "MW",
-        }, {
-            "Metric": "DC Residual P (MAE)",
-            "Value": dc_residuals["dc_mae_residual_p_mw"],
-            "Unit": "MW",
-        }, {
-            "Metric": "DC Residual Q (MAE)",
-            "Value": dc_residuals["dc_mae_residual_q_mvar"],
-            "Unit": "MVA",
-        }, {
-            "Metric": "DC Vm Violations Count",
-            "Value": dc_viols["vm"]["count"],
-            "Unit": "count",
-        }, {
-            "Metric": "DC Vm Violations Mean",
-            "Value": dc_viols["vm"]["mean_magnitude"],
-            "Unit": "p.u.",
-        }, {
-            "Metric": "DC Pg Violations Count",
-            "Value": dc_viols["pg"]["count"],
-            "Unit": "count",
-        }, {
-            "Metric": "DC Pg Violations Mean",
-            "Value": dc_viols["pg"]["mean_magnitude"],
-            "Unit": "MW",
-        }, {
-            "Metric": "DC Thermal Violations Count",
-            "Value": dc_viols["thermal"]["count"],
-            "Unit": "count",
-        }, {
-            "Metric": "DC Thermal Violations Mean",
-            "Value": dc_viols["thermal"]["mean_magnitude"],
-            "Unit": "MVA",
-        }, {
-            "Metric": "DC Angle Violations Count",
-            "Value": dc_viols["angle"]["count"],
-            "Unit": "count",
-        }, {
-            "Metric": "DC Angle Violations Mean",
-            "Value": dc_viols["angle"]["mean_magnitude"],
-            "Unit": "deg",
-        }])
+        # Append DC metric rows to the exhaustive file
+        metrics_rows.extend([
+            {"Metric": "DC Vm Deviation RMSE (1.0 vs AC)", "Value": dc_rmse_summary.get("Vm_dc", float("nan")), "Unit": "p.u."},
+            {"Metric": "DC Va RMSE", "Value": dc_rmse_summary.get("Va_dc", float("nan")), "Unit": "deg"},
+            {"Metric": "DC Pg bus RMSE", "Value": dc_rmse_summary.get("dc_Pg_bus", float("nan")), "Unit": "MW"},
+            {"Metric": "DC Generator Pg MAE", "Value": dc_mae_pg_gen, "Unit": "MW"},
+            {"Metric": "DC Generator Pg RMSE", "Value": dc_gen_rmse, "Unit": "MW"},
+            {"Metric": "DC Mean Optimality Gap", "Value": dc_cost_metrics["dc_mean_optimality_gap_pct"], "Unit": "%"},
+            {"Metric": "DC Median Optimality Gap", "Value": dc_cost_metrics["dc_median_optimality_gap_pct"], "Unit": "%"},
+            {"Metric": "DC Max Optimality Gap", "Value": dc_cost_metrics["dc_max_optimality_gap_pct"], "Unit": "%"},
+            {"Metric": "DC Residual P (MAE)", "Value": dc_residuals["dc_mae_residual_p_mw"], "Unit": "MW"},
+            {"Metric": "DC Residual Q (MAE)", "Value": dc_residuals["dc_mae_residual_q_mvar"], "Unit": "MVAr"},
+            {"Metric": "DC Branch pf RMSE", "Value": dc_branch_metrics["dc_rmse_pf"], "Unit": "MW"},
+            {"Metric": "DC Branch pt RMSE", "Value": dc_branch_metrics["dc_rmse_pt"], "Unit": "MW"},
+        ])
+        metrics_rows.extend(_violation_rows(dc_feas, "DC "))
 
-        # Extend summary dict with DC metrics
-        res.update({
-            "dc_rmse_vm": dc_rmse_summary.get("Vm_dc", float("nan")),
-            "dc_rmse_va": dc_rmse_summary.get("Va_dc", float("nan")),
-            "dc_rmse_pg_bus": dc_rmse_summary.get("dc_Pg_bus", float("nan")),
-            "dc_mae_pg_gen": dc_mae_pg_gen,
-            "dc_rmse_pg_gen": dc_gen_rmse,
-            "dc_mean_optimality_gap_pct": dc_cost_metrics["dc_mean_optimality_gap_pct"],
-            "dc_rmse_pf_branch": dc_branch_metrics["dc_rmse_pf"],
-            "dc_rmse_pt_branch": dc_branch_metrics["dc_rmse_pt"],
-            "dc_mae_residual_p_mw": dc_residuals["dc_mae_residual_p_mw"],
-            "dc_mae_residual_q_mvar": dc_residuals["dc_mae_residual_q_mvar"],
-            "dc_violations_vm_count": dc_viols["vm"]["count"],
-            "dc_violations_pg_count": dc_viols["pg"]["count"],
-            "dc_violations_thermal_count": dc_viols["thermal"]["count"],
-            "dc_violations_angle_count": dc_viols["angle"]["count"],
-        })
         if "dc_horizon_gaps" in dc_cost_metrics:
             res["dc_horizon_gaps"] = dc_cost_metrics["dc_horizon_gaps"]
+        res["dc_mean_optimality_gap_pct"] = dc_cost_metrics["dc_mean_optimality_gap_pct"]
 
         print(f"  DC Vm deviation RMSE: {dc_rmse_summary.get('Vm_dc', float('nan')):.4f} p.u.")
         print(f"  DC Va RMSE: {dc_rmse_summary.get('Va_dc', float('nan')):.4f} deg")
@@ -519,104 +356,51 @@ def compare_single_method(
     rmse_df.to_csv(rmse_path, index=False)
     print(f"  Saved RMSE table: {rmse_path}")
 
-    # 10. Save metrics summary (AC + DC combined)
+    # 9.5 Solver timing (written by phase1c_run_datakit_batch.py)
+    import json as _json
+    timing_path = predicted_opf_dir / "solve_timing.json"
+    if timing_path.exists():
+        with open(timing_path) as _f:
+            _t = _json.load(_f)
+        metrics_rows.extend([
+            {"Metric": "Solver total time (s)", "Value": _t.get("total_solve_s"), "Unit": "s"},
+            {"Metric": "Solver time per scenario (s)", "Value": _t.get("per_scenario_s"), "Unit": "s/scenario"},
+            {"Metric": "Solver n_scenarios", "Value": _t.get("n_scenarios"), "Unit": "count"},
+        ])
+
+    # 10. Save metrics summary (AC + DC combined) — the SINGLE SOURCE OF TRUTH.
     metrics_df = pd.DataFrame(metrics_rows)
     metrics_path = method_output_dir / OUTPUT_TEMPLATES["metrics"].format(dataset=dataset)
     metrics_df.to_csv(metrics_path, index=False)
     print(f"  Saved metrics: {metrics_path}")
 
+    # 11. Project the slim summary row from the exhaustive rows (no recomputation).
+    name2val = {r["Metric"]: r["Value"] for r in metrics_rows}
+    for m in SUMMARY_METRICS:
+        res[m] = name2val.get(m, float("nan"))
+
     return res
 
 
 def generate_comparison_summary(summaries: list, output_dir: Path, dataset: str):
-    """Generate side-by-side comparison table across all methods (AC + DC)."""
+    """Slim debug summary — a PURE PROJECTION of each method's exhaustive metrics.
+
+    Columns are ``method`` + the ``SUMMARY_METRICS`` names (verbatim from the
+    exhaustive file). No recomputation, no arithmetic, no rounding: the values
+    are exactly those in each method's <net>_metrics.csv, so the two files can
+    never disagree.
+    """
     summary_df = pd.DataFrame(summaries)
 
-    # Define column order: AC columns first, then DC columns
-    ac_columns = [
-        "method",
-        "mae_pd",
-        "rmse_pd",
-        "ac_rmse_vm",
-        "ac_rmse_va",
-        "ac_rmse_pg_bus",
-        "mae_pg",
-        "rmse_pg_gen",
-        "ac_rmse_pf_branch",
-        "ac_rmse_pt_branch",
-        "avg_active_res_mw",
-        "avg_reactive_res_mvar",
-        "mean_optimality_gap_pct",
-        "mean_branch_thermal_violation_from_mva",
-        "mean_branch_thermal_violation_to_mva",
-        "mean_branch_angle_difference_violation_rad",
-        "ac_violations_vm_count",
-        "ac_violations_pg_count",
-        "ac_violations_thermal_count",
-        "ac_violations_angle_count",
-    ]
-    dc_columns = [
-        "dc_rmse_vm",
-        "dc_rmse_va",
-        "dc_rmse_pg_bus",
-        "dc_mae_pg_gen",
-        "dc_rmse_pg_gen",
-        "dc_rmse_pf_branch",
-        "dc_rmse_pt_branch",
-        "dc_mean_optimality_gap_pct",
-        "dc_mae_residual_p_mw",
-        "dc_mae_residual_q_mvar",
-        "dc_violations_vm_count",
-        "dc_violations_pg_count",
-        "dc_violations_thermal_count",
-        "dc_violations_angle_count",
-    ]
-    # Only include DC columns if any method produced them
-    available_dc_cols = [c for c in dc_columns if c in summary_df.columns]
-    all_columns = ac_columns + available_dc_cols
-    summary_df = summary_df.reindex(columns=all_columns)
-
-    rename_map = {
-        "ac_rmse_vm": "AC Vm RMSE (p.u.)",
-        "ac_rmse_va": "AC Va RMSE (deg)",
-        "ac_rmse_pg_bus": "AC Pg bus RMSE (MW)",
-        "ac_rmse_pf_branch": "AC pf branch RMSE (MW)",
-        "ac_rmse_pt_branch": "AC pt branch RMSE (MW)",
-        "avg_active_res_mw": "AC Avg. active res. (MW)",
-        "avg_reactive_res_mvar": "AC Avg. reactive res. (MVar)",
-        "mean_optimality_gap_pct": "AC Mean opt. gap (%)",
-        "mean_branch_thermal_violation_from_mva": "AC Mean branch thermal viol. from (MVA)",
-        "mean_branch_thermal_violation_to_mva": "AC Mean branch thermal viol. to (MVA)",
-        "mean_branch_angle_difference_violation_rad": "AC Mean branch angle diff. viol. (deg)",
-        "ac_violations_vm_count": "AC Vm viol. count",
-        "ac_violations_pg_count": "AC Pg viol. count",
-        "ac_violations_thermal_count": "AC Thermal viol. count",
-        "ac_violations_angle_count": "AC Angle viol. count",
-        "dc_rmse_vm": "DC Vm dev. RMSE (p.u.)",
-        "dc_rmse_va": "DC Va RMSE (deg)",
-        "dc_rmse_pg_bus": "DC Pg bus RMSE (MW)",
-        "dc_mae_pg_gen": "DC Pg gen MAE (MW)",
-        "dc_rmse_pg_gen": "DC Pg gen RMSE (MW)",
-        "dc_mean_optimality_gap_pct": "DC Mean opt. gap (%)",
-        "dc_rmse_pf_branch": "DC pf branch RMSE (MW)",
-        "dc_rmse_pt_branch": "DC pt branch RMSE (MW)",
-        "dc_mae_residual_p_mw": "DC Avg. active res. (MW)",
-        "dc_mae_residual_q_mvar": "DC Avg. reactive res. (MVar)",
-        "dc_violations_vm_count": "DC Vm viol. count",
-        "dc_violations_pg_count": "DC Pg viol. count",
-        "dc_violations_thermal_count": "DC Thermal viol. count",
-        "dc_violations_angle_count": "DC Angle viol. count",
-    }
-    summary_df = summary_df.rename(columns=rename_map)
-
-    numeric_cols = summary_df.select_dtypes(include=["number"]).columns
-    summary_df[numeric_cols] = summary_df[numeric_cols].round(4)
+    # Keep only method + the projected summary metrics that any method produced.
+    cols = ["method"] + [m for m in SUMMARY_METRICS if m in summary_df.columns]
+    summary_df = summary_df.reindex(columns=cols)
 
     summary_path = output_dir / OUTPUT_TEMPLATES["summary"].format(dataset=dataset)
     summary_df.to_csv(summary_path, index=False, sep="\t")
-    
+
     print(f"\n{'='*60}")
-    print("Comparison Summary (AC + DC)")
+    print("Comparison Summary (projection of exhaustive metrics)")
     print(f"{'='*60}")
     print(summary_df.to_string(index=False))
     print(f"\nSaved to: {summary_path}")

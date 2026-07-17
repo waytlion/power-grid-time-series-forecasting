@@ -61,7 +61,8 @@ def load_datakit_gen(parquet_dir: Path) -> pd.DataFrame:
         raise ValueError(f"Missing columns in gen_data.parquet: {missing_cols}")
     
     keep = [
-        "load_scenario_idx", "idx", "bus", "p_mw", "q_mvar", "min_p_mw", "max_p_mw", 
+        "load_scenario_idx", "idx", "bus", "p_mw", "q_mvar", "min_p_mw", "max_p_mw",
+        "min_q_mvar", "max_q_mvar",
         "cp0_eur", "cp1_eur_per_mw", "cp2_eur_per_mw2", "p_mw_dc"
     ]
     existing = [c for c in keep if c in df.columns]

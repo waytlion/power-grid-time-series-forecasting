@@ -700,141 +700,144 @@ def compute_ac_branch_rmse(branch_aligned: pd.DataFrame) -> Dict[str, float]:
     }
 
 
-def compute_violations(
+def _angle_diff_per_branch(bus_df: pd.DataFrame, branch_df: pd.DataFrame, va_col: str) -> np.ndarray:
+    """Voltage-angle difference (va_from - va_to) per branch row, aligned to branch_df."""
+    from_col = "from_bus_true" if "from_bus_true" in branch_df.columns else "from_bus"
+    to_col = "to_bus_true" if "to_bus_true" in branch_df.columns else "to_bus"
+    align_col = (
+        "pred_flat_idx"
+        if "pred_flat_idx" in branch_df.columns and "pred_flat_idx" in bus_df.columns
+        else "load_scenario_idx"
+    )
+    scenarios = sorted(branch_df[align_col].unique())
+    merged_chunks = []
+    for j in range(0, len(scenarios), 1000):
+        chunk_sc = scenarios[j : j + 1000]
+        cb = branch_df[branch_df[align_col].isin(chunk_sc)]
+        cu = bus_df[bus_df[align_col].isin(chunk_sc)]
+        m = cb[[align_col, from_col, to_col]].merge(
+            cu[[align_col, "bus", va_col]], left_on=[align_col, from_col],
+            right_on=[align_col, "bus"], how="left",
+        ).rename(columns={va_col: "va_from"})
+        m = m.merge(
+            cu[[align_col, "bus", va_col]], left_on=[align_col, to_col],
+            right_on=[align_col, "bus"], how="left",
+        ).rename(columns={va_col: "va_to"})
+        merged_chunks.append(m)
+    merged = pd.concat(merged_chunks, ignore_index=True)
+    return merged["va_from"].values - merged["va_to"].values
+
+
+def compute_feasibility_metrics(
     bus_df: pd.DataFrame,
     gen_df: pd.DataFrame,
     branch_df: pd.DataFrame,
     mode: str = "ac",
-    tol: float = 1e-5
-) -> Dict[str, Dict[str, float]]:
+    tol: float = 1e-5,
+) -> Dict[str, float]:
+    """Feasibility statistics standard in the learning-to-OPF literature, per
+    constraint type (vm, pg, qg, thermal, angle) and overall.
+
+    Canonical quintet per constraint type:
+      - ``{t}_viol_count``: number of violating elements
+      - ``{t}_viol_mean``: mean violation magnitude over ALL elements (one-sided)
+      - ``{t}_viol_max``: max violation magnitude
+      - ``{t}_viol_rate``: violating elements / total
+      - ``{t}_scenario_viol_rate``: scenarios with >=1 violation / total scenarios
+    ``fully_scenario_viol_rate`` is the fraction of scenarios with any violation of
+    any type. Keys are prefixed ``dc_`` for DC mode.
+
+    Units: vm [p.u.], pg [MW], qg [MVAr], thermal [MVA], angle [deg].
     """
-    Compute count and average magnitude of constraint violations for AC or DC OPF results.
-    """
-    results = {}
-    
-    # 1. Voltage Magnitude (Vm) violations
-    if mode == "ac":
-        vm_vals = bus_df["Vm_pred"].values
-    else: # dc
-        vm_vals = np.ones(len(bus_df)) # flat 1.0 p.u.
-        
-    min_vm = bus_df["min_vm_pu_true"].values
-    max_vm = bus_df["max_vm_pu_true"].values
-    
-    under_vm = np.maximum(0.0, min_vm - vm_vals)
-    over_vm = np.maximum(0.0, vm_vals - max_vm)
-    vm_viols = under_vm + over_vm
-    
-    vm_viol_mask = vm_viols > tol
-    vm_count = int(vm_viol_mask.sum())
-    vm_mean = float(vm_viols.mean())
-    
-    results["vm"] = {"count": vm_count, "mean_magnitude": vm_mean}
-    
-    # 2. Generator Active Power (Pg) violations
-    if mode == "ac":
-        pg_vals = gen_df["p_mw_pred"].values
-    else: # dc
-        pg_vals = gen_df["p_mw_dc"].values
-        
-    min_pg = gen_df["min_p_mw_true"].values
-    max_pg = gen_df["max_p_mw_true"].values
-    
-    under_pg = np.maximum(0.0, min_pg - pg_vals)
-    over_pg = np.maximum(0.0, pg_vals - max_pg)
-    pg_viols = under_pg + over_pg
-    
-    pg_viol_mask = pg_viols > tol
-    pg_count = int(pg_viol_mask.sum())
-    pg_mean = float(pg_viols.mean())
-    
-    results["pg"] = {"count": pg_count, "mean_magnitude": pg_mean}
-    
-    # 3. Thermal (S_ij) violations
+    prefix = "" if mode == "ac" else "dc_"
+    scen_bus = "pred_flat_idx" if "pred_flat_idx" in bus_df.columns else "load_scenario_idx"
+    scen_gen = "pred_flat_idx" if "pred_flat_idx" in gen_df.columns else "load_scenario_idx"
+    scen_br = "pred_flat_idx" if "pred_flat_idx" in branch_df.columns else "load_scenario_idx"
+
+    # (magnitude per element, scenario per element) for each constraint type
+    per_type: Dict[str, tuple] = {}
+
+    # Voltage magnitude (DC: flat 1.0 p.u.)
+    vm = np.ones(len(bus_df)) if mode == "dc" else bus_df["Vm_pred"].values
+    vm_mag = (
+        np.maximum(0.0, bus_df["min_vm_pu_true"].values - vm)
+        + np.maximum(0.0, vm - bus_df["max_vm_pu_true"].values)
+    )
+    per_type["vm"] = (vm_mag, bus_df[scen_bus].values)
+
+    # Generator active power limits
+    pg = gen_df["p_mw_dc"].values if mode == "dc" else gen_df["p_mw_pred"].values
+    pg_mag = (
+        np.maximum(0.0, gen_df["min_p_mw_true"].values - pg)
+        + np.maximum(0.0, pg - gen_df["max_p_mw_true"].values)
+    )
+    per_type["pg"] = (pg_mag, gen_df[scen_gen].values)
+
+    # Generator reactive power limits, aggregated to the bus (predicted Qg is
+    # bus-level). Checked only at generator buses (inner join) — reactive limits
+    # do not apply at pure load buses, matching graphkit's PV/REF convention.
+    # DC-OPF carries no reactive power, so Qg violations are omitted.
+    if mode == "ac" and "Qg_pred" in bus_df.columns and "min_q_mvar_true" in gen_df.columns:
+        # After align_opf_results merges on ["load_scenario_idx", "idx"], the "bus"
+        # column from each side gets a suffix → use "bus_true" if present, else "bus".
+        bus_col_gen = "bus_true" if "bus_true" in gen_df.columns else "bus"
+        q_lim = (
+            gen_df.groupby([scen_gen, bus_col_gen])[["min_q_mvar_true", "max_q_mvar_true"]]
+            .sum()
+            .reset_index()
+            .rename(columns={bus_col_gen: "bus"})
+        )
+        bus_cols = list(dict.fromkeys([scen_bus, "bus", "Qg_pred"]))
+        b = bus_df[bus_cols].merge(q_lim, left_on=[scen_bus, "bus"], right_on=[scen_gen, "bus"], how="inner")
+        qg = b["Qg_pred"].values
+        qg_mag = (
+            np.maximum(0.0, b["min_q_mvar_true"].values - qg)
+            + np.maximum(0.0, qg - b["max_q_mvar_true"].values)
+        )
+        per_type["qg"] = (qg_mag, b[scen_bus].values)
+
+    # Branch thermal limits (apparent power vs rate_a)
     rate_a = branch_df["rate_a_true"].values
     valid_rate = (rate_a > 0.0) & (~np.isnan(rate_a))
-    
     if mode == "ac":
-        pf_pred = branch_df["pf_pred"].values
-        qf_pred = branch_df["qf_pred"].values
-        pt_pred = branch_df["pt_pred"].values
-        qt_pred = branch_df["qt_pred"].values
-        
-        s_from = np.sqrt(pf_pred**2 + qf_pred**2)
-        s_to = np.sqrt(pt_pred**2 + qt_pred**2)
-    else: # dc
-        pf_dc = branch_df["pf_dc"].values
-        pt_dc = branch_df["pt_dc"].values
-        
-        s_from = np.abs(pf_dc)
-        s_to = np.abs(pt_dc)
-        
-    s_max = np.maximum(s_from, s_to)
-    
-    thermal_viols = np.zeros_like(s_max)
-    thermal_viols[valid_rate] = np.maximum(0.0, s_max[valid_rate] - rate_a[valid_rate])
-    
-    thermal_viol_mask = thermal_viols > tol
-    thermal_count = int(thermal_viol_mask.sum())
-    thermal_mean = float(thermal_viols[valid_rate].mean()) if valid_rate.any() else 0.0
-    
-    results["thermal"] = {"count": thermal_count, "mean_magnitude": thermal_mean}
-    
-    # 4. Angle Difference violations
-    from_col = "from_bus_true" if "from_bus_true" in branch_df.columns else "from_bus"
-    to_col = "to_bus_true" if "to_bus_true" in branch_df.columns else "to_bus"
-    
+        s_from = np.sqrt(branch_df["pf_pred"].values ** 2 + branch_df["qf_pred"].values ** 2)
+        s_to = np.sqrt(branch_df["pt_pred"].values ** 2 + branch_df["qt_pred"].values ** 2)
+    else:
+        s_from = np.abs(branch_df["pf_dc"].values)
+        s_to = np.abs(branch_df["pt_dc"].values)
+    thermal_mag = np.zeros(len(branch_df))
+    thermal_mag[valid_rate] = np.maximum(0.0, np.maximum(s_from, s_to)[valid_rate] - rate_a[valid_rate])
+    per_type["thermal"] = (thermal_mag[valid_rate], branch_df[scen_br].values[valid_rate])
+
+    # Branch angle-difference limits
     va_col = "Va_pred" if mode == "ac" else "Va_dc"
-    
     if va_col in bus_df.columns:
-        # Determine the unique scenario alignment column
-        align_col = "pred_flat_idx" if "pred_flat_idx" in branch_df.columns and "pred_flat_idx" in bus_df.columns else "load_scenario_idx"
-        
-        # Merge va_col chunk by chunk to keep peak memory low
-        unique_scenarios = sorted(branch_df[align_col].unique())
-        chunk_size = 1000
-        branch_merged_chunks = []
-        for j in range(0, len(unique_scenarios), chunk_size):
-            chunk_sc = unique_scenarios[j : j + chunk_size]
-            chunk_branch = branch_df[branch_df[align_col].isin(chunk_sc)]
-            chunk_bus = bus_df[bus_df[align_col].isin(chunk_sc)]
-            
-            chunk_merged = chunk_branch[[align_col, "load_scenario_idx", from_col, to_col, "ang_min_true", "ang_max_true"]].merge(
-                chunk_bus[[align_col, "bus", va_col]],
-                left_on=[align_col, from_col],
-                right_on=[align_col, "bus"],
-                how="left"
-            ).rename(columns={va_col: "va_from"})
-            
-            chunk_merged = chunk_merged.merge(
-                chunk_bus[[align_col, "bus", va_col]],
-                left_on=[align_col, to_col],
-                right_on=[align_col, "bus"],
-                how="left"
-            ).rename(columns={va_col: "va_to"})
-            
-            branch_merged_chunks.append(chunk_merged)
-            
-        branch_merged = pd.concat(branch_merged_chunks, ignore_index=True)
-        ang_diff = branch_merged["va_from"].values - branch_merged["va_to"].values
-        
+        ang_diff = _angle_diff_per_branch(bus_df, branch_df, va_col)
         ang_min = branch_df["ang_min_true"].values
         ang_max = branch_df["ang_max_true"].values
-        
         valid_ang = (~np.isnan(ang_min)) & (~np.isnan(ang_max)) & (ang_min > -359.0) & (ang_max < 359.0)
-        
-        ang_viols = np.zeros_like(ang_diff)
-        under_ang = np.maximum(0.0, ang_min - ang_diff)
-        over_ang = np.maximum(0.0, ang_diff - ang_max)
-        ang_viols[valid_ang] = under_ang[valid_ang] + over_ang[valid_ang]
-        
-        ang_viol_mask = ang_viols > tol
-        ang_count = int(ang_viol_mask.sum())
-        ang_mean = float(ang_viols[valid_ang].mean()) if valid_ang.any() else 0.0
-    else:
-        ang_count = 0
-        ang_mean = 0.0
-        
-    results["angle"] = {"count": ang_count, "mean_magnitude": ang_mean}
-    
-    return results
+        ang_mag = np.zeros(len(branch_df))
+        ang_mag[valid_ang] = (
+            np.maximum(0.0, ang_min - ang_diff)[valid_ang]
+            + np.maximum(0.0, ang_diff - ang_max)[valid_ang]
+        )
+        per_type["angle"] = (ang_mag[valid_ang], branch_df[scen_br].values[valid_ang])
+
+    all_scenarios = set(bus_df[scen_bus].unique())
+    n_scen = len(all_scenarios) or 1
+    infeasible_any = set()
+    out: Dict[str, float] = {}
+    for t, (mag, sc) in per_type.items():
+        viol = mag > tol
+        n_total = len(mag)
+        # Canonical quintet per constraint type. viol_mean is over ALL elements
+        # (incl. non-violating), one-sided/two-sided per _mag construction above.
+        out[f"{prefix}{t}_viol_count"] = int(viol.sum())
+        out[f"{prefix}{t}_viol_mean"] = float(mag.mean()) if n_total else 0.0
+        out[f"{prefix}{t}_viol_max"] = float(mag.max()) if n_total else 0.0
+        out[f"{prefix}{t}_viol_rate"] = float(viol.sum() / n_total) if n_total else 0.0
+        infeasible_sc = set(np.asarray(sc)[viol].tolist())
+        out[f"{prefix}{t}_scenario_viol_rate"] = len(infeasible_sc) / n_scen
+        infeasible_any |= infeasible_sc
+    out[f"{prefix}fully_scenario_viol_rate"] = len(infeasible_any) / n_scen
+    return out
