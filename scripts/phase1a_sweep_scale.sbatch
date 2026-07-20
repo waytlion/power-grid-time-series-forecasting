@@ -15,8 +15,14 @@ GENERATE_SCRIPT="$REPO_ROOT/phase1_generation/preprocessing/generate_precomputed
 DATAKIT_SCRIPT="$REPO_ROOT/scripts/phase1a_run_datakit.sh"
 OUTPUT_DIR="/data/horse/ws/tibo990i-thesis_data/2019-2021/phase_1a/data_out/case500_goc/raw"
 
-# SCALE values to try (highest first = best convergence likely first)
-SCALES=(0.55 0.5 0.45 0.4 0.2)
+# SCALE values to try.
+# Derived from data: at SCALE=0.2, per-scenario total P demand for case500_goc
+# ranged [1240.6, 3437.2] MW, while the in-service generator fleet requires
+# sum(PMIN)=7525.7 MW and allows at most sum(PMAX)=23304.0 MW. Since demand
+# scales linearly with SCALE, every scenario's demand falls within
+# [sum(PMIN), sum(PMAX)] only for SCALE in [1.2132, 1.3560]. Below 1.2132,
+# scenarios are guaranteed infeasible (demand can't reach the must-run floor).
+SCALES=(1.29 1.25 1.33 1.22)
 
 # --- Functions ---
 set_scale() {
@@ -52,7 +58,9 @@ check_convergence() {
         return 1
     fi
 
-    local error_count=$(wc -l < "$OUTPUT_DIR/error.log")
+    # error.log always contains a 2-line "New generation started" header even
+    # when no scenarios fail, so count actual failure lines, not raw wc -l.
+    local error_count=$(grep -c "Caught an exception" "$OUTPUT_DIR/error.log")
     if [ "$error_count" -eq 0 ]; then
         return 0  # Success: 0 errors
     else
@@ -102,7 +110,7 @@ for SCALE in "${SCALES[@]}"; do
 
         exit 0
     else
-        local error_count=$(wc -l < "$OUTPUT_DIR/error.log")
+        error_count=$(grep -c "Caught an exception" "$OUTPUT_DIR/error.log")
         echo "SCALE=$SCALE: $error_count scenarios failed. Trying next..."
     fi
 done

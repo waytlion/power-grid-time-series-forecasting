@@ -16,9 +16,9 @@ export LD_PRELOAD="${LD_PRELOAD-}"
 # ============================ Configuration ============================
 CASE="case118_ieee"
 NETWORK=${CASE%_*}  # strips "_ieee" suffix
-HORIZONS=(1 24)                        
+HORIZONS=(1)                        
 FORECASTERS=(xgb sarima snaive true)
-SEEDS=(0 1 2)
+SEEDS=(0)
 
 THESIS_DIR="$SLURM_SUBMIT_DIR"             # Thesis_Repo root
 VENV_PATH="$THESIS_DIR/../thesis_env"

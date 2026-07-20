@@ -6,8 +6,13 @@
 #SBATCH --nodes=1
 #SBATCH --mem=350G               
 #SBATCH --time=26:00:00
-#SBATCH --output=logs/case500_goc_horizon6%j.out
-#SBATCH --error=logs/case500_goc_horizon6%j.err
+#SBATCH --output=logs/case500_goc_horizon1%j.out
+#SBATCH --error=logs/case500_goc_horizon1%j.err
+
+# --- Configuration ---
+CASE="case500_goc"
+#CASE="case118_ieee"
+HORIZON="1"
 
 set -euo pipefail
 
@@ -16,17 +21,16 @@ module --force purge
 source "$SLURM_SUBMIT_DIR/../thesis_env/bin/activate"
 
 start_time=$(date +%s)
-
 python phase1_baseline/run_benchmark_temporal.py \
   --data-path  /data/horse/ws/tibo990i-thesis_data/2019-2021/phase_1a/data_out/case500_goc/raw \
-  --output-path  phase1_baseline/output/2019-2021/case500_goc_horizon24_HPO_xgb.parquet \
+  --output-path  phase1_baseline/output/2019-2021/case500_goc_horizon${HORIZON}_HPO_xgb.parquet \
   --timing-output phase1_baseline/output/2019-2021/timing_benchmark.csv \
-  --forecast-horizon 24 \
+  --forecast-horizon ${HORIZON} \
   --seed 42 \
   --skip-tgt \
-  #--skip-sarima \
   --xgb-device cuda \
   --n-jobs "${SLURM_CPUS_PER_TASK:-1}"
+    #--skip-sarima \
 
 end_time=$(date +%s)
 elapsed=$((end_time - start_time))
