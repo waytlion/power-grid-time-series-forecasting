@@ -416,6 +416,102 @@ def compute_algebraic_power_residuals(
     }
 
 
+def extract_per_bus_residuals(
+    bus_aligned: pd.DataFrame,
+    topology_df: pd.DataFrame,
+    mode: str = "ac",
+    chunk_size: int = 500,
+) -> pd.DataFrame:
+    """Per-bus SIGNED power-balance residuals in physical units, for AC or DC dispatch.
+
+    Same physics/tensor path as compute_(dc_)algebraic_power_residuals, but keeps
+    the per-bus value instead of collapsing to a MAE. res_P/res_Q are computed in
+    p.u. and returned in MW/MVAr (x baseMVA). Row order is preserved, so each output
+    row maps 1:1 to a (pred_flat_idx, bus) observation.
+
+    - mode="ac": dispatch = (Vm_pred, Va_pred, Pg_pred, Qg_pred)
+    - mode="dc": dispatch = (Vm=1, Va_dc, Pg_dc, Qg=0)  [DC-OPF scored via AC equations]
+
+    Returns tidy DataFrame: [pred_flat_idx, bus, res_p_mw, res_q_mvar].
+    """
+    if mode not in ("ac", "dc"):
+        raise ValueError(f"mode must be 'ac' or 'dc', got {mode!r}")
+    need = {"ac": ["Vm_pred", "Va_pred", "Pg_pred", "Qg_pred"],
+            "dc": ["Va_dc", "Pg_dc"]}[mode]
+    if bus_aligned.empty or any(c not in bus_aligned.columns for c in need):
+        return pd.DataFrame(columns=["pred_flat_idx", "bus", "res_p_mw", "res_q_mvar"])
+
+    unique_scenarios = sorted(bus_aligned["pred_flat_idx"].unique())
+    num_nodes = len(bus_aligned) // len(unique_scenarios)
+
+    # Sort so flattened node arrays map 0 -> N_total grouped by prediction instance.
+    bus_aligned = bus_aligned.sort_values(["pred_flat_idx", "bus"]).reset_index(drop=True)
+
+    baseMVA = 100.0
+
+    base_topology = topology_df[topology_df["load_scenario_idx"] == topology_df["load_scenario_idx"].iloc[0]]
+    topo_dict = {
+        "from_bus": base_topology["from_bus"].values,
+        "to_bus": base_topology["to_bus"].values,
+        "Yff_r": base_topology["Yff_r"].values,
+        "Yff_i": base_topology["Yff_i"].values,
+        "Yft_r": base_topology["Yft_r"].values,
+        "Yft_i": base_topology["Yft_i"].values,
+        "Ytf_r": base_topology["Ytf_r"].values,
+        "Ytf_i": base_topology["Ytf_i"].values,
+        "Ytt_r": base_topology["Ytt_r"].values,
+        "Ytt_i": base_topology["Ytt_i"].values,
+    }
+
+    branch_flow = ComputeBranchFlow()
+    node_inj = ComputeNodeInjection()
+    node_res = ComputeNodeResiduals()
+
+    out = []
+    for i in range(0, len(unique_scenarios), chunk_size):
+        chunk_sc = unique_scenarios[i : i + chunk_size]
+        chunk_num_sc = len(chunk_sc)
+        chunk_df = bus_aligned[bus_aligned["pred_flat_idx"].isin(chunk_sc)]
+
+        if mode == "ac":
+            pred_dict = {
+                "VM_OUT": chunk_df["Vm_pred"].values,
+                "VA_OUT": chunk_df["Va_pred"].values * (np.pi / 180.0),
+                "PG_OUT": chunk_df["Pg_pred"].values / baseMVA,
+                "QG_OUT": chunk_df["Qg_pred"].values / baseMVA,
+            }
+        else:  # dc: Vm=1, Va=Va_dc, Pg=Pg_dc, Qg=0
+            pred_dict = {
+                "VM_OUT": np.ones_like(chunk_df["Va_dc"].values),
+                "VA_OUT": chunk_df["Va_dc"].values * (np.pi / 180.0),
+                "PG_OUT": chunk_df["Pg_dc"].values / baseMVA,
+                "QG_OUT": np.zeros_like(chunk_df["Pg_dc"].values),
+            }
+
+        true_dict = {
+            "PD_H": chunk_df["Pd_true"].values / baseMVA,
+            "QD_H": chunk_df["Qd_true"].values / baseMVA,
+            "GS": chunk_df["GS_true"].values,
+            "BS": chunk_df["BS_true"].values,
+        }
+
+        bus_pred, bus_orig, edge_index, edge_attr = format_2step_tensors(
+            pred_dict, true_dict, topo_dict, num_nodes, chunk_num_sc
+        )
+
+        with torch.no_grad():
+            Pft, Qft = branch_flow(bus_pred, edge_index, edge_attr)
+            P_in, Q_in = node_inj(Pft, Qft, edge_index, num_nodes * chunk_num_sc)
+            res_P, res_Q = node_res(P_in, Q_in, bus_pred, bus_orig)
+
+        rec = chunk_df[["pred_flat_idx", "bus"]].copy()
+        rec["res_p_mw"] = res_P.numpy() * baseMVA
+        rec["res_q_mvar"] = res_Q.numpy() * baseMVA
+        out.append(rec)
+
+    return pd.concat(out, ignore_index=True)
+
+
 def _attach_seasonal_naive_baseline(
     df: pd.DataFrame,
     seasonality: int,
