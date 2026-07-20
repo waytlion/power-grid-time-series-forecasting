@@ -29,7 +29,7 @@ LOAD_PROFILE_PATH = "/data/horse/ws/tibo990i-thesis_data/2019-2021/phase_1a/data
 OUTPUT_DIR = Path(__file__).resolve().parent  # Output alongside this script
 OUTPUT_FILE = OUTPUT_DIR / f"{CASE_NAME.strip()}_3yr_precomputed_load_profiles.csv"
 RANDOM_SEED = 1
-SCALE = 0.5
+SCALE = 1
 
 
 def get_ieee_base_loads(case_name: str) -> pd.DataFrame:
