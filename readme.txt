@@ -86,7 +86,7 @@
 # =============================================================================
 # PHASE 1c (E2E arm): one ST-GNN, load history -> dispatch (forecast+optimize fused)
 # =============================================================================
-! Train one model per (horizon, seed); metrics come from training's test step. !
+! Train one model per (horizon, seed); metrics come from training's test step. 
 
 7. Train the E2E ST-GNN  (gridfm-graphkit, GPU)
         -> CONFIG: examples/config/.../HGNS_ST_ForecastOPF_h<H>.yaml
@@ -99,37 +99,62 @@
 #   graphkit's own test metrics (validated identical to compare.py).
 # -----------------------------------------------------------------------------
 
+7b. Combine all arms into one combined CSV (aggregated over seeds for ML-surrogate/E2E)
+        -> EXECUTE:
+           python exp1/generate_metrics/aggregate_results.py --results-root exp1/results \
+             --mlruns-dir ~/gridfm-graphkit-dev/mlruns \
+             --timing-csv phase1_baseline/output/2019-2021/timing_benchmark.csv \
+             --datakit-out-dir /data/horse/ws/tibo990i-thesis_data/2019-2021/phase_1c/data_out \
+             --out exp1/results/combined/case118_combined.csv
+        -> RULES (if violated the script still runs but results are silently wrong):
+             - exp1/results must hold one run generation per (case,horizon,forecaster)
+             - MLflow eval run names MUST match exactly (arm = first token, s<S> = last):
+               surrogate_{case}_{forecaster}_h{H}_s{S}  /  e2e_{case}_h{H}_s{S}
+        -> OUTPUT: <combined>.csv, one row per (case,horizon,optimizer,forecaster,metric).
 
-===========================================================================
-# Results table i want in my thesis
-==========================================================================
-Questions:
+7c. create final plots for thesis:
+        - EXECUTE: python exp1/thesis_plots/make_latex_tables.py
+                
+
+# =============================================================================
+# PHASE 2: Per-bus power-balance residuals + error-distribution figures (results ch.)
+# =============================================================================
+! EXECUTED ONCE FOR EVERY (NETWORK, power-balance-residual-space) ! (HORIZON IS FIXED AT 1)
+
+8. Extract 2-step AC/DC residuals (offline, CPU, ~1 min)
+        -> EXECUTE:
+           python exp1/thesis_plots/extract_residuals_2step.py \
+             --opf-base-dir <phase1c data_out>/case118_ieee_horizon_1_3yr_HPO_xgb \
+             --forecaster xgb --load realized --out-dir <dir>
+           (repeat with --load forecast)
+        -> OUTPUT: <dir>/residuals_xgb_{ac,dc}_{realized,forecast}.parquet
+                   [scenario, bus, res_p_mw, res_q_mvar]
+
+9. Surrogate / E2E residuals: byproduct of the arm's eval (step 6) / train test-pass (step 7).
+        -> OUTPUT (in the run's artifacts/test/):
+           <dataset>_perbus_residuals_{realized,forecast}.parquet
+
+10. Build the results figures + stats CSVs
+        -> EXECUTE:
+           python exp1/thesis_plots/plot_residual_hist_h1.py \
+             --arm "AC-2step"       <residuals_xgb_ac_realized.parquet> \
+             --arm "DC-2step"       <residuals_xgb_dc_realized.parquet> \
+             --arm "Surrogate-2step" <run>/artifacts/test/..._perbus_residuals_realized.parquet \
+             --arm "E2E"            <run>/artifacts/test/..._perbus_residuals_realized.parquet \
+             --out-dir exp1/thesis_plots/figures
+        -> OUTPUT (exp1/thesis_plots/figures/):
+             residual_hist_h1.png    bus-level signed hist (MW) + violin, 1 MW heuristic line
+             net_imbalance_h1.png    scenario-level signed net (sum over buses) per arm
+             residual_stats.csv      per arm x P/Q: bias, MAE, |res| quantiles, share>1 MW
+             net_imbalance_stats.csv per arm: net bias, quantiles, mean|net|
+        -> DESIGN: absolute MW (no peak-load normalization, no eps-floor, all buses);
+                   1 MW line = practitioner negligibility heuristic (pers. comm.), not a rule.
 
 
--metrics
--> opt. gap
--> Constraint Violations:
-a) active and reactive physics residualds 
-b) Description: For the following inequality constraints i want to compute: total violation rate (fraction of buses over limit/all buses), scenario violation rate (fraction of scenarios with a least one bus over limit/all scenarios), mean and max violation. Mean violation is over ALL samples/nodes (incl. non-violating), one-sided and two-sided: mean(max(0, x − upper) + max(0, lower − x)) for two-sided limits (Vm, Pg, Qg, angle); thermal is upper-only: mean(max(0, |S| − rate_a)). Compute in the constraint's physical unit (pu for Vm, MVA for thermal, MW/MVAr for generators). NOTE: mean-over-violating-only is derivable as mean_all / viol_rate, so not stored separately.
-- Vm limit violations
-- For generators: Pg/Qg limit violations 
-- thermal limit violations: The two ends are separate constraints — |S_from| ≤ rate_a and |S_to| ≤ rate_a — and they differ by the line's losses. If either exceeds the rating, the line is overloaded and the state is infeasible; Use max(violation_from, violation_to) per line for computing the violation statistics
-- voltage angle difference limit violations
--> training and inference time per sample
-
-REVIEW:
-- confirm computed metrics (predicted vs ground truth) are in the same unit
-- drop ac_rmse_pf/pt_branch (redundant for thermal limit)
-
-Notes:
-- following metrics are is in the ieee_metrics.csv and prob not important for thesis for now: -> MAE or RMSE for all "predicted" variables, which i believe are: Pd, Qd, Pg, Vm, Va (MAE is over all samples/nodes, signed-symmetric, and measured against ground truth. Being under a limit contributes to MAE.)
-
-TABLES: 
-- Open for dicsussion: which names to use for metrics (could use from compare.py or from E2E arm, not sure which ones are better)
-- 
 ===========================================================================
 # NOTES
 ==========================================================================
+- phase1a (generate_precomputed_profile.py): Needs Scale 1.22 for case500!
 - If Forecast Horizon > 1 -> The number of scenarios/timesteps predicted is less.
         - Example: if T=100 and test indices are 85..99:
                 -> h=1 starts: 85..99 -> 15 starts
@@ -137,3 +162,4 @@ TABLES:
 - Qd is not forecasted by baseline models -> derived by applying scaling factor to Pd
 - I believe Datakit on cluster cannot be run in parallel -> Julia makes probs.
 --> mby this is also only a problem, when they operate on same compute node, meaning if every datakit job has own compute node, they might not have problems parallelizing
+- timing_benchmark.csv: run_benchmark_temporal.py  raises err if columns don't match the file's existing header -> archive the old file first if add/change timing cols

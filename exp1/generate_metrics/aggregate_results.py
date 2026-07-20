@@ -97,6 +97,9 @@ def collect_exact(results_root):
     """
     frames = []
     for csv in glob(os.path.join(results_root, "**", "*_metrics.csv"), recursive=True):
+        # leading-underscore dirs (e.g. _archiv) hold superseded runs - excluded by convention.
+        if any(part.startswith("_") for part in Path(csv).relative_to(results_root).parts):
+            continue
         forecaster, run = Path(csv).parent.name, Path(csv).parent.parent.name
         if forecaster not in FORECASTERS:
             continue
@@ -120,11 +123,18 @@ def _ml_identity(run_name):
 
     surrogate_case118_ieee_xgb_h24_s0 / e2e_case118_h24_s0: h<H>/s<S> tokens give horizon/seed,
     and the token before h<H> is the forecaster (E2E has none).
+
+    Anchored on the first and last token (arm first, s<S> last) so ablation/variant runs that
+    merely contain the right keywords - tiny_e2e_case118_h1_s0 (extra leading token),
+    e2e_case118_h24_s0_tcn_linear (extra trailing tokens) - are rejected instead of silently
+    merged into the real seed grid.
     """
     toks = run_name.split("_")
-    optimizer = "e2e" if "e2e" in toks else ("surrogate" if {"surrogate", "twostep"} & set(toks) else None)
+    if len(toks) < 2 or toks[0] not in ("e2e", "surrogate", "twostep") or not re.fullmatch(r"s\d+", toks[-1]):
+        return None, None, None, None
+    optimizer = "e2e" if toks[0] == "e2e" else "surrogate"
     horizon = next((t[1:] for t in toks if re.fullmatch(r"h\d+", t)), None)
-    seed = next((t[1:] for t in toks if re.fullmatch(r"s\d+", t)), None)
+    seed = toks[-1][1:]
     if optimizer == "e2e":
         forecaster = "none"
     else:
@@ -185,18 +195,20 @@ def collect_forecast_timing(timing_csv):
     return out
 
 
-def collect_datakit_solve(datakit_root, network):
-    """-> {(horizon, forecaster): {'per_dispatch_s', 'total_min'}} from datakit runtime_data.parquet.
+def collect_datakit_solve(datakit_root):
+    """-> {(case, horizon, forecaster): {'per_dispatch_s', 'total_min'}} from runtime_data.parquet.
 
     Layout <root>/<run>/<forecaster>/<network>/raw/runtime_data.parquet, per-scenario 'ac' column;
-    horizon from <run>. DC solves share these files but carry no separate timing column.
+    horizon from <run>, case from <network> (same string as the quality-CSV case). DC solves share
+    these files but carry no separate timing column.
     """
     out = {}
     if not datakit_root:
         return out
     # fixed depth: a recursive glob would descend into the partitioned parquet dirs and blow up.
-    for p in glob(os.path.join(datakit_root, "*", "*", network, "raw", "runtime_data.parquet")):
-        forecaster, horizon = Path(p).parents[2].name, _horizon(Path(p).parents[3].name)
+    for p in glob(os.path.join(datakit_root, "*", "*", "*", "raw", "runtime_data.parquet")):
+        case, forecaster, horizon = (Path(p).parents[1].name, Path(p).parents[2].name,
+                                     _horizon(Path(p).parents[3].name))
         if forecaster not in FORECASTERS or horizon is None:
             continue
         df = pd.read_parquet(p)
@@ -204,8 +216,8 @@ def collect_datakit_solve(datakit_root, network):
             continue
         v = df["ac"].dropna()
         if len(v):
-            out[(horizon, forecaster)] = {"per_dispatch_s": float(v.mean()),
-                                          "total_min": float(v.sum()) / 60.0}
+            out[(case, horizon, forecaster)] = {"per_dispatch_s": float(v.mean()),
+                                                "total_min": float(v.sum()) / 60.0}
     return out
 
 
@@ -223,7 +235,7 @@ def build_timing_rows(quality, forecast_t, datakit_t, ml_timing):
         opf_s = opf_total = None
         model_train = 0.0
         if opt == "ac":
-            d = datakit_t.get((h, fc))
+            d = datakit_t.get((case, h, fc))
             if d:
                 opf_s, opf_total = d["per_dispatch_s"], d["total_min"]
         elif opt in ("surrogate", "e2e"):
@@ -257,15 +269,6 @@ def reduce_over_seed(tidy):
     return out
 
 
-def comparison_table(reduced):
-    """Headline table: one row per (case, optimizer, forecaster, metric), averaged over horizon.
-
-    The per-horizon detail stays in the tidy CSV for plots.
-    """
-    out = reduced.groupby(["case", "optimizer", "forecaster", "metric"], dropna=False)["mean"].mean()
-    return out.reset_index().rename(columns={"mean": "value"})
-
-
 def main(argv=None):
     p = argparse.ArgumentParser(description="Aggregate Phase 1c results across arms.")
     p.add_argument("--results-root", type=Path, required=True,
@@ -274,7 +277,6 @@ def main(argv=None):
                    help="one or more MLflow stores holding surrogate/E2E eval runs")
     p.add_argument("--timing-csv", type=Path, default=None, help="forecaster timing_benchmark.csv")
     p.add_argument("--datakit-out-dir", type=Path, default=None, help="phase_1c datakit output base")
-    p.add_argument("--network", default=None, help="datakit network dir name, e.g. case118_ieee")
     p.add_argument("--out", type=Path, required=True, help="output tidy CSV")
     args = p.parse_args(argv)
 
@@ -284,25 +286,23 @@ def main(argv=None):
         raise SystemExit(f"No canonical *_metrics.csv found under {args.results_root} or the mlruns stores")
 
     forecast_t = collect_forecast_timing(str(args.timing_csv) if args.timing_csv else None)
-    datakit_t = collect_datakit_solve(str(args.datakit_out_dir) if args.datakit_out_dir else None, args.network)
+    datakit_t = collect_datakit_solve(str(args.datakit_out_dir) if args.datakit_out_dir else None)
     timing = build_timing_rows(quality, forecast_t, datakit_t, ml_timing)
 
     reduced = reduce_over_seed(pd.concat([quality, timing], ignore_index=True))
-    table = comparison_table(reduced)
     args.out.parent.mkdir(parents=True, exist_ok=True)
     reduced.to_csv(args.out, index=False)
-    table_path = args.out.with_name(args.out.stem + "_table.csv")
-    table.to_csv(table_path, index=False)
 
     print(f"Arms found (optimizer, forecaster): {sorted(set(zip(quality.optimizer, quality.forecaster)))}")
     print(f"Wrote {len(reduced)} tidy rows -> {args.out}")
-    print(f"Wrote {len(table)} averaged-over-horizon rows -> {table_path}")
 
-    gap = table[table["metric"] == "Mean Optimality Gap"].sort_values(["case", "optimizer", "forecaster"])
+    gap = reduced[reduced["metric"] == "Mean Optimality Gap"].sort_values(
+        ["case", "horizon", "optimizer", "forecaster"])
     if not gap.empty:
-        print("\nMean optimality gap (%), averaged over horizon, by (case, optimizer, forecaster):")
+        print("\nMean optimality gap (%) by (case, horizon, optimizer, forecaster):")
         for _, r in gap.iterrows():
-            print(f"  {str(r['case']):14s} {r['optimizer']:9s} {str(r['forecaster']):7s}  {r['value']:.3f}")
+            print(f"  {str(r['case']):14s} h{str(r['horizon']):4s} {r['optimizer']:9s} "
+                  f"{str(r['forecaster']):7s}  {r['mean']:.3f}")
     return 0
 
 

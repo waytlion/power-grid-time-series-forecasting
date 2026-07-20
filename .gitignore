@@ -30,6 +30,8 @@ data/
 data_out/
 *.parquet
 *.csv
+*.png
+*.tex
 
 # --- Phase1b→1c regression test intermediate outputs (regenerated on each run) ---
 tests/phase1b_1c/tmp/

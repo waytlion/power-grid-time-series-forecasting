@@ -448,6 +448,14 @@ def main() -> None:
     timing_output.parent.mkdir(parents=True, exist_ok=True)
     
     if timing_output.exists():
+        with open(timing_output) as f:
+            existing_cols = f.readline().strip().split(",")
+        if existing_cols != list(df_timing.columns):
+            raise RuntimeError(
+                f"{timing_output} has a different column schema than this run "
+                f"(existing: {existing_cols}, new: {list(df_timing.columns)}). "
+                "Archive the old file before writing under the new schema."
+            )
         df_timing.to_csv(timing_output, mode='a', header=False, index=False)
     else:
         df_timing.to_csv(timing_output, mode='w', header=True, index=False)
