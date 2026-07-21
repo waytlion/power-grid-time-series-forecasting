@@ -116,42 +116,46 @@ class RollingDataset(Dataset):
         
         return torch.from_numpy(x), torch.from_numpy(y)
 
-def prepare_xgb_data(full_data_scaled, indices, input_window, forecast_horizon, step_size):
+def prepare_xgb_data(full_data_scaled, indices, input_window, forecast_horizon, step_size, n_state=0):
     """
     Args:
         preparation of data for XGBoost (Flattening 3D -> 2D).
+        n_state: number of extra historical state channels (Qd,Qg,Vm,Va) after
+                 channel 0 (Pd). 0 = baseline (Pd-only lags).
     Returns:
         X: (N_samples, n_features) float32 array.
-           Features: [Lag_1...Lag_W, TimeFeat_1...TimeFeat_K, Bus_ID]
-        Y: (N_samples, forecast_horizon) float32 array.
+           Features: [Pd lags, <state ch lags>..., TimeFeat_1...K, Bus_ID]
+        Y: (N_samples, forecast_horizon) float32 array (Pd target, channel 0).
     """
     T, N_buses, F = full_data_scaled.shape
-    n_time_feats = F - 1
+    n_lag_ch = 1 + n_state          # Pd + extra state channels used as lags
+    n_time_feats = F - n_lag_ch
     valid_indices = [t for t in indices if t >= input_window and t <= T - forecast_horizon]
     sampled_indices = valid_indices[::step_size]  #*  Downsampling for RAM
-    
+
     n_samples = len(sampled_indices) * N_buses
-    # input_window lags + time features + 1 bus id
-    n_features = input_window + n_time_feats + 1
+    # (Pd + state) lag blocks + time features + 1 bus id
+    n_features = input_window * n_lag_ch + n_time_feats + 1
     LOGGER.info("Allocating RAM for %s samples", n_samples)
-    
+
     X = np.empty((n_samples, n_features), dtype=np.float32)
     Y = np.empty((n_samples, forecast_horizon), dtype=np.float32)
+    lag_len = input_window * n_lag_ch
     row_idx = 0
     for t in tqdm(sampled_indices, desc="Building XGB Dataset"):
-        time_feats = full_data_scaled[t, 0, 1:]
-        
+        time_feats = full_data_scaled[t, 0, n_lag_ch:]
+
         for bus in range(N_buses):
-            lags = full_data_scaled[t-input_window:t, bus, 0]
-            
-            X[row_idx, :input_window] = lags
-            X[row_idx, input_window : input_window+n_time_feats] = time_feats
-            X[row_idx, input_window+n_time_feats] = bus
-            
+            for c in range(n_lag_ch):
+                X[row_idx, c*input_window:(c+1)*input_window] = full_data_scaled[t-input_window:t, bus, c]
+
+            X[row_idx, lag_len : lag_len+n_time_feats] = time_feats
+            X[row_idx, lag_len+n_time_feats] = bus
+
             Y[row_idx, :] = full_data_scaled[t : t+forecast_horizon, bus, 0]
-            
+
             row_idx += 1
-            
+
     return X, Y
 
 
@@ -186,7 +190,8 @@ def run_evaluation(full_data, test_idx, xgb, tgt, sarima, mask, scaler, cfg, dev
     
     T, N, F = full_data.shape
     win, hor = cfg["INPUT_WINDOW"], cfg["FORECAST_HORIZON"]
-    n_time_feats = F - 1
+    n_lag_ch = 1 + cfg.get("n_state", 0)   # Pd + extra state channels used as lags
+    n_time_feats = F - n_lag_ch
     
     # Handle EVAL_HOUR: None = all test times; int = filter by hour
     if cfg["EVAL_HOUR"] is None:
@@ -226,12 +231,13 @@ def run_evaluation(full_data, test_idx, xgb, tgt, sarima, mask, scaler, cfg, dev
     # --- 2. THE LIGHTNING FAST XGB/TGT INFERENCE LOOP ---
     LOGGER.info("Running XGBoost and PyTorch inference")
     for idx, t in enumerate(tqdm(starts)):
-        # XGB Input
+        # XGB Input: Pd + state lag blocks (channels 0..n_lag_ch-1), then time feats, then bus id
         xgb_in = []
         for b in range(N):
+            lag_block = np.concatenate([full_data[t-win:t, b, c] for c in range(n_lag_ch)])
             xgb_in.append(np.concatenate([
-                full_data[t-win:t, b, 0],
-                full_data[t, b, 1:1+n_time_feats],
+                lag_block,
+                full_data[t, b, n_lag_ch:n_lag_ch+n_time_feats],
                 [b]
             ]))
         X_xgb = np.array(xgb_in)

@@ -41,6 +41,10 @@
                 --data-path
                 --output-path
                 --forecast_horizon
+                [--xgb_input_all_opf_var]  (OPTIONAL toggle: if set, XGB uses ALL historical OPF vars
+                                            Pd,Qd,Qg,Vm,Va as input lags instead of Pd-only.
+                                            Target stays Pd either way. Writes to the SAME output paths
+                                            as baseline (no suffix). NOTE: skips TinyTGT; only affects XGB.)
         -> EXECUTE: cd phase1_baseline -> sbatch run_benchmark_temporal.sbatch
 
 # ==========================================================================

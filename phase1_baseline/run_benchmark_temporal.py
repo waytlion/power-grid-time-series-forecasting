@@ -82,6 +82,11 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--timing-output", default="timing_results.csv", help="CSV path to append timing metrics")
     parser.add_argument("--seed", type=int, default=None)
     parser.add_argument("--skip-tgt", action="store_true", help="Skip TinyTGT training")
+    parser.add_argument(
+        "--xgb_input_all_opf_var",
+        action="store_true",
+        help="Feed all historical OPF state vars (Pd,Qd,Qg,Vm,Va) as XGB lag features. Target is Pd. Writes to the same output paths as the baseline.",
+    )
     parser.add_argument("--skip-sarima", action="store_true", help="Skip SARIMA training and evaluation")
     parser.add_argument("--n-jobs", type=int, default=1, help="Number of jobs for XGBoost")
     parser.add_argument(
@@ -179,6 +184,10 @@ def main() -> None:
     n = bus_df["bus"].nunique()
     LOGGER.info("Topology loaded: n=%s nodes, m=%s edges", n, m)
 
+    # --xgb_input_all_opf_var args
+    XGB_FULLSTATE_COLS = ["Qd", "Qg", "Vm", "Va"] if args.xgb_input_all_opf_var else []
+    config["n_state"] = len(XGB_FULLSTATE_COLS)
+
     loads_pivot = bus_df.pivot(index="load_scenario_idx", columns="bus", values="Pd").fillna(0)
     flows_pivot = branch_df.pivot(index="load_scenario_idx", columns="idx", values="pf").fillna(0)
 
@@ -186,10 +195,21 @@ def main() -> None:
     flows_matrix = flows_pivot.values.astype(np.float32)
     LOGGER.info("Matrix shapes: loads=%s, flows=%s", loads_matrix.shape, flows_matrix.shape)
 
+    state_matrix = None
+    if len(XGB_FULLSTATE_COLS):
+        state_matrix = np.stack(
+            [bus_df.pivot(index="load_scenario_idx", columns="bus", values=c).fillna(0).values.astype(np.float32)
+             for c in XGB_FULLSTATE_COLS],
+            axis=2,
+        )  # (T, N, len(XGB_FULLSTATE_COLS))
+        LOGGER.info("Full-state channels %s stacked: shape=%s", XGB_FULLSTATE_COLS, state_matrix.shape)
+
     if config["USE_SUBSET"]:
         subset_size = int(len(loads_matrix) * config["SUBSET_PERCENT"])
         loads_matrix = loads_matrix[:subset_size]
         flows_matrix = flows_matrix[:subset_size]
+        if state_matrix is not None:
+            state_matrix = state_matrix[:subset_size]
         LOGGER.info("Using subset: %s samples (%.1f%%)", subset_size, config["SUBSET_PERCENT"] * 100)
 
     A = np.zeros((n, n), dtype=bool)
@@ -211,7 +231,9 @@ def main() -> None:
         time_features_global[:, np.newaxis, :],
         (time_features_global.shape[0], loads_matrix.shape[1], time_features_global.shape[1]),
     )
-    X = np.concatenate([load_tensor, time_tensor_expanded], axis=2)
+    # Channel layout: [Pd, <state channels>..., time features...]
+    channels = [load_tensor] + ([state_matrix] if state_matrix is not None else []) + [time_tensor_expanded]
+    X = np.concatenate(channels, axis=2)
     LOGGER.info("Final input tensor shape=%s (time, buses, features)", X.shape)
 
     train_idx, val_idx, test_idx = get_temporal_splits(T)
@@ -221,7 +243,7 @@ def main() -> None:
     LOGGER.info("Scaled mean (load)=%.4f", scaled_tensor[:, :, 0].mean())
     LOGGER.info(
         "Scaled mean (hour_sin)=%.4f (expected near 0 but unscaled)",
-        scaled_tensor[:, :, 1].mean(),
+        scaled_tensor[:, :, 1 + len(XGB_FULLSTATE_COLS)].mean(),
     )
 
     train_dataset = RollingDataset(
@@ -258,6 +280,7 @@ def main() -> None:
         config["INPUT_WINDOW"],
         config["FORECAST_HORIZON"],
         step_size=1,
+        n_state=len(XGB_FULLSTATE_COLS),
     )
     LOGGER.info("XGB training data shape=%s", X_train_xgb.shape)
     X_val_xgb, Y_val_xgb = prepare_xgb_data(
@@ -266,6 +289,7 @@ def main() -> None:
         config["INPUT_WINDOW"],
         config["FORECAST_HORIZON"],
         step_size=1,
+        n_state=len(XGB_FULLSTATE_COLS),
     )
 
     # HPO on static train/val split (same split as 1-step model)
@@ -295,7 +319,9 @@ def main() -> None:
     torch.cuda.empty_cache()
 
     tgt_model = None
-    if not args.skip_tgt:
+    if args.xgb_input_all_opf_var and not args.skip_tgt:
+        LOGGER.info("--xgb_input_all_opf_var set: skipping TinyTGT (fixed in_feat incompatible with widened state tensor)")
+    if not args.skip_tgt and not args.xgb_input_all_opf_var:
         tgt_model = TinyTGT(
             n_nodes=14,
             d_model=64,
