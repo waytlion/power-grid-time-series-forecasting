@@ -64,28 +64,30 @@ def compute_rmse_by_bus_type(
         features: List of feature names (using parquet names, e.g., ['Vm', 'Va', 'Pg', 'Qg']).
     
     Returns:
-        DataFrame with columns [bus_type, feature, rmse].
+        DataFrame with columns [bus_type, feature, rmse, mae, n] (n = bus count
+        for that type, so callers can pool per-bus-equal not per-type-equal).
     """
     results = []
-    
+
     # Bus type flags in parquet: PQ, PV, REF
     for bus_type in ["PQ", "PV", "REF"]:
         # Filter to buses of this type (flag == 1 or True)
         mask = bus_df[f"{bus_type}_true"].astype(bool)
         subset = bus_df[mask]
-        
+
         if len(subset) == 0:
             continue  # No buses of this type
-        
+
         for feat in features:
-            squared_error = (subset[f"{feat}_pred"] - subset[f"{feat}_true"]) ** 2
-            rmse = np.sqrt(squared_error.mean())
+            error = subset[f"{feat}_pred"] - subset[f"{feat}_true"]
             results.append({
                 "bus_type": bus_type,
                 "feature": feat,
-                "rmse": rmse,
+                "rmse": np.sqrt((error ** 2).mean()),
+                "mae": error.abs().mean(),
+                "n": len(subset),
             })
-    
+
     return pd.DataFrame(results)
 
 
@@ -157,7 +159,8 @@ def compute_dc_rmse_by_bus_type(bus_df: pd.DataFrame) -> pd.DataFrame:
     All are compared against the AC ground-truth columns (Va_true, Pg_true, Vm_true).
 
     Returns:
-        DataFrame with columns [bus_type, feature, rmse].
+        DataFrame with columns [bus_type, feature, rmse, mae, n] (n = bus count
+        for that type, so callers can pool per-bus-equal not per-type-equal).
     """
     results = []
 
@@ -168,17 +171,21 @@ def compute_dc_rmse_by_bus_type(bus_df: pd.DataFrame) -> pd.DataFrame:
         if len(subset) == 0:
             continue
 
+        n = len(subset)
         # Vm: DC assumes flat voltage at 1.0 p.u. — deviation from AC truth
-        rmse_vm = float(np.sqrt(((1.0 - subset["Vm_true"]) ** 2).mean()))
-        results.append({"bus_type": bus_type, "feature": "Vm_dc", "rmse": rmse_vm})
+        dev_vm = 1.0 - subset["Vm_true"]
+        results.append({"bus_type": bus_type, "feature": "Vm_dc",
+                        "rmse": float(np.sqrt((dev_vm ** 2).mean())), "mae": float(dev_vm.abs().mean()), "n": n})
 
         # Va: DC voltage angle vs AC ground truth
-        rmse_va = float(np.sqrt(((subset["Va_dc"] - subset["Va_true"]) ** 2).mean()))
-        results.append({"bus_type": bus_type, "feature": "Va_dc", "rmse": rmse_va})
+        err_va = subset["Va_dc"] - subset["Va_true"]
+        results.append({"bus_type": bus_type, "feature": "Va_dc",
+                        "rmse": float(np.sqrt((err_va ** 2).mean())), "mae": float(err_va.abs().mean()), "n": n})
 
         # Pg: DC bus-level active generation vs AC ground truth
-        rmse_pg = float(np.sqrt(((subset["Pg_dc"] - subset["Pg_true"]) ** 2).mean()))
-        results.append({"bus_type": bus_type, "feature": "dc_Pg_bus", "rmse": rmse_pg})
+        err_pg = subset["Pg_dc"] - subset["Pg_true"]
+        results.append({"bus_type": bus_type, "feature": "dc_Pg_bus",
+                        "rmse": float(np.sqrt((err_pg ** 2).mean())), "mae": float(err_pg.abs().mean()), "n": n})
 
     return pd.DataFrame(results)
 
