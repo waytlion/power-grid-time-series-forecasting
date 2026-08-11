@@ -28,7 +28,6 @@ PARQUET_FILES = {
 }
 
 OUTPUT_TEMPLATES = {
-    "forecast_mae": "{dataset}_forecast_MAE.csv",
     "forecast": "{dataset}_forecast.csv",
     "rmse": "{dataset}_RMSE.csv",
     "metrics": "{dataset}_metrics.csv",

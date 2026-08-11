@@ -247,7 +247,8 @@ def run_evaluation(full_data, test_idx, xgb, tgt, sarima, mask, scaler, cfg, dev
 
         # Predict
         t0_xgb = time.time()
-        pred_xgb = xgb.predict(X_xgb)
+        # reshape keeps pred 2-D [N_bus, hor]; XGB collapses to 1-D [N_bus] at hor=1.
+        pred_xgb = xgb.predict(X_xgb).reshape(-1, hor)
         infer_times["xgb"] += time.time() - t0_xgb
         
         lag = cfg["SNAIVE_LAG"]

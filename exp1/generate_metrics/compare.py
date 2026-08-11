@@ -51,31 +51,50 @@ from metrics import (
 # Canonical physical units per constraint type (used for both AC and DC rows).
 _CT_UNITS = {"vm": "p.u.", "pg": "MW", "qg": "MVAr", "thermal": "MVA", "angle": "deg"}
 
+
+def _pool_by_feature(df, col, squared):
+    """Collapse a per-bus-type error column into one value per feature, 
+      squared=True  (RMSE): sqrt(sum(n * col^2) / sum(n))   -- pool MSE then sqrt
+      squared=False (MAE):       sum(n * col)   / sum(n)"""
+    out = {}
+    for feat, grp in df.groupby("feature"):
+        w, v = grp["n"].to_numpy(), grp[col].to_numpy()
+        pooled = (w * v ** 2).sum() / w.sum() if squared else (w * v).sum() / w.sum()
+        out[feat] = float(np.sqrt(pooled)) if squared else float(pooled)
+    return out
+
 # Slim debug summary = a PURE PROJECTION of the exhaustive metrics file. Each entry
 # is a verbatim "Metric" name from metrics_rows; the summary never recomputes.
 # To add a column here it must first exist in the exhaustive file.
 SUMMARY_METRICS = [
+    # Accuracy block in the ML arms' canonical order (Pd/Qd un-prefixed: shared
+    # forecaster metrics; everything else is AC-computed -> "AC " prefix).
+    "AC Mean Optimality Gap",
+    "AC Residual P (MAE)", "AC Residual Q (MAE)",
     "MAE Pd", "RMSE Pd",
-    "AC Vm RMSE", "AC Va RMSE", "AC Pg bus RMSE",
-    "Generator Pg MAE", "Generator Pg RMSE",
-    "Mean Optimality Gap",
-    "Residual P (MAE)", "Residual Q (MAE)",
+    "MAE Qd", "RMSE Qd",
+    "AC Vm MAE", "AC Vm RMSE",
+    "AC Va MAE", "AC Va RMSE",
+    "AC Pg bus MAE", "AC Pg bus RMSE",
+    "AC Qg MAE", "AC Qg RMSE",
+    "AC Generator Pg MAE", "AC Generator Pg RMSE",
     "AC vm viol. rate", "AC pg viol. rate", "AC qg viol. rate",
     "AC thermal viol. rate", "AC angle viol. rate",
     "AC fully feasible scenario viol. rate",
-    "Solver time per scenario (s)",
+    "AC Solver total time (s)", "AC Solver time per scenario (s)",
     # DC headline
     "DC Mean Optimality Gap",
     "DC vm viol. rate", "DC pg viol. rate",
     "DC thermal viol. rate", "DC angle viol. rate",
     "DC fully feasible scenario viol. rate",
+    "DC Solver total time (s)", "DC Solver time per scenario (s)",
 ]
 
 
 def _violation_rows(feas: dict, prefix: str) -> list[dict]:
     """Build the canonical violation quintet rows from a compute_feasibility_metrics
-    output dict. ``prefix`` is "AC " or "DC "; feasibility keys use ""/"dc_"."""
-    fp = "" if prefix == "AC " else "dc_"
+    output dict. ``prefix`` is "" (AC) or "DC "; feasibility keys use ""/"dc_"."""
+    fp = "dc_" if prefix == "DC " else ""
     rows = []
     for ct, unit in _CT_UNITS.items():
         if f"{fp}{ct}_viol_max" not in feas:
@@ -164,14 +183,7 @@ def compare_single_method(
     mae_pd = compute_mae(forecast_for_mae, ["Pd"])["Pd"]
     rmse_pd = float(np.sqrt(((forecast_for_mae["Pd_pred"] - forecast_for_mae["Pd_true"]) ** 2).mean()))
     
-    # Save forecast MAE
-    forecast_mae_df = pd.DataFrame([{
-        "Feature": "Pd",
-        "MAE": mae_pd,
-        "Unit": "MW",
-    }])
-    forecast_mae_path = method_output_dir / OUTPUT_TEMPLATES["forecast_mae"].format(dataset=dataset)
-    forecast_mae_df.to_csv(forecast_mae_path, index=False)
+    # mae_pd/rmse_pd feed the "MAE Pd"/"RMSE Pd" rows of the metrics CSV below.
     print(f"  MAE Pd: {mae_pd:.4f} MW")
     
     # 2. Load OPF results
@@ -230,9 +242,14 @@ def compare_single_method(
     # 4. Compute RMSE by bus type
     print("Computing RMSE by bus type...")
     rmse_df = compute_rmse_by_bus_type(bus_aligned, ["Vm", "Va", "Pg", "Qg"])
-    # Extract key RMSE values for summary (aggregate across bus types)
-    rmse_summary = rmse_df.groupby("feature")["rmse"].mean().to_dict()
-    
+    # Collapse per-bus-type -> per-feature, weighted by bus count 
+    rmse_summary = _pool_by_feature(rmse_df, "rmse", squared=True)
+    mae_summary = _pool_by_feature(rmse_df, "mae", squared=False)
+    # Qd load forecast error (forecast vs true load, pooled over all buses) —
+    qd_err = bus_aligned["Qd_pred"] - bus_aligned["Qd_true"]
+    mae_qd = float(qd_err.abs().mean())
+    rmse_qd = float(np.sqrt((qd_err ** 2).mean()))
+
     
     # 5. Compute generator RMSE
     print("Computing generator-level RMSE...")
@@ -258,19 +275,33 @@ def compare_single_method(
     # 7. Build the exhaustive metrics rows (AC). This file is the SINGLE SOURCE OF
     #    TRUTH; comparison_summary is a pure projection of these rows (see
     #    generate_comparison_summary). Add a new metric here, never in the summary.
+    #    Naming: metrics each optimizer computes SEPARATELY carry an "AC "/"DC "
+    #    prefix (aggregate_results strips it -> same metric name, different
+    #    optimizer). Only the forecaster-shared load metrics (Pd, Qd) are
+    #    un-prefixed, since they are identical across arms.
+    #    Order matches the ML arms' canonical_scalar_rows.
+    nan = float("nan")
     metrics_rows = [
+        {"Metric": "AC Mean Optimality Gap", "Value": cost_metrics["mean_optimality_gap_pct"], "Unit": "%"},
+        {"Metric": "AC Residual P (MAE)", "Value": residuals["mae_residual_p_mw"], "Unit": "MW"},
+        {"Metric": "AC Residual Q (MAE)", "Value": residuals["mae_residual_q_mvar"], "Unit": "MVAr"},
         {"Metric": "MAE Pd", "Value": mae_pd, "Unit": "MW"},
         {"Metric": "RMSE Pd", "Value": rmse_pd, "Unit": "MW"},
-        {"Metric": "AC Vm RMSE", "Value": rmse_summary.get("Vm", float("nan")), "Unit": "p.u."},
-        {"Metric": "AC Va RMSE", "Value": rmse_summary.get("Va", float("nan")), "Unit": "deg"},
-        {"Metric": "AC Pg bus RMSE", "Value": rmse_summary.get("Pg", float("nan")), "Unit": "MW"},
-        {"Metric": "Generator Pg MAE", "Value": mae_pg_gen, "Unit": "MW"},
-        {"Metric": "Generator Pg RMSE", "Value": gen_rmse, "Unit": "MW"},
-        {"Metric": "Mean Optimality Gap", "Value": cost_metrics["mean_optimality_gap_pct"], "Unit": "%"},
-        {"Metric": "Median Optimality Gap", "Value": cost_metrics["median_optimality_gap_pct"], "Unit": "%"},
-        {"Metric": "Max Optimality Gap", "Value": cost_metrics["max_optimality_gap_pct"], "Unit": "%"},
-        {"Metric": "Residual P (MAE)", "Value": residuals["mae_residual_p_mw"], "Unit": "MW"},
-        {"Metric": "Residual Q (MAE)", "Value": residuals["mae_residual_q_mvar"], "Unit": "MVAr"},
+        {"Metric": "MAE Qd", "Value": mae_qd, "Unit": "MVAr"},
+        {"Metric": "RMSE Qd", "Value": rmse_qd, "Unit": "MVAr"},
+        {"Metric": "AC Vm MAE", "Value": mae_summary.get("Vm", nan), "Unit": "p.u."},
+        {"Metric": "AC Vm RMSE", "Value": rmse_summary.get("Vm", nan), "Unit": "p.u."},
+        {"Metric": "AC Va MAE", "Value": mae_summary.get("Va", nan), "Unit": "deg"},
+        {"Metric": "AC Va RMSE", "Value": rmse_summary.get("Va", nan), "Unit": "deg"},
+        {"Metric": "AC Pg bus MAE", "Value": mae_summary.get("Pg", nan), "Unit": "MW"},
+        {"Metric": "AC Pg bus RMSE", "Value": rmse_summary.get("Pg", nan), "Unit": "MW"},
+        {"Metric": "AC Qg MAE", "Value": mae_summary.get("Qg", nan), "Unit": "MVAr"},
+        {"Metric": "AC Qg RMSE", "Value": rmse_summary.get("Qg", nan), "Unit": "MVAr"},
+        {"Metric": "AC Generator Pg MAE", "Value": mae_pg_gen, "Unit": "MW"},
+        {"Metric": "AC Generator Pg RMSE", "Value": gen_rmse, "Unit": "MW"},
+        # AC-arm extras with no ML counterpart, kept after the canonical block.
+        {"Metric": "AC Median Optimality Gap", "Value": cost_metrics["median_optimality_gap_pct"], "Unit": "%"},
+        {"Metric": "AC Max Optimality Gap", "Value": cost_metrics["max_optimality_gap_pct"], "Unit": "%"},
         # Branch flow RMSE kept in the exhaustive file but NOT projected to the
         # summary (redundant accuracy metric — flow error is captured on the
         # feasibility side via thermal violations).
@@ -297,7 +328,8 @@ def compare_single_method(
         dc_rmse_df = compute_dc_rmse_by_bus_type(bus_aligned)
         # Append DC rows to the same RMSE table as AC
         rmse_df = pd.concat([rmse_df, dc_rmse_df], ignore_index=True)
-        dc_rmse_summary = dc_rmse_df.groupby("feature")["rmse"].mean().to_dict()
+        dc_rmse_summary = _pool_by_feature(dc_rmse_df, "rmse", squared=True)
+        dc_mae_summary = _pool_by_feature(dc_rmse_df, "mae", squared=False)
 
         # 8b. DC Generator RMSE
         print("  Computing DC generator-level RMSE...")
@@ -320,18 +352,23 @@ def compare_single_method(
         print("  Computing DC constraint violations...")
         dc_feas = compute_feasibility_metrics(bus_aligned, gen_aligned, branch_aligned, mode="dc")
 
-        # Append DC metric rows to the exhaustive file
+        # Append DC metric rows in the same  order as the AC/ML arms
+        # (DC has no reactive quantities, so no Qd/Qg rows; Vm is a deviation-
+        # from-flat-1.0 metric, kept under its own name).
         metrics_rows.extend([
-            {"Metric": "DC Vm Deviation RMSE (1.0 vs AC)", "Value": dc_rmse_summary.get("Vm_dc", float("nan")), "Unit": "p.u."},
-            {"Metric": "DC Va RMSE", "Value": dc_rmse_summary.get("Va_dc", float("nan")), "Unit": "deg"},
-            {"Metric": "DC Pg bus RMSE", "Value": dc_rmse_summary.get("dc_Pg_bus", float("nan")), "Unit": "MW"},
-            {"Metric": "DC Generator Pg MAE", "Value": dc_mae_pg_gen, "Unit": "MW"},
-            {"Metric": "DC Generator Pg RMSE", "Value": dc_gen_rmse, "Unit": "MW"},
             {"Metric": "DC Mean Optimality Gap", "Value": dc_cost_metrics["dc_mean_optimality_gap_pct"], "Unit": "%"},
-            {"Metric": "DC Median Optimality Gap", "Value": dc_cost_metrics["dc_median_optimality_gap_pct"], "Unit": "%"},
-            {"Metric": "DC Max Optimality Gap", "Value": dc_cost_metrics["dc_max_optimality_gap_pct"], "Unit": "%"},
             {"Metric": "DC Residual P (MAE)", "Value": dc_residuals["dc_mae_residual_p_mw"], "Unit": "MW"},
             {"Metric": "DC Residual Q (MAE)", "Value": dc_residuals["dc_mae_residual_q_mvar"], "Unit": "MVAr"},
+            {"Metric": "DC Vm Deviation MAE (1.0 vs AC)", "Value": dc_mae_summary.get("Vm_dc", nan), "Unit": "p.u."},
+            {"Metric": "DC Vm Deviation RMSE (1.0 vs AC)", "Value": dc_rmse_summary.get("Vm_dc", nan), "Unit": "p.u."},
+            {"Metric": "DC Va MAE", "Value": dc_mae_summary.get("Va_dc", nan), "Unit": "deg"},
+            {"Metric": "DC Va RMSE", "Value": dc_rmse_summary.get("Va_dc", nan), "Unit": "deg"},
+            {"Metric": "DC Pg bus MAE", "Value": dc_mae_summary.get("dc_Pg_bus", nan), "Unit": "MW"},
+            {"Metric": "DC Pg bus RMSE", "Value": dc_rmse_summary.get("dc_Pg_bus", nan), "Unit": "MW"},
+            {"Metric": "DC Generator Pg MAE", "Value": dc_mae_pg_gen, "Unit": "MW"},
+            {"Metric": "DC Generator Pg RMSE", "Value": dc_gen_rmse, "Unit": "MW"},
+            {"Metric": "DC Median Optimality Gap", "Value": dc_cost_metrics["dc_median_optimality_gap_pct"], "Unit": "%"},
+            {"Metric": "DC Max Optimality Gap", "Value": dc_cost_metrics["dc_max_optimality_gap_pct"], "Unit": "%"},
             {"Metric": "DC Branch pf RMSE", "Value": dc_branch_metrics["dc_rmse_pf"], "Unit": "MW"},
             {"Metric": "DC Branch pt RMSE", "Value": dc_branch_metrics["dc_rmse_pt"], "Unit": "MW"},
         ])
@@ -356,17 +393,24 @@ def compare_single_method(
     rmse_df.to_csv(rmse_path, index=False)
     print(f"  Saved RMSE table: {rmse_path}")
 
-    # 9.5 Solver timing (written by phase1c_run_datakit_batch.py)
-    import json as _json
-    timing_path = predicted_opf_dir / "solve_timing.json"
-    if timing_path.exists():
-        with open(timing_path) as _f:
-            _t = _json.load(_f)
+    # 9.5 Solver timing — per-scenario AC/DC solve_time from DataKit's runtime_data.parquet.
+    #   - columns: "ac" (always), "dc" (present when include_dc_res); values in seconds.
+    #   - AC/DC kept separate, following the "AC "/"DC " metric-naming convention above.
+    runtime_path = predicted_opf_dir / "runtime_data.parquet"
+    if runtime_path.exists():
+        _rt = pd.read_parquet(runtime_path)
         metrics_rows.extend([
-            {"Metric": "Solver total time (s)", "Value": _t.get("total_solve_s"), "Unit": "s"},
-            {"Metric": "Solver time per scenario (s)", "Value": _t.get("per_scenario_s"), "Unit": "s/scenario"},
-            {"Metric": "Solver n_scenarios", "Value": _t.get("n_scenarios"), "Unit": "count"},
+            {"Metric": "AC Solver total time (s)", "Value": float(_rt["ac"].sum()), "Unit": "s"},
+            {"Metric": "AC Solver time per scenario (s)", "Value": float(_rt["ac"].mean()), "Unit": "s/scenario"},
         ])
+        if "dc" in _rt.columns and _rt["dc"].notna().any():
+            metrics_rows.extend([
+                {"Metric": "DC Solver total time (s)", "Value": float(_rt["dc"].sum()), "Unit": "s"},
+                {"Metric": "DC Solver time per scenario (s)", "Value": float(_rt["dc"].mean()), "Unit": "s/scenario"},
+            ])
+        metrics_rows.append(
+            {"Metric": "Solver n_scenarios", "Value": int(len(_rt)), "Unit": "count"},
+        )
 
     # 10. Save metrics summary (AC + DC combined) — the SINGLE SOURCE OF TRUTH.
     metrics_df = pd.DataFrame(metrics_rows)

@@ -13,10 +13,8 @@ Usage:
 """
 
 import argparse
-import json
 import subprocess
 import sys
-import time
 import yaml
 from pathlib import Path
 
@@ -92,26 +90,12 @@ def main(argv=None):
             cmd = [sys.executable, "-m", "gridfm_datakit.cli", "generate", str(temp_yaml_path)]
 
             # Using Popen to stream output rather than capture it
-            n_scenarios = config['load']['scenarios']
-            t_start = time.perf_counter()
             result = subprocess.run(cmd)
-            elapsed_s = time.perf_counter() - t_start
 
             if result.returncode != 0:
                 print(f"Error: DataKit failed for model {model} (return code {result.returncode})", file=sys.stderr)
                 sys.exit(result.returncode)
-
-            # Write solver timing alongside the OPF output
-            timing = {
-                "total_solve_s": elapsed_s,
-                "n_scenarios": n_scenarios,
-                "per_scenario_s": elapsed_s / n_scenarios if n_scenarios > 0 else None,
-            }
-            timing_path = model_out_dir / args.network_name / "raw" / "solve_timing.json"
-            timing_path.parent.mkdir(parents=True, exist_ok=True)
-            with open(timing_path, "w") as f:
-                json.dump(timing, f, indent=2)
-            print(f"  Solver timing: {elapsed_s:.1f}s total, {timing['per_scenario_s']:.4f}s/scenario ({n_scenarios} scenarios)")
+            # Per-scenario AC/DC solve_time is recorded by DataKit in runtime_data.parquet.
 
     finally:
         # Cleanup temp yaml
