@@ -88,6 +88,12 @@ def parse_args() -> argparse.Namespace:
         help="Feed all historical OPF state vars (Pd,Qd,Qg,Vm,Va) as XGB lag features. Target is Pd. Writes to the same output paths as the baseline.",
     )
     parser.add_argument("--skip-sarima", action="store_true", help="Skip SARIMA training and evaluation")
+    parser.add_argument(
+        "--no-time-feats",
+        action="store_true",
+        help="Drop the 6 cyclical calendar channels from the input tensor (XGB ablation; "
+             "SARIMA is unaffected since it only ever sees the Pd channel).",
+    )
     parser.add_argument("--n-jobs", type=int, default=1, help="Number of jobs for XGBoost")
     parser.add_argument(
         "--sarima-fit-hours",
@@ -232,19 +238,23 @@ def main() -> None:
         (time_features_global.shape[0], loads_matrix.shape[1], time_features_global.shape[1]),
     )
     # Channel layout: [Pd, <state channels>..., time features...]
-    channels = [load_tensor] + ([state_matrix] if state_matrix is not None else []) + [time_tensor_expanded]
+    time_channels = [] if args.no_time_feats else [time_tensor_expanded]
+    channels = [load_tensor] + ([state_matrix] if state_matrix is not None else []) + time_channels
     X = np.concatenate(channels, axis=2)
     LOGGER.info("Final input tensor shape=%s (time, buses, features)", X.shape)
+    if args.no_time_feats:
+        LOGGER.info("--no-time-feats set: cyclical calendar channels dropped from input tensor")
 
     train_idx, val_idx, test_idx = get_temporal_splits(T)
     LOGGER.info("Split sizes: train=%s, val=%s, test=%s", len(train_idx), len(val_idx), len(test_idx))
 
     scaled_tensor, scaler = scale_data_selectively(X, train_idx)
     LOGGER.info("Scaled mean (load)=%.4f", scaled_tensor[:, :, 0].mean())
-    LOGGER.info(
-        "Scaled mean (hour_sin)=%.4f (expected near 0 but unscaled)",
-        scaled_tensor[:, :, 1 + len(XGB_FULLSTATE_COLS)].mean(),
-    )
+    if not args.no_time_feats:
+        LOGGER.info(
+            "Scaled mean (hour_sin)=%.4f (expected near 0 but unscaled)",
+            scaled_tensor[:, :, 1 + len(XGB_FULLSTATE_COLS)].mean(),
+        )
 
     train_dataset = RollingDataset(
         scaled_tensor, train_idx, config["INPUT_WINDOW"], config["FORECAST_HORIZON"]
@@ -321,7 +331,9 @@ def main() -> None:
     tgt_model = None
     if args.xgb_input_all_opf_var and not args.skip_tgt:
         LOGGER.info("--xgb_input_all_opf_var set: skipping TinyTGT (fixed in_feat incompatible with widened state tensor)")
-    if not args.skip_tgt and not args.xgb_input_all_opf_var:
+    if args.no_time_feats and not args.skip_tgt:
+        LOGGER.info("--no-time-feats set: skipping TinyTGT (fixed in_feat=7 incompatible with narrowed tensor)")
+    if not args.skip_tgt and not args.xgb_input_all_opf_var and not args.no_time_feats:
         tgt_model = TinyTGT(
             n_nodes=14,
             d_model=64,
