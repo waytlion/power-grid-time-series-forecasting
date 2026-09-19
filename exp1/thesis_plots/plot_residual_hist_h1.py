@@ -68,7 +68,71 @@ def net_stats(nets: dict) -> pd.DataFrame:
     return pd.DataFrame(rows)
 
 
-def plot_bus_level(frames: dict, focus: float, out_png: Path):
+# ---------------------------------------------------------------------------
+# LaTeX table writers (booktabs). Emitted straight from the stats frames, arm
+# order preserved from the frames dict (AC / DC / Surrogate / E2E).
+# ---------------------------------------------------------------------------
+
+def _fmt(v: float, width: int) -> str:
+    """3-decimal, right-justified; snap negative zero to +0.000 so tables read clean."""
+    if abs(v) < 5e-4:
+        v = 0.0
+    return f"{v:{width}.3f}"
+
+
+def net_stats_latex(nstats: pd.DataFrame, out_path: Path):
+    """tab:net_imbalance -- one row per arm: signed net mean, P5/median/P95, mean |net|."""
+    lines = [
+        r"\begin{table}[t]",
+        r"\centering",
+        r"\caption{Distribution of net active power imbalance (MW). "
+        r"Mean absolute imbalance is reported in the last column.}",
+        r"\label{tab:net_imbalance}",
+        r"\begin{tabular}{lrrrrr}",
+        r"\toprule",
+        "Method &", "Mean &", "P5 &", "Median &", "P95 &", r"Mean Abs. \\",
+        r"\midrule",
+    ]
+    for _, r in nstats.iterrows():
+        cells = " & ".join(_fmt(r[c], 9) for c in
+                           ("net_mean_signed", "net_P5", "net_P50", "net_P95", "net_mean_abs"))
+        lines.append(f"{r['arm']:<15} & {cells} \\\\")
+    lines += [r"\bottomrule", r"\end{tabular}", r"\end{table}", ""]
+    out_path.write_text("\n".join(lines))
+    print(f"Wrote net-imbalance LaTeX -> {out_path}")
+
+
+def residual_stats_latex(stats: pd.DataFrame, out_path: Path):
+    """tab:error_metrics -- two rows per arm (P, Q): bias, MAE, abs-percentiles, share>ref.
+    A \\midrule separates each arm's P/Q pair."""
+    share_col = next(c for c in stats.columns if c.startswith("share_above_"))
+    metric_cols = ("bias_signed", "mae", "absP50", "absP90", "absP95", "absP99", share_col)
+    lines = [
+        r"\begin{table}[t]",
+        r"\centering",
+        r"\caption{Prediction error statistics for active ($P$) and reactive ($Q$) power. "
+        r"Lower is better for all metrics except signed bias. "
+        r"Percentiles refer to absolute error.}",
+        r"\label{tab:error_metrics}",
+        r"\begin{tabular}{llrrrrrrr}",
+        r"\toprule",
+        "Method & Qty &", "Bias &", "MAE &", "P50 &", "P90 &",
+        "P95 &", "P99 &", r"$>1$ (\%) \\",
+        r"\midrule",
+    ]
+    arms = list(dict.fromkeys(stats["arm"]))  # frames-dict order
+    for i, arm in enumerate(arms):
+        if i > 0:
+            lines.append(r"\midrule")
+        for _, r in stats[stats["arm"] == arm].iterrows():
+            cells = " & ".join(_fmt(r[c], 8) for c in metric_cols)
+            lines.append(f"{arm:<15} & ${r['quantity']}$ & {cells} \\\\")
+    lines += [r"\bottomrule", r"\end{tabular}", r"\end{table}", ""]
+    out_path.write_text("\n".join(lines))
+    print(f"Wrote error-metrics LaTeX -> {out_path}")
+
+
+def plot_bus_level(frames: dict, focus: float, out_png: Path, case_label: str = "case500"):
     """(L) signed histogram focused to +/-focus MW, share>1MW in legend; (R) full-range violin."""
     fig, (axL, axR) = plt.subplots(1, 2, figsize=(13, 5), gridspec_kw={"width_ratios": [2.3, 1.0]})
 
@@ -99,7 +163,7 @@ def plot_bus_level(frames: dict, focus: float, out_png: Path):
     axR.set_ylabel("Residual [MW]  (full range)")
     axR.set_title("Full distribution")
 
-    fig.suptitle("Power-balance residuals at h=1 (case118, per bus, realized load, all buses)", y=1.02)
+    fig.suptitle(f"Power-balance residuals at h=1 ({case_label}, per bus, realized load, all buses)", y=1.02)
     fig.tight_layout()
     fig.savefig(out_png, dpi=200, bbox_inches="tight")
     print(f"Saved bus-level figure -> {out_png}")
@@ -132,6 +196,7 @@ def main():
                     required=True, help="arm label + per-bus residual parquet (repeatable)")
     ap.add_argument("--out-dir", type=Path, required=True)
     ap.add_argument("--focus", type=float, default=10.0, help="bus-level histogram x-view half-range [MW]")
+    ap.add_argument("--case-label", default="case500", help="case name shown in the figure title")
     args = ap.parse_args()
     args.out_dir.mkdir(parents=True, exist_ok=True)
 
@@ -141,15 +206,15 @@ def main():
 
     # bus-level stats + figure
     stats = residual_stats(frames)
-    stats.to_csv(args.out_dir / "residual_stats.csv", index=False)
+    residual_stats_latex(stats, args.out_dir / "error_metrics.tex")
     print("\nBus-level stats:")
     print(stats.to_string(index=False, float_format=lambda x: f"{x:.3f}"))
-    plot_bus_level(frames, args.focus, args.out_dir / "residual_hist_h1.png")
+    plot_bus_level(frames, args.focus, args.out_dir / "residual_hist_h1.png", args.case_label)
 
     # scenario-level net + figure (DC sanity: net ~ -losses, shifted copy of AC arm's net)
     nets = net_per_scenario(frames)
     nstats = net_stats(nets)
-    nstats.to_csv(args.out_dir / "net_imbalance_stats.csv", index=False)
+    net_stats_latex(nstats, args.out_dir / "net_imbalance.tex")
     print("\nNet-imbalance stats (signed sum over all buses per scenario):")
     print(nstats.to_string(index=False, float_format=lambda x: f"{x:.2f}"))
     plot_net(nets, args.out_dir / "net_imbalance_h1.png")

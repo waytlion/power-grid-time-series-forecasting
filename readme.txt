@@ -44,7 +44,7 @@
                 [--xgb_input_all_opf_var]  (OPTIONAL toggle: if set, XGB uses ALL historical OPF vars
                                             Pd,Qd,Qg,Vm,Va as input lags instead of Pd-only.
                                             Target stays Pd either way. Writes to the SAME output paths
-                                            as baseline (no suffix). NOTE: skips TinyTGT; only affects XGB.)
+                                            as baseline)
         -> EXECUTE: cd phase1_baseline -> sbatch run_benchmark_temporal.sbatch
 
 # ==========================================================================
@@ -74,9 +74,10 @@
 5. Train the surrogate GNN  (gridfm-graphkit, GPU/capella)
         -> learns true-load -> OPF dispatch
         -> EXECUTE: sbatch train_surrogate.sh        (3 seeds via job array)
+                - !!ATTENTION: This currently skips training models, when the model already exists 
         -> OUTPUT: checkpoints in MLflow, run names  surrogate_<case>_s<seed>
 
-6. Evaluate surrogate on forecasts (all horizons) -> metrics
+5b. Evaluate surrogate on forecasts (all horizons) -> metrics
         -> CONFIG: scripts/phase1c_surrogate_eval.sbatch
                    (CASE, NETWORK, HORIZONS, FORECASTERS, SEEDS, paths)
         -> EXECUTE: sbatch scripts/phase1c_surrogate_eval.sbatch
@@ -90,33 +91,34 @@
 # =============================================================================
 # PHASE 1c (E2E arm): one ST-GNN, load history -> dispatch (forecast+optimize fused)
 # =============================================================================
-! Train one model per (horizon, seed); metrics come from training's test step. 
+! Train one model per (case, horizon, seed)! 
 
-7. Train the E2E ST-GNN  (gridfm-graphkit, GPU)
-        -> CONFIG: examples/config/.../HGNS_ST_ForecastOPF_h<H>.yaml
-        -> EXECUTE: gridfm train ...   (manually per horizon x seed, same experiment)
-        -> OUTPUT: graphkit metric CSVs in MLflow (per-horizon gap in <net>_forecast.csv)
+6. Train the E2E ST-GNN 
+        -> CONFIG: sbatch train.sh 
+                - CASE, HORIZON, SEED, CONFIG
+        -> EXECUTE: sbatch train.sh 
+        -> OUTPUT: MLflow artifacts 
 
 # -----------------------------------------------------------------------------
 # METRICS: all three arms report a comparable set (gap, residuals, RMSE,
 #   feasibility, inference time). Exact arm via compare.py; the two ML arms via
-#   graphkit's own test metrics (validated identical to compare.py).
+#   graphkit's own test metrics (identical to compare.py).
 # -----------------------------------------------------------------------------
 
-7b. Combine all arms into one combined CSV (aggregated over seeds for ML-surrogate/E2E)
+7. Combine all arms into one combined CSV (aggregated over seeds for ML-surrogate/E2E)
         -> EXECUTE:
            python exp1/generate_metrics/aggregate_results.py --results-root exp1/results \
-             --mlruns-dir ~/gridfm-graphkit-dev/mlruns \
+             --mlruns-dir /data/horse/ws/tibo990i-thesis_data/mlruns/375695290152400764 \
+             /data/horse/ws/tibo990i-thesis_data/mlruns/108250444742230565 \ #surrogate experiment folder
              --timing-csv phase1_baseline/output/2019-2021/timing_benchmark.csv \
              --datakit-out-dir /data/horse/ws/tibo990i-thesis_data/2019-2021/phase_1c/data_out \
              --out exp1/results/combined/case118_combined.csv
         -> RULES (if violated the script still runs but results are silently wrong):
              - exp1/results must hold one run generation per (case,horizon,forecaster)
-             - MLflow eval run names MUST match exactly (arm = first token, s<S> = last):
-               surrogate_{case}_{forecaster}_h{H}_s{S}  /  e2e_{case}_h{H}_s{S}
-        -> OUTPUT: <combined>.csv, one row per (case,horizon,optimizer,forecaster,metric).
+             - MLflow eval run names MUST match exactly:
+               surrogate_{case}_{forecaster}_h{H}_s{S}  /  base_e2e_{case}_h{H}_s{S}
 
-7c. create final plots for thesis:
+7b. create final plots for thesis:
         - EXECUTE: python exp1/thesis_plots/make_latex_tables.py
                 
 
@@ -125,34 +127,34 @@
 # =============================================================================
 ! EXECUTED ONCE FOR EVERY (NETWORK, power-balance-residual-space) ! (HORIZON IS FIXED AT 1)
 
-8. Extract 2-step AC/DC residuals (offline, CPU, ~1 min)
-        -> EXECUTE:
-           python exp1/thesis_plots/extract_residuals_2step.py \
-             --opf-base-dir <phase1c data_out>/case118_ieee_horizon_1_3yr_HPO_xgb \
-             --forecaster xgb --load realized --out-dir <dir>
-           (repeat with --load forecast)
-        -> OUTPUT: <dir>/residuals_xgb_{ac,dc}_{realized,forecast}.parquet
-                   [scenario, bus, res_p_mw, res_q_mvar]
-
-9. Surrogate / E2E residuals: byproduct of the arm's eval (step 6) / train test-pass (step 7).
+8. Surrogate / E2E residuals: byproduct of the arm's eval (step 6) / train test-pass (step 7).
         -> OUTPUT (in the run's artifacts/test/):
            <dataset>_perbus_residuals_{realized,forecast}.parquet
 
-10. Build the results figures + stats CSVs
+9. Extract 2-step AC/DC residuals + build the results figures + latex tables
         -> EXECUTE:
-           python exp1/thesis_plots/plot_residual_hist_h1.py \
-             --arm "AC-2step"       <residuals_xgb_ac_realized.parquet> \
-             --arm "DC-2step"       <residuals_xgb_dc_realized.parquet> \
-             --arm "Surrogate-2step" <run>/artifacts/test/..._perbus_residuals_realized.parquet \
-             --arm "E2E"            <run>/artifacts/test/..._perbus_residuals_realized.parquet \
-             --out-dir exp1/thesis_plots/figures
+           python exp1/thesis_plots/run_residual_pipeline_h1.py \
+             --opf-base-dir /data/horse/ws/tibo990i-thesis_data/2019-2021/phase_1c/data_out/case118_ieee_horizon_1 \
+             --forecaster xgb \
+             --dataset case118_ieee \
+             --surrogate-realized /data/horse/ws/tibo990i-thesis_data/mlruns/108250444742230565/cc051bb63d474f79abab6372ffde3e2b/artifacts/test/case118_ieee_perbus_residuals_realized.parquet \
+             --e2e-realized /data/horse/ws/tibo990i-thesis_data/mlruns/375695290152400764/f2f12a35c5804902bb625d5afbc97f10/artifacts/test/case118_ieee_perbus_residuals_realized.parquet \
+             --out-dir exp1/thesis_plots/figures \
+             --format pdf    
         -> OUTPUT (exp1/thesis_plots/figures/):
+             residuals_xgb_{ac,dc}_{realized,forecast}.parquet  2-step per-bus residuals
              residual_hist_h1.png    bus-level signed hist (MW) + violin, 1 MW heuristic line
              net_imbalance_h1.png    scenario-level signed net (sum over buses) per arm
-             residual_stats.csv      per arm x P/Q: bias, MAE, |res| quantiles, share>1 MW
-             net_imbalance_stats.csv per arm: net bias, quantiles, mean|net|
+             error_metrics.tex       per arm x P/Q: bias, MAE, |res| quantiles, share>1 MW
+             net_imbalance.tex per arm: net bias, quantiles, mean|net|
         -> DESIGN: absolute MW (no peak-load normalization, no eps-floor, all buses);
                    1 MW line = practitioner negligibility heuristic (pers. comm.), not a rule.
+
+===========================================================================
+# SMOKE TESTS
+==========================================================================
+RUN ML SURROGATE:
+       - sbatch Thesis_Repo/scripts/surrogate_smoke.sbatch   # seed 0, h=1, true forecaster
 
 
 ===========================================================================

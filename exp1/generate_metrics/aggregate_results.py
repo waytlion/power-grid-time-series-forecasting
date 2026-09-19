@@ -9,20 +9,22 @@ Each arm is read from its NATIVE location (no unified copy tree):
   - exact + 2-step (ac/dc)  <- compare.py output  results/<run>/<forecaster>/<case>_metrics.csv
                                (one CSV holds AC + DC together; prefixes split the two optimizers,
                                 horizon from <run> name, forecaster from the sub-dir, seed=None)
-  - surrogate / e2e         <- graphkit eval  mlruns/**/artifacts/test/<case>_metrics.csv
-                               (identity from the run NAME, no tags:
-                                {arm}_{case}_{forecaster}_h{H}_s{S} / e2e_{case}_h{H}_s{S})
+  - surrogate / e2e         <- graphkit eval  <experiment_dir>/*/artifacts/test/<case>_metrics.csv
+                               (--mlruns-dir points straight at the mlflow EXPERIMENT dir(s)
+                                <mlruns_root>/<experiment_id>, whose immediate children are runs;
+                                identity from the run NAME, no tags:
+                                {arm}_{case}_{forecaster}_h{H}_s{S} / base_e2e_{case}_h{H}_s{S})
 Only canonical-schema CSVs are ingested (marker metric "Mean Optimality Gap"); older-format
 files are skipped so mixed-vintage stores can be pointed at directly.
 
 Timing stays in each producer's native location and is combined onto the quality grid:
   - forecast infer/train          <- timing_benchmark.csv
-  - AC solve                      <- datakit runtime_data.parquet (ac per scenario; DC unmeasured)
+  - AC/DC solve                   <- datakit runtime_data.parquet (per-scenario 'ac' and 'dc' cols)
   - surrogate/E2E forward + train <- rows inside the eval metrics.csv
 Emitted per (case,horizon,optimizer,forecaster,seed): opf_step_infer_s, full_pipeline_infer_s,
 infer_total_min, train_time_min.
 
-Then reduce over seed -> mean +/- std for the stochastic ML arms.
+Then reduce over seed -> mean for the stochastic ML arms.
 """
 
 import argparse
@@ -67,7 +69,9 @@ def _long(csv):
         return None
     out = pd.DataFrame({"metric": df["Metric"].astype(str).str.strip(),
                         "value": pd.to_numeric(df["Value"], errors="coerce")})
-    if CANON_MARKER not in set(out["metric"]):
+    # marker is bare in ML eval CSVs but AC/DC-prefixed in compare.py CSVs (stripped later);
+    # test both forms so 2-step files aren't mistaken for old-schema and dropped.
+    if CANON_MARKER not in set(out["metric"].str.replace(r"^(AC|DC) ", "", regex=True)):
         return None
     return out.dropna(subset=["value"]).reset_index(drop=True)
 
@@ -121,18 +125,22 @@ def collect_exact(results_root):
 def _ml_identity(run_name):
     """(optimizer, forecaster, horizon, seed) parsed from the run name (no tags).
 
-    surrogate_case118_ieee_xgb_h24_s0 / e2e_case118_h24_s0: h<H>/s<S> tokens give horizon/seed,
-    and the token before h<H> is the forecaster (E2E has none).
+    surrogate_case118_ieee_xgb_h24_s0: h<H>/s<S> tokens give horizon/seed, and the token
+    before h<H> is the forecaster. E2E runs (final_thesis_runs experiment) carry a "base_"
+    prefix ahead of the arm token: base_e2e_case118_h24_s0.
 
-    Anchored on the first and last token (arm first, s<S> last) so ablation/variant runs that
-    merely contain the right keywords - tiny_e2e_case118_h1_s0 (extra leading token),
+    Anchored on the first and last token (arm first, s<S> last) so variant runs that merely
+    contain the right keywords - e2e_case118_h24_s0 (missing the base_ prefix),
     e2e_case118_h24_s0_tcn_linear (extra trailing tokens) - are rejected instead of silently
     merged into the real seed grid.
     """
     toks = run_name.split("_")
-    if len(toks) < 2 or toks[0] not in ("e2e", "surrogate", "twostep") or not re.fullmatch(r"s\d+", toks[-1]):
+    if len(toks) >= 3 and toks[0] == "base" and toks[1] == "e2e" and re.fullmatch(r"s\d+", toks[-1]):
+        optimizer, toks = "e2e", toks[1:]
+    elif len(toks) >= 2 and toks[0] in ("surrogate", "twostep") and re.fullmatch(r"s\d+", toks[-1]):
+        optimizer = "surrogate"
+    else:
         return None, None, None, None
-    optimizer = "e2e" if toks[0] == "e2e" else "surrogate"
     horizon = next((t[1:] for t in toks if re.fullmatch(r"h\d+", t)), None)
     seed = toks[-1][1:]
     if optimizer == "e2e":
@@ -143,16 +151,19 @@ def _ml_identity(run_name):
     return optimizer, forecaster, horizon, seed
 
 
-def collect_ml(mlruns_dirs):
-    """-> (quality_df, ml_timing) for surrogate/e2e runs across one or more mlruns stores.
+def collect_ml(experiment_dirs):
+    """-> (quality_df, ml_timing) for surrogate/e2e runs across one or more mlflow experiments.
 
-    ml_timing[(case, horizon, optimizer, forecaster, seed)] = {opf_s, total_min, train_min},
-    read straight from the eval CSV's timing rows.
+    Each dir is an mlflow EXPERIMENT dir (<mlruns_root>/<experiment_id>) whose immediate
+    children are runs - the caller picks the experiment(s), the script does not search for
+    them. ml_timing[(case, horizon, optimizer, forecaster, seed)] = {opf_s, total_min,
+    train_min}, read straight from the eval CSV's timing rows.
     """
     frames, timing = [], {}
-    for root in mlruns_dirs:
-        for csv in glob(os.path.join(root, "*", "*", "artifacts", "test", "*_metrics.csv")):
-            run_name = _read_tags(Path(csv).parents[2]).get("mlflow.runName", "")
+    for root in experiment_dirs:
+        for csv in glob(os.path.join(root, "*", "artifacts", "test", "*_metrics.csv")):
+            run_dir = Path(csv).parents[2]
+            run_name = _read_tags(run_dir).get("mlflow.runName", "")
             opt, fc, h, seed = _ml_identity(run_name)
             if opt not in ("surrogate", "e2e"):
                 continue
@@ -196,11 +207,12 @@ def collect_forecast_timing(timing_csv):
 
 
 def collect_datakit_solve(datakit_root):
-    """-> {(case, horizon, forecaster): {'per_dispatch_s', 'total_min'}} from runtime_data.parquet.
+    """-> {(case, horizon, forecaster, optimizer): {'per_dispatch_s', 'total_min'}} from
+    runtime_data.parquet. optimizer in {'ac', 'dc'}: both solves are timed per scenario in
+    their own columns ('ac', 'dc').
 
-    Layout <root>/<run>/<forecaster>/<network>/raw/runtime_data.parquet, per-scenario 'ac' column;
-    horizon from <run>, case from <network> (same string as the quality-CSV case). DC solves share
-    these files but carry no separate timing column.
+    Layout <root>/<run>/<forecaster>/<network>/raw/runtime_data.parquet;
+    horizon from <run>, case from <network> (same string as the quality-CSV case).
     """
     out = {}
     if not datakit_root:
@@ -212,12 +224,13 @@ def collect_datakit_solve(datakit_root):
         if forecaster not in FORECASTERS or horizon is None:
             continue
         df = pd.read_parquet(p)
-        if "ac" not in df.columns:
-            continue
-        v = df["ac"].dropna()
-        if len(v):
-            out[(case, horizon, forecaster)] = {"per_dispatch_s": float(v.mean()),
-                                                "total_min": float(v.sum()) / 60.0}
+        for opt in ("ac", "dc"):
+            if opt not in df.columns:
+                continue
+            v = df[opt].dropna()
+            if len(v):
+                out[(case, horizon, forecaster, opt)] = {"per_dispatch_s": float(v.mean()),
+                                                         "total_min": float(v.sum()) / 60.0}
     return out
 
 
@@ -234,15 +247,14 @@ def build_timing_rows(quality, forecast_t, datakit_t, ml_timing):
 
         opf_s = opf_total = None
         model_train = 0.0
-        if opt == "ac":
-            d = datakit_t.get((case, h, fc))
+        if opt in ("ac", "dc"):
+            d = datakit_t.get((case, h, fc, opt))
             if d:
                 opf_s, opf_total = d["per_dispatch_s"], d["total_min"]
         elif opt in ("surrogate", "e2e"):
             r = ml_timing.get((case, h, opt, fc, seed))
             if r:
                 opf_s, opf_total, model_train = r["opf_s"], r["total_min"], (r["train_min"] or 0.0)
-        # opt == "dc": no measured solve time
 
         ft = forecast_t.get((case, h, fc), {"infer_s": 0.0, "train_min": 0.0})
         fc_infer = 0.0 if opt == "e2e" else ft["infer_s"]
@@ -262,11 +274,9 @@ def build_timing_rows(quality, forecast_t, datakit_t, ml_timing):
 
 
 def reduce_over_seed(tidy):
-    """mean +/- std over seed; deterministic arms (seed=None) pass through as n=1."""
+    """mean over seed; deterministic arms (seed=None) pass through as n=1."""
     keys = ["case", "horizon", "optimizer", "forecaster", "metric"]
-    out = tidy.groupby(keys, dropna=False)["value"].agg(["mean", "std", "count"]).reset_index()
-    out["std"] = out["std"].fillna(0.0)
-    return out
+    return tidy.groupby(keys, dropna=False)["value"].agg(["mean", "count"]).reset_index()
 
 
 def main(argv=None):
@@ -274,7 +284,8 @@ def main(argv=None):
     p.add_argument("--results-root", type=Path, required=True,
                    help="compare.py output base: <root>/<run>/<forecaster>/<case>_metrics.csv")
     p.add_argument("--mlruns-dir", type=Path, nargs="*", default=[],
-                   help="one or more MLflow stores holding surrogate/E2E eval runs")
+                   help="one or more mlflow EXPERIMENT dirs (<mlruns_root>/<experiment_id>) whose "
+                        "children are surrogate/E2E eval runs; used as-is, not searched")
     p.add_argument("--timing-csv", type=Path, default=None, help="forecaster timing_benchmark.csv")
     p.add_argument("--datakit-out-dir", type=Path, default=None, help="phase_1c datakit output base")
     p.add_argument("--out", type=Path, required=True, help="output tidy CSV")

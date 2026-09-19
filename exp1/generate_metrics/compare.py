@@ -26,13 +26,11 @@ from loaders import (
     load_datakit_bus,
     load_datakit_gen,
     load_datakit_branch,
-    prepare_load_forecast_comparison,
     align_opf_results,
     align_branch_results,
     has_dc_columns,
 )
 from metrics import (
-    compute_mae,
     compute_rmse_by_bus_type,
     compute_generator_rmse,
     compute_cost_metrics,
@@ -175,18 +173,7 @@ def compare_single_method(
     method_output_dir = output_dir / method
     method_output_dir.mkdir(parents=True, exist_ok=True)
     
-    # 1. Load forecast MAE (Pd only, since forecasts.parquet has active power only)
-    print("Computing load forecast MAE...")
-    forecast_comparison = prepare_load_forecast_comparison(forecasts_df, method)
-    # Rename for compute_mae which expects {feature}_pred and {feature}_true
-    forecast_for_mae = forecast_comparison.rename(columns={"pred": "Pd_pred", "true": "Pd_true"})
-    mae_pd = compute_mae(forecast_for_mae, ["Pd"])["Pd"]
-    rmse_pd = float(np.sqrt(((forecast_for_mae["Pd_pred"] - forecast_for_mae["Pd_true"]) ** 2).mean()))
-    
-    # mae_pd/rmse_pd feed the "MAE Pd"/"RMSE Pd" rows of the metrics CSV below.
-    print(f"  MAE Pd: {mae_pd:.4f} MW")
-    
-    # 2. Load OPF results
+    # 1. Load OPF results
     print("Loading OPF results...")
     pred_bus = load_datakit_bus(predicted_opf_dir)
     pred_gen = load_datakit_gen(predicted_opf_dir)
@@ -218,7 +205,7 @@ def compare_single_method(
     pred_gen["load_scenario_idx"] = pred_gen["load_scenario_idx"].astype(int)
     pred_branch["load_scenario_idx"] = pred_branch["load_scenario_idx"].astype(int)
 
-    # 3. Align OPF results
+    # 2. Align OPF results
     print("Aligning OPF results...")
     bus_aligned, gen_aligned = align_opf_results(pred_bus, true_bus, pred_gen, true_gen)
     
@@ -239,40 +226,45 @@ def compare_single_method(
     del pred_branch
     gc.collect()
     
-    # 4. Compute RMSE by bus type
+    # 3. Compute RMSE by bus type
     print("Computing RMSE by bus type...")
     rmse_df = compute_rmse_by_bus_type(bus_aligned, ["Vm", "Va", "Pg", "Qg"])
     # Collapse per-bus-type -> per-feature, weighted by bus count 
     rmse_summary = _pool_by_feature(rmse_df, "rmse", squared=True)
     mae_summary = _pool_by_feature(rmse_df, "mae", squared=False)
-    # Qd load forecast error (forecast vs true load, pooled over all buses) —
+    # Pd/Qd load forecast error (forecast vs true load, pooled over all buses --
+    # non-load buses are Pd=Qd=0 on both sides, so they count in the denominator
+    # with zero error, matching how the surrogate/E2E arms compute this metric).
+    pd_err = bus_aligned["Pd_pred"] - bus_aligned["Pd_true"]
+    mae_pd = float(pd_err.abs().mean())
+    rmse_pd = float(np.sqrt((pd_err ** 2).mean()))
     qd_err = bus_aligned["Qd_pred"] - bus_aligned["Qd_true"]
     mae_qd = float(qd_err.abs().mean())
     rmse_qd = float(np.sqrt((qd_err ** 2).mean()))
 
     
-    # 5. Compute generator RMSE
+    # 4. Compute generator RMSE
     print("Computing generator-level RMSE...")
     gen_rmse = compute_generator_rmse(gen_aligned)
     mae_pg_gen = float(np.abs(gen_aligned["p_mw_pred"] - gen_aligned["p_mw_true"]).mean())
     
-    # 6. Compute cost metrics
+    # 5. Compute cost metrics
     print("Computing cost/optimality gap...")
     cost_metrics = compute_cost_metrics(gen_aligned)
     
-    # 6.5 Compute AC Power Residuals
+    # 5.5 Compute AC Power Residuals
     print("Computing exact AC algebraic power residuals...")
     residuals = compute_algebraic_power_residuals(bus_aligned, true_branch)
     
-    # 6.6 Compute AC branch flow RMSE
+    # 5.6 Compute AC branch flow RMSE
     print("Computing AC branch flow RMSE...")
     ac_branch_metrics = compute_ac_branch_rmse(branch_aligned)
 
-    # 6.7 Feasibility / constraint-violation statistics (canonical quintet per type)
+    # 5.7 Feasibility / constraint-violation statistics (canonical quintet per type)
     print("Computing AC constraint violations...")
     ac_feas = compute_feasibility_metrics(bus_aligned, gen_aligned, branch_aligned, mode="ac")
 
-    # 7. Build the exhaustive metrics rows (AC). This file is the SINGLE SOURCE OF
+    # 6. Build the exhaustive metrics rows (AC). This file is the SINGLE SOURCE OF
     #    TRUTH; comparison_summary is a pure projection of these rows (see
     #    generate_comparison_summary). Add a new metric here, never in the summary.
     #    Naming: metrics each optimizer computes SEPARATELY carry an "AC "/"DC "
@@ -282,6 +274,7 @@ def compare_single_method(
     #    Order matches the ML arms' canonical_scalar_rows.
     nan = float("nan")
     metrics_rows = [
+        {"Metric": "Mean Ground Truth Cost", "Value": cost_metrics["mean_true_cost"], "Unit": "EUR"},
         {"Metric": "AC Mean Optimality Gap", "Value": cost_metrics["mean_optimality_gap_pct"], "Unit": "%"},
         {"Metric": "AC Residual P (MAE)", "Value": residuals["mae_residual_p_mw"], "Unit": "MW"},
         {"Metric": "AC Residual Q (MAE)", "Value": residuals["mae_residual_q_mvar"], "Unit": "MVAr"},
@@ -318,7 +311,7 @@ def compare_single_method(
         res["mean_optimality_gap_pct"] = cost_metrics["mean_optimality_gap_pct"]
 
     # -----------------------------------------------------------------------
-    # 8. DC-OPF analysis (if DC columns are present in predicted data)
+    # 7. DC-OPF analysis (if DC columns are present in predicted data)
     # -----------------------------------------------------------------------
     if dc_available:
         print("\n  --- DC-OPF Analysis (DC predictions vs AC ground truth) ---")
@@ -388,12 +381,12 @@ def compare_single_method(
     else:
         print("\n  DC columns not found in predicted data — skipping DC analysis.")
 
-    # 9. Save RMSE table (AC + DC combined)
+    # 8. Save RMSE table (AC + DC combined)
     rmse_path = method_output_dir / OUTPUT_TEMPLATES["rmse"].format(dataset=dataset)
     rmse_df.to_csv(rmse_path, index=False)
     print(f"  Saved RMSE table: {rmse_path}")
 
-    # 9.5 Solver timing — per-scenario AC/DC solve_time from DataKit's runtime_data.parquet.
+    # 8.5 Solver timing — per-scenario AC/DC solve_time from DataKit's runtime_data.parquet.
     #   - columns: "ac" (always), "dc" (present when include_dc_res); values in seconds.
     #   - AC/DC kept separate, following the "AC "/"DC " metric-naming convention above.
     runtime_path = predicted_opf_dir / "runtime_data.parquet"
@@ -412,13 +405,13 @@ def compare_single_method(
             {"Metric": "Solver n_scenarios", "Value": int(len(_rt)), "Unit": "count"},
         )
 
-    # 10. Save metrics summary (AC + DC combined) — the SINGLE SOURCE OF TRUTH.
+    # 9. Save metrics summary (AC + DC combined) — the SINGLE SOURCE OF TRUTH.
     metrics_df = pd.DataFrame(metrics_rows)
     metrics_path = method_output_dir / OUTPUT_TEMPLATES["metrics"].format(dataset=dataset)
     metrics_df.to_csv(metrics_path, index=False)
     print(f"  Saved metrics: {metrics_path}")
 
-    # 11. Project the slim summary row from the exhaustive rows (no recomputation).
+    # 10. Project the slim summary row from the exhaustive rows (no recomputation).
     name2val = {r["Metric"]: r["Value"] for r in metrics_rows}
     for m in SUMMARY_METRICS:
         res[m] = name2val.get(m, float("nan"))

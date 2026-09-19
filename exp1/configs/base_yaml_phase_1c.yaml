@@ -31,7 +31,7 @@ settings:
   #! Update data_dir for each run:
   # data_dir: "exp1/data/data_out/case118_horizon_6_3yr/xgb"  # local
   data_dir:  #* Gets overwritten by run_datakit_batch.py
-  large_chunk_size: 1000
+  large_chunk_size: 5000
   overwrite: true
   mode: "opf"
   include_dc_res: true

@@ -7,7 +7,7 @@ from pathlib import Path
 from typing import Tuple, Dict
 import config 
 from config import (
-    PARQUET_FILES, FORECAST_METHODS, FORECASTS_PARQUET,
+    PARQUET_FILES, FORECASTS_PARQUET,
     BUS_COLUMNS, GEN_COLUMNS,
     DC_BUS_COLUMNS, DC_GEN_COLUMNS, DC_BRANCH_COLUMNS,
 )
@@ -87,28 +87,6 @@ def has_dc_columns(bus_df: pd.DataFrame, gen_df: pd.DataFrame) -> bool:
     bus_has_dc = all(col in bus_df.columns for col in DC_BUS_COLUMNS)
     gen_has_dc = all(col in gen_df.columns for col in DC_GEN_COLUMNS)
     return bus_has_dc and gen_has_dc
-
-
-def prepare_load_forecast_comparison(
-    forecasts_df: pd.DataFrame, method: str
-) -> pd.DataFrame:
-    """
-    Prepare load forecast data for a single method.
-    
-    Args:
-        forecasts_df: Full forecasts dataframe with all methods.
-        method: Forecast method name (e.g., 'xgb').
-    
-    Returns:
-        DataFrame with forecast comparison columns
-    """
-    if method not in FORECAST_METHODS:
-        raise ValueError(f"Unknown method '{method}'. Available: {FORECAST_METHODS}")
-    
-    # Select columns and rename to standard names for comparison
-    return forecasts_df[["load_scenario_idx", "bus_id", method, "true"]].rename(
-        columns={"load_scenario_idx": "scenario", "bus_id": "bus", method: "pred"}
-    )
 
 
 def align_opf_results(

@@ -36,23 +36,6 @@ import torch
 _EPS = 1e-8
 
 
-def compute_mae(df: pd.DataFrame, features: list) -> Dict[str, float]:
-    """
-    Compute MAE for specified features.
-    
-    Args:
-        df: DataFrame with {feature}_pred and {feature}_true columns.
-        features: List of feature names (e.g., ['pd', 'qd']).
-    
-    Returns:
-        Dict mapping feature names to MAE values.
-    """
-    return {
-        feat: np.abs(df[f"{feat}_pred"] - df[f"{feat}_true"]).mean()
-        for feat in features
-    }
-
-
 def compute_rmse_by_bus_type(
     bus_df: pd.DataFrame, features: list
 ) -> pd.DataFrame:
@@ -137,6 +120,7 @@ def compute_cost_metrics(gen_df: pd.DataFrame) -> Dict[str, float]:
         "mean_optimality_gap_pct": cost_per_scenario["gap_pct"].mean(),
         "median_optimality_gap_pct": cost_per_scenario["gap_pct"].median(),
         "max_optimality_gap_pct": cost_per_scenario["gap_pct"].max(),
+        "mean_true_cost": cost_per_scenario["cost_true"].mean(),
     }
 
     if "horizon_step" in gen_df.columns:
@@ -705,27 +689,27 @@ def compute_forecast_metrics_table(
 
 
 def compute_dc_algebraic_power_residuals(
-    bus_aligned: pd.DataFrame, 
+    bus_aligned: pd.DataFrame,
     topology_df: pd.DataFrame,
     chunk_size: int = 500
 ) -> Dict[str, float]:
     """
-    Offline calculation mapping dataframes-> tensors 
+    Offline calculation mapping dataframes-> tensors
     --> returning computed P/Q residuals
     for using AC-PhysicsModules from graphkit, processed in chunks to keep memory usage low.
     DC-OPF uses: Vm = 1.0, Va = Va_dc, Pg = Pg_dc, Qg = 0.
     """
     if bus_aligned.empty or "Va_dc" not in bus_aligned.columns or "Pg_dc" not in bus_aligned.columns:
         return {"dc_mae_residual_p_mw": float("nan"), "dc_mae_residual_q_mvar": float("nan")}
-        
+
     unique_scenarios = sorted(bus_aligned["pred_flat_idx"].unique())
     num_nodes = len(bus_aligned) // len(unique_scenarios)
-    
+
     # Sort so arrays map  0 -> N_total elements logically (grouped by prediction instance!)
     bus_aligned = bus_aligned.sort_values(["pred_flat_idx", "bus"]).reset_index(drop=True)
-    
+
     baseMVA = 100.0
-    
+
     # Obtain static base topology from any one scenario (e.g. index 0).
     base_topology = topology_df[topology_df['load_scenario_idx'] == topology_df['load_scenario_idx'].iloc[0]]
     topo_dict = {
@@ -740,20 +724,20 @@ def compute_dc_algebraic_power_residuals(
         "Ytt_r": base_topology["Ytt_r"].values,
         "Ytt_i": base_topology["Ytt_i"].values,
     }
-    
+
     branch_flow = ComputeBranchFlow()
     node_inj = ComputeNodeInjection()
     node_res = ComputeNodeResiduals()
-    
+
     total_abs_res_P = 0.0
     total_abs_res_Q = 0.0
     total_count = 0
-    
+
     for i in range(0, len(unique_scenarios), chunk_size):
         chunk_sc = unique_scenarios[i : i + chunk_size]
         chunk_num_sc = len(chunk_sc)
         chunk_df = bus_aligned[bus_aligned["pred_flat_idx"].isin(chunk_sc)]
-        
+
         pred_dict = {
             "VM_OUT": np.ones_like(chunk_df["Va_dc"].values),
             # Convert Va_dc to radians
@@ -761,27 +745,27 @@ def compute_dc_algebraic_power_residuals(
             "PG_OUT": chunk_df["Pg_dc"].values / baseMVA,
             "QG_OUT": np.zeros_like(chunk_df["Pg_dc"].values),
         }
-        
+
         true_dict = {
             "PD_H": chunk_df["Pd_true"].values / baseMVA,
             "QD_H": chunk_df["Qd_true"].values / baseMVA,
             "GS": chunk_df["GS_true"].values,
             "BS": chunk_df["BS_true"].values,
         }
-        
+
         bus_pred, bus_orig, edge_index, edge_attr = format_2step_tensors(
             pred_dict, true_dict, topo_dict, num_nodes, chunk_num_sc
         )
-        
+
         with torch.no_grad():
             Pft, Qft = branch_flow(bus_pred, edge_index, edge_attr)
             P_in, Q_in = node_inj(Pft, Qft, edge_index, num_nodes * chunk_num_sc)
             res_P, res_Q = node_res(P_in, Q_in, bus_pred, bus_orig)
-            
+
             total_abs_res_P += float(torch.abs(res_P).sum())
             total_abs_res_Q += float(torch.abs(res_Q).sum())
             total_count += res_P.numel()
-            
+
     return {
         "dc_mae_residual_p_mw": (total_abs_res_P / total_count) * baseMVA,
         "dc_mae_residual_q_mvar": (total_abs_res_Q / total_count) * baseMVA,

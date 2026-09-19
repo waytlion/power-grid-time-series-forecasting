@@ -16,6 +16,7 @@ import argparse
 import subprocess
 import sys
 import yaml
+import os
 from pathlib import Path
 
 
@@ -47,7 +48,8 @@ def main(argv=None):
     config['network']['name'] = args.network_name
     config['settings']['num_processes'] = int(args.num_processes)
 
-    temp_yaml_path = args.base_yaml.parent / f"temp_batch_{args.base_yaml.name}"
+    temp_yaml_path = args.base_yaml.parent / f"temp_batch_{args.network_name}_{os.getpid()}_{args.base_yaml.name}"
+
 
     try:
         for model in args.models:

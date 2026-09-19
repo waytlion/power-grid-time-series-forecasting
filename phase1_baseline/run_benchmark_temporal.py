@@ -98,8 +98,8 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--sarima-fit-hours",
         type=int,
-        default=17_520,
-        help="Max training hours fed to SARIMA fit (default 17520 = 2 years). "
+        default=26_280,
+        help="Max training hours fed to SARIMA fit (default 26280 = 3 years). "
              "Use None-equivalent 0 to use ALL training data (may OOM on long series).",
     )
     return parser.parse_args()
