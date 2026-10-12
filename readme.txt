@@ -109,7 +109,7 @@
         -> EXECUTE:
            python exp1/generate_metrics/aggregate_results.py --results-root exp1/results \
              --mlruns-dir /data/horse/ws/tibo990i-thesis_data/mlruns/375695290152400764 \
-             /data/horse/ws/tibo990i-thesis_data/mlruns/108250444742230565 \ #surrogate experiment folder
+             /data/horse/ws/tibo990i-thesis_data/mlruns/108250444742230565 \
              --timing-csv phase1_baseline/output/2019-2021/timing_benchmark.csv \
              --datakit-out-dir /data/horse/ws/tibo990i-thesis_data/2019-2021/phase_1c/data_out \
              --out exp1/results/combined/case118_combined.csv
@@ -117,6 +117,21 @@
              - exp1/results must hold one run generation per (case,horizon,forecaster)
              - MLflow eval run names MUST match exactly:
                surrogate_{case}_{forecaster}_h{H}_s{S}  /  base_e2e_{case}_h{H}_s{S}
+             - a retrain under the same identity (e.g. base_e2e_case500_h1_s0 -> base_e2e_case500_goc_h1_s0)
+               is averaged in as an extra seed: archive the superseded run dirs first
+
+7a. Merit-order rebalanced opt gap, exact per scenario -> exp1/results/combined/corrected_gap.csv
+        -> EXECUTE (capella, sbatch): python exp1/generate_metrics/corrected_gap.py [--cases case14_ieee ...]
+           (datakit gen_data for AC/DC; *_state_gen.parquet dumps from mlruns experiments 760726881304984634
+            (state-dump) + 375695290152400764 (final_thesis_runs), newest run per identity/seed wins;
+            fails if a recomputed gap != logged gap)
+
+7c. Ex-post AC-PF feasibility on the same merit-order rebalanced dispatch (barnard CPU, ~6 h per case)
+        -> EXECUTE (from login1.barnard):
+           for c in case14_ieee case118_ieee case500_goc; do CASE=$c sbatch scripts/expost_pf.sbatch; done
+           (one arm only: CASE=case500_goc ARMS=e2e sbatch scripts/expost_pf.sbatch)
+        -> OUTPUT: /data/horse/ws/tibo990i-thesis_data/2019-2021/phase_1c/expost_pf/<case>/h<H>/<arm>[_<fc>][_s<seed>].parquet
+           (ML arms: newest run with a state dump per run name)
 
 7b. create final plots for thesis:
         - EXECUTE: python exp1/thesis_plots/make_latex_tables.py

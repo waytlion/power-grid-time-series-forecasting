@@ -21,8 +21,9 @@ Timing stays in each producer's native location and is combined onto the quality
   - forecast infer/train          <- timing_benchmark.csv
   - AC/DC solve                   <- datakit runtime_data.parquet (per-scenario 'ac' and 'dc' cols)
   - surrogate/E2E forward + train <- rows inside the eval metrics.csv
-Emitted per (case,horizon,optimizer,forecaster,seed): opf_step_infer_s, full_pipeline_infer_s,
-infer_total_min, train_time_min.
+Emitted per (case,horizon,optimizer,forecaster,seed): opf_step_infer_s, opf_step_infer_total_min,
+full_pipeline_infer_s, full_pipeline_infer_total_min, train_time_min.
+All per-sample values are per scenario (= one dispatch decision); totals are over the same scenarios.
 
 Then reduce over seed -> mean for the stochastic ML arms.
 """
@@ -266,9 +267,13 @@ def build_timing_rows(quality, forecast_t, datakit_t, ml_timing):
                              "seed": seed, "metric": metric, "value": val})
 
         emit("opf_step_infer_s", opf_s)
+        emit("opf_step_infer_total_min", opf_total)
         if opf_s is not None:
-            emit("full_pipeline_infer_s", opf_s + fc_infer)
-        emit("infer_total_min", opf_total)
+            full_s = opf_s + fc_infer
+            emit("full_pipeline_infer_s", full_s)
+            if opf_total is not None:
+                # forecast cost over the same n = opf_total / opf_s dispatches as the OPF step
+                emit("full_pipeline_infer_total_min", opf_total * full_s / opf_s)
         emit("train_time_min", fc_train + model_train)
     return pd.DataFrame(rows)
 

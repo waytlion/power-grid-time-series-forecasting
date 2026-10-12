@@ -5,11 +5,14 @@
 # Table 3: case118, horizon = 24 fixed. inequality constraints, mean value only
 # Table 4: horizon = 1 fixed, all cases, timing (training + inference)
 # Table 5 (appendix): full performance metrics across grid sizes over all horizons
+# Table 6: core metrics (as Table 1), case118 fixed, over all horizons, best forecaster per optimizer
+# Table 7: raw + merit-order rebalanced opt gap, case118, all horizons, best forecaster
 
-"""One-shot: combined CSV -> 5 LaTeX tables (metrics as columns, models as rows). No config, just run it."""
+"""One-shot: combined CSV (+ corrected_gap.csv) -> 7 LaTeX tables (metrics as columns, models as rows). No config, just run it."""
 import pandas as pd
 
 IN = "exp1/results/combined/case118_combined.csv"
+CORR_IN = "exp1/results/combined/corrected_gap.csv"  # exp1/generate_metrics/corrected_gap.py
 OUT_DIR = "exp1/results/combined"
 
 CASE_LABELS = {"case14_ieee": "case14", "case118_ieee": "case118", "case500_goc": "case500"}
@@ -34,6 +37,17 @@ CORE_METRICS = {
     "Residual P (MAE)": "Res. P (MAE)",
     "Residual Q (MAE)": "Res. Q (MAE)",
 }
+# rebalanced opt gap (exact, per scenario): imbalance vs optimum closed by merit order, then re-costed.
+# ML arms seed 0 (same dumps as the raw gap column)
+CORR_GAP_METRICS = {
+    "Optimality Gap (recomputed)": "Opt. Gap \\%",
+    "Rebalanced Gap": "Rebal. Gap \\%",
+    "Rebalancing Cost": "Rebal. Cost \\%",
+    "Mean dPg (MW)": "$\\Delta P$ (MW)",
+    "Mean |dPg| (MW)": "$|\\Delta P|$ (MW)",
+    "Mean |dPg| (%)": "$|\\Delta P|$ \\%",
+    "Slack Overflow (%)": "Slack \\%",
+}
 INEQ_METRICS = {
     "pg viol. mean": "$P_g$ viol.",
     "qg viol. mean": "$Q_g$ viol.",
@@ -41,15 +55,14 @@ INEQ_METRICS = {
     "angle viol. mean": "Angle viol.",
     "thermal viol. mean": "Thermal viol.",
 }
-# infer_total_min / train_time_min are totals over the whole eval run (not per-sample);
-# full_pipeline_infer_s is the per-sample (per-scenario) inference cost.
+# full pipeline (forecast + OPF step): total over the whole eval run and per scenario
 TIMING_METRICS = {
     "train_time_min": "Train (min, total)",
-    "infer_total_min": "Infer (min, total)",
+    "full_pipeline_infer_total_min": "Infer (min, total)",
     "full_pipeline_infer_s": "Infer/sample (s)",
 }
 
-df = pd.read_csv(IN)
+df = pd.concat([pd.read_csv(IN), pd.read_csv(CORR_IN)], ignore_index=True)
 df = df[df["forecaster"] != "true"]  # drop the perfect-info oracle arm (no realistic counterpart)
 df["model"] = df["forecaster"].map(FC_LABELS) + "-" + df["optimizer"].map(OPT_LABELS)
 df.loc[df["optimizer"] == "e2e", "model"] = "E2E"
@@ -196,9 +209,6 @@ write_table(
 )
 
 # Table 4: training/inference timing across grid sizes, horizon=1 fixed
-# NOTE: at horizon=1 the timing source has no forecaster-training entries, so
-# "Train (min, total)" reads 0 for every arm here -- that's a data gap upstream
-# (timing_benchmark.csv has no h=1 rows), not a table bug. Non-zero at horizon=24.
 # longtable: paginates instead of overflowing the page height (spills vertically as a float).
 write_table(
     df[df["horizon"] == 1],
@@ -224,4 +234,31 @@ write_table(
     sub_group_col="horizon",
     sub_group_labels=lambda h: f"Horizon $t+{int(h)}$",
     longtable=True,  # spans grid x all horizons -> too tall for one page; paginate
+)
+
+# Table 6: core metrics (as Table 1) across horizons, case118 fixed, best forecaster per optimizer
+write_table(
+    filter_best_forecaster(df[df["case"] == "case118_ieee"]),
+    CORE_METRICS,
+    f"{OUT_DIR}/table6_core_case118_horizons.tex",
+    "Optimality gap and power-balance residuals across forecast horizons "
+    "(case118; best 2-step forecaster per optimizer).",
+    "tab:core_case118_horizons",
+    group_col="horizon",
+    group_labels=lambda h: f"Horizon $t+{int(h)}$",
+)
+
+# Table 7: raw + merit-order rebalanced opt gap, case118, all horizons
+write_table(
+    filter_best_forecaster(df[df["case"] == "case118_ieee"]),
+    CORR_GAP_METRICS,
+    f"{OUT_DIR}/table7_corr_gap_case118_horizons.tex",
+    "Raw and rebalanced optimality gap across forecast horizons (case118; best 2-step forecaster "
+    "per optimizer; ML arms seed 0). Rebal.: generation mismatch $\\Delta P$ vs.\\ the optimum closed "
+    "by merit order (shortfall on the cheapest, surplus off the most expensive units), then re-costed; "
+    "Rebal.\\ Cost: signed cost of that rebalancing; Slack: share of scenarios whose mismatch exceeds the "
+    "total headroom.",
+    "tab:corr_gap_case118_horizons",
+    group_col="horizon",
+    group_labels=lambda h: f"Horizon $t+{int(h)}$",
 )

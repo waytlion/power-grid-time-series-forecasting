@@ -236,6 +236,30 @@ def compute_dc_cost_metrics(gen_df: pd.DataFrame) -> Dict[str, float]:
     return results
 
 
+def merit_order_rebalance(pg, delta, pmin, pmax, c1, c2, slack):
+    """
+    Close each scenario's generation imbalance by merit order on the predicted dispatch.
+
+    - pg [S, G] MW; delta [S] MW (> 0 = add generation); pmin, pmax, c1, c2, slack (bool) [G]
+    - rank by marginal cost at the predicted output, c1 + 2 c2 pg (fixed, not re-ranked while filling)
+    - shortfall: cheapest unit first, up to Pmax; surplus: most expensive first, down to Pmin
+    - remainder beyond total headroom -> first slack unit, outside its limits (= violation)
+    -> (rebalanced pg [S, G], remainder put on the slack [S] MW)
+    """
+    up = (delta > 0)[:, None]
+    room = np.where(up, pmax - pg, pg - pmin).clip(min=0)
+    mc = c1 + 2 * c2 * pg
+    order = np.argsort(np.where(up, mc, -mc), axis=1, kind="stable")
+    room_o = np.take_along_axis(room, order, axis=1)
+    need = np.abs(delta)[:, None]
+    step_o = np.clip(need - (np.cumsum(room_o, axis=1) - room_o), 0, room_o)
+    step = np.empty_like(step_o)
+    np.put_along_axis(step, order, step_o, axis=1)
+    rest = (need[:, 0] - step.sum(1)).clip(min=0)
+    step[:, np.flatnonzero(slack)[0]] += rest
+    return pg + np.sign(delta)[:, None] * step, rest
+
+
 def compute_dc_branch_rmse(branch_aligned: pd.DataFrame) -> Dict[str, float]:
     """
     Compute RMSE for DC branch flows vs AC ground truth.
