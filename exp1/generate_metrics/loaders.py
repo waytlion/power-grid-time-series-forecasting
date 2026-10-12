@@ -59,7 +59,9 @@ def load_datakit_gen(parquet_dir: Path) -> pd.DataFrame:
     missing_cols = set(GEN_COLUMNS) - set(df.columns)
     if missing_cols:
         raise ValueError(f"Missing columns in gen_data.parquet: {missing_cols}")
-    
+    # out-of-service gens (p = 0) still carry cp0 (case500_goc: -182 EUR); graphkit drops them too
+    df = df[df["in_service"] == 1]
+
     keep = [
         "load_scenario_idx", "idx", "bus", "p_mw", "q_mvar", "min_p_mw", "max_p_mw",
         "min_q_mvar", "max_q_mvar",
