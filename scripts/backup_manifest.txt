@@ -1,0 +1,42 @@
+# Backup manifest for scripts/backup_pack.sh — one "<tier> <glob>" per line.
+# - $WS, $HOME are expanded; globs that match nothing are reported and skipped
+# - NOT backed up (regenerable): per-bus/state parquets (test-only re-eval from `models`), processed*/ caches,
+#   last.ckpt (optimizer state, only for resuming training), ablation checkpoints, thesis_env, 2002-2025 data
+
+# --- core: every milestone (small) ---
+core $HOME/gridfm-graphkit-dev/examples/config
+core $HOME/CLAUDE.md
+core $HOME/.claude/CLAUDE.md
+core $HOME/.claude/settings.json
+core $HOME/.claude/projects/-home-h4-tibo990i/memory
+core $HOME/Thesis_Repo/exp1/results
+core $HOME/Thesis_Repo/exp1/thesis_plots/figures
+core $WS/2019-2021/phase_1c/expost_pf
+core $WS/mlruns/*/meta.yaml
+core $WS/mlruns/*/*/meta.yaml
+core $WS/mlruns/*/*/params
+core $WS/mlruns/*/*/metrics
+core $WS/mlruns/*/*/tags
+core $WS/mlruns/*/*/artifacts/test/*.csv
+
+# --- models: after new thesis runs (best_model_state_dict + normalizer/splits) ---
+models $WS/mlruns/375695290152400764/*/artifacts/model
+models $WS/mlruns/375695290152400764/*/artifacts/stats
+models $WS/mlruns/721909303805710942/*/artifacts/model
+models $WS/mlruns/721909303805710942/*/artifacts/stats
+models $WS/mlruns/971311031793519691/*/artifacts/model
+models $WS/mlruns/971311031793519691/*/artifacts/stats
+models $WS/mlruns/839400674639990974/*/artifacts/model
+models $WS/mlruns/839400674639990974/*/artifacts/stats
+models $WS/mlruns/345330807828152701/*/artifacts/model
+models $WS/mlruns/345330807828152701/*/artifacts/stats
+models $WS/mlruns/174847555980348961/*/artifacts/model
+models $WS/mlruns/174847555980348961/*/artifacts/stats
+models $WS/mlruns/840459301199326567/*/artifacts/model
+models $WS/mlruns/840459301199326567/*/artifacts/stats
+# ids: final_thesis_runs, surrogate_opf (x2), e2e_dispatch_only, physics_l2_residual, e2e_derived_qgmse (x2)
+
+# --- inputs: once (+ after regenerating data / forecasts) ---
+inputs $WS/2019-2021/phase_1a/data_in
+inputs $WS/2019-2021/phase_1a/data_out/*/raw
+inputs $HOME/Thesis_Repo/phase1_baseline/output/2019-2021
