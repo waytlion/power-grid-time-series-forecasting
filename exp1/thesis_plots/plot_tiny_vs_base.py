@@ -23,6 +23,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 
+from colors import PALETTE, THESIS_RC
+
 # metric CSV rows -> (short label, unit) for the three quantities of interest
 METRICS = [
     ("Mean Optimality Gap", "Optimality gap", "%"),
@@ -32,7 +34,7 @@ METRICS = [
 # network display order + pretty title, keyed on the CSV case string
 NETWORKS = [("case14_ieee", "14-bus"), ("case118_ieee", "118-bus"), ("case500_goc", "500-bus")]
 HORIZONS = [1, 6, 24]
-COLORS = {"base": "#0072B2", "tiny": "#D55E00"}   # Okabe-Ito CVD-safe pair
+COLORS = {"base": PALETTE["blue"], "tiny": PALETTE["orange"]}  # shared palette, see colors.py
 
 
 def collect(exp_dir):
@@ -81,13 +83,7 @@ def main(argv=None):
 
     data = collect(args.exp_dir)
 
-    # Computer Modern to match the article-class thesis body font (no LaTeX needed;
-    # cmr10 ships with matplotlib and is embedded into the SVG for \includesvg).
-    plt.rcParams.update({"font.size": 9, "axes.titlesize": 10, "axes.spines.top": False,
-                         "axes.spines.right": False, "figure.dpi": 150,
-                         "font.family": "serif", "font.serif": ["cmr10", "Computer Modern Roman"],
-                         "mathtext.fontset": "cm", "axes.formatter.use_mathtext": True,
-                         "axes.unicode_minus": False})
+    plt.rcParams.update(THESIS_RC)
     nrow, ncol = len(METRICS), len(NETWORKS)
     # sharey='row' -> one common y-scale per metric across the three networks
     fig, axes = plt.subplots(nrow, ncol, figsize=(9, 7.5), sharex=True, sharey="row")
@@ -130,10 +126,8 @@ def main(argv=None):
 
     args.out.parent.mkdir(parents=True, exist_ok=True)
     fig.savefig(args.out, bbox_inches="tight")
-    # .svg for \includesvg, .png for quick preview
-    for ext in (".svg", ".png"):
-        fig.savefig(args.out.with_suffix(ext), bbox_inches="tight")
-    print(f"wrote {args.out} (+ .svg, .png)")
+    fig.savefig(args.out.with_suffix(".svg"), bbox_inches="tight")  # for \includesvg
+    print(f"wrote {args.out} (+ .svg)")
     return 0
 
 
