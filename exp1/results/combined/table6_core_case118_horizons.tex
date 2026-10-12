@@ -1,0 +1,29 @@
+\begin{table}[t]
+\centering
+\caption{Optimality gap and power-balance residuals across forecast horizons (case118; best 2-step forecaster per optimizer).}
+\label{tab:core_case118_horizons}
+\resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{%
+\begin{tabular}{lrrr}
+\toprule
+Model & Opt. Gap \% (mean) & Res. P (MAE) & Res. Q (MAE) \\
+\midrule
+\multicolumn{4}{@{}l}{\textit{Horizon $t+1$}} \\[2pt]
+SARIMA-AC & 0.822 & 0.147 & 0.05 \\
+XGB-DC & 3.729 & 1.699 & 29.063 \\
+XGB-Surrogate & 1.396 & 0.514 & 0.124 \\
+E2E & 0.551 & 1.08 & 0.394 \\
+\midrule
+\multicolumn{4}{@{}l}{\textit{Horizon $t+6$}} \\[2pt]
+XGB-AC & 3.035 & 0.715 & 0.238 \\
+XGB-DC & 4.49 & 2.013 & 29.063 \\
+XGB-Surrogate & 3.173 & 0.878 & 0.256 \\
+E2E & 1.772 & 1.658 & 0.512 \\
+\midrule
+\multicolumn{4}{@{}l}{\textit{Horizon $t+24$}} \\[2pt]
+XGB-AC & 4.987 & 1.081 & 0.364 \\
+XGB-DC & 5.804 & 2.334 & 29.064 \\
+XGB-Surrogate & 5.008 & 1.126 & 0.353 \\
+E2E & 4.295 & 2.392 & 0.798 \\
+\bottomrule
+\end{tabular}}
+\end{table}

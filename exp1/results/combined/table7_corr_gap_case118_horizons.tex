@@ -1,0 +1,29 @@
+\begin{table}[t]
+\centering
+\caption{Raw and rebalanced optimality gap across forecast horizons (case118; best 2-step forecaster per optimizer; ML arms seed 0). Rebal.: generation mismatch $\Delta P$ vs.\ the optimum closed by merit order (shortfall on the cheapest, surplus off the most expensive units), then re-costed; Rebal.\ Cost: signed cost of that rebalancing; Slack: share of scenarios whose mismatch exceeds the total headroom.}
+\label{tab:corr_gap_case118_horizons}
+\resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{%
+\begin{tabular}{lrrrrrrr}
+\toprule
+Model & Opt. Gap \% & Rebal. Gap \% & Rebal. Cost \% & $\Delta P$ (MW) & $|\Delta P|$ (MW) & $|\Delta P|$ \% & Slack \% \\
+\midrule
+\multicolumn{8}{@{}l}{\textit{Horizon $t+1$}} \\[2pt]
+SARIMA-AC & 0.822 & 0.21 & -0.234 & 0.293 & 14.905 & 0.675 & 0.0 \\
+XGB-DC & 3.729 & 2.039 & 1.666 & -53.354 & 54.562 & 2.233 & 0.0 \\
+XGB-Surrogate & 1.461 & 0.222 & -0.9 & 8.953 & 26.854 & 1.171 & 0.0 \\
+E2E & 0.553 & 0.164 & -0.046 & -2.645 & 10.821 & 0.459 & 0.0 \\
+\midrule
+\multicolumn{8}{@{}l}{\textit{Horizon $t+6$}} \\[2pt]
+XGB-AC & 3.035 & 0.646 & -0.932 & 1.364 & 56.94 & 2.496 & 0.0 \\
+XGB-DC & 4.49 & 2.058 & 1.447 & -52.658 & 75.766 & 3.153 & 0.0 \\
+XGB-Surrogate & 3.208 & 0.539 & -1.457 & 9.702 & 59.467 & 2.62 & 0.0 \\
+E2E & 1.772 & 0.458 & -0.34 & -3.605 & 34.016 & 1.458 & 0.0 \\
+\midrule
+\multicolumn{8}{@{}l}{\textit{Horizon $t+24$}} \\[2pt]
+XGB-AC & 4.987 & 0.891 & -1.498 & 2.25 & 93.992 & 4.102 & 0.0 \\
+XGB-DC & 5.804 & 2.082 & 1.12 & -51.677 & 106.398 & 4.457 & 0.0 \\
+XGB-Surrogate & 5.043 & 0.803 & -1.818 & 6.849 & 95.072 & 4.146 & 0.0 \\
+E2E & 4.295 & 0.931 & -1.07 & -0.79 & 81.691 & 3.542 & 0.0 \\
+\bottomrule
+\end{tabular}}
+\end{table}

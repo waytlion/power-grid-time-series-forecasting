@@ -1,0 +1,90 @@
+Metric,Value,Unit
+Mean Ground Truth Cost,48266.4406745651,EUR
+AC Mean Optimality Gap,0.8221728846526256,%
+AC Residual P (MAE),0.14681564210468673,MW
+AC Residual Q (MAE),0.050438741742957226,MVAr
+MAE Pd,0.14680372974153041,MW
+RMSE Pd,0.327126608229417,MW
+MAE Qd,0.050321295818504065,MVAr
+RMSE Qd,0.11561624340822581,MVAr
+AC Vm MAE,0.0001346657118214035,p.u.
+AC Vm RMSE,0.00026528246160324677,p.u.
+AC Va MAE,0.052473517667891975,deg
+AC Va RMSE,0.0897071674379484,deg
+AC Pg bus MAE,0.1283803051604929,MW
+AC Pg bus RMSE,1.0668613386894739,MW
+AC Qg MAE,0.07774869336313059,MVAr
+AC Qg RMSE,0.23693521128526407,MVAr
+AC Generator Pg MAE,0.2805347409062623,MW
+AC Generator Pg RMSE,1.5770741057229234,MW
+AC Median Optimality Gap,0.5105836245988786,%
+AC Max Optimality Gap,7.8886592592093745,%
+AC Branch pf RMSE,0.8697075706189131,MW
+AC Branch pt RMSE,0.872727761728901,MW
+AC vm viol. count,0.0,count
+AC vm viol. mean,6.25155201201179e-14,p.u.
+AC vm viol. max,4.747177317909745e-09,p.u.
+AC vm viol. rate,0.0,frac
+AC vm scenario viol. rate,0.0,frac
+AC pg viol. count,0.0,count
+AC pg viol. mean,8.42505812114074e-08,MW
+AC pg viol. max,5.7285267303086584e-06,MW
+AC pg viol. rate,0.0,frac
+AC pg scenario viol. rate,0.0,frac
+AC qg viol. count,0.0,count
+AC qg viol. mean,0.0,MVAr
+AC qg viol. max,0.0,MVAr
+AC qg viol. rate,0.0,frac
+AC qg scenario viol. rate,0.0,frac
+AC thermal viol. count,0.0,count
+AC thermal viol. mean,2.288612302043589e-09,MVA
+AC thermal viol. max,1.2058686706950539e-06,MVA
+AC thermal viol. rate,0.0,frac
+AC thermal scenario viol. rate,0.0,frac
+AC angle viol. count,0.0,count
+AC angle viol. mean,0.0,deg
+AC angle viol. max,0.0,deg
+AC angle viol. rate,0.0,frac
+AC angle scenario viol. rate,0.0,frac
+AC fully feasible scenario viol. rate,0.0,frac
+DC Mean Optimality Gap,3.7692410652268498,%
+DC Residual P (MAE),1.6008478093866292,MW
+DC Residual Q (MAE),29.063191216360746,MVAr
+DC Vm Deviation MAE (1.0 vs AC),0.04041869049738008,p.u.
+DC Vm Deviation RMSE (1.0 vs AC),0.04207433811285406,p.u.
+DC Va MAE,5.601048216991582,deg
+DC Va RMSE,7.3954287359706425,deg
+DC Pg bus MAE,4.938256223262356,MW
+DC Pg bus RMSE,30.87291272247556,MW
+DC Generator Pg MAE,10.791004339721445,MW
+DC Generator Pg RMSE,45.63748770076263,MW
+DC Median Optimality Gap,3.7408883099828394,%
+DC Max Optimality Gap,11.287156663528531,%
+DC Branch pf RMSE,27.793004550251965,MW
+DC Branch pt RMSE,27.744763713055924,MW
+DC vm viol. count,0.0,count
+DC vm viol. mean,0.0,p.u.
+DC vm viol. max,0.0,p.u.
+DC vm viol. rate,0.0,frac
+DC vm scenario viol. rate,0.0,frac
+DC pg viol. count,0.0,count
+DC pg viol. mean,1.0265366210993269e-07,MW
+DC pg viol. max,5.850160732734366e-06,MW
+DC pg viol. rate,0.0,frac
+DC pg scenario viol. rate,0.0,frac
+DC thermal viol. count,0.0,count
+DC thermal viol. mean,6.0179473332526104e-09,MVA
+DC thermal viol. max,1.1877659744641278e-06,MVA
+DC thermal viol. rate,0.0,frac
+DC thermal scenario viol. rate,0.0,frac
+DC angle viol. count,0.0,count
+DC angle viol. mean,0.0,deg
+DC angle viol. max,0.0,deg
+DC angle viol. rate,0.0,frac
+DC angle scenario viol. rate,0.0,frac
+DC fully feasible scenario viol. rate,0.0,frac
+AC Solver total time (s),393.99599862098694,s
+AC Solver time per scenario (s),0.09994824926965676,s/scenario
+DC Solver total time (s),48.733803510665894,s
+DC Solver time per scenario (s),0.012362710175206975,s/scenario
+Solver n_scenarios,3942.0,count

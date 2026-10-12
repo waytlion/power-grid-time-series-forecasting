@@ -1,0 +1,49 @@
+\begin{longtable}{lrrr}
+\caption{Training and inference timing across grid sizes (horizon = 1).}\label{tab:timing_h1}\\
+\toprule
+Model & Train (min, total) & Infer (min, total) & Infer/sample (s) \\
+\midrule
+\endfirsthead
+\multicolumn{4}{c}{\tablename\ \thetable{} -- continued} \\
+\toprule
+Model & Train (min, total) & Infer (min, total) & Infer/sample (s) \\
+\midrule
+\endhead
+\midrule
+\multicolumn{4}{r}{\textit{continued on next page}} \\
+\endfoot
+\bottomrule
+\endlastfoot
+\multicolumn{4}{@{}l}{\textit{case14}} \\[2pt]
+SNaive-AC & 0.0 & 0.61 & 0.009 \\
+SARIMA-AC & 0.415 & 5.352 & 0.081 \\
+SNaive-DC & 0.0 & 0.147 & 0.002 \\
+SARIMA-DC & 0.415 & 4.904 & 0.075 \\
+SNaive-Surrogate & 0.0 & 0.04 & 0.001 \\
+SARIMA-Surrogate & 0.415 & 4.8 & 0.073 \\
+XGB-Surrogate & 0.511 & 1.772 & 0.027 \\
+E2E & 68.14 & 0.129 & 0.002 \\
+\midrule
+\multicolumn{4}{@{}l}{\textit{case118}} \\[2pt]
+SNaive-AC & 0.0 & 6.669 & 0.102 \\
+SARIMA-AC & 1.233 & 32.614 & 0.496 \\
+XGB-AC & 2.69 & 6.612 & 0.101 \\
+SNaive-DC & 0.0 & 0.82 & 0.012 \\
+SARIMA-DC & 1.233 & 26.86 & 0.409 \\
+XGB-DC & 2.69 & 0.97 & 0.015 \\
+SNaive-Surrogate & 0.0 & 0.038 & 0.001 \\
+XGB-Surrogate & 2.69 & 0.297 & 0.005 \\
+E2E & 391.94 & 0.967 & 0.015 \\
+\midrule
+\multicolumn{4}{@{}l}{\textit{case500}} \\[2pt]
+SNaive-AC & 0.0 & 51.641 & 0.786 \\
+SARIMA-AC & 4.344 & 227.328 & 3.46 \\
+XGB-AC & 9.762 & 53.212 & 0.81 \\
+SNaive-DC & 0.0 & 3.596 & 0.055 \\
+SARIMA-DC & 4.344 & 176.719 & 2.69 \\
+XGB-DC & 9.762 & 3.799 & 0.058 \\
+SNaive-Surrogate & 0.0 & 0.086 & 0.001 \\
+SARIMA-Surrogate & 4.344 & 173.14 & 2.635 \\
+XGB-Surrogate & 9.762 & 0.372 & 0.006 \\
+E2E & 1279.221 & 3.032 & 0.055 \\
+\end{longtable}

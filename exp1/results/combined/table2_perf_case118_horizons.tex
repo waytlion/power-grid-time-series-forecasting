@@ -1,0 +1,29 @@
+\begin{table}[t]
+\centering
+\caption{Performance metrics across forecast horizons (case118; best forecaster per optimizer).}
+\label{tab:perf_case118_horizons}
+\resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{%
+\begin{tabular}{lrrrrrrr}
+\toprule
+Model & Opt. Gap \% (mean) & Res. P (MAE) & Res. Q (MAE) & MAE $P_d$ & MAE $P_g$ & MAE $V_m$ & MAE $V_a$ \\
+\midrule
+\multicolumn{8}{@{}l}{\textit{Horizon $t+1$}} \\[2pt]
+SARIMA-AC & 0.822 & 0.147 & 0.05 & 0.147 & 0.281 & 0.0 & 0.052 \\
+XGB-DC & 3.729 & 1.699 & 29.063 & -- & 10.793 & -- & 5.617 \\
+XGB-Surrogate & 1.396 & 0.514 & 0.124 & 0.307 & 0.8 & 0.007 & 0.255 \\
+E2E & 0.551 & 1.08 & 0.394 & 0.447 & 0.261 & 0.004 & 0.264 \\
+\midrule
+\multicolumn{8}{@{}l}{\textit{Horizon $t+6$}} \\[2pt]
+XGB-AC & 3.035 & 0.715 & 0.238 & 0.715 & 1.087 & 0.001 & 0.222 \\
+XGB-DC & 4.49 & 2.013 & 29.063 & -- & 10.905 & -- & 5.708 \\
+XGB-Surrogate & 3.173 & 0.878 & 0.256 & 0.715 & 1.364 & 0.007 & 0.332 \\
+E2E & 1.772 & 1.658 & 0.512 & 0.776 & 0.743 & 0.004 & 0.37 \\
+\midrule
+\multicolumn{8}{@{}l}{\textit{Horizon $t+24$}} \\[2pt]
+XGB-AC & 4.987 & 1.081 & 0.364 & 1.081 & 1.776 & 0.001 & 0.36 \\
+XGB-DC & 5.804 & 2.334 & 29.064 & -- & 11.05 & -- & 5.822 \\
+XGB-Surrogate & 5.008 & 1.126 & 0.353 & 1.002 & 1.978 & 0.007 & 0.425 \\
+E2E & 4.295 & 2.392 & 0.798 & 1.643 & 1.69 & 0.007 & 0.515 \\
+\bottomrule
+\end{tabular}}
+\end{table}

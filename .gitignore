@@ -38,6 +38,9 @@ tests/phase1b_1c/tmp/
 
 # Exception: committed golden baseline files are tracked despite *.csv rule
 !tests/phase1b_1c/golden/*.csv
+!exp1/results/**/*.csv
+!exp1/results/**/*.tex
+slurm-*.out
 
 # --- Logs ---
 logs/

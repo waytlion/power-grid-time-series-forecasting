@@ -1,0 +1,29 @@
+\begin{table}[t]
+\centering
+\caption{Optimality gap and power-balance residuals across grid sizes (horizon $t+6$; best 2-step forecaster per optimizer).}
+\label{tab:core_grid_h6}
+\resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{%
+\begin{tabular}{lrrr}
+\toprule
+Model & Opt. Gap \% (mean) & Res. P (MAE) & Res. Q (MAE) \\
+\midrule
+\multicolumn{4}{@{}l}{\textit{case14}} \\[2pt]
+XGB-AC & 3.334 & 0.397 & 0.117 \\
+XGB-DC & 4.508 & 0.967 & 16.681 \\
+XGB-Surrogate & 3.416 & 0.398 & 0.118 \\
+E2E & 2.028 & 0.681 & 0.223 \\
+\midrule
+\multicolumn{4}{@{}l}{\textit{case118}} \\[2pt]
+XGB-AC & 3.035 & 0.715 & 0.238 \\
+XGB-DC & 4.49 & 2.013 & 29.063 \\
+XGB-Surrogate & 3.173 & 0.878 & 0.256 \\
+E2E & 1.772 & 1.658 & 0.512 \\
+\midrule
+\multicolumn{4}{@{}l}{\textit{case500}} \\[2pt]
+XGB-AC & 1.784 & 0.741 & 0.185 \\
+XGB-DC & 2.347 & 2.125 & 73.108 \\
+XGB-Surrogate & 3.243 & 3.274 & 0.98 \\
+E2E & 1.533 & 3.451 & 1.187 \\
+\bottomrule
+\end{tabular}}
+\end{table}
