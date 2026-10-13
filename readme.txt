@@ -120,18 +120,20 @@
              - a retrain under the same identity (e.g. base_e2e_case500_h1_s0 -> base_e2e_case500_goc_h1_s0)
                is averaged in as an extra seed: archive the superseded run dirs first
 
-7a. Merit-order rebalanced opt gap, exact per scenario -> exp1/results/combined/corrected_gap.csv
-        -> EXECUTE (capella, sbatch): python exp1/generate_metrics/corrected_gap.py [--cases case14_ieee ...]
-           (datakit gen_data for AC/DC; *_state_gen.parquet dumps from mlruns experiments 760726881304984634
-            (state-dump) + 375695290152400764 (final_thesis_runs), newest run per identity/seed wins;
-            fails if a recomputed gap != logged gap)
-
-7c. Ex-post AC-PF feasibility on the same merit-order rebalanced dispatch (barnard CPU, ~6 h per case)
+7a. Ex-post AC-PF (pypowsybl OpenLoadFlow, distributed slack ∝ Pmax): rebalanced dispatch P̃ + feasibility (barnard CPU)
+        arms: label (sanity), exact (AC-OPF), dc (DC-OPF dispatch + case-file generator voltage setpoints), surrogate, e2e
         -> EXECUTE (from login1.barnard):
            for c in case14_ieee case118_ieee case500_goc; do CASE=$c sbatch scripts/expost_pf.sbatch; done
            (one arm only: CASE=case500_goc ARMS=e2e sbatch scripts/expost_pf.sbatch)
         -> OUTPUT: /data/horse/ws/tibo990i-thesis_data/2019-2021/phase_1c/expost_pf/<case>/h<H>/<arm>[_<fc>][_s<seed>].parquet
-           (ML arms: newest run with a state dump per run name)
+           + <case>/run_config_<job>.json (load-flow settings, OLF defaults)
+           (ML arms: newest run with a state dump per run name; case118 h1 label + AC arm: ~4 min on 2 CPUs)
+
+7c. Rebalanced opt gap from the 7a outputs -> exp1/results/combined/corrected_gap.csv
+        -> EXECUTE: python exp1/generate_metrics/corrected_gap.py [--cases case14_ieee ...]
+           (γ_reb = (C(P̃) - C(P*)) / C(P*), R = (C(P̃) - C(P̂)) / C(P*), both as % of C(P*); also thermal
+            overload share, insufficient headroom, diverged / no_dispatch counts;
+            fails if a recomputed raw gap != logged gap)
 
 7b. create final plots for thesis:
         - EXECUTE: python exp1/thesis_plots/make_latex_tables.py

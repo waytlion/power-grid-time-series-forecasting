@@ -15,8 +15,8 @@ exp1/generate_metrics/
   compare.py             exact + 2-step arms → results/<run>/<forecaster>/<case>_metrics.csv (AC + DC in one CSV, 'AC '/'DC ' prefix)
   aggregate_results.py   all arms from their native locations (compare.py tree + mlruns eval CSVs) → one tidy long CSV
   metrics.py, loaders.py, config.py   shared metric helpers / datakit loaders / paths
-  corrected_gap.py, expost_pf.py      merit-order rebalanced opt gap; ex-post AC-PF on the same rebalanced dispatch
-                                      (shared rule: metrics.merit_order_rebalance)
+  expost_pf.py           ex-post AC-PF (pypowsybl, distributed slack): PF-solved dispatch = rebalanced dispatch + feasibility
+  corrected_gap.py       rebalanced opt gap + Q3 shares from the expost_pf outputs (AC/DC 2-step, surrogate, E2E)
 exp1/ml_surrogate/build_eval_set.py   forecast profiles → graphkit HeteroData eval sets (only Pd_forecast + Qd_derived in bus.x)
 exp1/thesis_plots/       ALL thesis figures/tables (make_latex_tables.py, plot_*.py, run_residual_pipeline_h1.py,
                          extract_residuals_2step.py) → thesis_plots/figures/
