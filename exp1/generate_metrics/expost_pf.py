@@ -12,7 +12,8 @@ What?
 Why?
     - replaces realized-space residuals (dispatch frozen, true load inserted), which are no physical operating point
 How?
-    - arms: exact (phase1c datakit OPF on forecast load), surrogate / e2e (graphkit state dumps),
+    - arms: exact (phase1c datakit AC-OPF on forecast load), dc (same run's DC-OPF dispatch; no voltages -> case-file
+      generator setpoints VG at PV/REF buses), surrogate / e2e (graphkit state dumps),
       label (phase1a OPF labels -> sanity check: must give zero violations, P̃ = P*)
     - samples aligned on the target hour (load_scenario_idx), never on row order (ML test order is shuffled)
     - Qg per bus vs summed limits: PF fixes only the bus total, its per-gen split on multi-gen buses is arbitrary
@@ -47,7 +48,8 @@ from gridfm_datakit.powsybl.convert import to_powsybl, update_powsybl
 from gridfm_datakit.powsybl.preprocess import get_pf_res
 from gridfm_datakit.process.process_network import pf_post_processing
 from gridfm_datakit.utils.column_names import BUS_COLUMNS, GEN_COLUMNS, BRANCH_COLUMNS
-from gridfm_datakit.utils.idx_gen import PMIN, PMAX
+from gridfm_datakit.utils.idx_bus import VM
+from gridfm_datakit.utils.idx_gen import GEN_BUS, PMIN, PMAX, VG
 
 DATA = Path("/data/horse/ws/tibo990i-thesis_data")
 PHASE1A = DATA / "2019-2021/phase_1a/data_out"
@@ -116,14 +118,27 @@ def load_truth(case, hours):
     return hb, dict(pd=pd_, qd=qd, vm=vm, pg=pg, c0=c0[0], c1=c1[0], c2=c2[0])  # costs static across hours
 
 
-def load_exact(case, H, fc):
-    """phase1c datakit AC-OPF on the forecast load; its load_scenario_idx is the 2-step flat scenario"""
+def case_vm(case):
+    """case-file bus voltages, generator setpoint VG at generator buses"""
+    net = load_net_from_pglib(case)
+    on = net.idx_gens_in_service
+    vm = net.buses[:, VM].copy()
+    vm[net.gens[on, GEN_BUS].astype(int)] = net.gens[on, VG]
+    return vm
+
+
+def load_exact(case, H, fc, dc=False):
+    """phase1c datakit OPF on the forecast load; its load_scenario_idx is the 2-step flat scenario
+    dc: DC-OPF dispatch of the same run, Vm = case-file setpoints (DC-OPF has no voltages)"""
     raw = PHASE1C / f"data_out/{case}_horizon_{H}/{fc}/{case}/raw"
+    col = "p_mw_dc" if dc else "p_mw"
     b = _read(raw / "bus_data.parquet", ["load_scenario_idx", "bus", "Vm", "Pd"])
-    g = _read(raw / "gen_data.parquet", ["load_scenario_idx", "idx", "p_mw", "in_service"])
+    g = _read(raw / "gen_data.parquet", ["load_scenario_idx", "idx", col, "in_service"])
     flat, (vm, pd_fc) = _dense(b, "load_scenario_idx", "bus", "Vm", "Pd")
-    flat_g, (pg,) = _dense(g[g.in_service == 1], "load_scenario_idx", "idx", "p_mw")
+    flat_g, (pg,) = _dense(g[g.in_service == 1], "load_scenario_idx", "idx", col)
     assert np.array_equal(flat, flat_g)
+    if dc:
+        vm = np.broadcast_to(case_vm(case), vm.shape)
     target, k = flat_targets(case, H)
     miss = np.setdiff1d(np.arange(len(target)), flat)  # OPF failed on the forecast load -> no dispatch
     pred = dict(target=target[flat], k=k[flat], pg=pg, vm=vm, missing=(target[miss], k[miss]))
@@ -285,7 +300,7 @@ def main():
     p = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     p.add_argument("--case", required=True)
     p.add_argument("--horizons", type=int, nargs="+", default=[1, 6, 24])
-    p.add_argument("--arms", nargs="+", default=["label", "exact", "surrogate", "e2e"])
+    p.add_argument("--arms", nargs="+", default=["label", "exact", "dc", "surrogate", "e2e"])
     p.add_argument("--forecasters", nargs="+", default=["true", "xgb", "sarima", "snaive"])
     p.add_argument("--seeds", type=int, nargs="+", default=[0])
     p.add_argument("--workers", type=int, default=int(os.environ.get("SLURM_CPUS_PER_TASK", 1)))
@@ -296,7 +311,7 @@ def main():
     # (arm, horizon, forecaster, seed) configs; label = phase1a labels on the 2-step h1 test hours
     configs = [("label", 1, None, None)] if "label" in a.arms else []
     for H in a.horizons:
-        configs += [("exact", H, fc, None) for fc in a.forecasters if "exact" in a.arms]
+        configs += [(arm, H, fc, None) for arm in ("exact", "dc") for fc in a.forecasters if arm in a.arms]
         configs += [("surrogate", H, fc, s) for fc in a.forecasters for s in a.seeds if "surrogate" in a.arms]
         configs += [("e2e", H, None, s) for s in a.seeds if "e2e" in a.arms]
 
@@ -317,8 +332,8 @@ def main():
                     hours = np.unique(flat_targets(a.case, 1)[0])
                     _, gt = load_truth(a.case, hours)
                     pred = dict(target=hours, k=np.zeros_like(hours), pg=gt["pg"], vm=gt["vm"])
-                elif arm == "exact":
-                    pred = load_exact(a.case, H, fc)
+                elif arm in ("exact", "dc"):
+                    pred = load_exact(a.case, H, fc, dc=arm == "dc")
                 else:
                     # E2E: case500 retrain uses the full case name (base_e2e_case500_goc_h*), older runs the short one
                     names = ([f"surrogate_{a.case}_{fc}_h{H}_s{seed}"] if arm == "surrogate" else

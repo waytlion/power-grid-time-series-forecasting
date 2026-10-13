@@ -11,9 +11,9 @@ losses included); its PF-solved dispatch P̃ is the rebalanced dispatch, re-cost
 - Q3: thermal overload share over converged; insufficient headroom (remainder > TOL_P on the slack) and
   diverged (no solution = infeasible) / no_dispatch counted per arm, case, horizon
 - ΔP = ΣP̂ - ΣP* (MW, < 0 = short)
-- arms: exact -> "ac", surrogate, e2e (seed per file); DC 2-step has no ex-post AC-PF -> not covered
+- arms: exact -> "ac", dc (DC-OPF dispatch, case-file generator voltage setpoints), surrogate, e2e (seed per file)
 Gate: the raw |gap| recomputed from the ex-post costs must reproduce the logged Mean Optimality Gap
-(exact: combined CSV; ML: the run's metrics CSV).
+(exact/dc: combined CSV; ML: the run's metrics CSV).
 """
 import argparse
 from pathlib import Path
@@ -21,7 +21,7 @@ from pathlib import Path
 import pandas as pd
 
 KEY = ["case", "horizon", "optimizer", "forecaster"]
-OPT = {"exact": "ac", "surrogate": "surrogate", "e2e": "e2e"}
+OPT = {"exact": "ac", "dc": "dc", "surrogate": "surrogate", "e2e": "e2e"}
 EXPOST = Path("/data/horse/ws/tibo990i-thesis_data/2019-2021/phase_1c/expost_pf")
 
 
@@ -71,7 +71,7 @@ def main():
             if arm not in OPT or fc == "true" or "_limit" in p.stem or (pd.notna(seed) and int(seed) not in args.seeds):
                 continue
             key = (case, int(d.horizon.iloc[0]), OPT[arm], fc)
-            if arm == "exact":
+            if arm in ("exact", "dc"):
                 ref = logged.get(key)
             else:
                 m = pd.read_csv(Path(d.run.iloc[0]) / "artifacts" / "test" / f"{case}_metrics.csv")

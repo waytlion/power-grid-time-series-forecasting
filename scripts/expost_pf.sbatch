@@ -19,7 +19,7 @@ export LD_LIBRARY_PATH="${LD_LIBRARY_PATH-}"
 
 CASE=${CASE:-case118_ieee}
 HORIZONS=${HORIZONS:-"1 6 24"}
-ARMS=${ARMS:-"label exact surrogate e2e"}
+ARMS=${ARMS:-"label exact dc surrogate e2e"}
 FORECASTERS=${FORECASTERS:-"true xgb sarima snaive"}
 SEEDS=${SEEDS:-0}
 LIMIT=${LIMIT:-}

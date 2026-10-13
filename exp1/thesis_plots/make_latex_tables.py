@@ -259,9 +259,9 @@ write_table(
     "per optimizer; ML arms seed 0). Rebal.: AC power flow on the realised load with the predicted "
     "dispatch as setpoints; the mismatch (forecast error and losses) is distributed over all in-service "
     "units in proportion to $P_{\\max}$ within their limits (distributed slack), and the PF-solved dispatch "
-    "is re-costed. "
+    "is re-costed. DC-OPF has no voltages: its dispatch runs with the case-file generator voltage setpoints. "
     "$R^{+}$/$R^{-}$: under-/over-supply contributions to the mean rebalancing cost (sum = mean). "
-    "Thermal: share of samples with a line overload. DC-OPF has no ex-post AC power flow and is not covered.",
+    "Thermal: share of samples with a line overload.",
     "tab:corr_gap_case118_horizons",
     group_col="horizon",
     group_labels=lambda h: f"Horizon $t+{int(h)}$",
