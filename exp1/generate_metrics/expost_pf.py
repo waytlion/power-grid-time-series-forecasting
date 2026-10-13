@@ -3,11 +3,9 @@ Ex-post AC power flow: is each arm's dispatch operable once the true load arrive
 
 What?
     - per test sample (realized target hour, horizon step k), per arm:
-        1. rebalance: close Δ = ΣPg_true - ΣPg_pred (true OPF, incl. losses) by merit order (metrics.merit_order_rebalance,
-           same rule as the rebalanced gap); remainder beyond headroom -> slack (rebal_slack_mw)
-        2. AC-PF (PowerModels compute_ac_pf, single slack, NO Q limits):
-           Pg' at non-slack gens, predicted Vm at gen buses, true Pd/Qd everywhere
-        3. limits on the PF solution: convergence, thermal, PQ voltage, bus-level Qg, Pg' headroom, ΔP_slack
+        1. AC-PF (pypowsybl OpenLoadFlow, distributed slack ∝ Pmax, NO Q limits): predicted dispatch P̂ as target P,
+           predicted Vm at gen buses, true Pd/Qd everywhere; the imbalance (load error + losses) is spread over the units
+        2. limits on the PF solution: convergence, thermal, PQ voltage, bus-level Qg, REF unit P vs its limits
 Why?
     - replaces realized-space residuals (dispatch frozen, true load inserted), which are no physical operating point
 How?
@@ -15,7 +13,10 @@ How?
       label (phase1a OPF labels -> sanity check: must give zero violations, ΔP_slack ~ 0)
     - samples aligned on the target hour (load_scenario_idx), never on row order (ML test order is shuffled)
     - Qg per bus vs summed limits: PF fixes only the bus total, its per-gen split on multi-gen buses is arbitrary
-    - PF path reused from datakit (Network setters + run_pf(fast=True) + pf_post_processing), one Julia per worker
+    - datakit Network -> pypowsybl via gridfm_datakit.powsybl (one network per worker, updated in place);
+      slack = case-file REF bus; LF_PARAMS + OLF provider defaults logged to <OUT>/<case>/run_config_<job>.json
+    - insufficient headroom: remainder left on the REF unit beyond its limit (LEAVE_ON_SLACK_BUS) -> slack_viol_mw
+    - status: converged | diverged (NR) | no_dispatch (2-step: OPF failed on the forecast)
     - run on barnard via scripts/expost_pf.sbatch
 
 Usage (from Thesis_Repo root, inside a barnard job):
@@ -26,21 +27,23 @@ import argparse
 import glob
 import json
 import os
-from multiprocessing import Pool
+from multiprocessing import get_context
 from pathlib import Path
 
 import numpy as np
 import pandas as pd
 import pyarrow.dataset as ds
 import pyarrow.parquet as pq
+import pypowsybl as pp
+import pypowsybl.loadflow as lf
 
 from compare import _build_predicted_scenario_map
-from metrics import merit_order_rebalance
 from gridfm_datakit.network import load_net_from_pglib
-from gridfm_datakit.process.process_network import init_julia, pf_post_processing
-from gridfm_datakit.process.solvers import run_pf
+from gridfm_datakit.powsybl.convert import to_powsybl, update_powsybl
+from gridfm_datakit.powsybl.preprocess import get_pf_res
+from gridfm_datakit.process.process_network import pf_post_processing
 from gridfm_datakit.utils.column_names import BUS_COLUMNS, GEN_COLUMNS, BRANCH_COLUMNS
-from gridfm_datakit.utils.idx_gen import GEN_BUS, PMIN, PMAX
+from gridfm_datakit.utils.idx_gen import PMIN, PMAX
 
 DATA = Path("/data/horse/ws/tibo990i-thesis_data")
 PHASE1A = DATA / "2019-2021/phase_1a/data_out"
@@ -49,9 +52,26 @@ MLRUNS = DATA / "mlruns"
 FORECASTS = Path(__file__).resolve().parents[2] / "phase1_baseline/output/2019-2021"
 OUT = PHASE1C / "expost_pf"
 
-TOL_GEN = 0.1   # MW / MVAr (= 1e-3 p.u. at baseMVA 100)
+TOL_GEN = 0.1   # MVAr (= 1e-3 p.u. at baseMVA 100)
+TOL_P = 0.01    # MW: P-limit checks = slack distribution stop (slackBusPMaxMismatch)
 TOL_REL = 1e-3  # voltage + thermal limits: 0.1 %
 B, G, BR = ({c: i for i, c in enumerate(cols)} for cols in (BUS_COLUMNS, GEN_COLUMNS, BRANCH_COLUMNS))
+
+LF_PARAMS = lf.Parameters(
+    distributed_slack=True,
+    balance_type=lf.BalanceType.PROPORTIONAL_TO_GENERATION_P_MAX,
+    use_reactive_limits=False,
+    read_slack_bus=True,  # slackTerminal of the case-file REF bus (MATPOWER import)
+    write_slack_bus=True,
+    twt_split_shunt_admittance=True,  # MATPOWER pi model; without it case118 labels miss by 1.8e-3 p.u. (bus 86)
+    provider_parameters={
+        "generatorsWithZeroMwTargetAreNotStarted": "false",  # units at P̂ = 0 take part too
+        "slackBusPMaxMismatch": str(TOL_P),  # residual left on the slack bus < TOL_P (default 1 MW)
+        # insufficient headroom: remainder stays on the REF unit (beyond its limit) instead of a failed solve
+        "slackDistributionFailureBehavior": "LEAVE_ON_SLACK_BUS",
+    },
+)
+OLF_DEFAULTS = lf.get_provider_parameters()["default"]  # logged; useActiveLimits=true kept
 
 
 # ---------------------------------------------------------------- data
@@ -130,7 +150,7 @@ def load_ml(arm, case, H, run):
         assert len(test) * H == len(s)
         assert int((run / "params/args/data/forecast_horizon").read_text()) == H
         W = int((run / "params/args/data/temporal_window").read_text())
-        import torch  # lazy: Pool workers fork before this -> juliacall never sees torch (segfault warning)
+        import torch  # lazy: only E2E needs it
         hours = torch.load(PHASE1A / case / "processed_temporal/load_scenarios.pt").numpy().astype(np.int64)
         k = s % H
         target = hours[test[s // H] + W + k]
@@ -139,22 +159,32 @@ def load_ml(arm, case, H, run):
 
 # ---------------------------------------------------------------- AC-PF (worker side)
 
-_NET = _JL = None
+_NET = _PP = _MAP = _REF = None
 
 
 def _init_worker(case):
-    global _NET, _JL
+    global _NET, _PP, _MAP, _REF
     _NET = load_net_from_pglib(case)
-    _JL = init_julia(max_iter=300)
+    conv = to_powsybl(_NET)
+    _PP, _MAP = conv.pp_net, conv.mapping_p2g
+    _REF = next(b for b, i in _MAP.bus.items() if i == _NET.ref_bus_idx)
 
 
 def _solve(task):
-    """one sample: true load + rebalanced dispatch + Vm setpoints -> AC-PF -> limit checks on the PF solution"""
+    """one sample: true load + predicted dispatch + Vm setpoints -> AC-PF (distributed slack) -> limit checks"""
     pd_, qd, pg, vm = task
-    _NET.Pd, _NET.Qd, _NET.Pg_gen, _NET.Vm = pd_, qd, pg, vm  # Vm used at PV/REF only, slack Pg' ignored by PF
+    on = _NET.idx_gens_in_service
+    lim = np.clip(pg, _NET.gens[on, PMIN], _NET.gens[on, PMAX])
+    # P̂ outside [Pmin, Pmax]: OLF holds it there, the unit drops out of the distribution; solver noise -> clipped
+    pg = np.where(np.abs(pg - lim) <= TOL_P, lim, pg)
+    _NET.Pd, _NET.Qd, _NET.Pg_gen, _NET.Vm = pd_, qd, pg, vm
+    update_powsybl(_PP, _NET, _MAP)  # in place: loads, target P, target V (uniform voltage init -> no carry-over)
+    r = lf.run_ac(_PP, LF_PARAMS)
+    slack = r[0].slack_bus_results[0]
+    assert slack.id == _REF, f"slack bus {slack.id} != case-file REF bus {_REF}"
     try:
-        res = run_pf(_NET, _JL, fast=True)
-    except RuntimeError:  # raised on non-convergence (NLsolve ftol 1e-8 p.u.)
+        res = get_pf_res(_PP, 0.0, r, _MAP)  # ValueError unless converged; remainder added to the REF gen's Pg
+    except (ValueError, RuntimeError):  # NR not converged
         return None
     out = pf_post_processing(0, _NET, res, None, False)  # MW / MVAr / p.u.
     bus = out["bus"]
@@ -179,7 +209,7 @@ def _solve(task):
     gen_bus[_NET.ref_bus_idx] = False
     q_viol = (np.maximum(q - qmax, 0) + np.maximum(qmin - q, 0))[gen_bus]
 
-    # slack: PF-solved Pg vs its rebalanced setpoint and its limits
+    # slack: PF-solved REF Pg vs its setpoint and its limits
     ref = gb == _NET.ref_bus_idx
     p_ref = gen[ref, G["p_mw"]].sum()
     slack_viol = max(p_ref - gen[ref, G["max_p_mw"]].sum(), 0) + max(gen[ref, G["min_p_mw"]].sum() - p_ref, 0)
@@ -198,8 +228,8 @@ def _solve(task):
 
 # ---------------------------------------------------------------- driver
 
-def evaluate(pool, net, case, pred, limit=None):
-    """align with truth, rebalance (step 1), solve PF (steps 2-3) -> one row per sample"""
+def evaluate(pool, case, pred, limit=None):
+    """align with truth, solve PF with distributed slack -> one row per sample"""
     order = np.lexsort((pred["k"], pred["target"]))
     if limit:  # smoke test: evenly spread subset
         order = order[np.linspace(0, len(order) - 1, min(limit, len(order))).astype(int)]
@@ -212,21 +242,9 @@ def evaluate(pool, net, case, pred, limit=None):
         err = np.abs(pred["pd_true"][order] - gt["pd"][i]).max()
         assert err < 1e-3, f"true load != phase1a labels (max {err:.3g} MW): misaligned or stale processed data"
 
-    # step 1: close the net imbalance by merit order, Δ = ΣPg_true - ΣPg_pred
-    on = net.idx_gens_in_service
-    slack = net.gens[on, GEN_BUS] == net.ref_bus_idx
-    delta = gt["pg"][i].sum(1) - pg.sum(1)
-    pg_s, rest = merit_order_rebalance(pg, delta, net.gens[on, PMIN], net.gens[on, PMAX], gt["c1"], gt["c2"], slack)
-    head = (np.maximum(pg_s - net.gens[on, PMAX], 0) + np.maximum(net.gens[on, PMIN] - pg_s, 0))[:, ~slack]
+    res = pool.map(_solve, [(gt["pd"][j], gt["qd"][j], pg[r], vm[r]) for r, j in enumerate(i)], chunksize=16)
 
-    tasks = [(gt["pd"][j], gt["qd"][j], pg_s[r], vm[r]) for r, j in enumerate(i)]
-    res = pool.map(_solve, tasks, chunksize=16)
-
-    df = pd.DataFrame(dict(
-        target=target, k=k,
-        status=np.where([r is not None for r in res], "converged", "diverged"),
-        delta_mw=delta, rebal_slack_mw=rest, headroom_max_mw=head.max(1), headroom_n=(head > TOL_GEN).sum(1),
-    ))
+    df = pd.DataFrame(dict(target=target, k=k, status=np.where([r is not None for r in res], "converged", "diverged")))
     df = df.join(pd.DataFrame([r or {} for r in res]))
     if "missing" in pred and len(pred["missing"][0]) and not limit:
         miss = pd.DataFrame(dict(target=pred["missing"][0], k=pred["missing"][1], status="no_dispatch"))
@@ -239,9 +257,7 @@ def summarize(tag, df):
     share = lambda col: (c[col] > 0).mean()
     print(f"[{tag}] n={len(df)} converged={len(c) / len(df):.4f} no_dispatch={(df.status == 'no_dispatch').sum()} | "
           f"viol share thermal={share('thermal_n'):.4f} vm={share('vm_n'):.4f} qg={share('qg_n'):.4f} "
-          f"headroom={(df.headroom_n > 0).mean():.4f} slack={(c.slack_viol_mw > TOL_GEN).mean():.4f} "
-          f"rebal_slack={(df.rebal_slack_mw > TOL_GEN).mean():.4f} | "
-          f"mean |Δ|={df.delta_mw.abs().mean():.3f} MW, mean |ΔP_slack|={c.dp_slack_mw.abs().mean():.3f} MW", flush=True)
+          f"slack={(c.slack_viol_mw > TOL_P).mean():.4f} | mean |ΔP_slack|={c.dp_slack_mw.abs().mean():.3f} MW", flush=True)
 
 
 def main():
@@ -253,6 +269,7 @@ def main():
     p.add_argument("--seeds", type=int, nargs="+", default=[0])
     p.add_argument("--workers", type=int, default=int(os.environ.get("SLURM_CPUS_PER_TASK", 1)))
     p.add_argument("--limit", type=int, default=None, help="smoke test: N samples per config")
+    p.add_argument("--out-dir", type=Path, default=OUT)
     a = p.parse_args()
 
     # (arm, horizon, forecaster, seed) configs; label = phase1a labels on the 2-step h1 test hours
@@ -262,11 +279,18 @@ def main():
         configs += [("surrogate", H, fc, s) for fc in a.forecasters for s in a.seeds if "surrogate" in a.arms]
         configs += [("e2e", H, None, s) for s in a.seeds if "e2e" in a.arms]
 
-    net = load_net_from_pglib(a.case)
-    with Pool(a.workers, initializer=_init_worker, initargs=(a.case,)) as pool:
+    cfg = a.out_dir / a.case / f"run_config_{os.environ.get('SLURM_JOB_ID', 'local')}.json"
+    cfg.parent.mkdir(parents=True, exist_ok=True)
+    cfg.write_text(json.dumps(dict(args={**vars(a), "out_dir": str(a.out_dir)}, pypowsybl=pp.__version__,
+                                   load_flow=repr(LF_PARAMS), olf_provider_defaults=OLF_DEFAULTS.to_dict(),
+                                   tol_gen=TOL_GEN, tol_p=TOL_P, tol_rel=TOL_REL), indent=1))
+
+    load_net_from_pglib(a.case)  # download + correct the grid once, before workers race on the cache
+    # spawn: fresh pypowsybl runtime per worker instead of a forked copy of the parent's
+    with get_context("spawn").Pool(a.workers, initializer=_init_worker, initargs=(a.case,)) as pool:
         for arm, H, fc, seed in configs:
             tag = "_".join(str(x) for x in (arm, fc, f"s{seed}" if seed is not None else None) if x)
-            out = OUT / a.case / f"h{H}" / f"{tag}{f'_limit{a.limit}' if a.limit else ''}.parquet"
+            out = a.out_dir / a.case / f"h{H}" / f"{tag}{f'_limit{a.limit}' if a.limit else ''}.parquet"
             try:
                 if arm == "label":
                     hours = np.unique(flat_targets(a.case, 1)[0])
@@ -283,7 +307,7 @@ def main():
                         raise FileNotFoundError(f"no run with state dump named {names}")
                     print(f"[{a.case} h{H} {tag}] run {run}", flush=True)
                     pred = load_ml(arm, a.case, H, run)
-                df = evaluate(pool, net, a.case, pred, a.limit)
+                df = evaluate(pool, a.case, pred, a.limit)
             except (FileNotFoundError, AssertionError) as e:  # missing inputs / failed alignment check
                 print(f"SKIP [{a.case} h{H} {tag}]: {e!r}", flush=True)
                 continue
