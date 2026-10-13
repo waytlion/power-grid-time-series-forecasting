@@ -1,22 +1,26 @@
 """
-Ex-post AC power flow: is each arm's dispatch operable once the true load arrives?
+Ex-post AC power flow: is each arm's dispatch operable once the true load arrives, and what does it cost?
 
 What?
     - per test sample (realized target hour, horizon step k), per arm:
         1. AC-PF (pypowsybl OpenLoadFlow, distributed slack ∝ Pmax, NO Q limits): predicted dispatch P̂ as target P,
            predicted Vm at gen buses, true Pd/Qd everywhere; the imbalance (load error + losses) is spread over the units
-        2. limits on the PF solution: convergence, thermal, PQ voltage, bus-level Qg, REF unit P vs its limits
+           -> PF-solved dispatch P̃ = rebalanced dispatch, single source for cost and feasibility
+        2. limits on the PF solution: convergence, thermal, PQ voltage, bus-level Qg, units at/beyond P limits,
+           active power mismatch left on the slack bus
+        3. costs C(P̂), C(P̃), C(P*) per sample -> γ_reb, R in corrected_gap.py
 Why?
     - replaces realized-space residuals (dispatch frozen, true load inserted), which are no physical operating point
 How?
     - arms: exact (phase1c datakit OPF on forecast load), surrogate / e2e (graphkit state dumps),
-      label (phase1a OPF labels -> sanity check: must give zero violations, ΔP_slack ~ 0)
+      label (phase1a OPF labels -> sanity check: must give zero violations, P̃ = P*)
     - samples aligned on the target hour (load_scenario_idx), never on row order (ML test order is shuffled)
     - Qg per bus vs summed limits: PF fixes only the bus total, its per-gen split on multi-gen buses is arbitrary
     - datakit Network -> pypowsybl via gridfm_datakit.powsybl (one network per worker, updated in place);
       slack = case-file REF bus; LF_PARAMS + OLF provider defaults logged to <OUT>/<case>/run_config_<job>.json
-    - insufficient headroom: remainder left on the REF unit beyond its limit (LEAVE_ON_SLACK_BUS) -> slack_viol_mw
-    - status: converged | diverged (NR) | no_dispatch (2-step: OPF failed on the forecast)
+    - insufficient headroom: remainder left on the REF unit beyond its limit (LEAVE_ON_SLACK_BUS) -> stays in the cost
+      metric (priced on its cost curve = lower bound), flagged + counted as P-limit violation
+    - status: converged | diverged (NR, no solution -> infeasible) | no_dispatch (2-step: OPF failed on the forecast)
     - run on barnard via scripts/expost_pf.sbatch
 
 Usage (from Thesis_Repo root, inside a barnard job):
@@ -104,11 +108,12 @@ def load_truth(case, hours):
     flt = (lsi >= float(hours.min())) & (lsi <= float(hours.max()))
     b = _read(raw / "bus_data.parquet", ["load_scenario_idx", "bus", "Pd", "Qd", "Vm"], flt)
     g = _read(raw / "gen_data.parquet",
-              ["load_scenario_idx", "idx", "p_mw", "in_service", "cp1_eur_per_mw", "cp2_eur_per_mw2"], flt)
+              ["load_scenario_idx", "idx", "p_mw", "in_service", "cp0_eur", "cp1_eur_per_mw", "cp2_eur_per_mw2"], flt)
     hb, (pd_, qd, vm) = _dense(b, "load_scenario_idx", "bus", "Pd", "Qd", "Vm")
-    hg, (pg, c1, c2) = _dense(g[g.in_service == 1], "load_scenario_idx", "idx", "p_mw", "cp1_eur_per_mw", "cp2_eur_per_mw2")
+    hg, (pg, c0, c1, c2) = _dense(g[g.in_service == 1], "load_scenario_idx", "idx",
+                                  "p_mw", "cp0_eur", "cp1_eur_per_mw", "cp2_eur_per_mw2")
     assert np.array_equal(hb, hg)
-    return hb, dict(pd=pd_, qd=qd, vm=vm, pg=pg, c1=c1[0], c2=c2[0])  # costs static across hours
+    return hb, dict(pd=pd_, qd=qd, vm=vm, pg=pg, c0=c0[0], c1=c1[0], c2=c2[0])  # costs static across hours
 
 
 def load_exact(case, H, fc):
@@ -175,17 +180,19 @@ def _solve(task):
     pd_, qd, pg, vm = task
     on = _NET.idx_gens_in_service
     lim = np.clip(pg, _NET.gens[on, PMIN], _NET.gens[on, PMAX])
-    # P̂ outside [Pmin, Pmax]: OLF holds it there, the unit drops out of the distribution; solver noise -> clipped
-    pg = np.where(np.abs(pg - lim) <= TOL_P, lim, pg)
+    dev = np.abs(pg - lim)  # P̂ outside [Pmin, Pmax]: OLF holds it there, the unit drops out of the distribution
+    pg = np.where(dev <= TOL_P, lim, pg)  # solver noise -> clipped, unit still takes part
+    info = dict(pg_pred_out_n=int((dev > TOL_P).sum()), pg_pred_out_max_mw=dev.max())
     _NET.Pd, _NET.Qd, _NET.Pg_gen, _NET.Vm = pd_, qd, pg, vm
     update_powsybl(_PP, _NET, _MAP)  # in place: loads, target P, target V (uniform voltage init -> no carry-over)
     r = lf.run_ac(_PP, LF_PARAMS)
     slack = r[0].slack_bus_results[0]
     assert slack.id == _REF, f"slack bus {slack.id} != case-file REF bus {_REF}"
+    info["slack_mismatch_mw"] = slack.active_power_mismatch  # left on the slack bus: > TOL_P = insufficient headroom
     try:
-        res = get_pf_res(_PP, 0.0, r, _MAP)  # ValueError unless converged; remainder added to the REF gen's Pg
-    except (ValueError, RuntimeError):  # NR not converged
-        return None
+        res = get_pf_res(_PP, 0.0, r, _MAP)  # ValueError unless converged; mismatch added to the REF gen's Pg
+    except (ValueError, RuntimeError):  # NR not converged: no solution
+        return dict(status="diverged", **info)
     out = pf_post_processing(0, _NET, res, None, False)  # MW / MVAr / p.u.
     bus = out["bus"]
     gen = out["gen"][_NET.idx_gens_in_service]
@@ -209,27 +216,30 @@ def _solve(task):
     gen_bus[_NET.ref_bus_idx] = False
     q_viol = (np.maximum(q - qmax, 0) + np.maximum(qmin - q, 0))[gen_bus]
 
-    # slack: PF-solved REF Pg vs its setpoint and its limits
-    ref = gb == _NET.ref_bus_idx
-    p_ref = gen[ref, G["p_mw"]].sum()
-    slack_viol = max(p_ref - gen[ref, G["max_p_mw"]].sum(), 0) + max(gen[ref, G["min_p_mw"]].sum() - p_ref, 0)
+    # P limits on the PF-solved dispatch; "at" only for dispatchable units (Pmax > Pmin)
+    p, pmin, pmax = (gen[:, G[c]] for c in ("p_mw", "min_p_mw", "max_p_mw"))
+    at_lim = (pmax - pmin > TOL_P) & ((p >= pmax - TOL_P) | (p <= pmin + TOL_P))
+    beyond = np.maximum(p - pmax, 0) + np.maximum(pmin - p, 0)
 
     return dict(
-        dp_slack_mw=p_ref - pg[ref].sum(),
-        slack_viol_mw=slack_viol,
+        status="converged",
+        **info,
+        pg_pf=p,
         thermal_max_loading=loading.max(),
         thermal_n=int((loading > 1 + TOL_REL).sum()),
         vm_max_viol=v_viol.max(initial=0.0),
         vm_n=int(v_bad.sum()),
         qg_max_viol_mvar=q_viol.max(initial=0.0),
         qg_n=int((q_viol > TOL_GEN).sum()),
+        pg_lim_n=int(at_lim.sum()),
+        pg_beyond_n=int((beyond > TOL_P).sum()),
     )
 
 
 # ---------------------------------------------------------------- driver
 
 def evaluate(pool, case, pred, limit=None):
-    """align with truth, solve PF with distributed slack -> one row per sample"""
+    """align with truth, solve PF with distributed slack, cost P̂ / P̃ / P* -> one row per sample"""
     order = np.lexsort((pred["k"], pred["target"]))
     if limit:  # smoke test: evenly spread subset
         order = order[np.linspace(0, len(order) - 1, min(limit, len(order))).astype(int)]
@@ -243,21 +253,32 @@ def evaluate(pool, case, pred, limit=None):
         assert err < 1e-3, f"true load != phase1a labels (max {err:.3g} MW): misaligned or stale processed data"
 
     res = pool.map(_solve, [(gt["pd"][j], gt["qd"][j], pg[r], vm[r]) for r, j in enumerate(i)], chunksize=16)
+    pg_pf = np.array([r.pop("pg_pf", np.full(pg.shape[1], np.nan)) for r in res])
+    cost = lambda p: (gt["c0"] + gt["c1"] * p + gt["c2"] * p ** 2).sum(1)
 
-    df = pd.DataFrame(dict(target=target, k=k, status=np.where([r is not None for r in res], "converged", "diverged")))
-    df = df.join(pd.DataFrame([r or {} for r in res]))
+    df = pd.DataFrame(dict(
+        target=target, k=k,
+        pg_pred_mw=pg.sum(1), pg_pf_mw=pg_pf.sum(1), pg_true_mw=gt["pg"][i].sum(1),
+        cost_pred=cost(pg), cost_pf=cost(pg_pf), cost_true=cost(gt["pg"][i]),
+    ))
+    df = df.join(pd.DataFrame(res))
     if "missing" in pred and len(pred["missing"][0]) and not limit:
         miss = pd.DataFrame(dict(target=pred["missing"][0], k=pred["missing"][1], status="no_dispatch"))
         df = pd.concat([df, miss], ignore_index=True)
+    df["slack_mismatch_flag"] = df.slack_mismatch_mw.abs() > TOL_P
     return df
 
 
 def summarize(tag, df):
     c = df[df.status == "converged"]
     share = lambda col: (c[col] > 0).mean()
-    print(f"[{tag}] n={len(df)} converged={len(c) / len(df):.4f} no_dispatch={(df.status == 'no_dispatch').sum()} | "
+    gap = (c.cost_pf - c.cost_true) / c.cost_true * 100
+    print(f"[{tag}] n={len(df)} " + " ".join(f"{s}={n}" for s, n in df.status.value_counts().items()) + " | "
           f"viol share thermal={share('thermal_n'):.4f} vm={share('vm_n'):.4f} qg={share('qg_n'):.4f} "
-          f"slack={(c.slack_viol_mw > TOL_P).mean():.4f} | mean |ΔP_slack|={c.dp_slack_mw.abs().mean():.3f} MW", flush=True)
+          f"pg_beyond={share('pg_beyond_n'):.4f} headroom={c.slack_mismatch_flag.mean():.4f} "
+          f"pred_out={(df.pg_pred_out_n > 0).mean():.4f} | "
+          f"γ_reb signed={gap.mean():+.4f} % |γ_reb|={gap.abs().mean():.4f} % | "
+          f"mean |ΣP̃-ΣP̂|={(c.pg_pf_mw - c.pg_pred_mw).abs().mean():.2f} MW", flush=True)
 
 
 def main():
@@ -311,7 +332,9 @@ def main():
             except (FileNotFoundError, AssertionError) as e:  # missing inputs / failed alignment check
                 print(f"SKIP [{a.case} h{H} {tag}]: {e!r}", flush=True)
                 continue
-            for pos, (col, val) in enumerate(dict(arm=arm, case=a.case, horizon=H, forecaster=fc, seed=seed).items()):
+            meta = dict(arm=arm, case=a.case, horizon=H, forecaster=fc, seed=seed,
+                        run=str(run) if arm in ("surrogate", "e2e") else None)  # run -> logged-gap gate
+            for pos, (col, val) in enumerate(meta.items()):
                 df.insert(pos, col, val)
             out.parent.mkdir(parents=True, exist_ok=True)
             df.to_parquet(out, index=False)

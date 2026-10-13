@@ -6,7 +6,7 @@
 # Table 4: horizon = 1 fixed, all cases, timing (training + inference)
 # Table 5 (appendix): full performance metrics across grid sizes over all horizons
 # Table 6: core metrics (as Table 1), case118 fixed, over all horizons, best forecaster per optimizer
-# Table 7: raw + merit-order rebalanced opt gap, case118, all horizons, best forecaster
+# Table 7: raw + rebalanced opt gap (ex-post AC-PF, distributed slack), case118, all horizons, best forecaster
 
 """One-shot: combined CSV (+ corrected_gap.csv) -> 7 LaTeX tables (metrics as columns, models as rows). No config, just run it."""
 import pandas as pd
@@ -37,16 +37,18 @@ CORE_METRICS = {
     "Residual P (MAE)": "Res. P (MAE)",
     "Residual Q (MAE)": "Res. Q (MAE)",
 }
-# rebalanced opt gap (exact, per scenario): imbalance vs optimum closed by merit order, then re-costed.
+# rebalanced opt gap (per scenario): PF-solved dispatch of the ex-post AC-PF (distributed slack), re-costed.
 # ML arms seed 0 (same dumps as the raw gap column)
 CORR_GAP_METRICS = {
     "Optimality Gap (recomputed)": "Opt. Gap \\%",
-    "Rebalanced Gap": "Rebal. Gap \\%",
-    "Rebalancing Cost": "Rebal. Cost \\%",
+    "Signed Optimality Gap": "Signed Opt. Gap \\%",
     "Mean dPg (MW)": "$\\Delta P$ (MW)",
-    "Mean |dPg| (MW)": "$|\\Delta P|$ (MW)",
     "Mean |dPg| (%)": "$|\\Delta P|$ \\%",
-    "Slack Overflow (%)": "Slack \\%",
+    "Rebalancing Cost (under-supply)": "$R^{+}$ \\%",
+    "Rebalancing Cost (over-supply)": "$R^{-}$ \\%",
+    "Rebalanced Gap": "Rebal. Gap \\%",
+    "Signed Rebalanced Gap": "Signed Rebal. Gap \\%",
+    "Thermal Overload (%)": "Thermal \\%",
 }
 INEQ_METRICS = {
     "pg viol. mean": "$P_g$ viol.",
@@ -248,16 +250,18 @@ write_table(
     group_labels=lambda h: f"Horizon $t+{int(h)}$",
 )
 
-# Table 7: raw + merit-order rebalanced opt gap, case118, all horizons
+# Table 7: raw + rebalanced opt gap (ex-post AC-PF, distributed slack), case118, all horizons
 write_table(
     filter_best_forecaster(df[df["case"] == "case118_ieee"]),
     CORR_GAP_METRICS,
     f"{OUT_DIR}/table7_corr_gap_case118_horizons.tex",
     "Raw and rebalanced optimality gap across forecast horizons (case118; best 2-step forecaster "
-    "per optimizer; ML arms seed 0). Rebal.: generation mismatch $\\Delta P$ vs.\\ the optimum closed "
-    "by merit order (shortfall on the cheapest, surplus off the most expensive units), then re-costed; "
-    "Rebal.\\ Cost: signed cost of that rebalancing; Slack: share of scenarios whose mismatch exceeds the "
-    "total headroom.",
+    "per optimizer; ML arms seed 0). Rebal.: AC power flow on the realised load with the predicted "
+    "dispatch as setpoints; the mismatch (forecast error and losses) is distributed over all in-service "
+    "units in proportion to $P_{\\max}$ within their limits (distributed slack), and the PF-solved dispatch "
+    "is re-costed. "
+    "$R^{+}$/$R^{-}$: under-/over-supply contributions to the mean rebalancing cost (sum = mean). "
+    "Thermal: share of samples with a line overload. DC-OPF has no ex-post AC power flow and is not covered.",
     "tab:corr_gap_case118_horizons",
     group_col="horizon",
     group_labels=lambda h: f"Horizon $t+{int(h)}$",
