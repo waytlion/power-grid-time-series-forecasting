@@ -109,6 +109,7 @@
         -> EXECUTE:
            python exp1/generate_metrics/aggregate_results.py --results-root exp1/results \
              --mlruns-dir /data/horse/ws/tibo990i-thesis_data/mlruns/375695290152400764 \
+             /data/horse/ws/tibo990i-thesis_data/mlruns/764191360493391788 \
              /data/horse/ws/tibo990i-thesis_data/mlruns/108250444742230565 \
              --timing-csv phase1_baseline/output/2019-2021/timing_benchmark.csv \
              --datakit-out-dir /data/horse/ws/tibo990i-thesis_data/2019-2021/phase_1c/data_out \
@@ -119,6 +120,8 @@
                surrogate_{case}_{forecaster}_h{H}_s{S}  /  base_e2e_{case}_h{H}_s{S}
              - a retrain under the same identity (e.g. base_e2e_case500_h1_s0 -> base_e2e_case500_goc_h1_s0)
                is averaged in as an extra seed: archive the superseded run dirs first
+             - final_e2e_qgmse (764191360493391788) = base E2E WITH Qg MSE (final config, 2026-10-15); same-named
+               no-Qg-MSE base E2E runs in final_thesis_runs are superseded -> archive them before aggregating
 
 7a. Ex-post AC-PF (pypowsybl OpenLoadFlow, distributed slack ∝ Pmax): rebalanced dispatch P̃ + feasibility (barnard CPU)
         arms: label (sanity), exact (AC-OPF), dc (DC-OPF dispatch + case-file generator voltage setpoints), surrogate, e2e

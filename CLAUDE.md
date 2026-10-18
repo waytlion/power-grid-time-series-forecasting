@@ -17,12 +17,14 @@ exp1/generate_metrics/
   metrics.py, loaders.py, config.py   shared metric helpers / datakit loaders / paths
   expost_pf.py           ex-post AC-PF (pypowsybl, distributed slack): PF-solved dispatch = rebalanced dispatch + feasibility
   corrected_gap.py       rebalanced opt gap + Q3 shares from the expost_pf outputs (AC/DC 2-step, surrogate, E2E)
+  dispatch_diag.py       diagnostics: Pg error by unit class (2-step vs E2E), Pg vs total demand, cross-bus Pd error corr
 exp1/ml_surrogate/build_eval_set.py   forecast profiles → graphkit HeteroData eval sets (only Pd_forecast + Qd_derived in bus.x)
 exp1/thesis_plots/       ALL thesis figures/tables (make_latex_tables.py, plot_*.py, run_residual_pipeline_h1.py,
                          extract_residuals_2step.py) → thesis_plots/figures/
 exp1/results/            compare.py output; _archiv/ = superseded runs
 scripts/                 sbatch + helpers: phase1a_*, phase1b.sbatch, phase1c*.sbatch, phase1c_transform_forecasts.py,
-                         phase1c_surrogate_eval.sbatch, surrogate_smoke.sbatch, state_dump_eval.sbatch, expost_pf.sbatch
+                         phase1c_surrogate_eval.sbatch, surrogate_smoke.sbatch, state_dump_eval.sbatch, expost_pf.sbatch,
+                         backup_pack.sh + backup_manifest.txt (tiered tar of results/mlruns/configs, see ~/CLAUDE.md)
 tests/                   phase1b_1c/ regression vs golden CSVs; scripts/phase1c_preflight.py, check_true_residual.py
 ```
 
@@ -30,12 +32,15 @@ tests/                   phase1b_1c/ regression vs golden CSVs; scripts/phase1c_
 ```bash
 sbatch scripts/phase1a_run_datakit.sh                    # 1a: AC-OPF ground truth (barnard CPU)
 sbatch scripts/phase1b.sbatch                            # 1b: forecasters
-sbatch scripts/phase1c.sbatch                            # 1c: 2-step AC/DC solves on forecasts
-sbatch scripts/phase1c_surrogate_eval.sbatch             # 1c: surrogate eval (seeds × horizons × forecasters)
+CASE=case500_goc HORIZON=6 sbatch scripts/phase1c.sbatch   # 1c: 2-step AC/DC solves on forecasts (env: MODELS,
+                                                         # METHODS, DATA_IN_PARQUET, PRECOMPUTED_DIR, RESULTS_DIR)
+CASE_DIR=case500_goc HORIZON=6 sbatch scripts/phase1c_step3.sbatch   # compare.py only (default case118 h1)
+CASE=case14_ieee SEEDS="0 1 2" sbatch scripts/phase1c_surrogate_eval.sbatch   # 1c: surrogate eval (env: HORIZONS, FORECASTERS, SEEDS)
 sbatch scripts/surrogate_smoke.sbatch                    # smoke: surrogate, seed 0, h=1, true forecaster
 sbatch tests/phase1b_1c/phase1b_1c_test.sbatch           # regression: case14, 10% data, vs tests/phase1b_1c/golden/
 python tests/scripts/phase1c_preflight.py                # before phase1c eval runs
 python exp1/generate_metrics/aggregate_results.py ...    # tidy cross-arm CSV; then thesis_plots/make_latex_tables.py
+sbatch scripts/backup_pack.sh core                       # backup tar after every final run (from login1.barnard)
 ```
 
 ## Rules & traps

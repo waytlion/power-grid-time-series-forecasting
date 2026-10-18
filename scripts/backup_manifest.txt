@@ -34,7 +34,9 @@ models $WS/mlruns/174847555980348961/*/artifacts/model
 models $WS/mlruns/174847555980348961/*/artifacts/stats
 models $WS/mlruns/840459301199326567/*/artifacts/model
 models $WS/mlruns/840459301199326567/*/artifacts/stats
-# ids: final_thesis_runs, surrogate_opf (x2), e2e_dispatch_only, physics_l2_residual, e2e_derived_qgmse (x2)
+models $WS/mlruns/764191360493391788/*/artifacts/model
+models $WS/mlruns/764191360493391788/*/artifacts/stats
+# ids: final_thesis_runs, surrogate_opf (x2), e2e_dispatch_only, physics_l2_residual, e2e_derived_qgmse (x2), final_e2e_qgmse
 
 # --- inputs: once (+ after regenerating data / forecasts) ---
 inputs $WS/2019-2021/phase_1a/data_in
