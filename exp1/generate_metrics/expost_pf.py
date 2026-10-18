@@ -147,9 +147,14 @@ def load_exact(case, H, fc, dc=False):
     return pred
 
 
+RUN_EXPERIMENTS = ("state-dump", "final_thesis_runs", "final_e2e_qgmse", "2-step-surrogate-eval")  # thesis models only; ablation exps reuse run names
+
+
 def resolve_run(names, case):
-    """newest mlruns run named any of <names> that carries a state dump"""
-    runs = [Path(t).parents[1] for t in glob.glob(f"{MLRUNS}/*/*/tags/mlflow.runName")
+    """newest run named any of <names> with a state dump, within RUN_EXPERIMENTS"""
+    exps = [m.parent for m in MLRUNS.glob("*/meta.yaml")
+            if any(line.strip() in [f"name: {e}" for e in RUN_EXPERIMENTS] for line in m.read_text().splitlines())]
+    runs = [Path(t).parents[1] for e in exps for t in glob.glob(f"{e}/*/tags/mlflow.runName")
             if open(t).read().strip() in names
             and (Path(t).parents[1] / f"artifacts/test/{case}_state_gen.parquet").exists()]
     return max(runs, key=os.path.getmtime) if runs else None
