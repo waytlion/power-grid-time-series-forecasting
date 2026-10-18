@@ -49,3 +49,7 @@ logs/
 .DS_Store
 Thumbs.db
 site/
+
+# --- Local outputs / one-off ablations ---
+phase1_baseline/output/2019-2021/
+phase1_baseline/experiments/

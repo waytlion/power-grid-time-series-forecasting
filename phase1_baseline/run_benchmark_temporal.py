@@ -1,5 +1,6 @@
 import argparse
 import gc
+import json
 import logging
 import random
 import sys
@@ -87,6 +88,17 @@ def parse_args() -> argparse.Namespace:
         action="store_true",
         help="Feed all historical OPF state vars (Pd,Qd,Qg,Vm,Va) as XGB lag features. Target is Pd. Writes to the same output paths as the baseline.",
     )
+    parser.add_argument(
+        "--xgb_total_load_lags",
+        action="store_true",
+        help="Extra XGB lag channel: total demand D_t (as bus-mean Pd, Pd scaler) broadcast to every bus. Target is Pd.",
+    )
+    parser.add_argument(
+        "--xgb-params",
+        default=None,
+        help="JSON of tuned XGB params -> skip Optuna (fixed-param ablations). Tuned params are always written to "
+             "<output-path stem>.xgb_params.json.",
+    )
     parser.add_argument("--skip-sarima", action="store_true", help="Skip SARIMA training and evaluation")
     parser.add_argument(
         "--no-time-feats",
@@ -106,8 +118,8 @@ def parse_args() -> argparse.Namespace:
 
 
 
-def run_xgb_hyperparam_opt(X_train, Y_train, X_val, Y_val, xgb_device, seed, n_jobs=1):    
-    fixed_params = {
+def xgb_fixed_params(xgb_device, seed, n_jobs=1):
+    return {
         "objective": "reg:squarederror",
         "multi_strategy": "multi_output_tree",
         "device": xgb_device,
@@ -115,6 +127,10 @@ def run_xgb_hyperparam_opt(X_train, Y_train, X_val, Y_val, xgb_device, seed, n_j
         "random_state": seed,
         "n_jobs": n_jobs
     }
+
+
+def run_xgb_hyperparam_opt(X_train, Y_train, X_val, Y_val, xgb_device, seed, n_jobs=1):
+    fixed_params = xgb_fixed_params(xgb_device, seed, n_jobs)
     def objective(trial):
         tunable_params = {
             "n_estimators": trial.suggest_int("n_estimators", 100, 400, step=50),
@@ -134,7 +150,7 @@ def run_xgb_hyperparam_opt(X_train, Y_train, X_val, Y_val, xgb_device, seed, n_j
         rmse = np.sqrt(mean_squared_error(Y_val, preds))
         return rmse
 
-    study = optuna.create_study(direction="minimize")
+    study = optuna.create_study(direction="minimize", sampler=optuna.samplers.TPESampler(seed=seed))
     study.optimize(objective, n_trials=20)
     
     LOGGER.info("Optuna opt complete. Best val RMSE: %.6f", study.best_value)
@@ -192,7 +208,7 @@ def main() -> None:
 
     # --xgb_input_all_opf_var args
     XGB_FULLSTATE_COLS = ["Qd", "Qg", "Vm", "Va"] if args.xgb_input_all_opf_var else []
-    config["n_state"] = len(XGB_FULLSTATE_COLS)
+    config["n_state"] = len(XGB_FULLSTATE_COLS) + int(args.xgb_total_load_lags)
 
     loads_pivot = bus_df.pivot(index="load_scenario_idx", columns="bus", values="Pd").fillna(0)
     flows_pivot = branch_df.pivot(index="load_scenario_idx", columns="idx", values="pf").fillna(0)
@@ -249,11 +265,17 @@ def main() -> None:
     LOGGER.info("Split sizes: train=%s, val=%s, test=%s", len(train_idx), len(val_idx), len(test_idx))
 
     scaled_tensor, scaler = scale_data_selectively(X, train_idx)
+    if args.xgb_total_load_lags:
+        # bus-mean of scaled Pd = (D_t / n - mu) / sigma (train-fitted Pd scaler); last lag channel, every bus
+        d_ch = np.broadcast_to(scaled_tensor[:, :, :1].mean(axis=1, keepdims=True), (T, n, 1))
+        k = config["n_state"]
+        scaled_tensor = np.concatenate([scaled_tensor[:, :, :k], d_ch, scaled_tensor[:, :, k:]], axis=2)
+        LOGGER.info("Total-load lag channel added at index %s: shape=%s", k, scaled_tensor.shape)
     LOGGER.info("Scaled mean (load)=%.4f", scaled_tensor[:, :, 0].mean())
     if not args.no_time_feats:
         LOGGER.info(
             "Scaled mean (hour_sin)=%.4f (expected near 0 but unscaled)",
-            scaled_tensor[:, :, 1 + len(XGB_FULLSTATE_COLS)].mean(),
+            scaled_tensor[:, :, 1 + config["n_state"]].mean(),
         )
 
     train_dataset = RollingDataset(
@@ -290,30 +312,39 @@ def main() -> None:
         config["INPUT_WINDOW"],
         config["FORECAST_HORIZON"],
         step_size=1,
-        n_state=len(XGB_FULLSTATE_COLS),
+        n_state=config["n_state"],
     )
     LOGGER.info("XGB training data shape=%s", X_train_xgb.shape)
-    X_val_xgb, Y_val_xgb = prepare_xgb_data(
-        scaled_tensor,
-        val_idx,
-        config["INPUT_WINDOW"],
-        config["FORECAST_HORIZON"],
-        step_size=1,
-        n_state=len(XGB_FULLSTATE_COLS),
-    )
+    if args.xgb_params:
+        # fixed params: tuned ones from file, run-specific ones (device, seed, n_jobs) from this run
+        t0_xgb = time.time()
+        best_params = {**json.loads(Path(args.xgb_params).read_text()),
+                       **xgb_fixed_params(xgb_device, args.seed, args.n_jobs)}
+    else:
+        X_val_xgb, Y_val_xgb = prepare_xgb_data(
+            scaled_tensor,
+            val_idx,
+            config["INPUT_WINDOW"],
+            config["FORECAST_HORIZON"],
+            step_size=1,
+            n_state=config["n_state"],
+        )
 
-    # HPO on static train/val split (same split as 1-step model)
-    t0_xgb = time.time()
-    best_params = run_xgb_hyperparam_opt(
-        X_train_xgb, Y_train_xgb, 
-        X_val_xgb, Y_val_xgb, 
-        xgb_device=xgb_device, seed=args.seed, n_jobs=args.n_jobs
-    )
+        # HPO on static train/val split (same split as 1-step model)
+        t0_xgb = time.time()
+        best_params = run_xgb_hyperparam_opt(
+            X_train_xgb, Y_train_xgb, 
+            X_val_xgb, Y_val_xgb, 
+            xgb_device=xgb_device, seed=args.seed, n_jobs=args.n_jobs
+        )
 
-    # Free VRAM / RAM
-    del X_val_xgb
-    del Y_val_xgb
-    gc.collect()
+        # Free VRAM / RAM
+        del X_val_xgb
+        del Y_val_xgb
+        gc.collect()
+    params_path = Path(args.output_path).with_suffix(".xgb_params.json")
+    params_path.write_text(json.dumps(best_params, indent=1))
+    LOGGER.info("XGB params %s -> %s", best_params, params_path)
 
     # Train final model using the tuned parameters
     xgb_model = xgb.XGBRegressor(**best_params)
@@ -329,11 +360,11 @@ def main() -> None:
     torch.cuda.empty_cache()
 
     tgt_model = None
-    if args.xgb_input_all_opf_var and not args.skip_tgt:
-        LOGGER.info("--xgb_input_all_opf_var set: skipping TinyTGT (fixed in_feat incompatible with widened state tensor)")
+    if (args.xgb_input_all_opf_var or args.xgb_total_load_lags) and not args.skip_tgt:
+        LOGGER.info("XGB lag channels widened: skipping TinyTGT (fixed in_feat incompatible with widened state tensor)")
     if args.no_time_feats and not args.skip_tgt:
         LOGGER.info("--no-time-feats set: skipping TinyTGT (fixed in_feat=7 incompatible with narrowed tensor)")
-    if not args.skip_tgt and not args.xgb_input_all_opf_var and not args.no_time_feats:
+    if not args.skip_tgt and not args.xgb_input_all_opf_var and not args.xgb_total_load_lags and not args.no_time_feats:
         tgt_model = TinyTGT(
             n_nodes=14,
             d_model=64,

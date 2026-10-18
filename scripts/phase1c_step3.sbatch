@@ -1,9 +1,8 @@
 #!/bin/bash
 #SBATCH --job-name=phase1c_step3
-#SBATCH --partition=alpha
+#SBATCH --partition=barnard
 #SBATCH --nodes=1 
-#SBATCH --cpus-per-task=6
-#SBATCH --gres=gpu:1 
+#SBATCH --cpus-per-task=12
 #SBATCH --mem=100G
 #SBATCH --time=06:00:00
 #SBATCH --output=logs/phase1c_eval_step3_%j.out
@@ -12,8 +11,8 @@
 set -euo pipefail
 
 # --- Configuration ---
-CASE_DIR="case118_ieee"
-HORIZON="1"
+CASE_DIR="${CASE_DIR:-case118_ieee}"  # override: CASE_DIR=case500_goc HORIZON=6 sbatch ...
+HORIZON="${HORIZON:-1}"
 
 
 VENV_PATH="$SLURM_SUBMIT_DIR/../thesis_env"

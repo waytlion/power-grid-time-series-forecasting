@@ -14,11 +14,11 @@ set -euo pipefail
 export LD_PRELOAD="${LD_PRELOAD-}"
 
 # ============================ Configuration ============================
-CASE="case500_goc"
+CASE="${CASE:-case500_goc}"  # override: sbatch --export=ALL,CASE=...
 NETWORK=${CASE%_*}  # strips "_ieee" suffix
-HORIZONS=(1 6 24)                        
-FORECASTERS=(xgb sarima snaive true)
-SEEDS=(0)
+HORIZONS=(${HORIZONS:-1 6 24})             # env overrides: HORIZONS="24" FORECASTERS="sarima" SEEDS="0 1 2"
+FORECASTERS=(${FORECASTERS:-xgb sarima snaive true})
+SEEDS=(${SEEDS:-0})
 
 THESIS_DIR="$SLURM_SUBMIT_DIR"             # Thesis_Repo root
 VENV_PATH="$THESIS_DIR/../thesis_env"
@@ -42,11 +42,14 @@ for H in "${HORIZONS[@]}"; do
     PARQUET="$(FORECAST_PARQUET "$H")"
     PRECOMP="$THESIS_DIR/exp1/temp_precomputed_profiles/${CASE}_horizon${H}"
     OUT_H="${EVAL_BASE}/h${H}"
-    [ -d "${OUT_H}/${FORECASTERS[0]}/${CASE}/raw" ] && { echo "h${H} eval sets exist, skip preprocess"; continue; }
-    echo "### preprocess h${H}"
+    MISSING=(); for M in "${FORECASTERS[@]}"; do [ -d "${OUT_H}/${M}/${CASE}/raw" ] || MISSING+=("$M"); done
+    [ ${#MISSING[@]} -eq 0 ] && { echo "h${H} eval sets exist, skip preprocess"; continue; }
+    echo "### preprocess h${H}: ${MISSING[*]}"
     python scripts/phase1c_transform_forecasts.py --case "$CASE" --input-parquet "$PARQUET" --out-dir "$PRECOMP"
-    python exp1/ml_surrogate/build_eval_set.py --data-in-dir "$PRECOMP" --ground-truth-dir "$GROUND_TRUTH_DIR" \
-        --out-dir "$OUT_H" --network-name "$CASE" --models "${FORECASTERS[@]}"
+    for M in "${MISSING[@]}"; do  # one process per model: case500 h24 OOMs at 128G when built together
+        python exp1/ml_surrogate/build_eval_set.py --data-in-dir "$PRECOMP" --ground-truth-dir "$GROUND_TRUTH_DIR" \
+            --out-dir "$OUT_H" --network-name "$CASE" --models "$M"
+    done
 done
 
 # ---- 2. get the mlflow checkpoint (newest, if multiple same run names exist) ----

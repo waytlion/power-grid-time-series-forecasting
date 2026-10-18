@@ -18,9 +18,9 @@ OUT_DIR = "exp1/results/combined"
 CASE_LABELS = {"case14_ieee": "case14", "case118_ieee": "case118", "case500_goc": "case500"}
 CASE_ORDER = {"case14": 0, "case118": 1, "case500": 2}  # by grid size, not lexical
 OPT_LABELS = {"ac": "AC", "dc": "DC", "surrogate": "Surrogate", "e2e": "E2E"}
-FC_LABELS = {"snaive": "SNaive", "xgb": "XGB", "true": "True", "none": "None", "sarima": "SARIMA"}
+FC_LABELS = {"snaive": "SNaive", "xgb": "XGB", "xgb_tot": "XGB+D", "true": "True", "none": "None", "sarima": "SARIMA"}
 OPT_ORDER = {"ac": 0, "dc": 1, "surrogate": 2, "e2e": 3}
-FC_ORDER = {"snaive": 0, "sarima": 1, "xgb": 2, "true": 3, "none": 4}
+FC_ORDER = {"snaive": 0, "sarima": 1, "xgb": 2, "xgb_tot": 3, "true": 4, "none": 5}
 
 PERF_METRICS = {
     "Mean Optimality Gap": "Opt. Gap \\% (mean)",
@@ -66,6 +66,7 @@ TIMING_METRICS = {
 
 df = pd.concat([pd.read_csv(IN), pd.read_csv(CORR_IN)], ignore_index=True)
 df = df[df["forecaster"] != "true"]  # drop the perfect-info oracle arm (no realistic counterpart)
+df = df[df["forecaster"] != "xgb_tot"]  # control arm (XGB + total load); main vs control placement undecided
 df["model"] = df["forecaster"].map(FC_LABELS) + "-" + df["optimizer"].map(OPT_LABELS)
 df.loc[df["optimizer"] == "e2e", "model"] = "E2E"
 df["case_label"] = df["case"].map(CASE_LABELS)

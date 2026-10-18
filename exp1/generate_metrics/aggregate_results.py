@@ -36,7 +36,7 @@ from pathlib import Path
 
 import pandas as pd
 
-FORECASTERS = {"xgb", "sarima", "snaive", "tgt", "true"}
+FORECASTERS = {"xgb", "xgb_tot", "sarima", "snaive", "tgt", "true"}  # xgb_tot = XGB + total-load lags (A2)
 TIMED_FORECASTERS = ("xgb", "sarima")  # measured in timing_benchmark.csv
 ZERO_FORECASTERS = ("snaive", "true")  # lookup baseline / perfect-info ref -> no forecast cost
 CANON_MARKER = "Mean Optimality Gap"   # present in every current-schema CSV; absent in old ones
@@ -292,6 +292,8 @@ def main(argv=None):
                    help="one or more mlflow EXPERIMENT dirs (<mlruns_root>/<experiment_id>) whose "
                         "children are surrogate/E2E eval runs; used as-is, not searched")
     p.add_argument("--timing-csv", type=Path, default=None, help="forecaster timing_benchmark.csv")
+    p.add_argument("--xgb-tot-timing", type=Path, nargs="*", default=[],
+                   help="xgb_totlag/A2/timing_<case>_h<H>.csv (their xgb_* columns = xgb_tot)")
     p.add_argument("--datakit-out-dir", type=Path, default=None, help="phase_1c datakit output base")
     p.add_argument("--out", type=Path, required=True, help="output tidy CSV")
     args = p.parse_args(argv)
@@ -302,6 +304,9 @@ def main(argv=None):
         raise SystemExit(f"No canonical *_metrics.csv found under {args.results_root} or the mlruns stores")
 
     forecast_t = collect_forecast_timing(str(args.timing_csv) if args.timing_csv else None)
+    for t in args.xgb_tot_timing:
+        forecast_t.update({(c, h, "xgb_tot"): v for (c, h, m), v in collect_forecast_timing(str(t)).items()
+                           if m == "xgb"})
     datakit_t = collect_datakit_solve(str(args.datakit_out_dir) if args.datakit_out_dir else None)
     timing = build_timing_rows(quality, forecast_t, datakit_t, ml_timing)
 

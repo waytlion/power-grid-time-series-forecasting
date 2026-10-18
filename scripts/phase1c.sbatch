@@ -16,18 +16,19 @@ export LD_PRELOAD="${LD_PRELOAD-}"
 export LD_LIBRARY_PATH="${LD_LIBRARY_PATH-}"
 
 # --- Configuration ---
-# Allow override via environment variables; use defaults if not set
-CASE="case118_ieee"
-HORIZON="24"
+# Override via env, e.g. CASE=case14_ieee HORIZON=1 MODELS=xgb METHODS=xgb RESULTS_DIR=... sbatch -c 8 --mem=64G scripts/phase1c.sbatch
+CASE="${CASE:-case118_ieee}"
+HORIZON="${HORIZON:-24}"
+MODELS=(${MODELS:-xgb sarima snaive tgt true})      # datakit OPF
+METHODS=(${METHODS:-xgb snaive tgt sarima})         # compare.py (default = config.FORECAST_METHODS)
 
 VENV_PATH="$SLURM_SUBMIT_DIR/../thesis_env"
-#DATA_IN_PARQUET="phase1_baseline/output/2019-2021/${CASE}_horizon${HORIZON}.parquet"
-DATA_IN_PARQUET="phase1_baseline/output/2019-2021/${CASE}_horizon${HORIZON}.parquet"
-PRECOMPUTED_DIR="exp1/temp_precomputed_profiles/${CASE}_horizon${HORIZON}_3yr"
+DATA_IN_PARQUET="${DATA_IN_PARQUET:-phase1_baseline/output/2019-2021/${CASE}_horizon${HORIZON}.parquet}"
+PRECOMPUTED_DIR="${PRECOMPUTED_DIR:-exp1/temp_precomputed_profiles/${CASE}_horizon${HORIZON}_3yr}"
 DATAKIT_BASE_YAML="exp1/configs/base_yaml_phase_1c.yaml"
 OPF_OUT_DIR="/data/horse/ws/tibo990i-thesis_data/2019-2021/phase_1c/data_out/${CASE}_horizon_${HORIZON}"
 GROUND_TRUTH_DIR="/data/horse/ws/tibo990i-thesis_data/2019-2021/phase_1a/data_out/${CASE}/raw" # from phase1a
-FINAL_RESULTS_DIR="exp1/results/${CASE}_horizon${HORIZON}_3yr_HPO_xgb"
+FINAL_RESULTS_DIR="${RESULTS_DIR:-exp1/results/${CASE}_horizon${HORIZON}_3yr_HPO_xgb}"
 # ---------------------
 
 
@@ -80,7 +81,7 @@ python scripts/phase1c_run_datakit_batch.py \
     --num-processes "${SLURM_CPUS_PER_TASK:-1}" \
     --data-in-dir "$PRECOMPUTED_DIR" \
     --out-dir "$OPF_OUT_DIR" \
-    --models xgb sarima snaive tgt "true"
+    --models "${MODELS[@]}"
 
 echo ""
 echo "Step 3: Compare results with Ground Truth and generate metrics..."
@@ -89,7 +90,8 @@ python exp1/generate_metrics/compare.py \
     --ground-truth-dir "$GROUND_TRUTH_DIR" \
     --output-dir "$FINAL_RESULTS_DIR" \
     --dataset "$CASE" \
-    --forecasts-parquet "$DATA_IN_PARQUET"
+    --forecasts-parquet "$DATA_IN_PARQUET" \
+    --methods "${METHODS[@]}"
 
 echo "=========================================="
 echo "Phase 1c Completed: $(date)"
