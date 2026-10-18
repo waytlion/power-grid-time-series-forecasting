@@ -1,225 +1,309 @@
 case,horizon,optimizer,forecaster,metric,mean,count
+case118_ieee,1,ac,sarima,Insufficient Headroom (%),0.0,1
+case118_ieee,1,ac,sarima,Insufficient Headroom (n),0.0,1
 case118_ieee,1,ac,sarima,Mean dPg (MW),0.29297971787164656,1
 case118_ieee,1,ac,sarima,Mean |dPg| (%),0.6750937135286906,1
 case118_ieee,1,ac,sarima,Mean |dPg| (MW),14.904511201937465,1
 case118_ieee,1,ac,sarima,Optimality Gap (recomputed),0.8221729637697036,1
 case118_ieee,1,ac,sarima,Rebalanced Gap,0.21036972533180623,1
-case118_ieee,1,ac,sarima,Rebalancing Cost,-0.23433152486437575,1
-case118_ieee,1,ac,sarima,Slack Overflow (%),0.0,1
-case118_ieee,1,ac,sarima,Slack Overflow (n),0.0,1
+case118_ieee,1,ac,sarima,Rebalancing Cost (over-supply),-0.44648141498900024,1
+case118_ieee,1,ac,sarima,Rebalancing Cost (under-supply),0.2121498901246245,1
+case118_ieee,1,ac,sarima,Signed Optimality Gap,0.024433546269474596,1
+case118_ieee,1,ac,sarima,Signed Rebalanced Gap,-0.20989797859490114,1
+case118_ieee,1,ac,snaive,Insufficient Headroom (%),0.0,1
+case118_ieee,1,ac,snaive,Insufficient Headroom (n),0.0,1
 case118_ieee,1,ac,snaive,Mean dPg (MW),8.542060570422176,1
 case118_ieee,1,ac,snaive,Mean |dPg| (%),7.595712764610903,1
 case118_ieee,1,ac,snaive,Mean |dPg| (MW),172.67533687540367,1
 case118_ieee,1,ac,snaive,Optimality Gap (recomputed),9.234944914206627,1
 case118_ieee,1,ac,snaive,Rebalanced Gap,1.3362486307157344,1
-case118_ieee,1,ac,snaive,Rebalancing Cost,-2.504833375578159,1
-case118_ieee,1,ac,snaive,Slack Overflow (%),0.0,1
-case118_ieee,1,ac,snaive,Slack Overflow (n),0.0,1
+case118_ieee,1,ac,snaive,Rebalancing Cost (over-supply),-5.459585818445582,1
+case118_ieee,1,ac,snaive,Rebalancing Cost (under-supply),2.954752442867424,1
+case118_ieee,1,ac,snaive,Signed Optimality Gap,1.170618889159005,1
+case118_ieee,1,ac,snaive,Signed Rebalanced Gap,-1.3342144864191534,1
+case118_ieee,1,ac,xgb,Insufficient Headroom (%),0.0,1
+case118_ieee,1,ac,xgb,Insufficient Headroom (n),0.0,1
 case118_ieee,1,ac,xgb,Mean dPg (MW),0.7481103574150411,1
 case118_ieee,1,ac,xgb,Mean |dPg| (%),0.9266769956880012,1
 case118_ieee,1,ac,xgb,Mean |dPg| (MW),21.4048297767008,1
 case118_ieee,1,ac,xgb,Optimality Gap (recomputed),1.1267961322473712,1
 case118_ieee,1,ac,xgb,Rebalanced Gap,0.2744807794935237,1
-case118_ieee,1,ac,xgb,Rebalancing Cost,-0.3442380053753462,1
-case118_ieee,1,ac,xgb,Slack Overflow (%),0.0,1
-case118_ieee,1,ac,xgb,Slack Overflow (n),0.0,1
+case118_ieee,1,ac,xgb,Rebalancing Cost (over-supply),-0.6317853024771138,1
+case118_ieee,1,ac,xgb,Rebalancing Cost (under-supply),0.2875472971017677,1
+case118_ieee,1,ac,xgb,Signed Optimality Gap,0.07176846417999548,1
+case118_ieee,1,ac,xgb,Signed Rebalanced Gap,-0.2724695411953507,1
+case118_ieee,1,dc,sarima,Insufficient Headroom (%),0.0,1
+case118_ieee,1,dc,sarima,Insufficient Headroom (n),0.0,1
 case118_ieee,1,dc,sarima,Mean dPg (MW),-53.82500258488108,1
 case118_ieee,1,dc,sarima,Mean |dPg| (%),2.258852690112815,1
 case118_ieee,1,dc,sarima,Mean |dPg| (MW),54.73553221203245,1
 case118_ieee,1,dc,sarima,Optimality Gap (recomputed),3.7692366051832815,1
 case118_ieee,1,dc,sarima,Rebalanced Gap,2.063829931367984,1
-case118_ieee,1,dc,sarima,Rebalancing Cost,1.685802471468161,1
-case118_ieee,1,dc,sarima,Slack Overflow (%),0.0,1
-case118_ieee,1,dc,sarima,Slack Overflow (n),0.0,1
+case118_ieee,1,dc,sarima,Rebalancing Cost (over-supply),-0.030108023046218783,1
+case118_ieee,1,dc,sarima,Rebalancing Cost (under-supply),1.7159104945143797,1
+case118_ieee,1,dc,sarima,Signed Optimality Gap,-3.7496324028361445,1
+case118_ieee,1,dc,sarima,Signed Rebalanced Gap,-2.063829931367984,1
+case118_ieee,1,dc,snaive,Insufficient Headroom (%),0.0,1
+case118_ieee,1,dc,snaive,Insufficient Headroom (n),0.0,1
 case118_ieee,1,dc,snaive,Mean dPg (MW),-45.802938996851985,1
 case118_ieee,1,dc,snaive,Mean |dPg| (%),7.676831092729549,1
 case118_ieee,1,dc,snaive,Mean |dPg| (MW),177.06209491127896,1
 case118_ieee,1,dc,snaive,Optimality Gap (recomputed),9.462704099428944,1
 case118_ieee,1,dc,snaive,Rebalanced Gap,2.2906179835577545,1
-case118_ieee,1,dc,snaive,Rebalancing Cost,0.354885617870169,1
-case118_ieee,1,dc,snaive,Slack Overflow (%),0.0,1
-case118_ieee,1,dc,snaive,Slack Overflow (n),0.0,1
+case118_ieee,1,dc,snaive,Rebalancing Cost (over-supply),-4.041336775051875,1
+case118_ieee,1,dc,snaive,Rebalancing Cost (under-supply),4.396222392922045,1
+case118_ieee,1,dc,snaive,Signed Optimality Gap,-2.6455036014279236,1
+case118_ieee,1,dc,snaive,Signed Rebalanced Gap,-2.2906179835577545,1
+case118_ieee,1,dc,xgb,Insufficient Headroom (%),0.0,1
+case118_ieee,1,dc,xgb,Insufficient Headroom (n),0.0,1
 case118_ieee,1,dc,xgb,Mean dPg (MW),-53.353560964003975,1
 case118_ieee,1,dc,xgb,Mean |dPg| (%),2.233484969396105,1
 case118_ieee,1,dc,xgb,Mean |dPg| (MW),54.56205824742211,1
 case118_ieee,1,dc,xgb,Optimality Gap (recomputed),3.728573978075133,1
 case118_ieee,1,dc,xgb,Rebalanced Gap,2.0388268408607533,1
-case118_ieee,1,dc,xgb,Rebalancing Cost,1.6664323914822272,1
-case118_ieee,1,dc,xgb,Slack Overflow (%),0.0,1
-case118_ieee,1,dc,xgb,Slack Overflow (n),0.0,1
+case118_ieee,1,dc,xgb,Rebalancing Cost (over-supply),-0.0367760561422132,1
+case118_ieee,1,dc,xgb,Rebalancing Cost (under-supply),1.7032084476244405,1
+case118_ieee,1,dc,xgb,Signed Optimality Gap,-3.7052592323429803,1
+case118_ieee,1,dc,xgb,Signed Rebalanced Gap,-2.0388268408607533,1
+case118_ieee,1,e2e,none,Insufficient Headroom (%),0.0,1
+case118_ieee,1,e2e,none,Insufficient Headroom (n),0.0,1
 case118_ieee,1,e2e,none,Mean dPg (MW),-2.6451919078826904,1
 case118_ieee,1,e2e,none,Mean |dPg| (%),0.4585871398448944,1
 case118_ieee,1,e2e,none,Mean |dPg| (MW),10.820804595947266,1
 case118_ieee,1,e2e,none,Optimality Gap (recomputed),0.5534793514957812,1
 case118_ieee,1,e2e,none,Rebalanced Gap,0.16428412641391887,1
-case118_ieee,1,e2e,none,Rebalancing Cost,-0.04558537197872574,1
-case118_ieee,1,e2e,none,Slack Overflow (%),0.0,1
-case118_ieee,1,e2e,none,Slack Overflow (n),0.0,1
+case118_ieee,1,e2e,none,Rebalancing Cost (over-supply),-0.23023779773404054,1
+case118_ieee,1,e2e,none,Rebalancing Cost (under-supply),0.1846524257553148,1
+case118_ieee,1,e2e,none,Signed Optimality Gap,-0.11363232097107508,1
+case118_ieee,1,e2e,none,Signed Rebalanced Gap,-0.15921769294980082,1
+case118_ieee,1,surrogate,snaive,Insufficient Headroom (%),0.0,1
+case118_ieee,1,surrogate,snaive,Insufficient Headroom (n),0.0,1
 case118_ieee,1,surrogate,snaive,Mean dPg (MW),16.71843147277832,1
 case118_ieee,1,surrogate,snaive,Mean |dPg| (%),7.613443851470947,1
 case118_ieee,1,surrogate,snaive,Mean |dPg| (MW),172.82879638671875,1
 case118_ieee,1,surrogate,snaive,Optimality Gap (recomputed),9.310853137081969,1
 case118_ieee,1,surrogate,snaive,Rebalanced Gap,1.2289969478707603,1
-case118_ieee,1,surrogate,snaive,Rebalancing Cost,-3.0542731295101,1
-case118_ieee,1,surrogate,snaive,Slack Overflow (%),0.0,1
-case118_ieee,1,surrogate,snaive,Slack Overflow (n),0.0,1
+case118_ieee,1,surrogate,snaive,Rebalancing Cost (over-supply),-5.828811104766554,1
+case118_ieee,1,surrogate,snaive,Rebalancing Cost (under-supply),2.774537975256452,1
+case118_ieee,1,surrogate,snaive,Signed Optimality Gap,1.8493438574680585,1
+case118_ieee,1,surrogate,snaive,Signed Rebalanced Gap,-1.2049292720420426,1
+case118_ieee,1,surrogate,xgb,Insufficient Headroom (%),0.0,1
+case118_ieee,1,surrogate,xgb,Insufficient Headroom (n),0.0,1
 case118_ieee,1,surrogate,xgb,Mean dPg (MW),8.95328140258789,1
 case118_ieee,1,surrogate,xgb,Mean |dPg| (%),1.1713215112686157,1
 case118_ieee,1,surrogate,xgb,Mean |dPg| (MW),26.854476928710938,1
 case118_ieee,1,surrogate,xgb,Optimality Gap (recomputed),1.461387640938006,1
 case118_ieee,1,surrogate,xgb,Rebalanced Gap,0.22231239124767482,1
-case118_ieee,1,surrogate,xgb,Rebalancing Cost,-0.9004783407073281,1
-case118_ieee,1,surrogate,xgb,Slack Overflow (%),0.0,1
-case118_ieee,1,surrogate,xgb,Slack Overflow (n),0.0,1
+case118_ieee,1,surrogate,xgb,Rebalancing Cost (over-supply),-1.131552244697895,1
+case118_ieee,1,surrogate,xgb,Rebalancing Cost (under-supply),0.2310739039905668,1
+case118_ieee,1,surrogate,xgb,Signed Optimality Gap,0.7603058790861296,1
+case118_ieee,1,surrogate,xgb,Signed Rebalanced Gap,-0.14017246162119865,1
+case118_ieee,6,ac,sarima,Insufficient Headroom (%),0.0,1
+case118_ieee,6,ac,sarima,Insufficient Headroom (n),0.0,1
 case118_ieee,6,ac,sarima,Mean dPg (MW),2.032099185560453,1
 case118_ieee,6,ac,sarima,Mean |dPg| (%),2.780160657285008,1
 case118_ieee,6,ac,sarima,Mean |dPg| (MW),62.506080255391886,1
 case118_ieee,6,ac,sarima,Optimality Gap (recomputed),3.3785603149062546,1
 case118_ieee,6,ac,sarima,Rebalanced Gap,0.6977316907898986,1
-case118_ieee,6,ac,sarima,Rebalancing Cost,-0.9965036551956366,1
-case118_ieee,6,ac,sarima,Slack Overflow (%),0.0,1
-case118_ieee,6,ac,sarima,Slack Overflow (n),0.0,1
+case118_ieee,6,ac,sarima,Rebalancing Cost (over-supply),-1.937667686898189,1
+case118_ieee,6,ac,sarima,Rebalancing Cost (under-supply),0.9411640317025527,1
+case118_ieee,6,ac,sarima,Signed Optimality Gap,0.3003010636403129,1
+case118_ieee,6,ac,sarima,Signed Rebalanced Gap,-0.6962025915553237,1
+case118_ieee,6,ac,snaive,Insufficient Headroom (%),0.0,1
+case118_ieee,6,ac,snaive,Insufficient Headroom (n),0.0,1
 case118_ieee,6,ac,snaive,Mean dPg (MW),8.568523023961069,1
 case118_ieee,6,ac,snaive,Mean |dPg| (%),7.604300422889957,1
 case118_ieee,6,ac,snaive,Mean |dPg| (MW),172.86219267180098,1
 case118_ieee,6,ac,snaive,Optimality Gap (recomputed),9.245337796517045,1
 case118_ieee,6,ac,snaive,Rebalanced Gap,1.3372618042596152,1
-case118_ieee,6,ac,snaive,Rebalancing Cost,-2.508138399036873,1
-case118_ieee,6,ac,snaive,Slack Overflow (%),0.0,1
-case118_ieee,6,ac,snaive,Slack Overflow (n),0.0,1
+case118_ieee,6,ac,snaive,Rebalancing Cost (over-supply),-5.466110923427896,1
+case118_ieee,6,ac,snaive,Rebalancing Cost (under-supply),2.9579725243910233,1
+case118_ieee,6,ac,snaive,Signed Optimality Gap,1.1729133224422619,1
+case118_ieee,6,ac,snaive,Signed Rebalanced Gap,-1.3352250765946112,1
+case118_ieee,6,ac,xgb,Insufficient Headroom (%),0.0,1
+case118_ieee,6,ac,xgb,Insufficient Headroom (n),0.0,1
 case118_ieee,6,ac,xgb,Mean dPg (MW),1.3640128271216454,1
 case118_ieee,6,ac,xgb,Mean |dPg| (%),2.4955475730683436,1
 case118_ieee,6,ac,xgb,Mean |dPg| (MW),56.94039329302002,1
 case118_ieee,6,ac,xgb,Optimality Gap (recomputed),3.034931717322764,1
 case118_ieee,6,ac,xgb,Rebalanced Gap,0.6463316684246819,1
-case118_ieee,6,ac,xgb,Rebalancing Cost,-0.9319720354681115,1
-case118_ieee,6,ac,xgb,Slack Overflow (%),0.0,1
-case118_ieee,6,ac,xgb,Slack Overflow (n),0.0,1
+case118_ieee,6,ac,xgb,Rebalancing Cost (over-supply),-1.7512605892928315,1
+case118_ieee,6,ac,xgb,Rebalancing Cost (under-supply),0.8192885538247197,1
+case118_ieee,6,ac,xgb,Signed Optimality Gap,0.2888097403939365,1
+case118_ieee,6,ac,xgb,Signed Rebalanced Gap,-0.643162295074175,1
+case118_ieee,6,dc,sarima,Insufficient Headroom (%),0.0,1
+case118_ieee,6,dc,sarima,Insufficient Headroom (n),0.0,1
 case118_ieee,6,dc,sarima,Mean dPg (MW),-52.06278394290074,1
 case118_ieee,6,dc,sarima,Mean |dPg| (%),3.5888286919279646,1
 case118_ieee,6,dc,sarima,Mean |dPg| (MW),84.57930456794826,1
 case118_ieee,6,dc,sarima,Optimality Gap (recomputed),4.989397524681594,1
 case118_ieee,6,dc,sarima,Rebalanced Gap,2.1324777805177044,1
-case118_ieee,6,dc,sarima,Rebalancing Cost,1.3556161817126358,1
-case118_ieee,6,dc,sarima,Slack Overflow (%),0.0,1
-case118_ieee,6,dc,sarima,Slack Overflow (n),0.0,1
+case118_ieee,6,dc,sarima,Rebalancing Cost (over-supply),-1.0155666837786437,1
+case118_ieee,6,dc,sarima,Rebalancing Cost (under-supply),2.371182865491279,1
+case118_ieee,6,dc,sarima,Signed Optimality Gap,-3.48809396223034,1
+case118_ieee,6,dc,sarima,Signed Rebalanced Gap,-2.1324777805177044,1
+case118_ieee,6,dc,snaive,Insufficient Headroom (%),0.0,1
+case118_ieee,6,dc,snaive,Insufficient Headroom (n),0.0,1
 case118_ieee,6,dc,snaive,Mean dPg (MW),-45.763355492984225,1
 case118_ieee,6,dc,snaive,Mean |dPg| (%),7.6832988004815,1
 case118_ieee,6,dc,snaive,Mean |dPg| (MW),177.18921086882142,1
 case118_ieee,6,dc,snaive,Optimality Gap (recomputed),9.469228589168958,1
 case118_ieee,6,dc,snaive,Rebalanced Gap,2.2911852568992903,1
-case118_ieee,6,dc,snaive,Rebalancing Cost,0.35218497232046475,1
-case118_ieee,6,dc,snaive,Slack Overflow (%),0.0,1
-case118_ieee,6,dc,snaive,Slack Overflow (n),0.0,1
+case118_ieee,6,dc,snaive,Rebalancing Cost (over-supply),-4.046469283021208,1
+case118_ieee,6,dc,snaive,Rebalancing Cost (under-supply),4.398654255341673,1
+case118_ieee,6,dc,snaive,Signed Optimality Gap,-2.6433702292197556,1
+case118_ieee,6,dc,snaive,Signed Rebalanced Gap,-2.2911852568992903,1
+case118_ieee,6,dc,xgb,Insufficient Headroom (%),0.0,1
+case118_ieee,6,dc,xgb,Insufficient Headroom (n),0.0,1
 case118_ieee,6,dc,xgb,Mean dPg (MW),-52.657575548688165,1
 case118_ieee,6,dc,xgb,Mean |dPg| (%),3.1531664397745116,1
 case118_ieee,6,dc,xgb,Mean |dPg| (MW),75.76577849977498,1
 case118_ieee,6,dc,xgb,Optimality Gap (recomputed),4.4903458962447464,1
 case118_ieee,6,dc,xgb,Rebalanced Gap,2.0579615609397206,1
-case118_ieee,6,dc,xgb,Rebalancing Cost,1.4466720987496688,1
-case118_ieee,6,dc,xgb,Slack Overflow (%),0.0,1
-case118_ieee,6,dc,xgb,Slack Overflow (n),0.0,1
+case118_ieee,6,dc,xgb,Rebalancing Cost (over-supply),-0.7302741113043413,1
+case118_ieee,6,dc,xgb,Rebalancing Cost (under-supply),2.1769462100540107,1
+case118_ieee,6,dc,xgb,Signed Optimality Gap,-3.50463365968939,1
+case118_ieee,6,dc,xgb,Signed Rebalanced Gap,-2.0579615609397206,1
+case118_ieee,6,e2e,none,Insufficient Headroom (%),0.0,1
+case118_ieee,6,e2e,none,Insufficient Headroom (n),0.0,1
 case118_ieee,6,e2e,none,Mean dPg (MW),-3.605262517929077,1
 case118_ieee,6,e2e,none,Mean |dPg| (%),1.4584071636199951,1
 case118_ieee,6,e2e,none,Mean |dPg| (MW),34.015560150146484,1
 case118_ieee,6,e2e,none,Optimality Gap (recomputed),1.7715452043383153,1
 case118_ieee,6,e2e,none,Rebalanced Gap,0.4582458046751382,1
-case118_ieee,6,e2e,none,Rebalancing Cost,-0.33989094187952656,1
-case118_ieee,6,e2e,none,Slack Overflow (%),0.0,1
-case118_ieee,6,e2e,none,Slack Overflow (n),0.0,1
+case118_ieee,6,e2e,none,Rebalancing Cost (over-supply),-0.8832334967034546,1
+case118_ieee,6,e2e,none,Rebalancing Cost (under-supply),0.5433425548239281,1
+case118_ieee,6,e2e,none,Signed Optimality Gap,-0.11261738082884257,1
+case118_ieee,6,e2e,none,Signed Rebalanced Gap,-0.4525083227083692,1
+case118_ieee,6,surrogate,sarima,Insufficient Headroom (%),0.0,1
+case118_ieee,6,surrogate,sarima,Insufficient Headroom (n),0.0,1
 case118_ieee,6,surrogate,sarima,Mean dPg (MW),10.136218070983887,1
 case118_ieee,6,surrogate,sarima,Mean |dPg| (%),2.870525598526001,1
 case118_ieee,6,surrogate,sarima,Mean |dPg| (MW),64.47753143310547,1
 case118_ieee,6,surrogate,sarima,Optimality Gap (recomputed),3.516361531311837,1
 case118_ieee,6,surrogate,sarima,Rebalanced Gap,0.5882100456946007,1
-case118_ieee,6,surrogate,sarima,Rebalancing Cost,-1.5055797805501168,1
-case118_ieee,6,surrogate,sarima,Slack Overflow (%),0.0,1
-case118_ieee,6,surrogate,sarima,Slack Overflow (n),0.0,1
+case118_ieee,6,surrogate,sarima,Rebalancing Cost (over-supply),-2.333766741116389,1
+case118_ieee,6,surrogate,sarima,Rebalancing Cost (under-supply),0.8281869605662718,1
+case118_ieee,6,surrogate,sarima,Signed Optimality Gap,0.9740847138419686,1
+case118_ieee,6,surrogate,sarima,Signed Rebalanced Gap,-0.5314950667081485,1
+case118_ieee,6,surrogate,snaive,Insufficient Headroom (%),0.0,1
+case118_ieee,6,surrogate,snaive,Insufficient Headroom (n),0.0,1
 case118_ieee,6,surrogate,snaive,Mean dPg (MW),16.74852180480957,1
 case118_ieee,6,surrogate,snaive,Mean |dPg| (%),7.621016502380371,1
 case118_ieee,6,surrogate,snaive,Mean |dPg| (MW),172.98907470703125,1
 case118_ieee,6,surrogate,snaive,Optimality Gap (recomputed),9.32030154697158,1
 case118_ieee,6,surrogate,snaive,Rebalanced Gap,1.2298998275274595,1
-case118_ieee,6,surrogate,snaive,Rebalancing Cost,-3.057633435637514,1
-case118_ieee,6,surrogate,snaive,Slack Overflow (%),0.0,1
-case118_ieee,6,surrogate,snaive,Slack Overflow (n),0.0,1
+case118_ieee,6,surrogate,snaive,Rebalancing Cost (over-supply),-5.834832254404103,1
+case118_ieee,6,surrogate,snaive,Rebalancing Cost (under-supply),2.7771988187665886,1
+case118_ieee,6,surrogate,snaive,Signed Optimality Gap,1.851831687123757,1
+case118_ieee,6,surrogate,snaive,Signed Rebalanced Gap,-1.2058017485137573,1
+case118_ieee,6,surrogate,xgb,Insufficient Headroom (%),0.0,1
+case118_ieee,6,surrogate,xgb,Insufficient Headroom (n),0.0,1
 case118_ieee,6,surrogate,xgb,Mean dPg (MW),9.702228546142578,1
 case118_ieee,6,surrogate,xgb,Mean |dPg| (%),2.6199228763580322,1
 case118_ieee,6,surrogate,xgb,Mean |dPg| (MW),59.46651840209961,1
 case118_ieee,6,surrogate,xgb,Optimality Gap (recomputed),3.208208224392976,1
 case118_ieee,6,surrogate,xgb,Rebalanced Gap,0.5389514931045862,1
-case118_ieee,6,surrogate,xgb,Rebalancing Cost,-1.457144009166104,1
-case118_ieee,6,surrogate,xgb,Slack Overflow (%),0.0,1
-case118_ieee,6,surrogate,xgb,Slack Overflow (n),0.0,1
+case118_ieee,6,surrogate,xgb,Rebalancing Cost (over-supply),-2.177362243490181,1
+case118_ieee,6,surrogate,xgb,Rebalancing Cost (under-supply),0.7202182343240772,1
+case118_ieee,6,surrogate,xgb,Signed Optimality Gap,0.9778060426496261,1
+case118_ieee,6,surrogate,xgb,Signed Rebalanced Gap,-0.4793379665164779,1
+case118_ieee,24,ac,sarima,Insufficient Headroom (%),0.0,1
+case118_ieee,24,ac,sarima,Insufficient Headroom (n),0.0,1
 case118_ieee,24,ac,sarima,Mean dPg (MW),7.538698594039251,1
 case118_ieee,24,ac,sarima,Mean |dPg| (%),5.597141002970865,1
 case118_ieee,24,ac,sarima,Mean |dPg| (MW),127.87388471017448,1
 case118_ieee,24,ac,sarima,Optimality Gap (recomputed),6.8005513920508855,1
 case118_ieee,24,ac,sarima,Rebalanced Gap,1.0696576069294743,1
-case118_ieee,24,ac,sarima,Rebalancing Cost,-2.1975039084675845,1
-case118_ieee,24,ac,sarima,Slack Overflow (%),0.0,1
-case118_ieee,24,ac,sarima,Slack Overflow (n),0.0,1
+case118_ieee,24,ac,sarima,Rebalancing Cost (over-supply),-4.174907746930033,1
+case118_ieee,24,ac,sarima,Rebalancing Cost (under-supply),1.977403838462448,1
+case118_ieee,24,ac,sarima,Signed Optimality Gap,1.129221071769379,1
+case118_ieee,24,ac,sarima,Signed Rebalanced Gap,-1.0682828366982058,1
+case118_ieee,24,ac,snaive,Insufficient Headroom (%),0.0,1
+case118_ieee,24,ac,snaive,Insufficient Headroom (n),0.0,1
 case118_ieee,24,ac,snaive,Mean dPg (MW),8.652666291483744,1
 case118_ieee,24,ac,snaive,Mean |dPg| (%),7.62387277003497,1
 case118_ieee,24,ac,snaive,Mean |dPg| (MW),173.31341047563714,1
 case118_ieee,24,ac,snaive,Optimality Gap (recomputed),9.26947650661017,1
 case118_ieee,24,ac,snaive,Rebalanced Gap,1.3375224036526714,1
-case118_ieee,24,ac,snaive,Rebalancing Cost,-2.5186379996008617,1
-case118_ieee,24,ac,snaive,Slack Overflow (%),0.0,1
-case118_ieee,24,ac,snaive,Slack Overflow (n),0.0,1
+case118_ieee,24,ac,snaive,Rebalancing Cost (over-supply),-5.483673615991542,1
+case118_ieee,24,ac,snaive,Rebalancing Cost (under-supply),2.9650356163906797,1
+case118_ieee,24,ac,snaive,Signed Optimality Gap,1.1831616783205103,1
+case118_ieee,24,ac,snaive,Signed Rebalanced Gap,-1.3354763212803513,1
+case118_ieee,24,ac,xgb,Insufficient Headroom (%),0.0,1
+case118_ieee,24,ac,xgb,Insufficient Headroom (n),0.0,1
 case118_ieee,24,ac,xgb,Mean dPg (MW),2.249780489414385,1
 case118_ieee,24,ac,xgb,Mean |dPg| (%),4.101764588510158,1
 case118_ieee,24,ac,xgb,Mean |dPg| (MW),93.99237915434517,1
 case118_ieee,24,ac,xgb,Optimality Gap (recomputed),4.9865438526115495,1
 case118_ieee,24,ac,xgb,Rebalanced Gap,0.8909297491373814,1
-case118_ieee,24,ac,xgb,Rebalancing Cost,-1.4981814476351645,1
-case118_ieee,24,ac,xgb,Slack Overflow (%),0.0,1
-case118_ieee,24,ac,xgb,Slack Overflow (n),0.0,1
+case118_ieee,24,ac,xgb,Rebalancing Cost (over-supply),-2.9395082162105663,1
+case118_ieee,24,ac,xgb,Rebalancing Cost (under-supply),1.4413267685754017,1
+case118_ieee,24,ac,xgb,Signed Optimality Gap,0.6114974443948148,1
+case118_ieee,24,ac,xgb,Signed Rebalanced Gap,-0.8866840032403499,1
+case118_ieee,24,dc,sarima,Insufficient Headroom (%),0.0,1
+case118_ieee,24,dc,sarima,Insufficient Headroom (n),0.0,1
 case118_ieee,24,dc,sarima,Mean dPg (MW),-46.47958923999354,1
 case118_ieee,24,dc,sarima,Mean |dPg| (%),5.908542766624012,1
 case118_ieee,24,dc,sarima,Mean |dPg| (MW),139.25183434424153,1
 case118_ieee,24,dc,sarima,Optimality Gap (recomputed),7.462362015598199,1
 case118_ieee,24,dc,sarima,Rebalanced Gap,2.1819217757603813,1
-case118_ieee,24,dc,sarima,Rebalancing Cost,0.5181003949352188,1
-case118_ieee,24,dc,sarima,Slack Overflow (%),0.0,1
-case118_ieee,24,dc,sarima,Slack Overflow (n),0.0,1
+case118_ieee,24,dc,sarima,Rebalancing Cost (over-supply),-2.9120381114357476,1
+case118_ieee,24,dc,sarima,Rebalancing Cost (under-supply),3.4301385063709664,1
+case118_ieee,24,dc,sarima,Signed Optimality Gap,-2.7000221706956,1
+case118_ieee,24,dc,sarima,Signed Rebalanced Gap,-2.1819217757603813,1
+case118_ieee,24,dc,snaive,Insufficient Headroom (%),0.0,1
+case118_ieee,24,dc,snaive,Insufficient Headroom (n),0.0,1
 case118_ieee,24,dc,snaive,Mean dPg (MW),-45.67833071701541,1
 case118_ieee,24,dc,snaive,Mean |dPg| (%),7.7001649361958755,1
 case118_ieee,24,dc,snaive,Mean |dPg| (MW),177.59620061387287,1
 case118_ieee,24,dc,snaive,Optimality Gap (recomputed),9.486975215812645,1
 case118_ieee,24,dc,snaive,Rebalanced Gap,2.2898328556343195,1
-case118_ieee,24,dc,snaive,Rebalancing Cost,0.3437642040168277,1
-case118_ieee,24,dc,snaive,Slack Overflow (%),0.0,1
-case118_ieee,24,dc,snaive,Slack Overflow (n),0.0,1
+case118_ieee,24,dc,snaive,Rebalancing Cost (over-supply),-4.061960573613896,1
+case118_ieee,24,dc,snaive,Rebalancing Cost (under-supply),4.4057247776307245,1
+case118_ieee,24,dc,snaive,Signed Optimality Gap,-2.6335970596511475,1
+case118_ieee,24,dc,snaive,Signed Rebalanced Gap,-2.2898328556343195,1
+case118_ieee,24,dc,xgb,Insufficient Headroom (%),0.0,1
+case118_ieee,24,dc,xgb,Insufficient Headroom (n),0.0,1
 case118_ieee,24,dc,xgb,Mean dPg (MW),-51.67652867594224,1
 case118_ieee,24,dc,xgb,Mean |dPg| (%),4.4569713223893,1
 case118_ieee,24,dc,xgb,Mean |dPg| (MW),106.39813131914613,1
 case118_ieee,24,dc,xgb,Optimality Gap (recomputed),5.803584696676191,1
 case118_ieee,24,dc,xgb,Rebalanced Gap,2.0816731122970356,1
-case118_ieee,24,dc,xgb,Rebalancing Cost,1.1201966673008483,1
-case118_ieee,24,dc,xgb,Slack Overflow (%),0.0,1
-case118_ieee,24,dc,xgb,Slack Overflow (n),0.0,1
+case118_ieee,24,dc,xgb,Rebalancing Cost (over-supply),-1.7143749531083952,1
+case118_ieee,24,dc,xgb,Rebalancing Cost (under-supply),2.8345716204092435,1
+case118_ieee,24,dc,xgb,Signed Optimality Gap,-3.201869779597884,1
+case118_ieee,24,dc,xgb,Signed Rebalanced Gap,-2.0816731122970356,1
+case118_ieee,24,e2e,none,Insufficient Headroom (%),0.0,1
+case118_ieee,24,e2e,none,Insufficient Headroom (n),0.0,1
 case118_ieee,24,e2e,none,Mean dPg (MW),-0.7902306914329529,1
 case118_ieee,24,e2e,none,Mean |dPg| (%),3.5415055751800537,1
 case118_ieee,24,e2e,none,Mean |dPg| (MW),81.69091796875,1
 case118_ieee,24,e2e,none,Optimality Gap (recomputed),4.294752881084918,1
 case118_ieee,24,e2e,none,Rebalanced Gap,0.9309047474879595,1
-case118_ieee,24,e2e,none,Rebalancing Cost,-1.0697874323311893,1
-case118_ieee,24,e2e,none,Slack Overflow (%),0.0,1
-case118_ieee,24,e2e,none,Slack Overflow (n),0.0,1
+case118_ieee,24,e2e,none,Rebalancing Cost (over-supply),-2.405143182657818,1
+case118_ieee,24,e2e,none,Rebalancing Cost (under-supply),1.335355750326629,1
+case118_ieee,24,e2e,none,Signed Optimality Gap,0.14174492898948077,1
+case118_ieee,24,e2e,none,Signed Rebalanced Gap,-0.9280425033417085,1
+case118_ieee,24,surrogate,snaive,Insufficient Headroom (%),0.0,1
+case118_ieee,24,surrogate,snaive,Insufficient Headroom (n),0.0,1
 case118_ieee,24,surrogate,snaive,Mean dPg (MW),16.833688735961914,1
 case118_ieee,24,surrogate,snaive,Mean |dPg| (%),7.641612529754639,1
 case118_ieee,24,surrogate,snaive,Mean |dPg| (MW),173.46389770507812,1
 case118_ieee,24,surrogate,snaive,Optimality Gap (recomputed),9.345877148790285,1
 case118_ieee,24,surrogate,snaive,Rebalanced Gap,1.2305418886100514,1
-case118_ieee,24,surrogate,snaive,Rebalancing Cost,-3.068426458164452,1
-case118_ieee,24,surrogate,snaive,Slack Overflow (%),0.0,1
-case118_ieee,24,surrogate,snaive,Slack Overflow (n),0.0,1
+case118_ieee,24,surrogate,snaive,Rebalancing Cost (over-supply),-5.853094229953153,1
+case118_ieee,24,surrogate,snaive,Rebalancing Cost (under-supply),2.7846677717887016,1
+case118_ieee,24,surrogate,snaive,Signed Optimality Gap,1.8620475858680412,1
+case118_ieee,24,surrogate,snaive,Signed Rebalanced Gap,-1.2063788722964108,1
+case118_ieee,24,surrogate,xgb,Insufficient Headroom (%),0.0,1
+case118_ieee,24,surrogate,xgb,Insufficient Headroom (n),0.0,1
 case118_ieee,24,surrogate,xgb,Mean dPg (MW),6.848788738250732,1
 case118_ieee,24,surrogate,xgb,Mean |dPg| (%),4.146214008331299,1
 case118_ieee,24,surrogate,xgb,Mean |dPg| (MW),95.0717544555664,1
 case118_ieee,24,surrogate,xgb,Optimality Gap (recomputed),5.0432025394946525,1
 case118_ieee,24,surrogate,xgb,Rebalanced Gap,0.802633546438996,1
-case118_ieee,24,surrogate,xgb,Rebalancing Cost,-1.817779099368123,1
-case118_ieee,24,surrogate,xgb,Slack Overflow (%),0.0,1
-case118_ieee,24,surrogate,xgb,Slack Overflow (n),0.0,1
+case118_ieee,24,surrogate,xgb,Rebalancing Cost (over-supply),-3.193605388267013,1
+case118_ieee,24,surrogate,xgb,Rebalancing Cost (under-supply),1.3758262888988901,1
+case118_ieee,24,surrogate,xgb,Signed Optimality Gap,1.0597146572400467,1
+case118_ieee,24,surrogate,xgb,Signed Rebalanced Gap,-0.7580644421280762,1
