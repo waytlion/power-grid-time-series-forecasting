@@ -44,6 +44,8 @@ sbatch scripts/backup_pack.sh core                       # backup tar after ever
 ```
 
 ## Rules & traps
+- /home quota 50 GB (exceeding it locks sbatch until the nightly check): bulk/scratch output goes to `<data>`, e.g.
+  precomputed profiles → `<data>/temp_precomputed_profiles/` (phase1c*, surrogate_smoke).
 - **aggregate_results identity = paths + run names only** (no MLflow tags):
   - exact/2-step: `<results-root>/<run>/<forecaster>/<case>_metrics.csv`; ONE run generation per
     (case, horizon, forecaster). Archive superseded dirs under `exp1/results/_archiv/` (any `_`-prefixed dir is skipped).

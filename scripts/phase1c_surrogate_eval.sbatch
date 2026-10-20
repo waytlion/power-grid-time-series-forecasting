@@ -40,7 +40,7 @@ export PYTHONPATH="$THESIS_DIR"
 # ---- 1. Preprocessing: forecasts -> graphkit eval sets (once per horizon) ----
 for H in "${HORIZONS[@]}"; do
     PARQUET="$(FORECAST_PARQUET "$H")"
-    PRECOMP="$THESIS_DIR/exp1/temp_precomputed_profiles/${CASE}_horizon${H}"
+    PRECOMP="/data/horse/ws/tibo990i-thesis_data/temp_precomputed_profiles/${CASE}_horizon${H}"   # scratch, off /home (quota)
     OUT_H="${EVAL_BASE}/h${H}"
     MISSING=(); for M in "${FORECASTERS[@]}"; do [ -d "${OUT_H}/${M}/${CASE}/raw" ] || MISSING+=("$M"); done
     [ ${#MISSING[@]} -eq 0 ] && { echo "h${H} eval sets exist, skip preprocess"; continue; }

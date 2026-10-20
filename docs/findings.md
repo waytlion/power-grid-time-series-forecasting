@@ -405,3 +405,23 @@ RETRACTED entries stay so they are not re-proposed. ML-arm findings: `~/gridfm-g
     hedged own-Pd 2-step at h6 (−10 %), ≈ hedging at h1 (−3 %).
   - → E2E's Pg advantage comes from the output target/loss, not model class or inputs (confirms §9 hypothesis
     "Pg head ≠ Pd head + losses"). h24 + case14/118 pending (case14/118 wait for final_e2e_qgmse retrains).
+  - 2026-10-19, case500 h24 (job 39854226): 5218 / 94344 OPF failures (5.5 %) → MAE-Pd gate MISMATCH (1.433 vs 1.446,
+    compare drops failed samples); Pg gates ok. n = 89126: E2E Pd → AC 2.48/12.87 vs E2E 2.78/11.36, AC xgb 2.57/13.03
+    (Pg head −12 %); hedged 11.92, bias-corrected 11.53 (E2E −1.5 %). Failed samples excluded → subset may flatter Pd route.
+    E2E Pd at the 219 zero-load buses sums to −68 MW (mean |.| 92 MW) at h24.
+  - 2026-10-19, case14 h1/h6/h24 (job 39854258, all gates ok, 0 OPF failures, n = 3934/23604/94344):
+    E2E Pd → AC 0.246/0.726, 0.677/2.205, 1.626/4.789 vs E2E 0.141/0.428, 0.573/1.965, 1.412/4.421, AC sarima
+    0.222/0.703, 0.933/3.124, 1.889/5.773 → Pg head −41 / −11 / −8 % RMSE; total |ΣΔPg| 1.23/3.38/8.13 vs 0.70/2.86/7.03.
+    Hedging gains nothing (0.725/2.206/4.782, affine dispatch) → case14 advantage = output target only.
+- 2026-10-19: **Cross-arm Pg RMSE / gap with XGB+D (`xgb_tot`) and final E2E (Qg MSE)** — PRELIMINARY (read from per-run
+  CSVs, not aggregate_results; E2E case118 h6 n = 2 seeds, case500 n = 1; others 3 seeds; surrogate 3 seeds).
+  Pg RMSE MW, AC xgb / AC xgb_tot / AC sarima / E2E mean [range]:
+  - case14 h1 1.27/1.18/0.70/0.45 [0.43–0.47]; h6 2.98/2.81/3.12/1.99 [1.96–2.04]; h24 4.51/4.67/5.77/4.33 [4.22–4.42]
+  - case118 h1 2.16/1.80/1.58/1.50 [1.48–1.51]; h6 5.82/5.35/6.80/4.11 [4.08–4.13]; h24 9.21/8.77/12.51/8.91 [8.58–9.20]
+  - case500 h1 3.57/3.11/3.38/3.28; h6 8.41/8.25/9.86/6.84; h24 13.03/12.77/16.26/11.36
+  - → CORRECTS §9 summary "E2E best Pg RMSE on every case × horizon": vs XGB+D, E2E is worse at case500 h1 (3.28 vs 3.11,
+    n = 1 seed) and case118 h24 (mean 8.91 vs 8.77, inside E2E's seed range). E2E keeps the lowest mean opt gap in every
+    cell (e.g. case500 h1 0.494 vs xgb_tot 0.557 / sarima 0.521; case118 h24 4.31 vs 4.77).
+  - E2E seed spread (max−min)/mean: 1–9 % Pg RMSE (case118 h24 7 %, case14 h1 8 %).
+  - Surrogate case500 after the Qg fix: Pg RMSE 9.6–11.7 (h1, 3 seeds) vs pre-fix s0 8.76; gap 2.1–3.1 vs 2.74 → the
+    Pg regression holds across seeds (graphkit findings §3); case14/118 surrogate unchanged or better.

@@ -37,4 +37,4 @@ settings:
   enable_solver_logs: true # If true, write OPF/PF logs to {data_dir}/solver_log
   pf_fast: true # Whether to use fast PF solver by default
   dcpf_fast: true # Whether to use fast DCPF solver by default
-  max_iter: 300 # Max iterations for Ipopt-based solvers
+  max_iter: 200 # Max iterations for Ipopt-based solvers

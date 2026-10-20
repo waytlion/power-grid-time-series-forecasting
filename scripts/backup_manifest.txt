@@ -9,6 +9,7 @@ core $HOME/CLAUDE.md
 core $HOME/.claude/CLAUDE.md
 core $HOME/.claude/settings.json
 core $HOME/.claude/projects/-home-h4-tibo990i/memory
+core $WS/notes
 core $HOME/Thesis_Repo/exp1/results
 core $HOME/Thesis_Repo/exp1/thesis_plots/figures
 core $WS/2019-2021/phase_1c/expost_pf

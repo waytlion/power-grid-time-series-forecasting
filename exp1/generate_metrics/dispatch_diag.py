@@ -65,9 +65,9 @@ from expost_pf import FORECASTS, MLRUNS, PHASE1A, PHASE1C, TOL_P, TOL_REL, _dens
 
 REPO = Path(__file__).resolve().parents[2]
 OUT = PHASE1C / "dispatch_diag"
-E2E_RUNS = {  # case14/case500: final_e2e_qgmse retrains (dumps in-run); case118: old final models re-evaluated with dumps
+E2E_RUNS = {  # final base E2E (exp final_e2e_qgmse; state dumps written in-run)
     "case14_ieee": ("final_e2e_qgmse", "base_e2e_case14_h{H}_s0"),
-    "case118_ieee": ("state-dump", "base_e2e_case118_h{H}_s0"),
+    "case118_ieee": ("final_e2e_qgmse", "base_e2e_case118_h{H}_s0"),
     "case500_goc": ("final_e2e_qgmse", "base_e2e_case500_goc_h{H}_s0"),
 }
 PIN = 0.99  # unit class by share of test hours at a P limit: pinned ≥ PIN, free ≤ 1 − PIN, else switching

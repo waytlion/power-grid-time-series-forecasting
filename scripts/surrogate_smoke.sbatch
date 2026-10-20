@@ -26,7 +26,7 @@ EVAL_CONFIG="$GRAPHKIT_DIR/examples/config/gnn_heterogeneous_gns/twostep_opf_cas
 LOG_DIR="/data/horse/ws/tibo990i-thesis_data/mlruns"
 GROUND_TRUTH_DIR="/data/horse/ws/tibo990i-thesis_data/2019-2021/phase_1a/data_out/${CASE}/raw"
 EVAL_BASE="/data/horse/ws/tibo990i-thesis_data/2019-2021/phase_1c/eval_sets/${CASE}"
-PRECOMP="$THESIS_DIR/exp1/temp_precomputed_profiles/${CASE}_horizon${H}"
+PRECOMP="/data/horse/ws/tibo990i-thesis_data/temp_precomputed_profiles/${CASE}_horizon${H}"   # scratch, off /home (quota)
 OUT_H="${EVAL_BASE}/h${H}"
 PARQUET="$THESIS_DIR/phase1_baseline/output/2019-2021/${CASE}_horizon${H}_HPO_xgb.parquet"
 
