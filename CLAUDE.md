@@ -35,7 +35,7 @@ sbatch scripts/phase1b.sbatch                            # 1b: forecasters
 CASE=case500_goc HORIZON=6 sbatch scripts/phase1c.sbatch   # 1c: 2-step AC/DC solves on forecasts (env: MODELS,
                                                          # METHODS, DATA_IN_PARQUET, PRECOMPUTED_DIR, RESULTS_DIR)
 CASE_DIR=case500_goc HORIZON=6 sbatch scripts/phase1c_step3.sbatch   # compare.py only (default case118 h1)
-CASE=case14_ieee SEEDS="0 1 2" sbatch scripts/phase1c_surrogate_eval.sbatch   # 1c: surrogate eval (env: HORIZONS, FORECASTERS, SEEDS)
+CASE=case14_ieee SEEDS="0 1 2" sbatch scripts/phase1c_surrogate_eval.sbatch   # 1c: surrogate eval (env: HORIZONS, FORECASTERS, SEEDS, FORECAST_DIR)
 sbatch scripts/surrogate_smoke.sbatch                    # smoke: surrogate, seed 0, h=1, true forecaster
 sbatch tests/phase1b_1c/phase1b_1c_test.sbatch           # regression: case14, 10% data, vs tests/phase1b_1c/golden/
 python tests/scripts/phase1c_preflight.py                # before phase1c eval runs

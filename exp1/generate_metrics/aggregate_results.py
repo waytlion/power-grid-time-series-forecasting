@@ -148,7 +148,8 @@ def _ml_identity(run_name):
         forecaster = "none"
     else:
         i = next((j for j, t in enumerate(toks) if re.fullmatch(r"h\d+", t)), 0)
-        forecaster = toks[i - 1] if i > 0 else "none"
+        two = "_".join(toks[max(i - 2, 0):i])  # two-token forecasters, e.g. xgb_tot
+        forecaster = two if two in FORECASTERS else (toks[i - 1] if i > 0 else "none")
     return optimizer, forecaster, horizon, seed
 
 

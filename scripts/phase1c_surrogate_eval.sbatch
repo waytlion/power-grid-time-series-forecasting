@@ -28,7 +28,7 @@ LOG_DIR="/data/horse/ws/tibo990i-thesis_data/mlruns"          # MLflow store (su
 GROUND_TRUTH_DIR="/data/horse/ws/tibo990i-thesis_data/2019-2021/phase_1a/data_out/${CASE}/raw"
 EVAL_BASE="/data/horse/ws/tibo990i-thesis_data/2019-2021/phase_1c/eval_sets/${CASE}"   # converter output (converting into format, needed for the surrogate)
 # Per-horizon forecast parquet (phase1b output). Adjust the pattern to your files.
-FORECAST_PARQUET() { echo "$THESIS_DIR/phase1_baseline/output/2019-2021/${CASE}_horizon${1}.parquet"; }
+FORECAST_PARQUET() { echo "${FORECAST_DIR:-$THESIS_DIR/phase1_baseline/output/2019-2021}/${CASE}_horizon${1}.parquet"; }  # env FORECAST_DIR: e.g. xgb_tot parquets
 EXP_NAME="2-step-surrogate-eval"
 # ======================================================================
 

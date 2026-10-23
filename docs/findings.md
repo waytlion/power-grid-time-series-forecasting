@@ -290,6 +290,18 @@ RETRACTED entries stay so they are not re-proposed. ML-arm findings: `~/gridfm-g
     limit is violated, as OPF optimality on the true load predicts). Final run uses the last setting (§7).
 
 
+- 2026-10-22: **FULL RUN, final models, all cases × H, seed 0** (ex-post PF romeo jobs 9118247-49, distributed slack
+  final settings §7; corrected_gap job 4449353: 108 arms, all reproduce the logged gap; `exp1/results/combined/corrected_gap.csv`).
+  Rebalanced gap |γ_reb| %, AC sarima / AC xgb / AC xgb_tot / DC xgb_tot / surrogate xgb / E2E:
+  - case14 h1 0.114/0.198/0.212/1.70/0.332/0.095; h6 0.444/0.446/0.452/1.82/0.567/0.263; h24 0.828/0.702/0.723/1.99/0.819/0.704
+  - case118 h1 0.102/0.137/0.112/2.28/0.296/0.083; h6 0.408/0.367/0.327/2.35/0.486/0.214; h24 0.789/0.602/0.572/2.51/0.694/0.484
+  - case500 h1 0.277/0.333/0.283/1.47/1.217/0.265; h6 1.079/0.858/0.842/1.79/1.463/0.664; h24 2.016/1.505/1.414/2.23/1.869/1.231
+  - → E2E lowest rebalanced gap in all 9 cells (case14 h24 ≈ tie with AC xgb 0.702).
+  - Thermal overload % (same order): case14 0 everywhere; case118 h1 36.7/40.5/36.3/99.9/58.0/46.9, h6 47.1/45.1/42.3/96.4/
+    57.0/55.7, h24 50.2/44.5/44.3/89.5/56.6/55.5; case500 h1 0.7/6.2/5.7/6.3/5.0/2.8, h6 3.7/5.7/5.6/6.6/5.2/3.5, h24
+    6.1/6.0/5.7/7.3/6.3/4.0 → E2E overloads lines more than AC on case118 (+10–11 pp vs xgb_tot), fewer on case500.
+  - Pending: surrogate xgb_tot, seeds 1–2 (surrogate, E2E), E2E case500 h1 s1/s2.
+
 ## 9. Dispatch structure: why E2E barely beats 2-step on Pg (2026-10-13, `exp1/generate_metrics/dispatch_diag.py`)
 
 **Current state (2026-10-14) — read this first; dated details below.** Test split, E2E seed 0 only.
@@ -413,6 +425,12 @@ RETRACTED entries stay so they are not re-proposed. ML-arm findings: `~/gridfm-g
     E2E Pd → AC 0.246/0.726, 0.677/2.205, 1.626/4.789 vs E2E 0.141/0.428, 0.573/1.965, 1.412/4.421, AC sarima
     0.222/0.703, 0.933/3.124, 1.889/5.773 → Pg head −41 / −11 / −8 % RMSE; total |ΣΔPg| 1.23/3.38/8.13 vs 0.70/2.86/7.03.
     Hedging gains nothing (0.725/2.206/4.782, affine dispatch) → case14 advantage = output target only.
+  - 2026-10-22, case118 h1/h6/h24 (romeo job 9118246, all gates ok, 0 OPF failures, n = 3934/23604/94344; E2E s0):
+    Pg MAE/RMSE E2E Pd → AC 0.406/2.04, 1.107/5.61, 1.743/8.95 vs E2E 0.268/1.51, 0.733/4.08, 1.711/9.20, AC xgb
+    0.420/2.16, 1.087/5.82, 1.776/9.21 → Pg head −26 / −27 % at h1/h6 but +3 % WORSE at h24 (E2E s0 is the worst of
+    3 seeds there: 8.58–9.20). Total |ΣΔPg| 20.4/57.5/91.2 vs E2E 11.0/33.5/82.9; misplaced 0.78/1.16/1.47 vs
+    1.74/3.05/4.78 → at h24 E2E's allocation error cancels its total-error edge. Raw gap still lower for E2E
+    (4.38 vs 4.90 %). → output-target advantage holds on Pg RMSE everywhere except case118 h24.
 - 2026-10-19: **Cross-arm Pg RMSE / gap with XGB+D (`xgb_tot`) and final E2E (Qg MSE)** — PRELIMINARY (read from per-run
   CSVs, not aggregate_results; E2E case118 h6 n = 2 seeds, case500 n = 1; others 3 seeds; surrogate 3 seeds).
   Pg RMSE MW, AC xgb / AC xgb_tot / AC sarima / E2E mean [range]:
