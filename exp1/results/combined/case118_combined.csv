@@ -656,58 +656,58 @@ case118_ieee,1,surrogate,xgb,vm viol. count,0.0,3
 case118_ieee,1,surrogate,xgb,vm viol. max,0.0,3
 case118_ieee,1,surrogate,xgb,vm viol. mean,0.0,3
 case118_ieee,1,surrogate,xgb,vm viol. rate,0.0,3
-case118_ieee,1,surrogate,xgb_tot,Generator Pg MAE,0.7248547673225403,1
-case118_ieee,1,surrogate,xgb_tot,Generator Pg RMSE,2.483503080706743,1
-case118_ieee,1,surrogate,xgb_tot,MAE Pd,0.2954267254770779,1
-case118_ieee,1,surrogate,xgb_tot,MAE Qd,0.0935622875943601,1
-case118_ieee,1,surrogate,xgb_tot,Mean Optimality Gap,1.1115373373031616,1
-case118_ieee,1,surrogate,xgb_tot,Pg bus MAE,0.3317131541543088,1
-case118_ieee,1,surrogate,xgb_tot,Pg bus RMSE,1.6800437251790237,1
-case118_ieee,1,surrogate,xgb_tot,Qg MAE,0.6242646706306328,1
-case118_ieee,1,surrogate,xgb_tot,Qg RMSE,1.3804960075692885,1
-case118_ieee,1,surrogate,xgb_tot,RMSE Pd,0.7435840885660596,1
-case118_ieee,1,surrogate,xgb_tot,RMSE Qd,0.2459073614607317,1
-case118_ieee,1,surrogate,xgb_tot,Residual P (MAE),0.520393967628479,1
-case118_ieee,1,surrogate,xgb_tot,Residual Q (MAE),0.1255189925432205,1
-case118_ieee,1,surrogate,xgb_tot,Va MAE,0.2000401991832732,1
-case118_ieee,1,surrogate,xgb_tot,Va RMSE,0.3701956238627018,1
-case118_ieee,1,surrogate,xgb_tot,Vm MAE,0.0073298449920079,1
-case118_ieee,1,surrogate,xgb_tot,Vm RMSE,0.009039669637963,1
-case118_ieee,1,surrogate,xgb_tot,angle scenario viol. rate,0.0,1
-case118_ieee,1,surrogate,xgb_tot,angle viol. count,0.0,1
-case118_ieee,1,surrogate,xgb_tot,angle viol. max,0.0,1
-case118_ieee,1,surrogate,xgb_tot,angle viol. mean,0.0,1
-case118_ieee,1,surrogate,xgb_tot,angle viol. rate,0.0,1
-case118_ieee,1,surrogate,xgb_tot,full_pipeline_infer_s,0.0070219760897777,1
-case118_ieee,1,surrogate,xgb_tot,full_pipeline_infer_total_min,0.46134382909840566,1
-case118_ieee,1,surrogate,xgb_tot,fully feasible scenario viol. rate,1.0,1
-case118_ieee,1,surrogate,xgb_tot,opf_step_infer_s,0.0042724181204846,1
-case118_ieee,1,surrogate,xgb_tot,opf_step_infer_total_min,0.28069787051584477,1
-case118_ieee,1,surrogate,xgb_tot,pg scenario viol. rate,0.0,1
-case118_ieee,1,surrogate,xgb_tot,pg viol. count,0.0,1
-case118_ieee,1,surrogate,xgb_tot,pg viol. max,0.0,1
-case118_ieee,1,surrogate,xgb_tot,pg viol. mean,0.0,1
-case118_ieee,1,surrogate,xgb_tot,pg viol. rate,0.0,1
-case118_ieee,1,surrogate,xgb_tot,qg scenario viol. rate,1.0,1
-case118_ieee,1,surrogate,xgb_tot,qg viol. count,21675.0,1
-case118_ieee,1,surrogate,xgb_tot,qg viol. max,23.31716537475586,1
-case118_ieee,1,surrogate,xgb_tot,qg viol. mean,0.140980542515867,1
-case118_ieee,1,surrogate,xgb_tot,qg viol. rate,0.1018236653700885,1
-case118_ieee,1,surrogate,xgb_tot,thermal scenario viol. rate,0.4558599695585997,1
-case118_ieee,1,surrogate,xgb_tot,thermal viol. count,2278.0,1
-case118_ieee,1,surrogate,xgb_tot,thermal viol. max,9.062850952148438,1
-case118_ieee,1,surrogate,xgb_tot,thermal viol. mean,0.0075941453491703,1
-case118_ieee,1,surrogate,xgb_tot,thermal viol. rate,0.0031068776833985,1
-case118_ieee,1,surrogate,xgb_tot,total_pd_pred,9268882.5,1
-case118_ieee,1,surrogate,xgb_tot,total_pd_true,9258938.875,1
-case118_ieee,1,surrogate,xgb_tot,total_pg_pred,9497522.703125,1
-case118_ieee,1,surrogate,xgb_tot,total_pg_true,9472240.34375,1
-case118_ieee,1,surrogate,xgb_tot,train_time_min,5.8759846965471905,1
-case118_ieee,1,surrogate,xgb_tot,vm scenario viol. rate,0.0,1
-case118_ieee,1,surrogate,xgb_tot,vm viol. count,0.0,1
-case118_ieee,1,surrogate,xgb_tot,vm viol. max,0.0,1
-case118_ieee,1,surrogate,xgb_tot,vm viol. mean,0.0,1
-case118_ieee,1,surrogate,xgb_tot,vm viol. rate,0.0,1
+case118_ieee,1,surrogate,xgb_tot,Generator Pg MAE,0.6941876212755839,3
+case118_ieee,1,surrogate,xgb_tot,Generator Pg RMSE,2.669206582493279,3
+case118_ieee,1,surrogate,xgb_tot,MAE Pd,0.2954267254770779,3
+case118_ieee,1,surrogate,xgb_tot,MAE Qd,0.0935622875943601,3
+case118_ieee,1,surrogate,xgb_tot,Mean Optimality Gap,1.1271472374598186,3
+case118_ieee,1,surrogate,xgb_tot,Pg bus MAE,0.31767909456107574,3
+case118_ieee,1,surrogate,xgb_tot,Pg bus RMSE,1.8056686876595645,3
+case118_ieee,1,surrogate,xgb_tot,Qg MAE,0.5526679175048225,3
+case118_ieee,1,surrogate,xgb_tot,Qg RMSE,1.2216932559718432,3
+case118_ieee,1,surrogate,xgb_tot,RMSE Pd,0.7435840885660596,3
+case118_ieee,1,surrogate,xgb_tot,RMSE Qd,0.2459073614607317,3
+case118_ieee,1,surrogate,xgb_tot,Residual P (MAE),0.4461129407087962,3
+case118_ieee,1,surrogate,xgb_tot,Residual Q (MAE),0.11674045523007708,3
+case118_ieee,1,surrogate,xgb_tot,Va MAE,0.18596136797424764,3
+case118_ieee,1,surrogate,xgb_tot,Va RMSE,0.33973423696885746,3
+case118_ieee,1,surrogate,xgb_tot,Vm MAE,0.006309570628876,3
+case118_ieee,1,surrogate,xgb_tot,Vm RMSE,0.007720604508698399,3
+case118_ieee,1,surrogate,xgb_tot,angle scenario viol. rate,0.0,3
+case118_ieee,1,surrogate,xgb_tot,angle viol. count,0.0,3
+case118_ieee,1,surrogate,xgb_tot,angle viol. max,0.0,3
+case118_ieee,1,surrogate,xgb_tot,angle viol. mean,0.0,3
+case118_ieee,1,surrogate,xgb_tot,angle viol. rate,0.0,3
+case118_ieee,1,surrogate,xgb_tot,full_pipeline_infer_s,0.004609944591897466,3
+case118_ieee,1,surrogate,xgb_tot,full_pipeline_infer_total_min,0.3028733596876792,3
+case118_ieee,1,surrogate,xgb_tot,fully feasible scenario viol. rate,1.0,3
+case118_ieee,1,surrogate,xgb_tot,opf_step_infer_s,0.0018603866226043666,3
+case118_ieee,1,surrogate,xgb_tot,opf_step_infer_total_min,0.12222740110511143,3
+case118_ieee,1,surrogate,xgb_tot,pg scenario viol. rate,0.0,3
+case118_ieee,1,surrogate,xgb_tot,pg viol. count,0.0,3
+case118_ieee,1,surrogate,xgb_tot,pg viol. max,0.0,3
+case118_ieee,1,surrogate,xgb_tot,pg viol. mean,0.0,3
+case118_ieee,1,surrogate,xgb_tot,pg viol. rate,0.0,3
+case118_ieee,1,surrogate,xgb_tot,qg scenario viol. rate,1.0,3
+case118_ieee,1,surrogate,xgb_tot,qg viol. count,21182.333333333332,3
+case118_ieee,1,surrogate,xgb_tot,qg viol. max,15.502635955810547,3
+case118_ieee,1,surrogate,xgb_tot,qg viol. mean,0.12335091010669884,3
+case118_ieee,1,surrogate,xgb_tot,qg viol. rate,0.09950924203418704,3
+case118_ieee,1,surrogate,xgb_tot,thermal scenario viol. rate,0.4424150177574835,3
+case118_ieee,1,surrogate,xgb_tot,thermal viol. count,1940.6666666666667,3
+case118_ieee,1,surrogate,xgb_tot,thermal viol. max,7.009429931640625,3
+case118_ieee,1,surrogate,xgb_tot,thermal viol. mean,0.004446557534598767,3
+case118_ieee,1,surrogate,xgb_tot,thermal viol. rate,0.0026468015617129004,3
+case118_ieee,1,surrogate,xgb_tot,total_pd_pred,9268882.5,3
+case118_ieee,1,surrogate,xgb_tot,total_pd_true,9258938.875,3
+case118_ieee,1,surrogate,xgb_tot,total_pg_pred,9502770.6015625,3
+case118_ieee,1,surrogate,xgb_tot,total_pg_true,9472240.34375,3
+case118_ieee,1,surrogate,xgb_tot,train_time_min,5.87598469654719,3
+case118_ieee,1,surrogate,xgb_tot,vm scenario viol. rate,0.0,3
+case118_ieee,1,surrogate,xgb_tot,vm viol. count,0.0,3
+case118_ieee,1,surrogate,xgb_tot,vm viol. max,0.0,3
+case118_ieee,1,surrogate,xgb_tot,vm viol. mean,0.0,3
+case118_ieee,1,surrogate,xgb_tot,vm viol. rate,0.0,3
 case118_ieee,24,ac,sarima,Branch pf RMSE,6.953857680311604,1
 case118_ieee,24,ac,sarima,Branch pt RMSE,6.985056133500029,1
 case118_ieee,24,ac,sarima,Generator Pg MAE,2.386995902769113,1
@@ -1362,6 +1362,58 @@ case118_ieee,24,surrogate,xgb,vm viol. count,0.0,3
 case118_ieee,24,surrogate,xgb,vm viol. max,0.0,3
 case118_ieee,24,surrogate,xgb,vm viol. mean,0.0,3
 case118_ieee,24,surrogate,xgb,vm viol. rate,0.0,3
+case118_ieee,24,surrogate,xgb_tot,Generator Pg MAE,1.9109111229578655,3
+case118_ieee,24,surrogate,xgb_tot,Generator Pg RMSE,8.852706599255756,3
+case118_ieee,24,surrogate,xgb_tot,MAE Pd,1.084061578912151,3
+case118_ieee,24,surrogate,xgb_tot,MAE Qd,0.3618807900169039,3
+case118_ieee,24,surrogate,xgb_tot,Mean Optimality Gap,4.82640282313029,3
+case118_ieee,24,surrogate,xgb_tot,Pg bus MAE,0.8744840264993873,3
+case118_ieee,24,surrogate,xgb_tot,Pg bus RMSE,5.988693209706745,3
+case118_ieee,24,surrogate,xgb_tot,Qg MAE,0.7769113492830999,3
+case118_ieee,24,surrogate,xgb_tot,Qg RMSE,1.8411252815629426,3
+case118_ieee,24,surrogate,xgb_tot,RMSE Pd,2.1669306788139866,3
+case118_ieee,24,surrogate,xgb_tot,RMSE Qd,0.7614763167930249,3
+case118_ieee,24,surrogate,xgb_tot,Residual P (MAE),1.1737159490585327,3
+case118_ieee,24,surrogate,xgb_tot,Residual Q (MAE),0.37709615627924603,3
+case118_ieee,24,surrogate,xgb_tot,Va MAE,0.3816817007231128,3
+case118_ieee,24,surrogate,xgb_tot,Va RMSE,0.6341137758084107,3
+case118_ieee,24,surrogate,xgb_tot,Vm MAE,0.006329145919173734,3
+case118_ieee,24,surrogate,xgb_tot,Vm RMSE,0.007715700291541866,3
+case118_ieee,24,surrogate,xgb_tot,angle scenario viol. rate,0.0,3
+case118_ieee,24,surrogate,xgb_tot,angle viol. count,0.0,3
+case118_ieee,24,surrogate,xgb_tot,angle viol. max,0.0,3
+case118_ieee,24,surrogate,xgb_tot,angle viol. mean,0.0,3
+case118_ieee,24,surrogate,xgb_tot,angle viol. rate,0.0,3
+case118_ieee,24,surrogate,xgb_tot,full_pipeline_infer_s,0.005482938743537401,3
+case118_ieee,24,surrogate,xgb_tot,full_pipeline_infer_total_min,8.595054774369736,3
+case118_ieee,24,surrogate,xgb_tot,fully feasible scenario viol. rate,0.9999822800601059,3
+case118_ieee,24,surrogate,xgb_tot,opf_step_infer_s,0.0005974214489400999,3
+case118_ieee,24,surrogate,xgb_tot,opf_step_infer_total_min,0.9365178633585552,3
+case118_ieee,24,surrogate,xgb_tot,pg scenario viol. rate,0.0,3
+case118_ieee,24,surrogate,xgb_tot,pg viol. count,0.0,3
+case118_ieee,24,surrogate,xgb_tot,pg viol. max,0.0,3
+case118_ieee,24,surrogate,xgb_tot,pg viol. mean,0.0,3
+case118_ieee,24,surrogate,xgb_tot,pg viol. rate,0.0,3
+case118_ieee,24,surrogate,xgb_tot,qg scenario viol. rate,0.9999716480961697,3
+case118_ieee,24,surrogate,xgb_tot,qg viol. count,480738.6666666667,3
+case118_ieee,24,surrogate,xgb_tot,qg viol. max,20.306278228759766,3
+case118_ieee,24,surrogate,xgb_tot,qg viol. mean,0.11315691099658698,3
+case118_ieee,24,surrogate,xgb_tot,qg viol. rate,0.0946517808670852,3
+case118_ieee,24,surrogate,xgb_tot,thermal scenario viol. rate,0.44793527260355526,3
+case118_ieee,24,surrogate,xgb_tot,thermal viol. count,47223.333333333336,3
+case118_ieee,24,surrogate,xgb_tot,thermal viol. max,9.848739624023438,3
+case118_ieee,24,surrogate,xgb_tot,thermal viol. mean,0.0045018655203398995,3
+case118_ieee,24,surrogate,xgb_tot,thermal viol. rate,0.0026993375105137996,3
+case118_ieee,24,surrogate,xgb_tot,total_pd_pred,221309304.8359375,3
+case118_ieee,24,surrogate,xgb_tot,total_pd_true,220853530.84375,3
+case118_ieee,24,surrogate,xgb_tot,total_pg_pred,226835026.1640625,3
+case118_ieee,24,surrogate,xgb_tot,total_pg_true,225941753.15625,3
+case118_ieee,24,surrogate,xgb_tot,train_time_min,55.337064468860625,3
+case118_ieee,24,surrogate,xgb_tot,vm scenario viol. rate,0.0,3
+case118_ieee,24,surrogate,xgb_tot,vm viol. count,0.0,3
+case118_ieee,24,surrogate,xgb_tot,vm viol. max,0.0,3
+case118_ieee,24,surrogate,xgb_tot,vm viol. mean,0.0,3
+case118_ieee,24,surrogate,xgb_tot,vm viol. rate,0.0,3
 case118_ieee,6,ac,sarima,Branch pf RMSE,3.767578300700482,1
 case118_ieee,6,ac,sarima,Branch pt RMSE,3.7829777520213095,1
 case118_ieee,6,ac,sarima,Generator Pg MAE,1.1744271106055404,1
@@ -2016,58 +2068,58 @@ case118_ieee,6,surrogate,xgb,vm viol. count,0.0,3
 case118_ieee,6,surrogate,xgb,vm viol. max,0.0,3
 case118_ieee,6,surrogate,xgb,vm viol. mean,0.0,3
 case118_ieee,6,surrogate,xgb,vm viol. rate,0.0,3
-case118_ieee,6,surrogate,xgb_tot,Generator Pg MAE,1.2710096836090088,1
-case118_ieee,6,surrogate,xgb_tot,Generator Pg RMSE,5.562410503910483,1
-case118_ieee,6,surrogate,xgb_tot,MAE Pd,0.6852906169390385,1
-case118_ieee,6,surrogate,xgb_tot,MAE Qd,0.2266131241462808,1
-case118_ieee,6,surrogate,xgb_tot,Mean Optimality Gap,2.8021240234375,1
-case118_ieee,6,surrogate,xgb_tot,Pg bus MAE,0.5816487356767817,1
-case118_ieee,6,surrogate,xgb_tot,Pg bus RMSE,3.76286627267276,1
-case118_ieee,6,surrogate,xgb_tot,Qg MAE,0.7070779679185253,1
-case118_ieee,6,surrogate,xgb_tot,Qg RMSE,1.5928138919877175,1
-case118_ieee,6,surrogate,xgb_tot,RMSE Pd,1.450957449355842,1
-case118_ieee,6,surrogate,xgb_tot,RMSE Qd,0.5051237111752731,1
-case118_ieee,6,surrogate,xgb_tot,Residual P (MAE),0.8788120150566101,1
-case118_ieee,6,surrogate,xgb_tot,Residual Q (MAE),0.2533884644508362,1
-case118_ieee,6,surrogate,xgb_tot,Va MAE,0.2790003221823071,1
-case118_ieee,6,surrogate,xgb_tot,Va RMSE,0.4831985757721678,1
-case118_ieee,6,surrogate,xgb_tot,Vm MAE,0.0073197256039701,1
-case118_ieee,6,surrogate,xgb_tot,Vm RMSE,0.0090176018193902,1
-case118_ieee,6,surrogate,xgb_tot,angle scenario viol. rate,0.0,1
-case118_ieee,6,surrogate,xgb_tot,angle viol. count,0.0,1
-case118_ieee,6,surrogate,xgb_tot,angle viol. max,0.0,1
-case118_ieee,6,surrogate,xgb_tot,angle viol. mean,0.0,1
-case118_ieee,6,surrogate,xgb_tot,angle viol. rate,0.0,1
-case118_ieee,6,surrogate,xgb_tot,full_pipeline_infer_s,0.0041649422961763,1
-case118_ieee,6,surrogate,xgb_tot,full_pipeline_infer_total_min,1.6397377820046626,1
-case118_ieee,6,surrogate,xgb_tot,fully feasible scenario viol. rate,1.0,1
-case118_ieee,6,surrogate,xgb_tot,opf_step_infer_s,0.0006479377870201,1
-case118_ieee,6,surrogate,xgb_tot,opf_step_infer_total_min,0.25509310674982166,1
-case118_ieee,6,surrogate,xgb_tot,pg scenario viol. rate,0.0,1
-case118_ieee,6,surrogate,xgb_tot,pg viol. count,0.0,1
-case118_ieee,6,surrogate,xgb_tot,pg viol. max,0.0,1
-case118_ieee,6,surrogate,xgb_tot,pg viol. mean,0.0,1
-case118_ieee,6,surrogate,xgb_tot,pg viol. rate,0.0,1
-case118_ieee,6,surrogate,xgb_tot,qg scenario viol. rate,1.0,1
-case118_ieee,6,surrogate,xgb_tot,qg viol. count,126967.0,1
-case118_ieee,6,surrogate,xgb_tot,qg viol. max,25.455322265625,1
-case118_ieee,6,surrogate,xgb_tot,qg viol. mean,0.135133974517696,1
-case118_ieee,6,surrogate,xgb_tot,qg viol. rate,0.0995360570968055,1
-case118_ieee,6,surrogate,xgb_tot,thermal scenario viol. rate,0.4648632630598595,1
-case118_ieee,6,surrogate,xgb_tot,thermal viol. count,14207.0,1
-case118_ieee,6,surrogate,xgb_tot,thermal viol. max,12.631591796875,1
-case118_ieee,6,surrogate,xgb_tot,thermal viol. mean,0.0082770832763391,1
-case118_ieee,6,surrogate,xgb_tot,thermal viol. rate,0.0032334992985398,1
-case118_ieee,6,surrogate,xgb_tot,total_pd_pred,55547807.625,1
-case118_ieee,6,surrogate,xgb_tot,total_pd_true,55470733.87304688,1
-case118_ieee,6,surrogate,xgb_tot,total_pg_pred,56929156.88964844,1
-case118_ieee,6,surrogate,xgb_tot,total_pg_true,56748623.59375,1
-case118_ieee,6,surrogate,xgb_tot,train_time_min,15.144548972447714,1
-case118_ieee,6,surrogate,xgb_tot,vm scenario viol. rate,0.0,1
-case118_ieee,6,surrogate,xgb_tot,vm viol. count,0.0,1
-case118_ieee,6,surrogate,xgb_tot,vm viol. max,0.0,1
-case118_ieee,6,surrogate,xgb_tot,vm viol. mean,0.0,1
-case118_ieee,6,surrogate,xgb_tot,vm viol. rate,0.0,1
+case118_ieee,6,surrogate,xgb_tot,Generator Pg MAE,1.2413632074991863,3
+case118_ieee,6,surrogate,xgb_tot,Generator Pg RMSE,5.620357666711541,3
+case118_ieee,6,surrogate,xgb_tot,MAE Pd,0.6852906169390384,3
+case118_ieee,6,surrogate,xgb_tot,MAE Qd,0.2266131241462808,3
+case118_ieee,6,surrogate,xgb_tot,Mean Optimality Gap,2.812558968861898,3
+case118_ieee,6,surrogate,xgb_tot,Pg bus MAE,0.5680816089366115,3
+case118_ieee,6,surrogate,xgb_tot,Pg bus RMSE,3.8020674705225486,3
+case118_ieee,6,surrogate,xgb_tot,Qg MAE,0.6436701470849204,3
+case118_ieee,6,surrogate,xgb_tot,Qg RMSE,1.4684549401923113,3
+case118_ieee,6,surrogate,xgb_tot,RMSE Pd,1.450957449355842,3
+case118_ieee,6,surrogate,xgb_tot,RMSE Qd,0.5051237111752731,3
+case118_ieee,6,surrogate,xgb_tot,Residual P (MAE),0.8063182830810547,3
+case118_ieee,6,surrogate,xgb_tot,Residual Q (MAE),0.2453290671110153,3
+case118_ieee,6,surrogate,xgb_tot,Va MAE,0.2685496473794579,3
+case118_ieee,6,surrogate,xgb_tot,Va RMSE,0.4613571346176877,3
+case118_ieee,6,surrogate,xgb_tot,Vm MAE,0.00631163780588,3
+case118_ieee,6,surrogate,xgb_tot,Vm RMSE,0.007711428017832034,3
+case118_ieee,6,surrogate,xgb_tot,angle scenario viol. rate,0.0,3
+case118_ieee,6,surrogate,xgb_tot,angle viol. count,0.0,3
+case118_ieee,6,surrogate,xgb_tot,angle viol. max,0.0,3
+case118_ieee,6,surrogate,xgb_tot,angle viol. mean,0.0,3
+case118_ieee,6,surrogate,xgb_tot,angle viol. rate,0.0,3
+case118_ieee,6,surrogate,xgb_tot,full_pipeline_infer_s,0.0041515991456667995,3
+case118_ieee,6,surrogate,xgb_tot,full_pipeline_infer_total_min,1.634484583649117,3
+case118_ieee,6,surrogate,xgb_tot,fully feasible scenario viol. rate,1.0,3
+case118_ieee,6,surrogate,xgb_tot,opf_step_infer_s,0.0006345946365106,3
+case118_ieee,6,surrogate,xgb_tot,opf_step_infer_total_min,0.2498399083942382,3
+case118_ieee,6,surrogate,xgb_tot,pg scenario viol. rate,0.0,3
+case118_ieee,6,surrogate,xgb_tot,pg viol. count,0.0,3
+case118_ieee,6,surrogate,xgb_tot,pg viol. max,0.0,3
+case118_ieee,6,surrogate,xgb_tot,pg viol. mean,0.0,3
+case118_ieee,6,surrogate,xgb_tot,pg viol. rate,0.0,3
+case118_ieee,6,surrogate,xgb_tot,qg scenario viol. rate,0.9999858888606665,3
+case118_ieee,6,surrogate,xgb_tot,qg viol. count,124356.66666666667,3
+case118_ieee,6,surrogate,xgb_tot,qg viol. max,16.753130594889324,3
+case118_ieee,6,surrogate,xgb_tot,qg viol. mean,0.118371801606086,3
+case118_ieee,6,surrogate,xgb_tot,qg viol. rate,0.09748968057606894,3
+case118_ieee,6,surrogate,xgb_tot,thermal scenario viol. rate,0.4479157847204583,3
+case118_ieee,6,surrogate,xgb_tot,thermal viol. count,12000.333333333334,3
+case118_ieee,6,surrogate,xgb_tot,thermal viol. max,9.210489908854166,3
+case118_ieee,6,surrogate,xgb_tot,thermal viol. mean,0.0048712262456368,3
+case118_ieee,6,surrogate,xgb_tot,thermal viol. rate,0.0027312641244159,3
+case118_ieee,6,surrogate,xgb_tot,total_pd_pred,55547807.625,3
+case118_ieee,6,surrogate,xgb_tot,total_pd_true,55470733.87304688,3
+case118_ieee,6,surrogate,xgb_tot,total_pg_pred,56951688.02897135,3
+case118_ieee,6,surrogate,xgb_tot,total_pg_true,56748623.59375,3
+case118_ieee,6,surrogate,xgb_tot,train_time_min,15.144548972447714,3
+case118_ieee,6,surrogate,xgb_tot,vm scenario viol. rate,0.0,3
+case118_ieee,6,surrogate,xgb_tot,vm viol. count,0.0,3
+case118_ieee,6,surrogate,xgb_tot,vm viol. max,0.0,3
+case118_ieee,6,surrogate,xgb_tot,vm viol. mean,0.0,3
+case118_ieee,6,surrogate,xgb_tot,vm viol. rate,0.0,3
 case14_ieee,1,ac,sarima,Branch pf RMSE,0.3263608431914531,1
 case14_ieee,1,ac,sarima,Branch pt RMSE,0.31776991210942,1
 case14_ieee,1,ac,sarima,Generator Pg MAE,0.2216321471735896,1
@@ -2723,58 +2775,58 @@ case14_ieee,1,surrogate,xgb,vm viol. count,0.0,3
 case14_ieee,1,surrogate,xgb,vm viol. max,0.0,3
 case14_ieee,1,surrogate,xgb,vm viol. mean,0.0,3
 case14_ieee,1,surrogate,xgb,vm viol. rate,0.0,3
-case14_ieee,1,surrogate,xgb_tot,Generator Pg MAE,0.4260468184947967,1
-case14_ieee,1,surrogate,xgb_tot,Generator Pg RMSE,1.2121905826727075,1
-case14_ieee,1,surrogate,xgb_tot,MAE Pd,0.1727729354153908,1
-case14_ieee,1,surrogate,xgb_tot,MAE Qd,0.048582445100277,1
-case14_ieee,1,surrogate,xgb_tot,Mean Optimality Gap,1.304949402809143,1
-case14_ieee,1,surrogate,xgb_tot,Pg bus MAE,0.1521595535533768,1
-case14_ieee,1,surrogate,xgb_tot,Pg bus RMSE,0.7244222933425012,1
-case14_ieee,1,surrogate,xgb_tot,Qg MAE,0.131341597863606,1
-case14_ieee,1,surrogate,xgb_tot,Qg RMSE,0.3085247759453238,1
-case14_ieee,1,surrogate,xgb_tot,RMSE Pd,0.5041053816121468,1
-case14_ieee,1,surrogate,xgb_tot,RMSE Qd,0.112065612848963,1
-case14_ieee,1,surrogate,xgb_tot,Residual P (MAE),0.1741408258676529,1
-case14_ieee,1,surrogate,xgb_tot,Residual Q (MAE),0.0501945912837982,1
-case14_ieee,1,surrogate,xgb_tot,Va MAE,0.085198867807878,1
-case14_ieee,1,surrogate,xgb_tot,Va RMSE,0.1180780942752579,1
-case14_ieee,1,surrogate,xgb_tot,Vm MAE,0.0045103058218955,1
-case14_ieee,1,surrogate,xgb_tot,Vm RMSE,0.0045982596505683,1
-case14_ieee,1,surrogate,xgb_tot,angle scenario viol. rate,0.0,1
-case14_ieee,1,surrogate,xgb_tot,angle viol. count,0.0,1
-case14_ieee,1,surrogate,xgb_tot,angle viol. max,0.0,1
-case14_ieee,1,surrogate,xgb_tot,angle viol. mean,0.0,1
-case14_ieee,1,surrogate,xgb_tot,angle viol. rate,0.0,1
-case14_ieee,1,surrogate,xgb_tot,full_pipeline_infer_s,0.020206834213211903,1
-case14_ieee,1,surrogate,xgb_tot,full_pipeline_infer_total_min,1.3275890078080441,1
-case14_ieee,1,surrogate,xgb_tot,fully feasible scenario viol. rate,0.4713343480466768,1
-case14_ieee,1,surrogate,xgb_tot,opf_step_infer_s,0.0042091871837088,1
-case14_ieee,1,surrogate,xgb_tot,opf_step_infer_total_min,0.2765435979696728,1
-case14_ieee,1,surrogate,xgb_tot,pg scenario viol. rate,0.0,1
-case14_ieee,1,surrogate,xgb_tot,pg viol. count,0.0,1
-case14_ieee,1,surrogate,xgb_tot,pg viol. max,0.0,1
-case14_ieee,1,surrogate,xgb_tot,pg viol. mean,0.0,1
-case14_ieee,1,surrogate,xgb_tot,pg viol. rate,0.0,1
-case14_ieee,1,surrogate,xgb_tot,qg scenario viol. rate,0.4713343480466768,1
-case14_ieee,1,surrogate,xgb_tot,qg viol. count,3042.0,1
-case14_ieee,1,surrogate,xgb_tot,qg viol. max,0.7393965721130371,1
-case14_ieee,1,surrogate,xgb_tot,qg viol. mean,0.0353886770028743,1
-case14_ieee,1,surrogate,xgb_tot,qg viol. rate,0.154337899543379,1
-case14_ieee,1,surrogate,xgb_tot,thermal scenario viol. rate,0.0,1
-case14_ieee,1,surrogate,xgb_tot,thermal viol. count,0.0,1
-case14_ieee,1,surrogate,xgb_tot,thermal viol. max,0.0,1
-case14_ieee,1,surrogate,xgb_tot,thermal viol. mean,0.0,1
-case14_ieee,1,surrogate,xgb_tot,thermal viol. rate,0.0,1
-case14_ieee,1,surrogate,xgb_tot,total_pd_pred,561534.853515625,1
-case14_ieee,1,surrogate,xgb_tot,total_pd_true,563544.767578125,1
-case14_ieee,1,surrogate,xgb_tot,total_pg_pred,580753.119140625,1
-case14_ieee,1,surrogate,xgb_tot,total_pg_true,582961.0146484375,1
-case14_ieee,1,surrogate,xgb_tot,train_time_min,0.8557569106419881,1
-case14_ieee,1,surrogate,xgb_tot,vm scenario viol. rate,0.0,1
-case14_ieee,1,surrogate,xgb_tot,vm viol. count,0.0,1
-case14_ieee,1,surrogate,xgb_tot,vm viol. max,0.0,1
-case14_ieee,1,surrogate,xgb_tot,vm viol. mean,0.0,1
-case14_ieee,1,surrogate,xgb_tot,vm viol. rate,0.0,1
+case14_ieee,1,surrogate,xgb_tot,Generator Pg MAE,0.4319961667060852,3
+case14_ieee,1,surrogate,xgb_tot,Generator Pg RMSE,1.215262342559269,3
+case14_ieee,1,surrogate,xgb_tot,MAE Pd,0.17277293541539077,3
+case14_ieee,1,surrogate,xgb_tot,MAE Qd,0.048582445100277004,3
+case14_ieee,1,surrogate,xgb_tot,Mean Optimality Gap,1.3071369727452595,3
+case14_ieee,1,surrogate,xgb_tot,Pg bus MAE,0.1542843440104098,3
+case14_ieee,1,surrogate,xgb_tot,Pg bus RMSE,0.726258090207379,3
+case14_ieee,1,surrogate,xgb_tot,Qg MAE,0.1260974634261358,3
+case14_ieee,1,surrogate,xgb_tot,Qg RMSE,0.3064426606760747,3
+case14_ieee,1,surrogate,xgb_tot,RMSE Pd,0.5041053816121468,3
+case14_ieee,1,surrogate,xgb_tot,RMSE Qd,0.112065612848963,3
+case14_ieee,1,surrogate,xgb_tot,Residual P (MAE),0.17369275291760758,3
+case14_ieee,1,surrogate,xgb_tot,Residual Q (MAE),0.050052373359600666,3
+case14_ieee,1,surrogate,xgb_tot,Va MAE,0.0856212386512038,3
+case14_ieee,1,surrogate,xgb_tot,Va RMSE,0.11869264025850253,3
+case14_ieee,1,surrogate,xgb_tot,Vm MAE,0.0043176893710291,3
+case14_ieee,1,surrogate,xgb_tot,Vm RMSE,0.0044297580237678,3
+case14_ieee,1,surrogate,xgb_tot,angle scenario viol. rate,0.0,3
+case14_ieee,1,surrogate,xgb_tot,angle viol. count,0.0,3
+case14_ieee,1,surrogate,xgb_tot,angle viol. max,0.0,3
+case14_ieee,1,surrogate,xgb_tot,angle viol. mean,0.0,3
+case14_ieee,1,surrogate,xgb_tot,angle viol. rate,0.0,3
+case14_ieee,1,surrogate,xgb_tot,full_pipeline_infer_s,0.018075129732622902,3
+case14_ieee,1,surrogate,xgb_tot,full_pipeline_infer_total_min,1.1875360234333698,3
+case14_ieee,1,surrogate,xgb_tot,fully feasible scenario viol. rate,0.5096397767630644,3
+case14_ieee,1,surrogate,xgb_tot,opf_step_infer_s,0.0020774827031198,3
+case14_ieee,1,surrogate,xgb_tot,opf_step_infer_total_min,0.1364906135949746,3
+case14_ieee,1,surrogate,xgb_tot,pg scenario viol. rate,0.0,3
+case14_ieee,1,surrogate,xgb_tot,pg viol. count,0.0,3
+case14_ieee,1,surrogate,xgb_tot,pg viol. max,0.0,3
+case14_ieee,1,surrogate,xgb_tot,pg viol. mean,0.0,3
+case14_ieee,1,surrogate,xgb_tot,pg viol. rate,0.0,3
+case14_ieee,1,surrogate,xgb_tot,qg scenario viol. rate,0.5096397767630644,3
+case14_ieee,1,surrogate,xgb_tot,qg viol. count,2899.6666666666665,3
+case14_ieee,1,surrogate,xgb_tot,qg viol. max,0.7362731297810873,3
+case14_ieee,1,surrogate,xgb_tot,qg viol. mean,0.02691813833758283,3
+case14_ieee,1,surrogate,xgb_tot,qg viol. rate,0.14711652291560964,3
+case14_ieee,1,surrogate,xgb_tot,thermal scenario viol. rate,0.0,3
+case14_ieee,1,surrogate,xgb_tot,thermal viol. count,0.0,3
+case14_ieee,1,surrogate,xgb_tot,thermal viol. max,0.0,3
+case14_ieee,1,surrogate,xgb_tot,thermal viol. mean,0.0,3
+case14_ieee,1,surrogate,xgb_tot,thermal viol. rate,0.0,3
+case14_ieee,1,surrogate,xgb_tot,total_pd_pred,561534.853515625,3
+case14_ieee,1,surrogate,xgb_tot,total_pd_true,563544.767578125,3
+case14_ieee,1,surrogate,xgb_tot,total_pg_pred,580771.9503580729,3
+case14_ieee,1,surrogate,xgb_tot,total_pg_true,582961.0146484375,3
+case14_ieee,1,surrogate,xgb_tot,train_time_min,0.8557569106419881,3
+case14_ieee,1,surrogate,xgb_tot,vm scenario viol. rate,0.0,3
+case14_ieee,1,surrogate,xgb_tot,vm viol. count,0.0,3
+case14_ieee,1,surrogate,xgb_tot,vm viol. max,0.0,3
+case14_ieee,1,surrogate,xgb_tot,vm viol. mean,0.0,3
+case14_ieee,1,surrogate,xgb_tot,vm viol. rate,0.0,3
 case14_ieee,24,ac,sarima,Branch pf RMSE,2.664994238474196,1
 case14_ieee,24,ac,sarima,Branch pt RMSE,2.5843164532772485,1
 case14_ieee,24,ac,sarima,Generator Pg MAE,1.88862377897149,1
@@ -3429,6 +3481,58 @@ case14_ieee,24,surrogate,xgb,vm viol. count,0.0,3
 case14_ieee,24,surrogate,xgb,vm viol. max,0.0,3
 case14_ieee,24,surrogate,xgb,vm viol. mean,0.0,3
 case14_ieee,24,surrogate,xgb,vm viol. rate,0.0,3
+case14_ieee,24,surrogate,xgb_tot,Generator Pg MAE,1.628045678138733,3
+case14_ieee,24,surrogate,xgb_tot,Generator Pg RMSE,4.69683422047607,3
+case14_ieee,24,surrogate,xgb_tot,MAE Pd,0.6759805221250769,3
+case14_ieee,24,surrogate,xgb_tot,MAE Qd,0.1943687470298582,3
+case14_ieee,24,surrogate,xgb_tot,Mean Optimality Gap,5.6900943120320635,3
+case14_ieee,24,surrogate,xgb_tot,Pg bus MAE,0.581445161962793,3
+case14_ieee,24,surrogate,xgb_tot,Pg bus RMSE,2.8068953112581982,3
+case14_ieee,24,surrogate,xgb_tot,Qg MAE,0.353274914480391,3
+case14_ieee,24,surrogate,xgb_tot,Qg RMSE,0.9068763345449357,3
+case14_ieee,24,surrogate,xgb_tot,RMSE Pd,1.4919636894326078,3
+case14_ieee,24,surrogate,xgb_tot,RMSE Qd,0.3685137621782251,3
+case14_ieee,24,surrogate,xgb_tot,Residual P (MAE),0.6748820741971334,3
+case14_ieee,24,surrogate,xgb_tot,Residual Q (MAE),0.19611735145250953,3
+case14_ieee,24,surrogate,xgb_tot,Va MAE,0.3499562540943662,3
+case14_ieee,24,surrogate,xgb_tot,Va RMSE,0.491666062177415,3
+case14_ieee,24,surrogate,xgb_tot,Vm MAE,0.0042743435451051,3
+case14_ieee,24,surrogate,xgb_tot,Vm RMSE,0.004574351075151734,3
+case14_ieee,24,surrogate,xgb_tot,angle scenario viol. rate,0.0,3
+case14_ieee,24,surrogate,xgb_tot,angle viol. count,0.0,3
+case14_ieee,24,surrogate,xgb_tot,angle viol. max,0.0,3
+case14_ieee,24,surrogate,xgb_tot,angle viol. mean,0.0,3
+case14_ieee,24,surrogate,xgb_tot,angle viol. rate,0.0,3
+case14_ieee,24,surrogate,xgb_tot,full_pipeline_infer_s,0.0124229422382171,3
+case14_ieee,24,surrogate,xgb_tot,full_pipeline_infer_total_min,19.474204252630418,3
+case14_ieee,24,surrogate,xgb_tot,fully feasible scenario viol. rate,0.46234867171330557,3
+case14_ieee,24,surrogate,xgb_tot,opf_step_infer_s,0.0006032601449251,3
+case14_ieee,24,surrogate,xgb_tot,opf_step_infer_total_min,0.9456706031846503,3
+case14_ieee,24,surrogate,xgb_tot,pg scenario viol. rate,0.0,3
+case14_ieee,24,surrogate,xgb_tot,pg viol. count,0.0,3
+case14_ieee,24,surrogate,xgb_tot,pg viol. max,0.0,3
+case14_ieee,24,surrogate,xgb_tot,pg viol. mean,0.0,3
+case14_ieee,24,surrogate,xgb_tot,pg viol. rate,0.0,3
+case14_ieee,24,surrogate,xgb_tot,qg scenario viol. rate,0.46234867171330557,3
+case14_ieee,24,surrogate,xgb_tot,qg viol. count,64028.0,3
+case14_ieee,24,surrogate,xgb_tot,qg viol. max,0.8808956146240234,3
+case14_ieee,24,surrogate,xgb_tot,qg viol. mean,0.027568680220697167,3
+case14_ieee,24,surrogate,xgb_tot,qg viol. rate,0.13614867738368627,3
+case14_ieee,24,surrogate,xgb_tot,thermal scenario viol. rate,0.0,3
+case14_ieee,24,surrogate,xgb_tot,thermal viol. count,0.0,3
+case14_ieee,24,surrogate,xgb_tot,thermal viol. max,0.0,3
+case14_ieee,24,surrogate,xgb_tot,thermal viol. mean,0.0,3
+case14_ieee,24,surrogate,xgb_tot,thermal viol. rate,0.0,3
+case14_ieee,24,surrogate,xgb_tot,total_pd_pred,13405965.86669922,3
+case14_ieee,24,surrogate,xgb_tot,total_pd_true,13445338.379394531,3
+case14_ieee,24,surrogate,xgb_tot,total_pg_pred,13866742.006998697,3
+case14_ieee,24,surrogate,xgb_tot,total_pg_true,13908670.036132812,3
+case14_ieee,24,surrogate,xgb_tot,train_time_min,9.682101464271545,3
+case14_ieee,24,surrogate,xgb_tot,vm scenario viol. rate,0.0,3
+case14_ieee,24,surrogate,xgb_tot,vm viol. count,0.0,3
+case14_ieee,24,surrogate,xgb_tot,vm viol. max,0.0,3
+case14_ieee,24,surrogate,xgb_tot,vm viol. mean,0.0,3
+case14_ieee,24,surrogate,xgb_tot,vm viol. rate,0.0,3
 case14_ieee,6,ac,sarima,Branch pf RMSE,1.4479757995601503,1
 case14_ieee,6,ac,sarima,Branch pt RMSE,1.406623223561614,1
 case14_ieee,6,ac,sarima,Generator Pg MAE,0.9331117946465984,1
@@ -4083,58 +4187,58 @@ case14_ieee,6,surrogate,xgb,vm viol. count,0.0,3
 case14_ieee,6,surrogate,xgb,vm viol. max,0.0,3
 case14_ieee,6,surrogate,xgb,vm viol. mean,0.0,3
 case14_ieee,6,surrogate,xgb,vm viol. rate,0.0,3
-case14_ieee,6,surrogate,xgb_tot,Generator Pg MAE,0.934108018875122,1
-case14_ieee,6,surrogate,xgb_tot,Generator Pg RMSE,2.828642908379388,1
-case14_ieee,6,surrogate,xgb_tot,MAE Pd,0.3839325972729319,1
-case14_ieee,6,surrogate,xgb_tot,MAE Qd,0.1116103272347673,1
-case14_ieee,6,surrogate,xgb_tot,Mean Optimality Gap,3.1532142162323,1
-case14_ieee,6,surrogate,xgb_tot,Pg bus MAE,0.3336102004562105,1
-case14_ieee,6,surrogate,xgb_tot,Pg bus RMSE,1.6904373185694748,1
-case14_ieee,6,surrogate,xgb_tot,Qg MAE,0.2244685930865151,1
-case14_ieee,6,surrogate,xgb_tot,Qg RMSE,0.5773780998366449,1
-case14_ieee,6,surrogate,xgb_tot,RMSE Pd,0.9721295621991864,1
-case14_ieee,6,surrogate,xgb_tot,RMSE Qd,0.2322471645936037,1
-case14_ieee,6,surrogate,xgb_tot,Residual P (MAE),0.3840641975402832,1
-case14_ieee,6,surrogate,xgb_tot,Residual Q (MAE),0.1127250641584396,1
-case14_ieee,6,surrogate,xgb_tot,Va MAE,0.1924886389361163,1
-case14_ieee,6,surrogate,xgb_tot,Va RMSE,0.286666013450005,1
-case14_ieee,6,surrogate,xgb_tot,Vm MAE,0.0044813549279102,1
-case14_ieee,6,surrogate,xgb_tot,Vm RMSE,0.0046402436112034,1
-case14_ieee,6,surrogate,xgb_tot,angle scenario viol. rate,0.0,1
-case14_ieee,6,surrogate,xgb_tot,angle viol. count,0.0,1
-case14_ieee,6,surrogate,xgb_tot,angle viol. max,0.0,1
-case14_ieee,6,surrogate,xgb_tot,angle viol. mean,0.0,1
-case14_ieee,6,surrogate,xgb_tot,angle viol. rate,0.0,1
-case14_ieee,6,surrogate,xgb_tot,full_pipeline_infer_s,0.011766572407033,1
-case14_ieee,6,surrogate,xgb_tot,full_pipeline_infer_total_min,4.632499556649273,1
-case14_ieee,6,surrogate,xgb_tot,fully feasible scenario viol. rate,0.4571585809838286,1
-case14_ieee,6,surrogate,xgb_tot,opf_step_infer_s,0.0006261553293506,1
-case14_ieee,6,surrogate,xgb_tot,opf_step_infer_total_min,0.24651735316535148,1
-case14_ieee,6,surrogate,xgb_tot,pg scenario viol. rate,0.0,1
-case14_ieee,6,surrogate,xgb_tot,pg viol. count,0.0,1
-case14_ieee,6,surrogate,xgb_tot,pg viol. max,0.0,1
-case14_ieee,6,surrogate,xgb_tot,pg viol. mean,0.0,1
-case14_ieee,6,surrogate,xgb_tot,pg viol. rate,0.0,1
-case14_ieee,6,surrogate,xgb_tot,qg scenario viol. rate,0.4571585809838286,1
-case14_ieee,6,surrogate,xgb_tot,qg viol. count,17754.0,1
-case14_ieee,6,surrogate,xgb_tot,qg viol. max,0.9148159027099608,1
-case14_ieee,6,surrogate,xgb_tot,qg viol. mean,0.0360425069263288,1
-case14_ieee,6,surrogate,xgb_tot,qg viol. rate,0.1503175006350012,1
-case14_ieee,6,surrogate,xgb_tot,thermal scenario viol. rate,0.0,1
-case14_ieee,6,surrogate,xgb_tot,thermal viol. count,0.0,1
-case14_ieee,6,surrogate,xgb_tot,thermal viol. max,0.0,1
-case14_ieee,6,surrogate,xgb_tot,thermal viol. mean,0.0,1
-case14_ieee,6,surrogate,xgb_tot,thermal viol. rate,0.0,1
-case14_ieee,6,surrogate,xgb_tot,total_pd_pred,3361238.446899414,1
-case14_ieee,6,surrogate,xgb_tot,total_pd_true,3376389.869995117,1
-case14_ieee,6,surrogate,xgb_tot,total_pg_pred,3475873.307739258,1
-case14_ieee,6,surrogate,xgb_tot,total_pg_true,3492706.235290528,1
-case14_ieee,6,surrogate,xgb_tot,train_time_min,3.2126564939816804,1
-case14_ieee,6,surrogate,xgb_tot,vm scenario viol. rate,0.0,1
-case14_ieee,6,surrogate,xgb_tot,vm viol. count,0.0,1
-case14_ieee,6,surrogate,xgb_tot,vm viol. max,0.0,1
-case14_ieee,6,surrogate,xgb_tot,vm viol. mean,0.0,1
-case14_ieee,6,surrogate,xgb_tot,vm viol. rate,0.0,1
+case14_ieee,6,surrogate,xgb_tot,Generator Pg MAE,0.9392781654993693,3
+case14_ieee,6,surrogate,xgb_tot,Generator Pg RMSE,2.8281361014112605,3
+case14_ieee,6,surrogate,xgb_tot,MAE Pd,0.3839325972729319,3
+case14_ieee,6,surrogate,xgb_tot,MAE Qd,0.11161032723476731,3
+case14_ieee,6,surrogate,xgb_tot,Mean Optimality Gap,3.151877005894979,3
+case14_ieee,6,surrogate,xgb_tot,Pg bus MAE,0.3354564635526566,3
+case14_ieee,6,surrogate,xgb_tot,Pg bus RMSE,1.6901343614404991,3
+case14_ieee,6,surrogate,xgb_tot,Qg MAE,0.21951156570797872,3
+case14_ieee,6,surrogate,xgb_tot,Qg RMSE,0.5770980605343123,3
+case14_ieee,6,surrogate,xgb_tot,RMSE Pd,0.9721295621991864,3
+case14_ieee,6,surrogate,xgb_tot,RMSE Qd,0.2322471645936037,3
+case14_ieee,6,surrogate,xgb_tot,Residual P (MAE),0.3835851351420085,3
+case14_ieee,6,surrogate,xgb_tot,Residual Q (MAE),0.1126173709829648,3
+case14_ieee,6,surrogate,xgb_tot,Va MAE,0.1931153878808719,3
+case14_ieee,6,surrogate,xgb_tot,Va RMSE,0.28710731774987114,3
+case14_ieee,6,surrogate,xgb_tot,Vm MAE,0.004292796964624067,3
+case14_ieee,6,surrogate,xgb_tot,Vm RMSE,0.0044792393111386,3
+case14_ieee,6,surrogate,xgb_tot,angle scenario viol. rate,0.0,3
+case14_ieee,6,surrogate,xgb_tot,angle viol. count,0.0,3
+case14_ieee,6,surrogate,xgb_tot,angle viol. max,0.0,3
+case14_ieee,6,surrogate,xgb_tot,angle viol. mean,0.0,3
+case14_ieee,6,surrogate,xgb_tot,angle viol. rate,0.0,3
+case14_ieee,6,surrogate,xgb_tot,full_pipeline_infer_s,0.011756491914677966,3
+case14_ieee,6,surrogate,xgb_tot,full_pipeline_infer_total_min,4.628530866809093,3
+case14_ieee,6,surrogate,xgb_tot,fully feasible scenario viol. rate,0.5004656675980018,3
+case14_ieee,6,surrogate,xgb_tot,opf_step_infer_s,0.0006160748369955667,3
+case14_ieee,6,surrogate,xgb_tot,opf_step_infer_total_min,0.24254866332517444,3
+case14_ieee,6,surrogate,xgb_tot,pg scenario viol. rate,0.0,3
+case14_ieee,6,surrogate,xgb_tot,pg viol. count,0.0,3
+case14_ieee,6,surrogate,xgb_tot,pg viol. max,0.0,3
+case14_ieee,6,surrogate,xgb_tot,pg viol. mean,0.0,3
+case14_ieee,6,surrogate,xgb_tot,pg viol. rate,0.0,3
+case14_ieee,6,surrogate,xgb_tot,qg scenario viol. rate,0.5004656675980018,3
+case14_ieee,6,surrogate,xgb_tot,qg viol. count,17109.666666666668,3
+case14_ieee,6,surrogate,xgb_tot,qg viol. max,0.8332748413085938,3
+case14_ieee,6,surrogate,xgb_tot,qg viol. mean,0.027029551041438102,3
+case14_ieee,6,surrogate,xgb_tot,qg viol. rate,0.14486213416871277,3
+case14_ieee,6,surrogate,xgb_tot,thermal scenario viol. rate,0.0,3
+case14_ieee,6,surrogate,xgb_tot,thermal viol. count,0.0,3
+case14_ieee,6,surrogate,xgb_tot,thermal viol. max,0.0,3
+case14_ieee,6,surrogate,xgb_tot,thermal viol. mean,0.0,3
+case14_ieee,6,surrogate,xgb_tot,thermal viol. rate,0.0,3
+case14_ieee,6,surrogate,xgb_tot,total_pd_pred,3361238.446899414,3
+case14_ieee,6,surrogate,xgb_tot,total_pd_true,3376389.869995117,3
+case14_ieee,6,surrogate,xgb_tot,total_pg_pred,3476025.922261556,3
+case14_ieee,6,surrogate,xgb_tot,total_pg_true,3492706.235290528,3
+case14_ieee,6,surrogate,xgb_tot,train_time_min,3.212656493981681,3
+case14_ieee,6,surrogate,xgb_tot,vm scenario viol. rate,0.0,3
+case14_ieee,6,surrogate,xgb_tot,vm viol. count,0.0,3
+case14_ieee,6,surrogate,xgb_tot,vm viol. max,0.0,3
+case14_ieee,6,surrogate,xgb_tot,vm viol. mean,0.0,3
+case14_ieee,6,surrogate,xgb_tot,vm viol. rate,0.0,3
 case500_goc,1,ac,sarima,Branch pf RMSE,2.733297405317275,1
 case500_goc,1,ac,sarima,Branch pt RMSE,2.733289621699916,1
 case500_goc,1,ac,sarima,Generator Pg MAE,0.4204239020849929,1
@@ -4792,58 +4896,58 @@ case500_goc,1,surrogate,xgb,vm viol. count,0.0,3
 case500_goc,1,surrogate,xgb,vm viol. max,0.0,3
 case500_goc,1,surrogate,xgb,vm viol. mean,0.0,3
 case500_goc,1,surrogate,xgb,vm viol. rate,0.0,3
-case500_goc,1,surrogate,xgb_tot,Generator Pg MAE,4.517815589904785,1
-case500_goc,1,surrogate,xgb_tot,Generator Pg RMSE,9.544765407902624,1
-case500_goc,1,surrogate,xgb_tot,MAE Pd,0.2952800831787481,1
-case500_goc,1,surrogate,xgb_tot,MAE Qd,0.0714602260115423,1
-case500_goc,1,surrogate,xgb_tot,Mean Optimality Gap,2.9447078704833984,1
-case500_goc,1,surrogate,xgb_tot,Pg bus MAE,1.5289237651824952,1
-case500_goc,1,surrogate,xgb_tot,Pg bus RMSE,6.956979821539278,1
-case500_goc,1,surrogate,xgb_tot,Qg MAE,1.6362767562866212,1
-case500_goc,1,surrogate,xgb_tot,Qg RMSE,5.341798208980638,1
-case500_goc,1,surrogate,xgb_tot,RMSE Pd,0.8186566202302271,1
-case500_goc,1,surrogate,xgb_tot,RMSE Qd,0.1807865447143132,1
-case500_goc,1,surrogate,xgb_tot,Residual P (MAE),3.944019079208374,1
-case500_goc,1,surrogate,xgb_tot,Residual Q (MAE),1.651301383972168,1
-case500_goc,1,surrogate,xgb_tot,Va MAE,2.4282070110557537,1
-case500_goc,1,surrogate,xgb_tot,Va RMSE,3.727159511367748,1
-case500_goc,1,surrogate,xgb_tot,Vm MAE,0.0251986869946122,1
-case500_goc,1,surrogate,xgb_tot,Vm RMSE,0.0307311041450673,1
-case500_goc,1,surrogate,xgb_tot,angle scenario viol. rate,0.0,1
-case500_goc,1,surrogate,xgb_tot,angle viol. count,0.0,1
-case500_goc,1,surrogate,xgb_tot,angle viol. max,0.0,1
-case500_goc,1,surrogate,xgb_tot,angle viol. mean,0.0,1
-case500_goc,1,surrogate,xgb_tot,angle viol. rate,0.0,1
-case500_goc,1,surrogate,xgb_tot,full_pipeline_infer_s,0.0049803502242247,1
-case500_goc,1,surrogate,xgb_tot,full_pipeline_infer_total_min,0.3272090097315735,1
-case500_goc,1,surrogate,xgb_tot,fully feasible scenario viol. rate,1.0,1
-case500_goc,1,surrogate,xgb_tot,opf_step_infer_s,0.0013034197052253,1
-case500_goc,1,surrogate,xgb_tot,opf_step_infer_total_min,0.08563467463330501,1
-case500_goc,1,surrogate,xgb_tot,pg scenario viol. rate,0.0,1
-case500_goc,1,surrogate,xgb_tot,pg viol. count,0.0,1
-case500_goc,1,surrogate,xgb_tot,pg viol. max,0.0,1
-case500_goc,1,surrogate,xgb_tot,pg viol. mean,0.0,1
-case500_goc,1,surrogate,xgb_tot,pg viol. rate,0.0,1
-case500_goc,1,surrogate,xgb_tot,qg scenario viol. rate,1.0,1
-case500_goc,1,surrogate,xgb_tot,qg viol. count,91059.0,1
-case500_goc,1,surrogate,xgb_tot,qg viol. max,30.11285972595215,1
-case500_goc,1,surrogate,xgb_tot,qg viol. mean,0.8468675741560144,1
-case500_goc,1,surrogate,xgb_tot,qg viol. rate,0.2044220848318314,1
-case500_goc,1,surrogate,xgb_tot,thermal scenario viol. rate,0.0,1
-case500_goc,1,surrogate,xgb_tot,thermal viol. count,0.0,1
-case500_goc,1,surrogate,xgb_tot,thermal viol. max,0.0,1
-case500_goc,1,surrogate,xgb_tot,thermal viol. mean,0.0,1
-case500_goc,1,surrogate,xgb_tot,thermal viol. rate,0.0,1
-case500_goc,1,surrogate,xgb_tot,total_pd_pred,48962101.90625,1
-case500_goc,1,surrogate,xgb_tot,total_pd_true,48983724.34375,1
-case500_goc,1,surrogate,xgb_tot,total_pg_pred,50064193.75,1
-case500_goc,1,surrogate,xgb_tot,total_pg_true,49760563.375,1
-case500_goc,1,surrogate,xgb_tot,train_time_min,20.23681801954905,1
-case500_goc,1,surrogate,xgb_tot,vm scenario viol. rate,0.0,1
-case500_goc,1,surrogate,xgb_tot,vm viol. count,0.0,1
-case500_goc,1,surrogate,xgb_tot,vm viol. max,0.0,1
-case500_goc,1,surrogate,xgb_tot,vm viol. mean,0.0,1
-case500_goc,1,surrogate,xgb_tot,vm viol. rate,0.0,1
+case500_goc,1,surrogate,xgb_tot,Generator Pg MAE,4.705514272054036,3
+case500_goc,1,surrogate,xgb_tot,Generator Pg RMSE,10.837189422381128,3
+case500_goc,1,surrogate,xgb_tot,MAE Pd,0.2952800831787481,3
+case500_goc,1,surrogate,xgb_tot,MAE Qd,0.0714602260115423,3
+case500_goc,1,surrogate,xgb_tot,Mean Optimality Gap,2.7069124380747476,3
+case500_goc,1,surrogate,xgb_tot,Pg bus MAE,1.5924581546783447,3
+case500_goc,1,surrogate,xgb_tot,Pg bus RMSE,7.617926483052943,3
+case500_goc,1,surrogate,xgb_tot,Qg MAE,1.4237398872375489,3
+case500_goc,1,surrogate,xgb_tot,Qg RMSE,4.421265216336804,3
+case500_goc,1,surrogate,xgb_tot,RMSE Pd,0.8186566202302271,3
+case500_goc,1,surrogate,xgb_tot,RMSE Qd,0.1807865447143132,3
+case500_goc,1,surrogate,xgb_tot,Residual P (MAE),4.4179368019104,3
+case500_goc,1,surrogate,xgb_tot,Residual Q (MAE),2.0785462061564126,3
+case500_goc,1,surrogate,xgb_tot,Va MAE,2.6576312511497795,3
+case500_goc,1,surrogate,xgb_tot,Va RMSE,4.019951222407625,3
+case500_goc,1,surrogate,xgb_tot,Vm MAE,0.02751550974200163,3
+case500_goc,1,surrogate,xgb_tot,Vm RMSE,0.03298876209811517,3
+case500_goc,1,surrogate,xgb_tot,angle scenario viol. rate,0.0,3
+case500_goc,1,surrogate,xgb_tot,angle viol. count,0.0,3
+case500_goc,1,surrogate,xgb_tot,angle viol. max,0.0,3
+case500_goc,1,surrogate,xgb_tot,angle viol. mean,0.0,3
+case500_goc,1,surrogate,xgb_tot,angle viol. rate,0.0,3
+case500_goc,1,surrogate,xgb_tot,full_pipeline_infer_s,0.005079045666637034,3
+case500_goc,1,surrogate,xgb_tot,full_pipeline_infer_total_min,0.33369330029805994,3
+case500_goc,1,surrogate,xgb_tot,fully feasible scenario viol. rate,1.0,3
+case500_goc,1,surrogate,xgb_tot,opf_step_infer_s,0.0014021151476376335,3
+case500_goc,1,surrogate,xgb_tot,opf_step_infer_total_min,0.09211896519979441,3
+case500_goc,1,surrogate,xgb_tot,pg scenario viol. rate,0.0,3
+case500_goc,1,surrogate,xgb_tot,pg viol. count,0.0,3
+case500_goc,1,surrogate,xgb_tot,pg viol. max,0.0,3
+case500_goc,1,surrogate,xgb_tot,pg viol. mean,0.0,3
+case500_goc,1,surrogate,xgb_tot,pg viol. rate,0.0,3
+case500_goc,1,surrogate,xgb_tot,qg scenario viol. rate,1.0,3
+case500_goc,1,surrogate,xgb_tot,qg viol. count,87823.33333333333,3
+case500_goc,1,surrogate,xgb_tot,qg viol. max,26.398352940877277,3
+case500_goc,1,surrogate,xgb_tot,qg viol. mean,0.7857549791330394,3
+case500_goc,1,surrogate,xgb_tot,qg viol. rate,0.19715820398731457,3
+case500_goc,1,surrogate,xgb_tot,thermal scenario viol. rate,0.008625063419583967,3
+case500_goc,1,surrogate,xgb_tot,thermal viol. count,86.66666666666667,3
+case500_goc,1,surrogate,xgb_tot,thermal viol. max,48.68903605143229,3
+case500_goc,1,surrogate,xgb_tot,thermal viol. mean,0.0005685125253936333,3
+case500_goc,1,surrogate,xgb_tot,thermal viol. rate,3.0199801889299605e-05,3
+case500_goc,1,surrogate,xgb_tot,total_pd_pred,48962101.90625,3
+case500_goc,1,surrogate,xgb_tot,total_pd_true,48983724.34375,3
+case500_goc,1,surrogate,xgb_tot,total_pg_pred,50030103.9375,3
+case500_goc,1,surrogate,xgb_tot,total_pg_true,49760563.375,3
+case500_goc,1,surrogate,xgb_tot,train_time_min,20.23681801954905,3
+case500_goc,1,surrogate,xgb_tot,vm scenario viol. rate,0.0,3
+case500_goc,1,surrogate,xgb_tot,vm viol. count,0.0,3
+case500_goc,1,surrogate,xgb_tot,vm viol. max,0.0,3
+case500_goc,1,surrogate,xgb_tot,vm viol. mean,0.0,3
+case500_goc,1,surrogate,xgb_tot,vm viol. rate,0.0,3
 case500_goc,24,ac,sarima,Branch pf RMSE,15.139244447074727,1
 case500_goc,24,ac,sarima,Branch pt RMSE,15.1392150712155,1
 case500_goc,24,ac,sarima,Generator Pg MAE,3.567946822621032,1
@@ -5501,6 +5605,58 @@ case500_goc,24,surrogate,xgb,vm viol. count,0.0,3
 case500_goc,24,surrogate,xgb,vm viol. max,0.0,3
 case500_goc,24,surrogate,xgb,vm viol. mean,0.0,3
 case500_goc,24,surrogate,xgb,vm viol. rate,0.0,3
+case500_goc,24,surrogate,xgb_tot,Generator Pg MAE,5.800212542215983,3
+case500_goc,24,surrogate,xgb_tot,Generator Pg RMSE,14.820176707635369,3
+case500_goc,24,surrogate,xgb_tot,MAE Pd,1.2702678815928143,3
+case500_goc,24,surrogate,xgb_tot,MAE Qd,0.3151083281253322,3
+case500_goc,24,surrogate,xgb_tot,Mean Optimality Gap,4.112195253372192,3
+case500_goc,24,surrogate,xgb_tot,Pg bus MAE,1.969238936106364,3
+case500_goc,24,surrogate,xgb_tot,Pg bus RMSE,9.879671482127343,3
+case500_goc,24,surrogate,xgb_tot,Qg MAE,1.5134948705037434,3
+case500_goc,24,surrogate,xgb_tot,Qg RMSE,4.698163172784713,3
+case500_goc,24,surrogate,xgb_tot,RMSE Pd,2.6291762635762344,3
+case500_goc,24,surrogate,xgb_tot,RMSE Qd,0.7387344183501597,3
+case500_goc,24,surrogate,xgb_tot,Residual P (MAE),4.985643227895101,3
+case500_goc,24,surrogate,xgb_tot,Residual Q (MAE),2.177462180455526,3
+case500_goc,24,surrogate,xgb_tot,Va MAE,2.65516866244532,3
+case500_goc,24,surrogate,xgb_tot,Va RMSE,4.019873457779112,3
+case500_goc,24,surrogate,xgb_tot,Vm MAE,0.027496446684002834,3
+case500_goc,24,surrogate,xgb_tot,Vm RMSE,0.03295510628684887,3
+case500_goc,24,surrogate,xgb_tot,angle scenario viol. rate,0.0,3
+case500_goc,24,surrogate,xgb_tot,angle viol. count,0.0,3
+case500_goc,24,surrogate,xgb_tot,angle viol. max,0.0,3
+case500_goc,24,surrogate,xgb_tot,angle viol. mean,0.0,3
+case500_goc,24,surrogate,xgb_tot,angle viol. rate,0.0,3
+case500_goc,24,surrogate,xgb_tot,full_pipeline_infer_s,0.006501820375063034,3
+case500_goc,24,surrogate,xgb_tot,full_pipeline_infer_total_min,10.192253619949199,3
+case500_goc,24,surrogate,xgb_tot,fully feasible scenario viol. rate,1.0,3
+case500_goc,24,surrogate,xgb_tot,opf_step_infer_s,0.0012387626672962333,3
+case500_goc,24,surrogate,xgb_tot,opf_step_infer_total_min,1.941884357253649,3
+case500_goc,24,surrogate,xgb_tot,pg scenario viol. rate,0.0,3
+case500_goc,24,surrogate,xgb_tot,pg viol. count,0.0,3
+case500_goc,24,surrogate,xgb_tot,pg viol. max,0.0,3
+case500_goc,24,surrogate,xgb_tot,pg viol. mean,0.0,3
+case500_goc,24,surrogate,xgb_tot,pg viol. rate,0.0,3
+case500_goc,24,surrogate,xgb_tot,qg scenario viol. rate,1.0,3
+case500_goc,24,surrogate,xgb_tot,qg viol. count,2064391.0,3
+case500_goc,24,surrogate,xgb_tot,qg viol. max,30.813188552856445,3
+case500_goc,24,surrogate,xgb_tot,qg viol. mean,0.7555588944392729,3
+case500_goc,24,surrogate,xgb_tot,qg viol. rate,0.19423478462463706,3
+case500_goc,24,surrogate,xgb_tot,thermal scenario viol. rate,0.0052309262566981,3
+case500_goc,24,surrogate,xgb_tot,thermal viol. count,884.6666666666666,3
+case500_goc,24,surrogate,xgb_tot,thermal viol. max,32.110188802083336,3
+case500_goc,24,surrogate,xgb_tot,thermal viol. mean,0.00011668964044242345,3
+case500_goc,24,surrogate,xgb_tot,thermal viol. rate,1.2919978153456083e-05,3
+case500_goc,24,surrogate,xgb_tot,total_pd_pred,1168639739.6875,3
+case500_goc,24,surrogate,xgb_tot,total_pd_true,1168431452.3125,3
+case500_goc,24,surrogate,xgb_tot,total_pg_pred,1194189132.3333333,3
+case500_goc,24,surrogate,xgb_tot,total_pg_true,1186960117.34375,3
+case500_goc,24,surrogate,xgb_tot,train_time_min,208.425707423687,3
+case500_goc,24,surrogate,xgb_tot,vm scenario viol. rate,0.0,3
+case500_goc,24,surrogate,xgb_tot,vm viol. count,0.0,3
+case500_goc,24,surrogate,xgb_tot,vm viol. max,0.0,3
+case500_goc,24,surrogate,xgb_tot,vm viol. mean,0.0,3
+case500_goc,24,surrogate,xgb_tot,vm viol. rate,0.0,3
 case500_goc,6,ac,sarima,Branch pf RMSE,8.966482100219173,1
 case500_goc,6,ac,sarima,Branch pt RMSE,8.966685135957217,1
 case500_goc,6,ac,sarima,Generator Pg MAE,1.758098708512212,1
@@ -6158,55 +6314,55 @@ case500_goc,6,surrogate,xgb,vm viol. count,0.0,3
 case500_goc,6,surrogate,xgb,vm viol. max,0.0,3
 case500_goc,6,surrogate,xgb,vm viol. mean,0.0,3
 case500_goc,6,surrogate,xgb,vm viol. rate,0.0,3
-case500_goc,6,surrogate,xgb_tot,Generator Pg MAE,4.978313446044922,1
-case500_goc,6,surrogate,xgb_tot,Generator Pg RMSE,11.714785136565606,1
-case500_goc,6,surrogate,xgb_tot,MAE Pd,0.7642369131033835,1
-case500_goc,6,surrogate,xgb_tot,MAE Qd,0.1889159598763533,1
-case500_goc,6,surrogate,xgb_tot,Mean Optimality Gap,3.416849136352539,1
-case500_goc,6,surrogate,xgb_tot,Pg bus MAE,1.6872967891693116,1
-case500_goc,6,surrogate,xgb_tot,Pg bus RMSE,8.115588359081706,1
-case500_goc,6,surrogate,xgb_tot,Qg MAE,1.6621966133117676,1
-case500_goc,6,surrogate,xgb_tot,Qg RMSE,5.411684283310193,1
-case500_goc,6,surrogate,xgb_tot,RMSE Pd,1.715138101167782,1
-case500_goc,6,surrogate,xgb_tot,RMSE Qd,0.4695866425177261,1
-case500_goc,6,surrogate,xgb_tot,Residual P (MAE),4.183120250701904,1
-case500_goc,6,surrogate,xgb_tot,Residual Q (MAE),1.6963374614715576,1
-case500_goc,6,surrogate,xgb_tot,Va MAE,2.425502028613752,1
-case500_goc,6,surrogate,xgb_tot,Va RMSE,3.7262075740982383,1
-case500_goc,6,surrogate,xgb_tot,Vm MAE,0.0251760727427899,1
-case500_goc,6,surrogate,xgb_tot,Vm RMSE,0.0307018209819293,1
-case500_goc,6,surrogate,xgb_tot,angle scenario viol. rate,0.0,1
-case500_goc,6,surrogate,xgb_tot,angle viol. count,0.0,1
-case500_goc,6,surrogate,xgb_tot,angle viol. max,0.0,1
-case500_goc,6,surrogate,xgb_tot,angle viol. mean,0.0,1
-case500_goc,6,surrogate,xgb_tot,angle viol. rate,0.0,1
-case500_goc,6,surrogate,xgb_tot,full_pipeline_infer_s,0.0051892039247163,1
-case500_goc,6,surrogate,xgb_tot,full_pipeline_infer_total_min,2.0429895851608335,1
-case500_goc,6,surrogate,xgb_tot,fully feasible scenario viol. rate,1.0,1
-case500_goc,6,surrogate,xgb_tot,opf_step_infer_s,0.0012420518458228,1
-case500_goc,6,surrogate,xgb_tot,opf_step_infer_total_min,0.4889958117004426,1
-case500_goc,6,surrogate,xgb_tot,pg scenario viol. rate,0.0,1
-case500_goc,6,surrogate,xgb_tot,pg viol. count,0.0,1
-case500_goc,6,surrogate,xgb_tot,pg viol. max,0.0,1
-case500_goc,6,surrogate,xgb_tot,pg viol. mean,0.0,1
-case500_goc,6,surrogate,xgb_tot,pg viol. rate,0.0,1
-case500_goc,6,surrogate,xgb_tot,qg scenario viol. rate,1.0,1
-case500_goc,6,surrogate,xgb_tot,qg viol. count,541813.0,1
-case500_goc,6,surrogate,xgb_tot,qg viol. max,30.392831802368164,1
-case500_goc,6,surrogate,xgb_tot,qg viol. mean,0.8346970598225109,1
-case500_goc,6,surrogate,xgb_tot,qg viol. rate,0.2029804974064225,1
-case500_goc,6,surrogate,xgb_tot,thermal scenario viol. rate,0.0,1
-case500_goc,6,surrogate,xgb_tot,thermal viol. count,0.0,1
-case500_goc,6,surrogate,xgb_tot,thermal viol. max,0.0,1
-case500_goc,6,surrogate,xgb_tot,thermal viol. mean,0.0,1
-case500_goc,6,surrogate,xgb_tot,thermal viol. rate,0.0,1
-case500_goc,6,surrogate,xgb_tot,total_pd_pred,293246214.2734375,1
-case500_goc,6,surrogate,xgb_tot,total_pd_true,293466279.7578125,1
-case500_goc,6,surrogate,xgb_tot,total_pg_pred,299797016.7734375,1
-case500_goc,6,surrogate,xgb_tot,total_pg_true,298119947.40625,1
-case500_goc,6,surrogate,xgb_tot,train_time_min,56.607479071617135,1
-case500_goc,6,surrogate,xgb_tot,vm scenario viol. rate,0.0,1
-case500_goc,6,surrogate,xgb_tot,vm viol. count,0.0,1
-case500_goc,6,surrogate,xgb_tot,vm viol. max,0.0,1
-case500_goc,6,surrogate,xgb_tot,vm viol. mean,0.0,1
-case500_goc,6,surrogate,xgb_tot,vm viol. rate,0.0,1
+case500_goc,6,surrogate,xgb_tot,Generator Pg MAE,5.139604091644287,3
+case500_goc,6,surrogate,xgb_tot,Generator Pg RMSE,12.445829772260959,3
+case500_goc,6,surrogate,xgb_tot,MAE Pd,0.7642369131033835,3
+case500_goc,6,surrogate,xgb_tot,MAE Qd,0.18891595987635332,3
+case500_goc,6,surrogate,xgb_tot,Mean Optimality Gap,3.181185722351074,3
+case500_goc,6,surrogate,xgb_tot,Pg bus MAE,1.7422338047027586,3
+case500_goc,6,surrogate,xgb_tot,Pg bus RMSE,8.51805312447769,3
+case500_goc,6,surrogate,xgb_tot,Qg MAE,1.456006940205892,3
+case500_goc,6,surrogate,xgb_tot,Qg RMSE,4.516098835908775,3
+case500_goc,6,surrogate,xgb_tot,RMSE Pd,1.715138101167782,3
+case500_goc,6,surrogate,xgb_tot,RMSE Qd,0.469586642517726,3
+case500_goc,6,surrogate,xgb_tot,Residual P (MAE),4.666882832845052,3
+case500_goc,6,surrogate,xgb_tot,Residual Q (MAE),2.120123505592346,3
+case500_goc,6,surrogate,xgb_tot,Va MAE,2.6552670652652837,3
+case500_goc,6,surrogate,xgb_tot,Va RMSE,4.0189642830984615,3
+case500_goc,6,surrogate,xgb_tot,Vm MAE,0.027496858249107966,3
+case500_goc,6,surrogate,xgb_tot,Vm RMSE,0.03296340204073303,3
+case500_goc,6,surrogate,xgb_tot,angle scenario viol. rate,0.0,3
+case500_goc,6,surrogate,xgb_tot,angle viol. count,0.0,3
+case500_goc,6,surrogate,xgb_tot,angle viol. max,0.0,3
+case500_goc,6,surrogate,xgb_tot,angle viol. mean,0.0,3
+case500_goc,6,surrogate,xgb_tot,angle viol. rate,0.0,3
+case500_goc,6,surrogate,xgb_tot,full_pipeline_infer_s,0.005207139104293333,3
+case500_goc,6,surrogate,xgb_tot,full_pipeline_infer_total_min,2.0500506653603674,3
+case500_goc,6,surrogate,xgb_tot,fully feasible scenario viol. rate,1.0,3
+case500_goc,6,surrogate,xgb_tot,opf_step_infer_s,0.0012599870253998332,3
+case500_goc,6,surrogate,xgb_tot,opf_step_infer_total_min,0.49605689189993424,3
+case500_goc,6,surrogate,xgb_tot,pg scenario viol. rate,0.0,3
+case500_goc,6,surrogate,xgb_tot,pg viol. count,0.0,3
+case500_goc,6,surrogate,xgb_tot,pg viol. max,0.0,3
+case500_goc,6,surrogate,xgb_tot,pg viol. mean,0.0,3
+case500_goc,6,surrogate,xgb_tot,pg viol. rate,0.0,3
+case500_goc,6,surrogate,xgb_tot,qg scenario viol. rate,1.0,3
+case500_goc,6,surrogate,xgb_tot,qg viol. count,523387.0,3
+case500_goc,6,surrogate,xgb_tot,qg viol. max,29.987148920694988,3
+case500_goc,6,surrogate,xgb_tot,qg viol. mean,0.7736590839963059,3
+case500_goc,6,surrogate,xgb_tot,qg viol. rate,0.196077527848271,3
+case500_goc,6,surrogate,xgb_tot,thermal scenario viol. rate,0.008142127395365868,3
+case500_goc,6,surrogate,xgb_tot,thermal viol. count,422.3333333333333,3
+case500_goc,6,surrogate,xgb_tot,thermal viol. max,51.21747334798177,3
+case500_goc,6,surrogate,xgb_tot,thermal viol. mean,0.0003742751348292667,3
+case500_goc,6,surrogate,xgb_tot,thermal viol. rate,2.4558809801380284e-05,3
+case500_goc,6,surrogate,xgb_tot,total_pd_pred,293246214.2734375,3
+case500_goc,6,surrogate,xgb_tot,total_pd_true,293466279.7578125,3
+case500_goc,6,surrogate,xgb_tot,total_pg_pred,299630136.3203125,3
+case500_goc,6,surrogate,xgb_tot,total_pg_true,298119947.40625,3
+case500_goc,6,surrogate,xgb_tot,train_time_min,56.60747907161713,3
+case500_goc,6,surrogate,xgb_tot,vm scenario viol. rate,0.0,3
+case500_goc,6,surrogate,xgb_tot,vm viol. count,0.0,3
+case500_goc,6,surrogate,xgb_tot,vm viol. max,0.0,3
+case500_goc,6,surrogate,xgb_tot,vm viol. mean,0.0,3
+case500_goc,6,surrogate,xgb_tot,vm viol. rate,0.0,3

@@ -44,6 +44,7 @@ sbatch scripts/backup_pack.sh core                       # backup tar after ever
 ```
 
 ## Rules & traps
+- `expost_pf.py --arms exact --forecasters e2e_pd` misaligns silently (E2E sample set ≠ 2-step); needs a forecasts override first.
 - /home quota 50 GB (exceeding it locks sbatch until the nightly check): bulk/scratch output goes to `<data>`, e.g.
   precomputed profiles → `<data>/temp_precomputed_profiles/` (phase1c*, surrogate_smoke).
 - **aggregate_results identity = paths + run names only** (no MLflow tags):

@@ -6,6 +6,8 @@ losses included); its PF-solved dispatch P̃ is the rebalanced dispatch, re-cost
 - rebalanced gap γ_reb = (C(P̃) - C(P*)) / C(P*);  rebalancing cost R = (C(P̃) - C(P̂)) / C(P*)
 - gaps (raw + rebalanced) reported as mean |.| and signed mean (< 0 = cheaper than optimum);
   R split into under-supply (R > 0) and over-supply (R < 0) contributions to its mean
+- no-refund gap γ_noref = (max(C(P̃), C(P̂)) - C(P*)) / C(P*): ramp-down earns nothing back (pay the committed
+  dispatch on over-supply); per-sample max == per-unit max since distributed slack moves all units one way
 - γ_reb, R over converged samples, incl. insufficient headroom (remainder on the REF unit beyond its limit, priced on
   its cost curve = lower bound)
 - Q3: thermal overload share over converged; insufficient headroom (remainder > TOL_P on the slack) and
@@ -38,6 +40,7 @@ def gap_metrics(d):
         "Signed Optimality Gap": raw.mean(),
         "Rebalanced Gap": reb.abs().mean(),
         "Signed Rebalanced Gap": reb.mean(),
+        "No-refund Gap": pct(c[["cost_pf", "cost_pred"]].max(axis=1) - c.cost_true).abs().mean(),
         "Thermal Overload (%)": (c.thermal_n > 0).mean() * 100,
         "Insufficient Headroom (%)": c.slack_mismatch_flag.mean() * 100,
         "Insufficient Headroom (n)": int(c.slack_mismatch_flag.sum()),

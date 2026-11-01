@@ -300,7 +300,21 @@ RETRACTED entries stay so they are not re-proposed. ML-arm findings: `~/gridfm-g
   - Thermal overload % (same order): case14 0 everywhere; case118 h1 36.7/40.5/36.3/99.9/58.0/46.9, h6 47.1/45.1/42.3/96.4/
     57.0/55.7, h24 50.2/44.5/44.3/89.5/56.6/55.5; case500 h1 0.7/6.2/5.7/6.3/5.0/2.8, h6 3.7/5.7/5.6/6.6/5.2/3.5, h24
     6.1/6.0/5.7/7.3/6.3/4.0 → E2E overloads lines more than AC on case118 (+10–11 pp vs xgb_tot), fewer on case500.
-  - Pending: surrogate xgb_tot, seeds 1–2 (surrogate, E2E), E2E case500 h1 s1/s2.
+  - 2026-10-24 UPDATE, seeds 0–2 (romeo ex-post 9126824-26 + 9164986-88; corrected_gap job 4461076, 117 arms, all gates ok).
+    E2E 3 seeds on case14/118, 1 on case500; surrogate 3 seeds; AC/DC deterministic. Rebalanced gap %, E2E vs best 2-step:
+    case14 0.085/0.306/0.724 vs 0.114/0.444/0.702; case118 0.082/0.221/0.473 vs 0.102/0.327/0.572 → E2E lowest in 8 of 9
+    cells; case14 h24 now a narrow loss to AC xgb (0.724 vs 0.702; s0 alone was 0.704). Surrogate xgb_tot ≈ surrogate xgb
+    (case500 1.29/1.56/1.91). Thermal overload %: E2E case118 43.5/51.8/57.7 vs AC xgb_tot 36.3/42.3/44.3 (E2E worse,
+    gap grows with H); case500: surrogate fewest (1.7–2.7 %), E2E 2.8/3.5/4.0, AC xgb_tot 5.6–5.7.
+  - 2026-10-28: **No-refund gap** γ_noref = (max(C(P̃), C(P̂)) − C*)/C* (over-supply pays the committed dispatch; corrgap
+    job 4466077, 117 arms, gates ok). %, AC sarima / AC xgb / AC xgb_tot / surrogate xgb_tot / E2E:
+    case14 h1 0.53/0.85/0.74/1.00/0.36, h6 2.27/2.19/1.97/2.23/1.39, h24 4.69/3.64/3.77/4.07/3.23;
+    case118 h1 0.49/0.68/0.59/0.98/0.34, h6 2.08/1.87/1.71/2.06/1.02, h24 4.40/3.14/3.08/3.37/2.84;
+    case500 h1 0.49/0.57/0.48/2.73/0.45, h6 2.00/1.53/1.51/3.28/1.25, h24 3.97/2.80/2.68/4.15/2.57.
+    → E2E lowest in all 9 cells (incl. case14 h24, where the rebalanced gap was a narrow loss); γ_noref ≈ 2–5× γ_reb,
+    i.e. most of the raw gap's over-supply cost survives when ramp-down is not refunded.
+  - 2026-10-28 FINAL: E2E case500 h1 now 2 seeds (s2 cancelled; romeo ex-post 9205436, corrgap 4482007, 117 arms, gates ok):
+    rebalanced 0.256 %, no-refund 0.445 %, thermal 2.82 % (s0 alone 0.265 / 0.447 / 2.82) → conclusions unchanged.
 
 ## 9. Dispatch structure: why E2E barely beats 2-step on Pg (2026-10-13, `exp1/generate_metrics/dispatch_diag.py`)
 
@@ -319,7 +333,7 @@ RETRACTED entries stay so they are not re-proposed. ML-arm findings: `~/gridfm-g
 - Open: case118 Δ via OPF on load scenarios; information-parity control (XGB + total-load lags); E2E seeds;
   Qg-MSE consistency (case500 E2E trained with it, case14/118 without).
 
-- **case500 2-step Pg metrics in `exp1/results/` are stale** (CSVs 2026-08-12/19, before in-service fix 45aaf0e):
+- RESOLVED 2026-10-14 (compare.py rerun h1/h6/h24; aggregate 2026-10-24 gates ok): **case500 2-step Pg metrics in `exp1/results/` were stale** (CSVs 2026-08-12/19, before in-service fix 45aaf0e):
   `AC Generator Pg MAE/RMSE` pool 224 units incl. 53 out-of-service (zero error) → MAE × 171/224, RMSE × √(171/224)
   exactly (h1 xgb 0.523 → logged 0.399). E2E pools the 171 in-service units → "E2E worse on case500 Pg" was mostly this.
   - `AC pg viol. rate` 0.244 ≈ 53/224 = 0.237 → out-of-service units counted as P violations. VERIFIED 2026-10-14:
@@ -441,5 +455,7 @@ RETRACTED entries stay so they are not re-proposed. ML-arm findings: `~/gridfm-g
     n = 1 seed) and case118 h24 (mean 8.91 vs 8.77, inside E2E's seed range). E2E keeps the lowest mean opt gap in every
     cell (e.g. case500 h1 0.494 vs xgb_tot 0.557 / sarima 0.521; case118 h24 4.31 vs 4.77).
   - E2E seed spread (max−min)/mean: 1–9 % Pg RMSE (case118 h24 7 %, case14 h1 8 %).
+  - 2026-10-28: case500 h1 E2E s1 (job 4457402, 200 epochs): Pg RMSE 3.292 / gap 0.486 vs s0 3.279 / 0.494 → seed spread
+    < 2 %; E2E's Pg RMSE deficit vs AC xgb_tot (3.11) at case500 h1 holds over 2 seeds; gap advantage holds too.
   - Surrogate case500 after the Qg fix: Pg RMSE 9.6–11.7 (h1, 3 seeds) vs pre-fix s0 8.76; gap 2.1–3.1 vs 2.74 → the
     Pg regression holds across seeds (graphkit findings §3); case14/118 surrogate unchanged or better.
