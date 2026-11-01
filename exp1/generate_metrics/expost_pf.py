@@ -7,7 +7,8 @@ What?
            predicted Vm at gen buses, true Pd/Qd everywhere; the imbalance (load error + losses) is spread over the units
            -> PF-solved dispatch P̃ = rebalanced dispatch, single source for cost and feasibility
         2. limits on the PF solution: convergence, thermal, PQ voltage, bus-level Qg, units at/beyond P limits,
-           active power mismatch left on the slack bus
+           active power mismatch left on the slack bus; thermal / Vm / Qg each as count, worst, and sum over the
+           violating elements
         3. costs C(P̂), C(P̃), C(P*) per sample -> γ_reb, R in corrected_gap.py
 Why?
     - replaces realized-space residuals (dispatch frozen, true load inserted), which are no physical operating point
@@ -240,17 +241,21 @@ def _solve(task):
     p, pmin, pmax = (gen[:, G[c]] for c in ("p_mw", "min_p_mw", "max_p_mw"))
     at_lim = (pmax - pmin > TOL_P) & ((p >= pmax - TOL_P) | (p <= pmin + TOL_P))
     beyond = np.maximum(p - pmax, 0) + np.maximum(pmin - p, 0)
+    t_bad, q_bad = loading > 1 + TOL_REL, q_viol > TOL_GEN
 
     return dict(
         status="converged",
         **info,
         pg_pf=p,
         thermal_max_loading=loading.max(),
-        thermal_n=int((loading > 1 + TOL_REL).sum()),
+        thermal_n=int(t_bad.sum()),
+        thermal_sum=(loading[t_bad] - 1).sum(),  # *_sum: violation summed over the violating elements
         vm_max_viol=v_viol.max(initial=0.0),
         vm_n=int(v_bad.sum()),
+        vm_sum=v_viol[v_bad].sum(),
         qg_max_viol_mvar=q_viol.max(initial=0.0),
-        qg_n=int((q_viol > TOL_GEN).sum()),
+        qg_n=int(q_bad.sum()),
+        qg_sum_mvar=q_viol[q_bad].sum(),
         pg_lim_n=int(at_lim.sum()),
         pg_beyond_n=int((beyond > TOL_P).sum()),
     )

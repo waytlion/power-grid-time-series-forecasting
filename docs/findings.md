@@ -315,6 +315,18 @@ RETRACTED entries stay so they are not re-proposed. ML-arm findings: `~/gridfm-g
     i.e. most of the raw gap's over-supply cost survives when ramp-down is not refunded.
   - 2026-10-28 FINAL: E2E case500 h1 now 2 seeds (s2 cancelled; romeo ex-post 9205436, corrgap 4482007, 117 arms, gates ok):
     rebalanced 0.256 %, no-refund 0.445 %, thermal 2.82 % (s0 alone 0.265 / 0.447 / 2.82) → conclusions unchanged.
+  - 2026-11-01: **Q3 per constraint group** (corrgap job 4506484 on the same ex-post outputs, 117 arms, gates ok, all 1872
+    previous values identical). Element sets: lines / PQ buses / non-REF gen buses = case14 20/9/4, case118 186/64/53,
+    case500 728/387/112. Forecaster = best by rebalanced gap. Share of samples % (mean worst over violating samples):
+    - thermal, AC / DC / surrogate / E2E: case118 h1 36.7 (0.3) / 99.9 (4.0) / 53.5 (0.9) / 43.5 (0.4), h24 44.3 (1.7) /
+      89.5 (4.5) / 52.2 (1.9) / 57.7 (2.1) [% of rating above 100 %]; ≈ 0.2–0.3 % of lines (the one binding line)
+      → case118 overloads are frequent but marginal; case500 ≤ 7.3 % of samples.
+    - Qg: ≈ 90–100 % of samples for every arm on case118/500 (AC too) → share not informative; worst MVAr AC 0.5–12.8,
+      E2E 3.0–17.2, surrogate case500 55–56, DC 113 (case118) / 391 (case500, case-file voltage setpoints).
+    - PQ voltage: E2E case500 64–70 % of samples (AC 7–51, surrogate 17), but worst ≤ 0.006 p.u. and ≤ 0.5 % of PQ buses;
+      DC 0 everywhere.
+    - Mean per violating element (not just the worst) needs the *_sum columns: expost_pf rerun romeo 9238374-76 →
+      `phase_1c/expost_pf_v2`.
 
 ## 9. Dispatch structure: why E2E barely beats 2-step on Pg (2026-10-13, `exp1/generate_metrics/dispatch_diag.py`)
 
@@ -459,3 +471,12 @@ RETRACTED entries stay so they are not re-proposed. ML-arm findings: `~/gridfm-g
     < 2 %; E2E's Pg RMSE deficit vs AC xgb_tot (3.11) at case500 h1 holds over 2 seeds; gap advantage holds too.
   - Surrogate case500 after the Qg fix: Pg RMSE 9.6–11.7 (h1, 3 seeds) vs pre-fix s0 8.76; gap 2.1–3.1 vs 2.74 → the
     Pg regression holds across seeds (graphkit findings §3); case14/118 surrogate unchanged or better.
+- 2026-11-01: **final totals** (dispatch_diag rerun on final_e2e_qgmse s0 + XGB+D, capella 4506411/12, romeo 9238378
+  for case500; out `phase_1c/dispatch_diag_final`, per-sample `step1_samples.parquet`; all Pg gates recomputed == logged).
+  - Slope / r of per-sample ΣΔPg on ΣΔPd (h1 / h6 / h24): AC (all forecasters) 1.02–1.09, r = 1.00 (Pg error = load
+    error by construction); E2E case14 0.45 / 0.81 / 0.84 (r 0.71–0.86), case118 0.37 / 0.69 / 0.82 (r 0.63–0.85)
+    → E2E's Pg output damps its own summed Pd error, most at h1.
+  - Volume |ΣΔPg| / misplaced MW, case118 h1/h6/h24: AC sarima 14.9/0.1, AC xgb_tot 50.6/0.9, 89.0/1.1; E2E 11.0/1.7,
+    33.5/3.1, 82.9/4.8 vs E2E's own |ΣΔPd| 19.8/56.1/89.0 → E2E wins on volume, pays a small allocation cost.
+  - Bug fixed on the way: 2-step ΔD was summed over all forecast samples, Pg over OPF-solved ones (case500 h6/h24
+    sarima: 6 no_dispatch) → ΔD now on the solved samples only; affects dD_abs_mw there by ≤ 6/23604 samples.

@@ -12,11 +12,16 @@
      size takes the row slot here since there's only one variable). 2-step arms
      (AC/DC/Surrogate) all dispatch the SAME predicted Pd, so they collapse to a
      single "2-step (best forecaster)" line instead of one line per optimizer.
+
+  3) rmse_slide.pdf: one-slide Q1 summary, cols = case, x = horizon.
+     - row 1: Pd RMSE, 2-step best forecaster vs E2E
+     - row 2: Pg RMSE per optimizer (log y), best forecaster per metric; E2E vs AC in % per horizon
 """
 import pandas as pd
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
+from matplotlib.ticker import FuncFormatter, LogLocator
 
 from colors import ARM_COLORS, OPT_LABELS, OPT_ORDER, THESIS_RC
 
@@ -139,10 +144,81 @@ def plot_pd_lines(df):
     save(fig, "rmse_pd_lines")
 
 
+# ---- slide helpers (shared with plot_gap.py): cols = case, x = horizon at equal spacing
+SLIDE_RC = {"font.size": 11, "axes.titlesize": 12}
+X_OF = {h: i for i, h in enumerate(HORIZONS)}
+LS = {o: "--" if o == "surrogate" else "-" for o in OPT_ORDER}  # surrogate ≈ AC on case14/118 -> keep AC visible
+
+
+def optimizer_lines(ax, sub, tag=False):
+    """one line per optimizer (log y) + E2E vs AC in % per horizon; sub = best_forecaster_per_metric rows of one case
+    - tag: print the 'E2E vs AC' row label (first column)"""
+    sub = sub.sort_values("horizon")
+    for o in OPT_ORDER:
+        s = sub[sub["optimizer"] == o]
+        ax.plot(s["horizon"].map(X_OF), s["mean"], marker="o", ls=LS[o], color=ARM_COLORS[o], lw=2, ms=6)
+    ac = sub[sub["optimizer"] == "ac"].set_index("horizon")["mean"]
+    e2e = sub[sub["optimizer"] == "e2e"].set_index("horizon")["mean"]
+    ax.set_yscale("log")
+    ax.set_ylim(sub["mean"].min() / 3, sub["mean"].max() * 1.6)
+    ax.yaxis.set_major_locator(LogLocator(subs=(1, 2, 5)))
+    ax.yaxis.set_major_formatter(FuncFormatter(lambda v, _: f"{v:g}"))
+    ax.yaxis.set_minor_formatter(FuncFormatter(lambda v, _: ""))
+    for h in HORIZONS:  # text ink, identity stays with the marks
+        ax.text(X_OF[h], 0.04, f"{100 * (e2e[h] / ac[h] - 1):+.0f} %", transform=ax.get_xaxis_transform(),
+                ha="center", fontsize=9.5)
+    if tag:
+        ax.text(-0.3, 0.12, "E2E vs AC", transform=ax.get_xaxis_transform(), fontsize=9, color="0.35")
+
+
+def style_slide_axes(axes):
+    for ax in axes.flat:
+        ax.grid(axis="y", color="0.9", lw=0.6)
+        ax.set_axisbelow(True)
+        ax.set_xticks(range(len(HORIZONS)))
+        ax.set_xticklabels([f"$t+{h}$" for h in HORIZONS])
+        ax.set_xlim(-0.3, len(HORIZONS) - 0.7)
+
+
+def optimizer_handles():
+    return [plt.Line2D([], [], color=ARM_COLORS[o], marker="o", ls=LS[o], lw=2, label=OPT_LABELS[o])
+            for o in OPT_ORDER]
+
+
+def finish_slide(fig, handles, name):
+    fig.legend(handles=handles, loc="upper center", ncol=len(handles), frameon=False, bbox_to_anchor=(0.5, 1.02))
+    fig.text(0.99, -0.01, "2-step: best forecaster per metric; means over seeds", ha="right", fontsize=8, color="0.35")
+    fig.tight_layout(rect=(0, 0, 1, 0.95))
+    save(fig, name)
+
+
+def plot_slide(df):
+    pd_data = best_forecaster_pd(df)
+    pg = best_forecaster_per_metric(df, BAR_VARS[0][0])
+    fc_color = "0.45"  # 2-step forecast is shared by all optimizers -> neutral, not an arm hue
+
+    with plt.rc_context(SLIDE_RC):
+        fig, axes = plt.subplots(2, len(CASE_ORDER), figsize=(10, 5.8), sharex=True)
+        for c, case in enumerate(CASE_ORDER):
+            ax = axes[0][c]
+            for series, color in (("2-step (best forecaster)", fc_color), ("E2E", ARM_COLORS["e2e"])):
+                s = pd_data[(pd_data["case"] == case) & (pd_data["series"] == series)].sort_values("horizon")
+                ax.plot(s["horizon"].map(X_OF), s["mean"], "-o", color=color, lw=2, ms=6)
+            ax.set_title(CASE_LABELS[case])
+            ax.set_ylim(bottom=0)
+            optimizer_lines(axes[1][c], pg[pg["case"] == case], tag=c == 0)
+        style_slide_axes(axes)
+        axes[0][0].set_ylabel("$P_d$ RMSE [MW]")
+        axes[1][0].set_ylabel("$P_g$ RMSE [MW], log")
+        handles = [plt.Line2D([], [], color=fc_color, marker="o", lw=2, label="2-step forecast (best)")]
+        finish_slide(fig, handles + optimizer_handles(), "rmse_slide")
+
+
 def main():
     df = load()
     plot_bar_grid(df)
     plot_pd_lines(df)
+    plot_slide(df)
 
 
 if __name__ == "__main__":

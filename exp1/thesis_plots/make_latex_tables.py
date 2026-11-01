@@ -38,7 +38,7 @@ CORE_METRICS = {
     "Residual Q (MAE)": "Res. Q (MAE)",
 }
 # rebalanced opt gap (per scenario): PF-solved dispatch of the ex-post AC-PF (distributed slack), re-costed.
-# ML arms seed 0 (same dumps as the raw gap column)
+# ML arms: mean over seeds (corrected_gap.py aggregates the per-seed ex-post PF runs)
 CORR_GAP_METRICS = {
     "Optimality Gap (recomputed)": "Opt. Gap \\%",
     "Signed Optimality Gap": "Signed Opt. Gap \\%",
@@ -47,6 +47,7 @@ CORR_GAP_METRICS = {
     "Rebalancing Cost (under-supply)": "$R^{+}$ \\%",
     "Rebalancing Cost (over-supply)": "$R^{-}$ \\%",
     "Rebalanced Gap": "Rebal. Gap \\%",
+    "No-refund Gap": "No-refund Gap \\%",
     "Signed Rebalanced Gap": "Signed Rebal. Gap \\%",
     "Thermal Overload (%)": "Thermal \\%",
 }
@@ -257,7 +258,7 @@ write_table(
     CORR_GAP_METRICS,
     f"{OUT_DIR}/table7_corr_gap_case118_horizons.tex",
     "Raw and rebalanced optimality gap across forecast horizons (case118; best 2-step forecaster "
-    "per optimizer; ML arms seed 0). Rebal.: AC power flow on the realised load with the predicted "
+    "per optimizer; ML arms: mean over seeds). Rebal.: AC power flow on the realised load with the predicted "
     "dispatch as setpoints; the mismatch (forecast error and losses) is distributed over all in-service "
     "units in proportion to $P_{\\max}$ within their limits (distributed slack), and the PF-solved dispatch "
     "is re-costed. DC-OPF has no voltages: its dispatch runs with the case-file generator voltage setpoints. "

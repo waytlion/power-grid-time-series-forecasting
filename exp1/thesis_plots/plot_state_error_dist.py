@@ -128,7 +128,8 @@ def hist_panel(ax, series, unit):
                 color=color, label=f"{label} (RMSE {fmt}, {len(x) / len(v):.0%} in view)")
     ax.axvline(0, color="k", lw=0.6, alpha=0.5)
     ax.set_xlim(-focus, focus)
-    ax.legend(frameon=False, fontsize=6)
+    ax.set_ylim(0, ax.get_ylim()[1] * 1.6)  # headroom: legend sits above the central peak
+    ax.legend(frameon=False, fontsize=5.5, loc="upper right", handlelength=1.2, borderaxespad=0.2)
 
 
 def plot_grid(df):

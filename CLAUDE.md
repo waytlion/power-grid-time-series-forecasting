@@ -21,7 +21,8 @@ exp1/generate_metrics/
 exp1/ml_surrogate/build_eval_set.py   forecast profiles → graphkit HeteroData eval sets (only Pd_forecast + Qd_derived in bus.x)
 exp1/thesis_plots/       ALL thesis figures/tables (make_latex_tables.py, plot_*.py, run_residual_pipeline_h1.py,
                          extract_residuals_2step.py) → thesis_plots/figures/
-exp1/results/            compare.py output; _archiv/ = superseded runs
+exp1/results/            compare.py output; _archiv/ = superseded runs; _e2e_pd/, _dispatch_diag/ = control arm +
+                         copies of <data>/.../dispatch_diag_final step1 outputs (slide plots; '_' -> not aggregated)
 scripts/                 sbatch + helpers: phase1a_*, phase1b.sbatch, phase1c*.sbatch, phase1c_transform_forecasts.py,
                          phase1c_surrogate_eval.sbatch, surrogate_smoke.sbatch, state_dump_eval.sbatch, expost_pf.sbatch,
                          backup_pack.sh + backup_manifest.txt (tiered tar of results/mlruns/configs, see ~/CLAUDE.md)

@@ -1,29 +1,29 @@
 \begin{table}[t]
 \centering
-\caption{Raw and rebalanced optimality gap across forecast horizons (case118; best 2-step forecaster per optimizer; ML arms seed 0). Rebal.: generation mismatch $\Delta P$ vs.\ the optimum closed by merit order (shortfall on the cheapest, surplus off the most expensive units), then re-costed. $R^{+}$/$R^{-}$: under-/over-supply contributions to the mean rebalancing cost (sum = mean). No test instance exceeded the available headroom.}
+\caption{Raw and rebalanced optimality gap across forecast horizons (case118; best 2-step forecaster per optimizer; ML arms: mean over seeds). Rebal.: AC power flow on the realised load with the predicted dispatch as setpoints; the mismatch (forecast error and losses) is distributed over all in-service units in proportion to $P_{\max}$ within their limits (distributed slack), and the PF-solved dispatch is re-costed. DC-OPF has no voltages: its dispatch runs with the case-file generator voltage setpoints. $R^{+}$/$R^{-}$: under-/over-supply contributions to the mean rebalancing cost (sum = mean). Thermal: share of samples with a line overload.}
 \label{tab:corr_gap_case118_horizons}
 \resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{%
-\begin{tabular}{lrrrrrrrr}
+\begin{tabular}{lrrrrrrrrrr}
 \toprule
-Model & Opt. Gap \% & Signed Opt. Gap \% & $\Delta P$ (MW) & $|\Delta P|$ \% & $R^{+}$ \% & $R^{-}$ \% & Rebal. Gap \% & Signed Rebal. Gap \% \\
+Model & Opt. Gap \% & Signed Opt. Gap \% & $\Delta P$ (MW) & $|\Delta P|$ \% & $R^{+}$ \% & $R^{-}$ \% & Rebal. Gap \% & No-refund Gap \% & Signed Rebal. Gap \% & Thermal \% \\
 \midrule
-\multicolumn{9}{@{}l}{\textit{Horizon $t+1$}} \\[2pt]
-SARIMA-AC & 0.822 & 0.024 & 0.293 & 0.675 & 0.212 & -0.446 & 0.21 & -0.21 \\
-XGB-DC & 3.729 & -3.705 & -53.354 & 2.233 & 1.703 & -0.037 & 2.039 & -2.039 \\
-XGB-Surrogate & 1.461 & 0.76 & 8.953 & 1.171 & 0.231 & -1.132 & 0.222 & -0.14 \\
-E2E & 0.553 & -0.114 & -2.645 & 0.459 & 0.185 & -0.23 & 0.164 & -0.159 \\
+\multicolumn{11}{@{}l}{\textit{Horizon $t+1$}} \\[2pt]
+SARIMA-AC & 0.822 & 0.024 & 0.293 & 0.675 & 0.461 & -0.384 & 0.102 & 0.486 & 0.102 & 36.707 \\
+XGB-DC & 3.729 & -3.705 & -53.354 & 2.233 & 6.005 & -0.003 & 2.296 & 2.299 & 2.296 & 99.924 \\
+SARIMA-Surrogate & 1.011 & 0.518 & 5.705 & 0.778 & 0.357 & -0.635 & 0.24 & 0.875 & 0.24 & 53.712 \\
+E2E & 0.567 & 0.005 & -0.328 & 0.468 & 0.332 & -0.256 & 0.082 & 0.338 & 0.081 & 43.51 \\
 \midrule
-\multicolumn{9}{@{}l}{\textit{Horizon $t+6$}} \\[2pt]
-XGB-AC & 3.035 & 0.289 & 1.364 & 2.496 & 0.819 & -1.751 & 0.646 & -0.643 \\
-XGB-DC & 4.49 & -3.505 & -52.658 & 3.153 & 2.177 & -0.73 & 2.058 & -2.058 \\
-XGB-Surrogate & 3.208 & 0.978 & 9.702 & 2.62 & 0.72 & -2.177 & 0.539 & -0.479 \\
-E2E & 1.772 & -0.113 & -3.605 & 1.458 & 0.543 & -0.883 & 0.458 & -0.453 \\
+\multicolumn{11}{@{}l}{\textit{Horizon $t+6$}} \\[2pt]
+XGB-AC & 3.035 & 0.289 & 1.364 & 2.496 & 1.585 & -1.509 & 0.367 & 1.874 & 0.365 & 45.14 \\
+XGB-DC & 4.49 & -3.505 & -52.658 & 3.153 & 6.176 & -0.297 & 2.374 & 2.671 & 2.374 & 95.949 \\
+XGB-Surrogate & 3.107 & 0.783 & 6.991 & 2.53 & 1.425 & -1.746 & 0.461 & 2.207 & 0.461 & 54.077 \\
+E2E & 1.767 & 0.0 & -1.792 & 1.456 & 1.019 & -0.803 & 0.221 & 1.022 & 0.217 & 51.827 \\
 \midrule
-\multicolumn{9}{@{}l}{\textit{Horizon $t+24$}} \\[2pt]
-XGB-AC & 4.987 & 0.611 & 2.25 & 4.102 & 1.441 & -2.94 & 0.891 & -0.887 \\
-XGB-DC & 5.804 & -3.202 & -51.677 & 4.457 & 2.835 & -1.714 & 2.082 & -2.082 \\
-XGB-Surrogate & 5.043 & 1.06 & 6.849 & 4.146 & 1.376 & -3.194 & 0.803 & -0.758 \\
-E2E & 4.295 & 0.142 & -0.79 & 3.542 & 1.335 & -2.405 & 0.931 & -0.928 \\
+\multicolumn{11}{@{}l}{\textit{Horizon $t+24$}} \\[2pt]
+XGB-AC & 4.987 & 0.611 & 2.25 & 4.102 & 2.528 & -2.539 & 0.602 & 3.14 & 0.6 & 44.487 \\
+XGB-DC & 5.804 & -3.202 & -51.677 & 4.457 & 6.609 & -0.875 & 2.532 & 3.407 & 2.532 & 89.364 \\
+XGB-Surrogate & 4.973 & 0.881 & 4.45 & 4.08 & 2.447 & -2.655 & 0.673 & 3.328 & 0.673 & 54.483 \\
+E2E & 4.31 & 0.867 & 12.009 & 3.545 & 1.968 & -2.373 & 0.473 & 2.84 & 0.463 & 57.738 \\
 \bottomrule
 \end{tabular}}
 \end{table}
