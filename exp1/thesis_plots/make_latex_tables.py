@@ -7,9 +7,14 @@
 # Table 5 (appendix): full performance metrics across grid sizes over all horizons
 # Table 6: core metrics (as Table 1), case118 fixed, over all horizons, best forecaster per optimizer
 # Table 7: raw + rebalanced opt gap (ex-post AC-PF, distributed slack), case118, all horizons, best forecaster
+# Table 8 (appendix, Q2): gap + supply, all grids and horizons
+# Table 9 (Q3): limit violations after the ex-post AC-PF, all grids, horizon = 6
+# Table 10 (appendix, Q3): as Table 9 + share of samples, all horizons
 
-"""One-shot: combined CSV (+ corrected_gap.csv) -> 7 LaTeX tables (metrics as columns, models as rows). No config, just run it."""
+"""One-shot: combined CSV (+ corrected_gap.csv) -> 10 LaTeX tables (metrics as columns, models as rows). No config, just run it."""
 import pandas as pd
+
+from plot_rmse import h_label, keep_forecasters
 
 IN = "exp1/results/combined/case118_combined.csv"
 CORR_IN = "exp1/results/combined/corrected_gap.csv"  # exp1/generate_metrics/corrected_gap.py
@@ -18,9 +23,9 @@ OUT_DIR = "exp1/results/combined"
 CASE_LABELS = {"case14_ieee": "case14", "case118_ieee": "case118", "case500_goc": "case500"}
 CASE_ORDER = {"case14": 0, "case118": 1, "case500": 2}  # by grid size, not lexical
 OPT_LABELS = {"ac": "AC", "dc": "DC", "surrogate": "Surrogate", "e2e": "E2E"}
-FC_LABELS = {"snaive": "SNaive", "xgb": "XGB", "xgb_tot": "XGB+D", "true": "True", "none": "None", "sarima": "SARIMA"}
+FC_LABELS = {"snaive": "SNaive", "xgb_tot": "XGB", "true": "True", "none": "None", "sarima": "SARIMA"}
 OPT_ORDER = {"ac": 0, "dc": 1, "surrogate": 2, "e2e": 3}
-FC_ORDER = {"snaive": 0, "sarima": 1, "xgb": 2, "xgb_tot": 3, "true": 4, "none": 5}
+FC_ORDER = {"snaive": 0, "sarima": 1, "xgb_tot": 3, "true": 4, "none": 5}
 
 PERF_METRICS = {
     "Mean Optimality Gap": "Opt. Gap \\% (mean)",
@@ -66,20 +71,21 @@ TIMING_METRICS = {
 }
 
 df = pd.concat([pd.read_csv(IN), pd.read_csv(CORR_IN)], ignore_index=True)
-df = df[df["forecaster"] != "true"]  # drop the perfect-info oracle arm (no realistic counterpart)
-df = df[df["forecaster"] != "xgb_tot"]  # control arm (XGB + total load); main vs control placement undecided
-df["model"] = df["forecaster"].map(FC_LABELS) + "-" + df["optimizer"].map(OPT_LABELS)
+df = keep_forecasters(df)
+vm = df[df["metric"] == "Vm Violation Mean (p.u.)"].assign(metric="Vm Violation Mean (1e-3 p.u.)")
+df = pd.concat([df, vm.assign(mean=vm["mean"] * 1e3)], ignore_index=True)  # 3-decimal tables flatten p.u. values
+df["model"] =df["forecaster"].map(FC_LABELS) + "-" + df["optimizer"].map(OPT_LABELS)
 df.loc[df["optimizer"] == "e2e", "model"] = "E2E"
 df["case_label"] = df["case"].map(CASE_LABELS)
 df["model_order"] = df["optimizer"].map(OPT_ORDER) * 10 + df["forecaster"].map(FC_ORDER)
 
 
-def filter_best_forecaster(d):
-    """Keep the best forecaster per (case, horizon, optimizer), chosen by lowest mean optimality
-    gap -- one row per arm (AC / DC / Surrogate / E2E). Best is picked per horizon so a forecaster
+def filter_best_forecaster(d, metric="Mean Optimality Gap"):
+    """Keep the best forecaster per (case, horizon, optimizer), chosen by lowest `metric` (default: mean optimality
+    gap) -- one row per arm (AC / DC / Surrogate / E2E). Best is picked per horizon so a forecaster
     missing a hard horizon can't win on a partial-coverage average. E2E has a single forecaster
     (none) so it passes through unchanged."""
-    gap = d[d["metric"] == "Mean Optimality Gap"]
+    gap = d[d["metric"] == metric]
     best = gap.loc[gap.groupby(["case", "horizon", "optimizer"])["mean"].idxmin()]
     keep = set(zip(best["case"], best["horizon"], best["optimizer"], best["forecaster"]))
     key = zip(d["case"], d["horizon"], d["optimizer"], d["forecaster"])
@@ -87,25 +93,33 @@ def filter_best_forecaster(d):
 
 
 def write_table(sub, metrics, out_path, caption, label, group_col=None, group_labels=None,
-                sub_group_col=None, sub_group_labels=None, longtable=False):
+                sub_group_col=None, sub_group_labels=None, longtable=False, fmt=None, header_groups=None):
     """group_col: optional column ('case_label' or 'horizon') whose distinct values get their
     own \\multicolumn section header, so it's clear where each case/horizon's rows start.
     sub_group_col: optional second-level column, emitted as an indented sub-header within
     each group_col section (e.g. case as major section, horizon as minor).
     longtable=True emits a longtable that breaks across pages and repeats the header, instead
     of a resizebox'd float (which can't page-break and so gets cut off when too tall).
-    Requires \\usepackage{longtable} (+ booktabs) in the preamble."""
-    sub = sub[sub["metric"].isin(metrics)].copy()
-    sub["val"] = sub["mean"].round(3).astype(str)
-    sub["metric_label"] = sub["metric"].map(metrics)
+    Longtable in \\footnotesize with narrow column padding (no resizebox possible).
+    Requires \\usepackage{longtable} (+ booktabs) in the preamble.
+    fmt: value -> str (default: rounded to 3 decimals).
+    header_groups: [(title, n_columns), ...] over the metric columns -> extra header row with \\cmidrule"""
+    sub = sub[sub["metric"].isin(metrics)].dropna(subset=["mean"]).copy()  # undefined (e.g. no violation) -> "--"
+    sub["val"] = sub["mean"].map(fmt) if fmt else sub["mean"].round(3).astype(str)
 
-    cols = list(metrics.values())
+    cols = list(metrics)
     n_cols = 1 + len(cols)
     col_fmt = "l" + "r" * len(cols)
-    header = "Model & " + " & ".join(cols) + " \\\\"
+    header = "Model & " + " & ".join(metrics.values()) + " \\\\"
+    if header_groups:
+        starts = [2 + sum(n for _, n in header_groups[:i]) for i in range(len(header_groups))]
+        header = (" & " + " & ".join(f"\\multicolumn{{{n}}}{{c}}{{{t}}}" for t, n in header_groups) + " \\\\\n"
+                  + " ".join(f"\\cmidrule(lr){{{s}-{s + n - 1}}}" for s, (_, n) in zip(starts, header_groups))
+                  + "\n" + header)
 
     if longtable:
         lines = [
+            "\\begingroup\\footnotesize\\setlength{\\tabcolsep}{3pt}",  # no resizebox in a longtable -> shrink to fit
             f"\\begin{{longtable}}{{{col_fmt}}}",
             f"\\caption{{{caption}}}\\label{{{label}}}\\\\",
             "\\toprule", header, "\\midrule", "\\endfirsthead",
@@ -140,7 +154,7 @@ def write_table(sub, metrics, out_path, caption, label, group_col=None, group_la
             return sorted(vals)
 
     def emit_rows(block):
-        piv = block.pivot_table(index=["model", "model_order"], columns="metric_label",
+        piv = block.pivot_table(index=["model", "model_order"], columns="metric",
                                  values="val", aggfunc="first")
         piv = piv.reindex(columns=cols).fillna("--")
         piv = piv.reset_index().sort_values("model_order")
@@ -170,7 +184,7 @@ def write_table(sub, metrics, out_path, caption, label, group_col=None, group_la
             emit_section(sub[sub[group_col] == g])
 
     if longtable:
-        lines += ["\\end{longtable}", ""]
+        lines += ["\\end{longtable}", "\\endgroup", ""]
     else:
         lines += ["\\bottomrule", "\\end{tabular}}", "\\end{table}", ""]
 
@@ -185,7 +199,7 @@ write_table(
     CORE_METRICS,
     f"{OUT_DIR}/table1_core_grid_h6.tex",
     "Optimality gap and power-balance residuals across grid sizes "
-    "(horizon $t+6$; best 2-step forecaster per optimizer).",
+    "(horizon $H=6$; best 2-step forecaster per optimizer).",
     "tab:core_grid_h6",
     group_col="case_label",
     group_labels=lambda g: g,
@@ -199,7 +213,7 @@ write_table(
     "Performance metrics across forecast horizons (case118; best forecaster per optimizer).",
     "tab:perf_case118_horizons",
     group_col="horizon",
-    group_labels=lambda h: f"Horizon $t+{int(h)}$",
+    group_labels=lambda h: f"Horizon {h_label(int(h))}",
 )
 
 # Table 3: mean inequality constraint violations, case118 & horizon=24 fixed (DC excluded --
@@ -236,7 +250,7 @@ write_table(
     group_col="case_label",
     group_labels=lambda g: g,
     sub_group_col="horizon",
-    sub_group_labels=lambda h: f"Horizon $t+{int(h)}$",
+    sub_group_labels=lambda h: f"Horizon {h_label(int(h))}",
     longtable=True,  # spans grid x all horizons -> too tall for one page; paginate
 )
 
@@ -249,7 +263,7 @@ write_table(
     "(case118; best 2-step forecaster per optimizer).",
     "tab:core_case118_horizons",
     group_col="horizon",
-    group_labels=lambda h: f"Horizon $t+{int(h)}$",
+    group_labels=lambda h: f"Horizon {h_label(int(h))}",
 )
 
 # Table 7: raw + rebalanced opt gap (ex-post AC-PF, distributed slack), case118, all horizons
@@ -266,5 +280,82 @@ write_table(
     "Thermal: share of samples with a line overload.",
     "tab:corr_gap_case118_horizons",
     group_col="horizon",
-    group_labels=lambda h: f"Horizon $t+{int(h)}$",
+    group_labels=lambda h: f"Horizon {h_label(int(h))}",
+)
+
+# Table 8 (appendix, Q2): gaps + supply error across grids and horizons; forecaster per arm = lowest rebalanced gap
+# (same operating state as gap_slide row 1)
+write_table(
+    filter_best_forecaster(df, "Rebalanced Gap"),
+    {"Optimality Gap (recomputed)": "raw", "Rebalanced Gap": "rebal.", "No-refund Gap": "no-refund",
+     "Mean dPg (MW)": "$\\Delta P$", "Mean |dPg| (MW)": "$|\\Delta P|$"},
+    f"{OUT_DIR}/table8_gap_supply_grid_all_horizons.tex",
+    "Raw, rebalanced and no-refund optimality gap and the supply error "
+    "$\\Delta P = \\sum_g \\hat P_g - \\sum_g P^{*}_g$ "
+    "(signed and absolute mean, MW) across grids and horizons. 2-step: forecaster with the lowest rebalanced gap per "
+    "optimizer; ML arms: mean over seeds.",
+    "tab:gap_supply_grid_all_horizons",
+    group_col="case_label",
+    group_labels=lambda g: g,
+    sub_group_col="horizon",
+    sub_group_labels=lambda h: f"Horizon {h_label(int(h))}",
+    longtable=True,
+    header_groups=[("Optimality gap (\\%)", 3), ("Supply error (MW)", 2)],
+)
+
+
+# Q3: limit violations after the ex-post AC-PF; forecaster per arm = lowest rebalanced gap (same operating state as Q2)
+Q3_GROUPS = {  # constraint group -> (header, mean metric)
+    "Thermal Overload": ("Thermal (lines)", "Thermal Overload Mean (% of rating)"),
+    "Vm Violation": ("$V_m$ (PQ buses)", "Vm Violation Mean (1e-3 p.u.)"),
+    "Qg Violation": ("$Q_g$ (generator buses)", "Qg Violation Mean (MVAr)"),
+}
+Q3_CAPTION = (
+    "Limit violations after the ex-post AC power flow{}. Per constraint group: {}share of elements with a violation "
+    "(\\% el.; $Q_g$: without the reference bus) and mean violation per violating element (mean; thermal: \\% of the "
+    "rating above 100\\,\\%, $V_m$: $10^{{-3}}$\\,p.u., $Q_g$: MVAr); 0 = none, 0.00 = rounds to zero; -- = no violation. 2-step: forecaster with the "
+    "lowest rebalanced gap per optimizer; ML arms: mean over seeds."
+)
+
+
+def q3_fmt(v):
+    """2 decimals; exact 0 -> '0', so tiny nonzero values ('0.00') stay distinguishable"""
+    return "0" if v == 0 else f"{v:.2f}"
+
+
+def q3_metrics(samples):
+    """{metric: column label} per group: [% samples,] % elements, mean per violating element"""
+    out = {}
+    for g, (_, mean) in Q3_GROUPS.items():
+        out |= ({f"{g} (%)": "\\% smp."} if samples else {}) | {f"{g} (% elements)": "\\% el.", mean: "mean"}
+    return out
+
+
+# Table 9 (main text, Q3): H = 6
+write_table(
+    filter_best_forecaster(df[df["horizon"] == 6], "Rebalanced Gap"),
+    q3_metrics(samples=False),
+    f"{OUT_DIR}/table9_violations_h6.tex",
+    Q3_CAPTION.format(f" ({h_label(6)})", ""),
+    "tab:violations_h6",
+    group_col="case_label",
+    group_labels=lambda g: g,
+    fmt=q3_fmt,
+    header_groups=[(h, 2) for h, _ in Q3_GROUPS.values()],
+)
+
+# Table 10 (appendix, Q3): all horizons, plus the share of samples with >= 1 violation per group
+write_table(
+    filter_best_forecaster(df, "Rebalanced Gap"),
+    q3_metrics(samples=True),
+    f"{OUT_DIR}/table10_violations_all_horizons.tex",
+    Q3_CAPTION.format("", "share of test samples with at least one violation (\\% smp.), "),
+    "tab:violations_all_horizons",
+    group_col="case_label",
+    group_labels=lambda g: g,
+    sub_group_col="horizon",
+    sub_group_labels=lambda h: f"Horizon {h_label(int(h))}",
+    longtable=True,
+    fmt=q3_fmt,
+    header_groups=[(h, 3) for h, _ in Q3_GROUPS.values()],
 )

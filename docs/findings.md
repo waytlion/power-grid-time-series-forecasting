@@ -211,6 +211,11 @@ RETRACTED entries stay so they are not re-proposed. ML-arm findings: `~/gridfm-g
     Pmax 340. Diverged PFs have no solution; they are counted and treated as infeasible in Q3.
     useActiveLimits=true kept.
   - DC arm: DC-OPF dispatch (`p_mw_dc`) with case-file generator setpoints VG at PV/REF buses (DC-OPF has no voltages).
+    - 2026-11-09, consequence for Q3: case14 case-file VG = 1.0 p.u. at all 5 units (bus limits 0.94–1.06) → DC's PQ
+      voltages sit mid-band (0 Vm violations, all H) while its units hold 1.0 p.u. whatever the reactive need ($Q_g$
+      violated at 45 % of generator buses, 100 % of samples, H=6). DC's Vm / Qg columns reflect the case-file
+      setpoints, not the DC dispatch. AC uses its OPF Vm setpoints (cost-optimal, typically near Vmax for lower losses
+      → PQ buses close to the bound; not checked on our data).
   - Reporting (corrected_gap): thermal overload share, insufficient headroom (% and n), diverged / no_dispatch
     counts. A violation-free γ_reb was tested (numbers below) and dropped the same day: not reported.
 - 2026-10-13: case118 h1 test, all arms, final settings. n = 3942 each (E2E 3934); capella srun, 2 CPUs, 5 m 46 s.
@@ -325,8 +330,11 @@ RETRACTED entries stay so they are not re-proposed. ML-arm findings: `~/gridfm-g
       E2E 3.0–17.2, surrogate case500 55–56, DC 113 (case118) / 391 (case500, case-file voltage setpoints).
     - PQ voltage: E2E case500 64–70 % of samples (AC 7–51, surrogate 17), but worst ≤ 0.006 p.u. and ≤ 0.5 % of PQ buses;
       DC 0 everywhere.
-    - Mean per violating element (not just the worst) needs the *_sum columns: expost_pf rerun romeo 9238374-76 →
-      `phase_1c/expost_pf_v2`.
+    - Mean per violating element: expost_pf rerun with *_sum columns (romeo 9238374-76 → `phase_1c/expost_pf_v2`,
+      corrgap 9238386, 117 arms, gates ok; all 2808 previous values bit-identical). Element share % (mean per element):
+      thermal case118 AC 0.20–0.24 (0.3–1.7), E2E 0.23–0.31 (0.4–2.1), DC 0.89–0.97 (3.6–3.9) [% of rating]; Qg AC 6–21
+      (0.3–3.5), E2E 10–22 (0.4–4.3), surrogate case500 26 (13), DC 25–47 (10–61) [MVAr]; Vm ≤ 0.57 (≤ 0.0045 p.u.).
+      → AC lowest on most Q3 cells; E2E close to AC except case500 Vm; DC far worst on thermal + Qg.
 
 ## 9. Dispatch structure: why E2E barely beats 2-step on Pg (2026-10-13, `exp1/generate_metrics/dispatch_diag.py`)
 
@@ -474,9 +482,39 @@ RETRACTED entries stay so they are not re-proposed. ML-arm findings: `~/gridfm-g
 - 2026-11-01: **final totals** (dispatch_diag rerun on final_e2e_qgmse s0 + XGB+D, capella 4506411/12, romeo 9238378
   for case500; out `phase_1c/dispatch_diag_final`, per-sample `step1_samples.parquet`; all Pg gates recomputed == logged).
   - Slope / r of per-sample ΣΔPg on ΣΔPd (h1 / h6 / h24): AC (all forecasters) 1.02–1.09, r = 1.00 (Pg error = load
-    error by construction); E2E case14 0.45 / 0.81 / 0.84 (r 0.71–0.86), case118 0.37 / 0.69 / 0.82 (r 0.63–0.85)
-    → E2E's Pg output damps its own summed Pd error, most at h1.
+    error by construction); E2E case14 0.45 / 0.81 / 0.84 (r 0.71–0.86), case118 0.37 / 0.69 / 0.82 (r 0.63–0.85),
+    case500 0.53 / 0.72 / 0.75 (r 0.67–0.82) → E2E's Pg output damps its own summed Pd error, most at h1.
+  - case500 volume / misplaced MW: AC xgb_tot 75.0/0.09, 235.5/0.11, 420.9/0.11; E2E 66.7/23.1, 187.6/35.0, 379.3/47.7
+    → volume win, but 2 × misplaced (46–95 MW) exceeds it: E2E's Σ|ΔPg| is the larger one (its worse case500 Pg MAE).
   - Volume |ΣΔPg| / misplaced MW, case118 h1/h6/h24: AC sarima 14.9/0.1, AC xgb_tot 50.6/0.9, 89.0/1.1; E2E 11.0/1.7,
     33.5/3.1, 82.9/4.8 vs E2E's own |ΣΔPd| 19.8/56.1/89.0 → E2E wins on volume, pays a small allocation cost.
+  - 2026-11-02, control route on identical Pd (e2e_pd_opf.py table h1/6/24, romeo 9238639-41, Pg gates ok; case500
+    h24 MAE-Pd gate mismatch = known 5218 OPF failures): RMSE of summed error MW, E2E ΣPd / Pd → AC-OPF ΣPg / E2E ΣPg:
+    case14 1.5/1.6/1.0, 4.6/4.9/4.4, 10.0/10.7/9.9; case118 25.6/26.3/15.0, 73.3/75.1/50.8, 120.5/123.6/119.0;
+    case500 114.7/116.9/91.3, 321.0/327.3/277.9, 575.4/586.5/532.5 → the route passes the summed Pd error on 1:1
+    (+2–7 %, losses), the Pg output damps it (−1 to −41 %), fading with H.
+  - 2026-11-08, **Pd RMSE domain**: logged RMSE Pd (compare.py, E2E/surrogate logs, dispatch_diag) pools ALL buses,
+    zero-load buses count with their error (2-step: exactly 0; E2E: small nonzero predictions). Load buses only (true
+    Pd > 1e-3 MW; datakit stores zero-load buses as ~1e-7 MW noise, dumps as exact 0; 3 / 19 / 219 zero-load buses),
+    2-step forecast vs E2E s0, h1/h6/h24: case14 0.24/1.05/1.68 vs 0.31/0.85/1.63; case118 0.36/1.58/2.36 vs
+    0.71/1.52/2.46; case500 0.52/2.29/3.51 vs 0.81/2.14/3.44 → on load buses E2E is worse only at h1 (all grids)
+    and case118 h24; at case500 h6/h24 the all-bus "E2E slightly worse" comes from its zero-load-bus predictions.
+  - 2026-11-08, **2-step ΣPg error > ΣPd error = network losses**: exact OPF power balance → per sample
+    ΣΔPg − ΣΔPd = ΔL (change in losses incl. shunt consumption). Slope of ΔL on ΣΔPd (marginal loss factor):
+    case14 0.060–0.091 (R² 0.88–0.93), case118 0.020–0.025 (R² 0.73–0.85), case500 0.016–0.020 (R² 0.43–0.73);
+    RMSE(ΣΔPg)/RMSE(ΣΔPd) = 1 + slope to 3 decimals for all 27 AC arm × case × H → the excess is entirely the
+    load-driven loss change; ordering matches the average loss shares (§5: 3.7 / 2.2 / 1.7 %).
+  - 2026-11-02, per-sample RMSE (step1_samples pd_rmse / pg_rmse; recomputed == logged for all arms, E2E = s0): Pg p90
+    lower for E2E in all 9 cells (e.g. case118 h6 6.2 vs 8.3 MW), median lower in 5/9 (higher at case118/500 h1)
+    → RETRACTED 2026-11-09 (interpretation only, numbers stand): "E2E's Pg gain sits in the bad hours", see next
+    entry. Summed ΣPd error RMSE ÷ independent-error value (sqrt cancel_ratio): 1.5–10, same for AC and E2E Pd.
+  - 2026-11-09, per-sample Pg RMSE redone with the current forecaster set (plain XGB excluded; 2-step AC = lowest
+    pooled Pg RMSE; E2E s0; n = 3934–94344 per cell; rank-matched quantiles of the squared per-sample error):
+    - p90 lower for E2E in 9/9 cells, median in 6/9 (higher: case118 h1, case500 h1; case118 h24 equal), p99 higher
+      at case14 h24 (14.9 vs 14.1 MW) and case118 h24 (31.7 vs 27.2).
+    - Not driven by a few outliers: in the cells where E2E clearly wins (case14 h1/h6, case118 h6, case500 h6/h24)
+      the top 10 % of samples give 49–69 % of the MSE gap and the top 1 % 12–25 %, about their share of AC's own MSE
+      (52–64 % / 14–20 %, heavy tail). E2E's quantile function lies below AC's at 99–100 % of ranks on case14 h1/h6
+      and case118 h6 (whole distribution shifts), at 51–62 % on case500 h6/h24 (gain in the upper half).
   - Bug fixed on the way: 2-step ΔD was summed over all forecast samples, Pg over OPF-solved ones (case500 h6/h24
     sarima: 6 no_dispatch) → ΔD now on the solved samples only; affects dD_abs_mw there by ≤ 6/23604 samples.

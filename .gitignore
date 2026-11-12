@@ -29,6 +29,7 @@ build/
 data/
 data_out/
 *.parquet
+*.npz
 *.csv
 *.png
 *.tex

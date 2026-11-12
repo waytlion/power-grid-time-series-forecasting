@@ -14,7 +14,7 @@
      single "2-step (best forecaster)" line instead of one line per optimizer.
 
   3) rmse_slide.pdf: one-slide Q1 summary, cols = case, x = horizon.
-     - row 1: Pd RMSE, 2-step best forecaster vs E2E
+     - row 1: Pd RMSE, 2-step best forecaster vs E2E; E2E vs 2-step in % per horizon
      - row 2: Pg RMSE per optimizer (log y), best forecaster per metric; E2E vs AC in % per horizon
 """
 import pandas as pd
@@ -43,8 +43,20 @@ plt.rcParams.update(THESIS_RC)
 
 
 def load():
-    df = pd.read_csv(IN)
-    return df[df["forecaster"] != "true"]  # drop the perfect-info oracle arm (no realistic counterpart)
+    return keep_forecasters(pd.read_csv(IN))
+
+
+def h_label(h):
+    """horizon label: H = h means all lead times 1..h evaluated together (not only h steps ahead)"""
+    return f"$H={h}$"
+
+
+EXCLUDED_FC = ("true", "xgb")  # oracle (no realistic counterpart); plain XGB, replaced by xgb_tot (labelled "XGB")
+
+
+def keep_forecasters(df):
+    """2-step forecaster set of every figure / table: drops EXCLUDED_FC"""
+    return df[~df["forecaster"].isin(EXCLUDED_FC)]
 
 
 def best_forecaster_per_metric(df, metric):
@@ -86,7 +98,7 @@ def plot_bar_grid(df):
                 ax.grid(axis="y", color="0.9", lw=0.6)
                 ax.set_axisbelow(True)
                 if r == 0:
-                    ax.set_title(f"$t+{h}$")
+                    ax.set_title(f"{h_label(h)}")
                 if c == 0:
                     ax.set_ylabel(f"{mlabel}\n[{unit}]")
         for r in range(len(BAR_VARS)):
@@ -129,7 +141,7 @@ def plot_pd_lines(df):
             row_top = max(row_top, sub["mean"].max())
             ax.plot(sub["horizon"], sub["mean"], "-o", color=color, ms=5, lw=2, label=series)
         ax.set_xticks(HORIZONS)
-        ax.set_xticklabels([f"$t+{h}$" for h in HORIZONS])
+        ax.set_xticklabels([f"{h_label(h)}" for h in HORIZONS])
         ax.set_ylabel(f"{CASE_LABELS[case]}\n$P_d$ RMSE [MW]")
         ax.grid(axis="y", color="0.9", lw=0.6)
         ax.set_axisbelow(True)
@@ -150,6 +162,16 @@ X_OF = {h: i for i, h in enumerate(HORIZONS)}
 LS = {o: "--" if o == "surrogate" else "-" for o in OPT_ORDER}  # surrogate ≈ AC on case14/118 -> keep AC visible
 
 
+def pct_row(ax, e2e, ref, tag=None):
+    """E2E vs ref in % per horizon along the bottom of ax (text ink, identity stays with the marks)
+    - e2e, ref: mean per horizon; tag: row label (first column only)"""
+    for h in HORIZONS:
+        ax.text(X_OF[h], 0.04, f"{100 * (e2e[h] / ref[h] - 1):+.0f} %", transform=ax.get_xaxis_transform(),
+                ha="center", fontsize=9.5)
+    if tag:
+        ax.text(-0.3, 0.12, tag, transform=ax.get_xaxis_transform(), fontsize=9, color="0.35")
+
+
 def optimizer_lines(ax, sub, tag=False):
     """one line per optimizer (log y) + E2E vs AC in % per horizon; sub = best_forecaster_per_metric rows of one case
     - tag: print the 'E2E vs AC' row label (first column)"""
@@ -157,18 +179,13 @@ def optimizer_lines(ax, sub, tag=False):
     for o in OPT_ORDER:
         s = sub[sub["optimizer"] == o]
         ax.plot(s["horizon"].map(X_OF), s["mean"], marker="o", ls=LS[o], color=ARM_COLORS[o], lw=2, ms=6)
-    ac = sub[sub["optimizer"] == "ac"].set_index("horizon")["mean"]
-    e2e = sub[sub["optimizer"] == "e2e"].set_index("horizon")["mean"]
     ax.set_yscale("log")
     ax.set_ylim(sub["mean"].min() / 3, sub["mean"].max() * 1.6)
     ax.yaxis.set_major_locator(LogLocator(subs=(1, 2, 5)))
     ax.yaxis.set_major_formatter(FuncFormatter(lambda v, _: f"{v:g}"))
     ax.yaxis.set_minor_formatter(FuncFormatter(lambda v, _: ""))
-    for h in HORIZONS:  # text ink, identity stays with the marks
-        ax.text(X_OF[h], 0.04, f"{100 * (e2e[h] / ac[h] - 1):+.0f} %", transform=ax.get_xaxis_transform(),
-                ha="center", fontsize=9.5)
-    if tag:
-        ax.text(-0.3, 0.12, "E2E vs AC", transform=ax.get_xaxis_transform(), fontsize=9, color="0.35")
+    by_h = lambda o: sub[sub["optimizer"] == o].set_index("horizon")["mean"]
+    pct_row(ax, by_h("e2e"), by_h("ac"), f"E2E vs {OPT_LABELS['ac']}" if tag else None)
 
 
 def style_slide_axes(axes):
@@ -176,7 +193,7 @@ def style_slide_axes(axes):
         ax.grid(axis="y", color="0.9", lw=0.6)
         ax.set_axisbelow(True)
         ax.set_xticks(range(len(HORIZONS)))
-        ax.set_xticklabels([f"$t+{h}$" for h in HORIZONS])
+        ax.set_xticklabels([f"{h_label(h)}" for h in HORIZONS])
         ax.set_xlim(-0.3, len(HORIZONS) - 0.7)
 
 
@@ -201,11 +218,17 @@ def plot_slide(df):
         fig, axes = plt.subplots(2, len(CASE_ORDER), figsize=(10, 5.8), sharex=True)
         for c, case in enumerate(CASE_ORDER):
             ax = axes[0][c]
+            by_h = {}
             for series, color in (("2-step (best forecaster)", fc_color), ("E2E", ARM_COLORS["e2e"])):
                 s = pd_data[(pd_data["case"] == case) & (pd_data["series"] == series)].sort_values("horizon")
                 ax.plot(s["horizon"].map(X_OF), s["mean"], "-o", color=color, lw=2, ms=6)
+                by_h[series] = s.set_index("horizon")["mean"]
+            pct_row(ax, by_h["E2E"], by_h["2-step (best forecaster)"], "E2E vs 2-step" if c == 0 else None)
             ax.set_title(CASE_LABELS[case])
-            ax.set_ylim(bottom=0)
+            top = ax.get_ylim()[1]
+            ax.set_ylim(-0.25 * top, top)  # margin below 0 for the % row; axis itself starts at 0
+            ax.set_yticks([t for t in ax.get_yticks() if 0 <= t <= top])
+            ax.spines["left"].set_bounds(0, top)
             optimizer_lines(axes[1][c], pg[pg["case"] == case], tag=c == 0)
         style_slide_axes(axes)
         axes[0][0].set_ylabel("$P_d$ RMSE [MW]")
@@ -214,11 +237,27 @@ def plot_slide(df):
         finish_slide(fig, handles + optimizer_handles(), "rmse_slide")
 
 
+def plot_vmva_slide(df):
+    """same layout as rmse_slide for the voltage variables; DC has no voltage magnitudes (no Vm line)"""
+    with plt.rc_context(SLIDE_RC):
+        fig, axes = plt.subplots(2, len(CASE_ORDER), figsize=(10, 5.8), sharex=True)
+        for r, (metric, label, unit) in enumerate(BAR_VARS[1:]):
+            best = best_forecaster_per_metric(df, metric)
+            for c, case in enumerate(CASE_ORDER):
+                optimizer_lines(axes[r][c], best[best["case"] == case], tag=c == 0)
+            axes[r][0].set_ylabel(f"{label} [{unit}], log")
+        for c, case in enumerate(CASE_ORDER):
+            axes[0][c].set_title(CASE_LABELS[case])
+        style_slide_axes(axes)
+        finish_slide(fig, optimizer_handles(), "rmse_vmva_slide")
+
+
 def main():
     df = load()
     plot_bar_grid(df)
     plot_pd_lines(df)
     plot_slide(df)
+    plot_vmva_slide(df)
 
 
 if __name__ == "__main__":

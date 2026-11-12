@@ -1,0 +1,79 @@
+\begingroup\footnotesize\setlength{\tabcolsep}{3pt}
+\begin{longtable}{lrrrrr}
+\caption{Raw, rebalanced and no-refund optimality gap and the supply error $\Delta P = \sum_g \hat P_g - \sum_g P^{*}_g$ (signed and absolute mean, MW) across grids and horizons. 2-step: forecaster with the lowest rebalanced gap per optimizer; ML arms: mean over seeds.}\label{tab:gap_supply_grid_all_horizons}\\
+\toprule
+ & \multicolumn{3}{c}{Optimality gap (\%)} & \multicolumn{2}{c}{Supply error (MW)} \\
+\cmidrule(lr){2-4} \cmidrule(lr){5-6}
+Model & raw & rebal. & no-refund & $\Delta P$ & $|\Delta P|$ \\
+\midrule
+\endfirsthead
+\multicolumn{6}{c}{\tablename\ \thetable{} -- continued} \\
+\toprule
+ & \multicolumn{3}{c}{Optimality gap (\%)} & \multicolumn{2}{c}{Supply error (MW)} \\
+\cmidrule(lr){2-4} \cmidrule(lr){5-6}
+Model & raw & rebal. & no-refund & $\Delta P$ & $|\Delta P|$ \\
+\midrule
+\endhead
+\midrule
+\multicolumn{6}{r}{\textit{continued on next page}} \\
+\endfoot
+\bottomrule
+\endlastfoot
+\multicolumn{6}{@{}l}{\textit{case14}} \\[2pt]
+\multicolumn{6}{@{}l}{\quad Horizon $H=1$} \\[2pt]
+SARIMA-AC & 0.824 & 0.114 & 0.534 & 0.009 & 1.108 \\
+SARIMA-DC & 3.133 & 1.641 & 1.662 & -4.916 & 4.981 \\
+SARIMA-Surrogate & 0.862 & 0.293 & 0.782 & 0.037 & 1.116 \\
+E2E & 0.523 & 0.085 & 0.36 & 0.05 & 0.731 \\
+\addlinespace[2pt]
+\multicolumn{6}{@{}l}{\quad Horizon $H=6$} \\[2pt]
+SARIMA-AC & 3.408 & 0.444 & 2.274 & 0.064 & 4.666 \\
+SARIMA-DC & 4.686 & 1.802 & 2.629 & -4.855 & 7.049 \\
+SARIMA-Surrogate & 3.421 & 0.598 & 2.52 & 0.083 & 4.673 \\
+E2E & 2.07 & 0.306 & 1.39 & 0.071 & 2.911 \\
+\addlinespace[2pt]
+\multicolumn{6}{@{}l}{\quad Horizon $H=24$} \\[2pt]
+XGB-AC & 5.63 & 0.723 & 3.774 & -0.528 & 7.918 \\
+XGB-DC & 6.381 & 1.986 & 3.731 & -5.345 & 9.672 \\
+XGB-Surrogate & 5.69 & 0.851 & 4.074 & -0.446 & 7.971 \\
+E2E & 4.878 & 0.724 & 3.233 & -0.269 & 6.863 \\
+\midrule
+\multicolumn{6}{@{}l}{\textit{case118}} \\[2pt]
+\multicolumn{6}{@{}l}{\quad Horizon $H=1$} \\[2pt]
+SARIMA-AC & 0.822 & 0.102 & 0.486 & 0.293 & 14.905 \\
+XGB-DC & 3.662 & 2.283 & 2.285 & -51.587 & 52.341 \\
+XGB-Surrogate & 1.127 & 0.239 & 0.978 & 7.745 & 19.927 \\
+E2E & 0.567 & 0.082 & 0.338 & -0.328 & 11.035 \\
+\addlinespace[2pt]
+\multicolumn{6}{@{}l}{\quad Horizon $H=6$} \\[2pt]
+XGB-AC & 2.71 & 0.327 & 1.713 & 3.193 & 50.577 \\
+XGB-DC & 4.328 & 2.348 & 2.617 & -50.835 & 71.294 \\
+XGB-Surrogate & 2.813 & 0.425 & 2.056 & 8.596 & 51.669 \\
+E2E & 1.767 & 0.221 & 1.022 & -1.792 & 33.899 \\
+\addlinespace[2pt]
+\multicolumn{6}{@{}l}{\quad Horizon $H=24$} \\[2pt]
+XGB-AC & 4.771 & 0.572 & 3.075 & 4.678 & 89.007 \\
+XGB-DC & 5.647 & 2.508 & 3.384 & -49.252 & 102.416 \\
+XGB-Surrogate & 4.826 & 0.652 & 3.373 & 9.497 & 89.343 \\
+E2E & 4.31 & 0.473 & 2.84 & 12.009 & 81.382 \\
+\midrule
+\multicolumn{6}{@{}l}{\textit{case500}} \\[2pt]
+\multicolumn{6}{@{}l}{\quad Horizon $H=1$} \\[2pt]
+SARIMA-AC & 0.521 & 0.277 & 0.487 & 0.686 & 71.853 \\
+SARIMA-DC & 1.553 & 1.466 & 1.486 & -196.476 & 205.551 \\
+SARIMA-Surrogate & 2.71 & 1.288 & 2.738 & 70.838 & 284.056 \\
+E2E & 0.49 & 0.256 & 0.445 & -1.686 & 66.116 \\
+\addlinespace[2pt]
+\multicolumn{6}{@{}l}{\quad Horizon $H=6$} \\[2pt]
+XGB-AC & 1.743 & 0.842 & 1.507 & -9.768 & 235.515 \\
+XGB-DC & 2.345 & 1.79 & 2.079 & -206.322 & 314.063 \\
+XGB-Surrogate & 3.181 & 1.559 & 3.28 & 63.931 & 379.583 \\
+E2E & 1.395 & 0.664 & 1.245 & 2.701 & 187.643 \\
+\addlinespace[2pt]
+\multicolumn{6}{@{}l}{\quad Horizon $H=24$} \\[2pt]
+XGB-AC & 3.115 & 1.414 & 2.68 & 1.538 & 420.922 \\
+XGB-DC & 3.461 & 2.225 & 2.995 & -194.782 & 469.183 \\
+XGB-Surrogate & 4.112 & 1.908 & 4.146 & 76.859 & 521.161 \\
+E2E & 2.833 & 1.231 & 2.574 & 47.254 & 379.307 \\
+\end{longtable}
+\endgroup

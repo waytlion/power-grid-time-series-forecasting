@@ -11,7 +11,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 
-from colors import ARM_COLORS, THESIS_RC
+from colors import ARM_COLORS, OPT_LABELS, THESIS_RC
 
 BASE = "/data/horse/ws/tibo990i-thesis_data/2019-2021/phase_1c/data_out/case118_ieee_horizon_1"
 
@@ -53,7 +53,7 @@ ax.set_ylabel(r"$P_g^{\mathrm{pred}} - P_g^{\mathrm{AC\ truth}}$  [MW]")
 ax.grid(axis="y", color="0.9", lw=0.6)
 ax.set_axisbelow(True)
 ax.legend(handles=[plt.Rectangle((0, 0), 1, 1, color=ARM_COLORS[a.lower()]) for a in ("AC", "DC")],
-          labels=["AC", "DC"], frameon=False, ncol=2, loc="upper right")
+          labels=[OPT_LABELS[a.lower()] for a in ("AC", "DC")], frameon=False, ncol=2, loc="upper right")
 ax.set_title(f"Signed per-generator dispatch error, top {args.top} by DC RMSE ({args.dataset.replace('_', ' ')}, {args.forecaster}; box = IQR, whiskers = 5-95%)")
 fig.tight_layout()
 args.out.parent.mkdir(parents=True, exist_ok=True)

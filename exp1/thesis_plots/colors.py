@@ -24,7 +24,7 @@ THESIS_RC = {
     "mathtext.fontset": "cm", "axes.formatter.use_mathtext": True, "axes.unicode_minus": False,
 }
 
-OPT_LABELS = {"ac": "AC", "dc": "DC", "surrogate": "Surrogate", "e2e": "E2E"}
+OPT_LABELS = {"ac": "2-step AC", "dc": "2-step DC", "surrogate": "2-step surrogate", "e2e": "E2E"}
 OPT_ORDER = ["ac", "dc", "surrogate", "e2e"]
 
 # fixed identity -> hue, so the same arm reads the same color in every figure

@@ -39,7 +39,8 @@ How?
     - loaders + target-hour alignment from expost_pf; E2E runs pinned by (experiment, run name), see E2E_RUNS
     - gates: recomputed pooled Pg MAE/RMSE vs the logged metrics CSVs; E2E dumped pg_true / pd_true vs GT
     - out: <PHASE1C>/dispatch_diag/<case>/{step1_groups,step1_split,step2_units,step2_summary,step3_corr,step3_hop,
-      step4_jensen}.csv + step1_samples.parquet (per-sample total, ΔD, misplaced MW per arm)
+      step4_jensen}.csv + step1_samples.parquet (per-sample total, ΔD, misplaced MW, Pd / Pg RMSE per arm)
+      + step3_corr_mats.npz (load-bus Pd error correlation matrix per <fc>_h<H>, load_buses = bus index)
 
 Usage (from Thesis_Repo root, barnard):
     sbatch -p barnard -c 8 --mem=128G -t 02:00:00 -o logs/dispatch_diag_%j.out --wrap "module --force purge; \
@@ -159,8 +160,9 @@ def cost(gt, pg):
     return (gt["c0"] + gt["c1"] * pg + gt["c2"] * pg ** 2).sum(1)
 
 
-def step1(gt, units, H, arm, pg, target, dD, gate):
-    """Pg error by unit group + total vs misplaced MW for one arm"""
+def step1(gt, units, H, arm, pg, target, dpd, gate):
+    """Pg error by unit group + total vs misplaced MW for one arm; dpd = per-bus Pd error [S, n_bus]"""
+    dD = dpd.sum(1)
     true = gt["pg"][rows_of(gt, target)]
     e = pg - true
     ae = np.abs(e)
@@ -195,7 +197,8 @@ def step1(gt, units, H, arm, pg, target, dD, gate):
     ok = np.isclose(split["pg_mae"], gate[0], rtol=1e-3) and np.isclose(split["pg_rmse"], gate[1], rtol=1e-3)
     print(f"  gate {arm} h{H}: Pg MAE {split['pg_mae']:.4f} (logged {gate[0]:.4f}), "
           f"RMSE {split['pg_rmse']:.4f} (logged {gate[1]:.4f}) -> {'ok' if ok else 'MISMATCH'}")
-    samples = pd.DataFrame(dict(H=H, arm=arm, target=target, total_mw=E, dD_mw=dD, misplaced_mw=misplaced))
+    samples = pd.DataFrame(dict(H=H, arm=arm, target=target, total_mw=E, dD_mw=dD, misplaced_mw=misplaced,
+                                pd_rmse=np.sqrt((dpd ** 2).mean(1)), pg_rmse=np.sqrt((e ** 2).mean(1))))
     return groups, split, samples
 
 
@@ -334,7 +337,7 @@ def step3(gt, H, fc, true, pred, key, load):
                                   corr_raw=("corr_raw", "mean")).reset_index()
     hop.insert(0, "fc", fc)
     hop.insert(0, "H", H)
-    return row, hop
+    return row, hop, C
 
 
 # ---------------------------------------------------------------- step 4
@@ -395,7 +398,7 @@ def main():
     print(f"[{a.case}] step 2: {len(gt['hours'])} hours, {test.sum()} test hours\n{s2.T.to_string()}")
     print(pd.crosstab(units.cls, np.where(units.linear, "linear", "quadratic")).to_string())
 
-    groups, splits, corr, hops, jensen, samples = [], [], [], [], [], []
+    groups, splits, corr, hops, jensen, samples, mats = [], [], [], [], [], [], {}
     for H in a.horizons:
         key, f = forecasts(a.case, H, ["true", *[fc for fc in a.forecasters if fc != "xgb_tot"]])
         if "xgb_tot" in a.forecasters:
@@ -408,15 +411,15 @@ def main():
         assert dev < 1e-2, "forecast parquet not built from this GT"
         load = f["true"].std(0) > 0
         for fc in a.forecasters:
-            r, h = step3(gt, H, fc, f["true"], f[fc], key, load)
+            r, h, mats[f"{fc}_h{H}"] = step3(gt, H, fc, f["true"], f[fc], key, load)
             corr.append(r)
             hops.append(h)
             x = load_exact(a.case, H, fc)
             kx = (x["target"] - x["k"]) * SEP + x["k"]
             rows = np.searchsorted(key, kx)  # OPF-solved samples only (no_dispatch dropped)
             assert np.array_equal(key[rows], kx)
-            dD = (f[fc][rows] - f["true"][rows]).sum(1)
-            g, s, smp = step1(gt, units, H, f"ac_{fc}", x["pg"], x["target"], dD, logged(a.case, H, f"ac_{fc}"))
+            g, s, smp = step1(gt, units, H, f"ac_{fc}", x["pg"], x["target"], f[fc][rows] - f["true"][rows],
+                              logged(a.case, H, f"ac_{fc}"))
             groups += g
             splits.append(s)
             samples.append(smp)
@@ -431,14 +434,14 @@ def main():
         r = rows_of(gt, x["target"])
         print(f"  E2E h{H} {run.parent.name}/{run.name}: max |pd_true − GT| {np.abs(x['pd_true'] - gt['pd'][r]).max():.2e}, "
               f"max |pg_true − GT| {np.abs(pg_true - gt['pg'][r]).max():.2e} MW")
-        g, s, smp = step1(gt, units, H, "e2e", x["pg"], x["target"], (pd_pred - x["pd_true"]).sum(1),
+        g, s, smp = step1(gt, units, H, "e2e", x["pg"], x["target"], pd_pred - x["pd_true"],
                           logged(a.case, H, "e2e", run))
         groups += g
         splits.append(s)
         samples.append(smp)
         k0 = (x["target"] - x["k"]) * SEP + x["k"]  # origin * SEP + step, like the 2-step keys
         o = np.argsort(k0, kind="stable")
-        r, h = step3(gt, H, "e2e", x["pd_true"][o], pd_pred[o], k0[o], load)
+        r, h, mats[f"e2e_h{H}"] = step3(gt, H, "e2e", x["pd_true"][o], pd_pred[o], k0[o], load)
         corr.append(r)
         hops.append(h)
 
@@ -448,6 +451,8 @@ def main():
     for name, df in tables.items():
         df.to_csv(out / f"{name}.csv", index=False)
     pd.concat(samples).to_parquet(out / "step1_samples.parquet", index=False)
+    np.savez_compressed(out / "step3_corr_mats.npz", load_buses=np.flatnonzero(load),
+                        **{k: v.astype(np.float32) for k, v in mats.items()})
     with pd.option_context("display.width", 250, "display.max_columns", 40, "display.float_format", "{:.4g}".format):
         for name in ("step1_split", "step3_corr", "step4_jensen"):
             print(f"\n[{a.case}] {name}\n{tables[name].to_string(index=False)}")

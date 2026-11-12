@@ -13,6 +13,7 @@ core $WS/notes
 core $HOME/Thesis_Repo/exp1/results
 core $HOME/Thesis_Repo/exp1/thesis_plots/figures
 core $WS/2019-2021/phase_1c/expost_pf
+core $WS/2019-2021/phase_1c/expost_pf_v2
 core $WS/mlruns/*/meta.yaml
 core $WS/mlruns/*/*/meta.yaml
 core $WS/mlruns/*/*/params

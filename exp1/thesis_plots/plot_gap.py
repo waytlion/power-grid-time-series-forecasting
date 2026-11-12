@@ -6,7 +6,7 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 
-from plot_rmse import (CASE_LABELS, CASE_ORDER, SLIDE_RC, best_forecaster_per_metric, finish_slide,
+from plot_rmse import (CASE_LABELS, CASE_ORDER, SLIDE_RC, best_forecaster_per_metric, finish_slide, keep_forecasters,
                        optimizer_handles, optimizer_lines, style_slide_axes)
 
 IN = "exp1/results/combined/corrected_gap.csv"
@@ -14,7 +14,7 @@ ROWS = [("Rebalanced Gap", "Rebalanced gap [%], log"), ("No-refund Gap", "No-ref
 
 
 def main():
-    df = pd.read_csv(IN)
+    df = keep_forecasters(pd.read_csv(IN))
     with plt.rc_context(SLIDE_RC):
         fig, axes = plt.subplots(len(ROWS), len(CASE_ORDER), figsize=(10, 5.8), sharex=True)
         for r, (metric, ylabel) in enumerate(ROWS):

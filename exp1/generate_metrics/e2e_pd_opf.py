@@ -112,7 +112,7 @@ def table(case, horizons):
     for H in horizons:
         run, x = e2e(case, H)
         e_pd = x["pd_pred"] - x["pd_true"]
-        _, s = step1(gt, units, H, "e2e", x["pg"], x["target"], e_pd.sum(1), logged(case, H, "e2e", run))
+        _, s, _ = step1(gt, units, H, "e2e", x["pg"], x["target"], e_pd, logged(case, H, "e2e", run))
         s["pd_zero_bus_sum_mw"] = x["pd_pred"][:, zero].sum(1).mean()
         splits.append(s)
 
@@ -123,7 +123,7 @@ def table(case, horizons):
         assert np.array_equal(kx[j], ky), "OPF sample not in the E2E dump"
         m = pd.read_csv(RESULTS / f"{case}_horizon{H}/{ARM}/{case}_metrics.csv").set_index("Metric")["Value"]
         gate = tuple(float(m[f"AC {k}"]) for k in ("Generator Pg MAE", "Generator Pg RMSE", "Mean Optimality Gap"))
-        _, s = step1(gt, units, H, "e2e_pd_ac", y["pg"], y["target"], e_pd[j].sum(1), gate)
+        _, s, _ = step1(gt, units, H, "e2e_pd_ac", y["pg"], y["target"], e_pd[j], gate)
         e2e_mae_pd = float(pd.read_csv(run / f"artifacts/test/{case}_metrics.csv").set_index("Metric")["Value"]["MAE Pd"])
         s.update(n_missing=len(y["missing"][0]), mae_pd_compare=float(m["MAE Pd"]), mae_pd_e2e_logged=e2e_mae_pd,
                  pd_gate_ok=bool(np.isclose(float(m["MAE Pd"]), e2e_mae_pd, rtol=1e-3)))

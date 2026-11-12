@@ -20,7 +20,8 @@ exp1/generate_metrics/
   dispatch_diag.py       diagnostics: Pg error by unit class (2-step vs E2E), Pg vs total demand, cross-bus Pd error corr
 exp1/ml_surrogate/build_eval_set.py   forecast profiles → graphkit HeteroData eval sets (only Pd_forecast + Qd_derived in bus.x)
 exp1/thesis_plots/       ALL thesis figures/tables (make_latex_tables.py, plot_*.py, run_residual_pipeline_h1.py,
-                         extract_residuals_2step.py) → thesis_plots/figures/
+                         extract_residuals_2step.py) → thesis_plots/figures/; tables_to_svg.py (local, needs
+                         latex + dvisvgm) → figures/tables/*.svg + flags tables wider than the thesis text width
 exp1/results/            compare.py output; _archiv/ = superseded runs; _e2e_pd/, _dispatch_diag/ = control arm +
                          copies of <data>/.../dispatch_diag_final step1 outputs (slide plots; '_' -> not aggregated)
 scripts/                 sbatch + helpers: phase1a_*, phase1b.sbatch, phase1c*.sbatch, phase1c_transform_forecasts.py,
@@ -46,6 +47,11 @@ sbatch scripts/backup_pack.sh core                       # backup tar after ever
 
 ## Rules & traps
 - `expost_pf.py --arms exact --forecasters e2e_pd` misaligns silently (E2E sample set ≠ 2-step); needs a forecasts override first.
+- 2-step forecaster set of every figure / table = `thesis_plots/plot_rmse.keep_forecasters` (EXCLUDED_FC: oracle
+  `true` + plain `xgb`; XGB+D `xgb_tot` is the thesis's XGB arm, user decision 2026-11-08). Never filter locally.
+  Labels (2026-11-09): `xgb_tot` = "XGB"; optimizers = "2-step AC/DC/surrogate" (`colors.OPT_LABELS`).
+- Never pick ML runs newest-by-name: stale / ablation runs share names (case500 old naming, case118 h24 Qg-MSE ablation).
+  Pin (experiment, run name) via `dispatch_diag.e2e_run` / `E2E_RUNS`.
 - /home quota 50 GB (exceeding it locks sbatch until the nightly check): bulk/scratch output goes to `<data>`, e.g.
   precomputed profiles → `<data>/temp_precomputed_profiles/` (phase1c*, surrogate_smoke).
 - **aggregate_results identity = paths + run names only** (no MLflow tags):
