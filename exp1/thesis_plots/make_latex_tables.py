@@ -8,10 +8,10 @@
 # Table 6: core metrics (as Table 1), case118 fixed, over all horizons, best forecaster per optimizer
 # Table 7: raw + rebalanced opt gap (ex-post AC-PF, distributed slack), case118, all horizons, best forecaster
 # Table 8 (appendix, Q2): gap + supply, all grids and horizons
-# Table 9 (Q3): limit violations after the ex-post AC-PF, all grids, horizon = 6
-# Table 10 (appendix, Q3): as Table 9 + share of samples, all horizons
+# Table 9 (Q3): limit violations after the ex-post AC-PF, all grids, horizon = 6 (frequency + magnitude)
+# Table 10 / 11 (appendix, Q3): violation frequency / magnitude, all grids and horizons
 
-"""One-shot: combined CSV (+ corrected_gap.csv) -> 10 LaTeX tables (metrics as columns, models as rows). No config, just run it."""
+"""One-shot: combined CSV (+ corrected_gap.csv) -> 11 LaTeX tables (metrics as columns, models as rows). No config, just run it."""
 import pandas as pd
 
 from plot_rmse import h_label, keep_forecasters
@@ -72,8 +72,9 @@ TIMING_METRICS = {
 
 df = pd.concat([pd.read_csv(IN), pd.read_csv(CORR_IN)], ignore_index=True)
 df = keep_forecasters(df)
-vm = df[df["metric"] == "Vm Violation Mean (p.u.)"].assign(metric="Vm Violation Mean (1e-3 p.u.)")
-df = pd.concat([df, vm.assign(mean=vm["mean"] * 1e3)], ignore_index=True)  # 3-decimal tables flatten p.u. values
+vm = df[df["metric"].str.match(r"Vm Violation (Mean|Worst P99) \(p\.u\.\)")]
+df = pd.concat([df, vm.assign(metric=vm["metric"].str.replace("(p.u.)", "(1e-3 p.u.)", regex=False),
+                              mean=vm["mean"] * 1e3)], ignore_index=True)  # 3-decimal tables flatten p.u. values
 df["model"] =df["forecaster"].map(FC_LABELS) + "-" + df["optimizer"].map(OPT_LABELS)
 df.loc[df["optimizer"] == "e2e", "model"] = "E2E"
 df["case_label"] = df["case"].map(CASE_LABELS)
@@ -305,17 +306,19 @@ write_table(
 
 
 # Q3: limit violations after the ex-post AC-PF; forecaster per arm = lowest rebalanced gap (same operating state as Q2)
-Q3_GROUPS = {  # constraint group -> (header, mean metric)
-    "Thermal Overload": ("Thermal (lines)", "Thermal Overload Mean (% of rating)"),
-    "Vm Violation": ("$V_m$ (PQ buses)", "Vm Violation Mean (1e-3 p.u.)"),
-    "Qg Violation": ("$Q_g$ (generator buses)", "Qg Violation Mean (MVAr)"),
+Q3_GROUPS = {  # constraint group -> (header, magnitude unit)
+    "Thermal Overload": ("Thermal (lines)", "% of rating"),
+    "Vm Violation": ("$V_m$ (PQ buses)", "1e-3 p.u."),
+    "Qg Violation": ("$Q_g$ (generator buses)", "MVAr"),
 }
-Q3_CAPTION = (
-    "Limit violations after the ex-post AC power flow{}. Per constraint group: {}share of elements with a violation "
-    "(\\% el.; $Q_g$: without the reference bus) and mean violation per violating element (mean; thermal: \\% of the "
-    "rating above 100\\,\\%, $V_m$: $10^{{-3}}$\\,p.u., $Q_g$: MVAr); 0 = none, 0.00 = rounds to zero; -- = no violation. 2-step: forecaster with the "
-    "lowest rebalanced gap per optimizer; ML arms: mean over seeds."
-)
+Q3_COLS = {  # column kind -> (metric template (group, unit), label, caption definition)
+    "smp": ("{} (%)", "\\% smp.", "share of test samples with at least one violation (\\% smp.)"),
+    "el": ("{} (% elements)", "\\% el.",
+           "share of elements with a violation (\\% el.; $Q_g$: without the reference bus)"),
+    "mean": ("{} Mean ({})", "mean", "mean violation per violating element (mean)"),
+    "p99": ("{} Worst P99 ({})", "P99",
+            "99th percentile over test samples of the largest violation per sample, 0 if none (P99)"),
+}
 
 
 def q3_fmt(v):
@@ -323,39 +326,25 @@ def q3_fmt(v):
     return "0" if v == 0 else f"{v:.2f}"
 
 
-def q3_metrics(samples):
-    """{metric: column label} per group: [% samples,] % elements, mean per violating element"""
-    out = {}
-    for g, (_, mean) in Q3_GROUPS.items():
-        out |= ({f"{g} (%)": "\\% smp."} if samples else {}) | {f"{g} (% elements)": "\\% el.", mean: "mean"}
-    return out
+def q3_table(d, kinds, name, title, label, **kw):
+    """one Q3 table: per constraint group the columns `kinds` (keys of Q3_COLS)"""
+    metrics = {Q3_COLS[k][0].format(g, unit): Q3_COLS[k][1] for g, (_, unit) in Q3_GROUPS.items() for k in kinds}
+    units = ("; magnitudes: thermal in \\% of the rating above 100\\,\\%, $V_m$ in $10^{-3}$\\,p.u., $Q_g$ in MVAr"
+             if {"mean", "p99"} & set(kinds) else "")
+    caption = (f"Limit violations after the ex-post AC power flow{title}. Per constraint group: "
+               + ", ".join(Q3_COLS[k][2] for k in kinds) + units + ". 0 = none, 0.00 = rounds to zero, -- = no "
+               "violation. 2-step: forecaster with the lowest rebalanced gap per optimizer; ML arms: mean over seeds.")
+    write_table(filter_best_forecaster(d, "Rebalanced Gap"), metrics, f"{OUT_DIR}/{name}.tex", caption, label,
+                group_col="case_label", group_labels=lambda g: g, fmt=q3_fmt,
+                header_groups=[(h, len(kinds)) for h, _ in Q3_GROUPS.values()], **kw)
 
 
-# Table 9 (main text, Q3): H = 6
-write_table(
-    filter_best_forecaster(df[df["horizon"] == 6], "Rebalanced Gap"),
-    q3_metrics(samples=False),
-    f"{OUT_DIR}/table9_violations_h6.tex",
-    Q3_CAPTION.format(f" ({h_label(6)})", ""),
-    "tab:violations_h6",
-    group_col="case_label",
-    group_labels=lambda g: g,
-    fmt=q3_fmt,
-    header_groups=[(h, 2) for h, _ in Q3_GROUPS.values()],
-)
-
-# Table 10 (appendix, Q3): all horizons, plus the share of samples with >= 1 violation per group
-write_table(
-    filter_best_forecaster(df, "Rebalanced Gap"),
-    q3_metrics(samples=True),
-    f"{OUT_DIR}/table10_violations_all_horizons.tex",
-    Q3_CAPTION.format("", "share of test samples with at least one violation (\\% smp.), "),
-    "tab:violations_all_horizons",
-    group_col="case_label",
-    group_labels=lambda g: g,
-    sub_group_col="horizon",
-    sub_group_labels=lambda h: f"Horizon {h_label(int(h))}",
-    longtable=True,
-    fmt=q3_fmt,
-    header_groups=[(h, 3) for h, _ in Q3_GROUPS.values()],
-)
+ALL_H = dict(sub_group_col="horizon", sub_group_labels=lambda h: f"Horizon {h_label(int(h))}", longtable=True)
+# Table 9 (main text, Q3): H = 6, frequency + severity
+q3_table(df[df["horizon"] == 6], ("el", "mean", "p99"), "table9_violations_h6", f" ({h_label(6)})",
+         "tab:violations_h6")
+# Tables 10 + 11 (appendix, Q3): all horizons, frequency / severity (one table would be too wide)
+q3_table(df, ("smp", "el"), "table10_violations_share_all_horizons", ": frequency",
+         "tab:violations_share_all_horizons", **ALL_H)
+q3_table(df, ("mean", "p99"), "table11_violations_magnitude_all_horizons", ": magnitude",
+         "tab:violations_magnitude_all_horizons", **ALL_H)

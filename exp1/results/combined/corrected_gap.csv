@@ -13,6 +13,7 @@ case118_ieee,1,ac,sarima,Qg Violation (% elements),6.156246709361209,1
 case118_ieee,1,ac,sarima,Qg Violation (%),89.5484525621512,1
 case118_ieee,1,ac,sarima,Qg Violation Mean (MVAr),0.3601545049029941,1
 case118_ieee,1,ac,sarima,Qg Violation Worst (MVAr),0.5053442287807226,1
+case118_ieee,1,ac,sarima,Qg Violation Worst P99 (MVAr),2.401993033876158,1
 case118_ieee,1,ac,sarima,Rebalanced Gap,0.10189676418699224,1
 case118_ieee,1,ac,sarima,Rebalancing Cost (over-supply),-0.38392266428181093,1
 case118_ieee,1,ac,sarima,Rebalancing Cost (under-supply),0.4611065983615936,1
@@ -22,10 +23,12 @@ case118_ieee,1,ac,sarima,Thermal Overload (% elements),0.19735083441078435,1
 case118_ieee,1,ac,sarima,Thermal Overload (%),36.70725520040589,1
 case118_ieee,1,ac,sarima,Thermal Overload Mean (% of rating),0.34472905591037595,1
 case118_ieee,1,ac,sarima,Thermal Overload Worst (% of rating),0.344729055910376,1
+case118_ieee,1,ac,sarima,Thermal Overload Worst P99 (% of rating),1.0439075651068073,1
 case118_ieee,1,ac,sarima,Vm Violation (% elements),0.0,1
 case118_ieee,1,ac,sarima,Vm Violation (%),0.0,1
 case118_ieee,1,ac,sarima,Vm Violation Mean (p.u.),,0
 case118_ieee,1,ac,sarima,Vm Violation Worst (p.u.),,0
+case118_ieee,1,ac,sarima,Vm Violation Worst P99 (p.u.),0.0,1
 case118_ieee,1,ac,snaive,Diverged (n),0.0,1
 case118_ieee,1,ac,snaive,Insufficient Headroom (%),0.0,1
 case118_ieee,1,ac,snaive,Insufficient Headroom (n),0.0,1
@@ -40,6 +43,7 @@ case118_ieee,1,ac,snaive,Qg Violation (% elements),11.470568526655372,1
 case118_ieee,1,ac,snaive,Qg Violation (%),99.97463216641299,1
 case118_ieee,1,ac,snaive,Qg Violation Mean (MVAr),2.515556341384007,1
 case118_ieee,1,ac,snaive,Qg Violation Worst (MVAr),5.03150380381583,1
+case118_ieee,1,ac,snaive,Qg Violation Worst P99 (MVAr),20.52338385722569,1
 case118_ieee,1,ac,snaive,Rebalanced Gap,1.1025347716895177,1
 case118_ieee,1,ac,snaive,Rebalancing Cost (over-supply),-4.7346807675533515,1
 case118_ieee,1,ac,snaive,Rebalancing Cost (under-supply),4.664576890464453,1
@@ -49,10 +53,12 @@ case118_ieee,1,ac,snaive,Thermal Overload (% elements),0.26158873559079776,1
 case118_ieee,1,ac,snaive,Thermal Overload (%),48.65550481988838,1
 case118_ieee,1,ac,snaive,Thermal Overload Mean (% of rating),2.9141451115701527,1
 case118_ieee,1,ac,snaive,Thermal Overload Worst (% of rating),2.9141451115701527,1
+case118_ieee,1,ac,snaive,Thermal Overload Worst P99 (% of rating),8.40153022617532,1
 case118_ieee,1,ac,snaive,Vm Violation (% elements),0.07967085235920852,1
 case118_ieee,1,ac,snaive,Vm Violation (%),5.0228310502283104,1
 case118_ieee,1,ac,snaive,Vm Violation Mean (p.u.),0.0017772588273605539,1
 case118_ieee,1,ac,snaive,Vm Violation Worst (p.u.),0.0017841166914277541,1
+case118_ieee,1,ac,snaive,Vm Violation Worst P99 (p.u.),0.002250373209096848,1
 case118_ieee,1,ac,xgb,Diverged (n),0.0,1
 case118_ieee,1,ac,xgb,Insufficient Headroom (%),0.0,1
 case118_ieee,1,ac,xgb,Insufficient Headroom (n),0.0,1
@@ -67,6 +73,7 @@ case118_ieee,1,ac,xgb,Qg Violation (% elements),7.956405617299906,1
 case118_ieee,1,ac,xgb,Qg Violation (%),98.42719431760527,1
 case118_ieee,1,ac,xgb,Qg Violation Mean (MVAr),0.4532793118678651,1
 case118_ieee,1,ac,xgb,Qg Violation Worst (MVAr),0.7255245395963021,1
+case118_ieee,1,ac,xgb,Qg Violation Worst P99 (MVAr),2.56972300514081,1
 case118_ieee,1,ac,xgb,Rebalanced Gap,0.1373097366033394,1
 case118_ieee,1,ac,xgb,Rebalancing Cost (over-supply),-0.5433446856223049,1
 case118_ieee,1,ac,xgb,Rebalancing Cost (under-supply),0.6078278035493032,1
@@ -76,10 +83,12 @@ case118_ieee,1,ac,xgb,Thermal Overload (% elements),0.21794515092497121,1
 case118_ieee,1,ac,xgb,Thermal Overload (%),40.537798072044644,1
 case118_ieee,1,ac,xgb,Thermal Overload Mean (% of rating),0.5511869339012553,1
 case118_ieee,1,ac,xgb,Thermal Overload Worst (% of rating),0.5511869339012553,1
+case118_ieee,1,ac,xgb,Thermal Overload Worst P99 (% of rating),1.6532038375197828,1
 case118_ieee,1,ac,xgb,Vm Violation (% elements),0.0,1
 case118_ieee,1,ac,xgb,Vm Violation (%),0.0,1
 case118_ieee,1,ac,xgb,Vm Violation Mean (p.u.),,0
 case118_ieee,1,ac,xgb,Vm Violation Worst (p.u.),,0
+case118_ieee,1,ac,xgb,Vm Violation Worst P99 (p.u.),0.0,1
 case118_ieee,1,ac,xgb_tot,Diverged (n),0.0,1
 case118_ieee,1,ac,xgb_tot,Insufficient Headroom (%),0.0,1
 case118_ieee,1,ac,xgb_tot,Insufficient Headroom (n),0.0,1
@@ -94,6 +103,7 @@ case118_ieee,1,ac,xgb_tot,Qg Violation (% elements),7.718043709255909,1
 case118_ieee,1,ac,xgb_tot,Qg Violation (%),98.27498731608321,1
 case118_ieee,1,ac,xgb_tot,Qg Violation Mean (MVAr),0.42457713493511423,1
 case118_ieee,1,ac,xgb_tot,Qg Violation Worst (MVAr),0.6746109544889067,1
+case118_ieee,1,ac,xgb_tot,Qg Violation Worst P99 (MVAr),2.3197530868054406,1
 case118_ieee,1,ac,xgb_tot,Rebalanced Gap,0.11198362930806435,1
 case118_ieee,1,ac,xgb_tot,Rebalancing Cost (over-supply),-0.4811870938398187,1
 case118_ieee,1,ac,xgb_tot,Rebalancing Cost (under-supply),0.4634566926884228,1
@@ -103,10 +113,12 @@ case118_ieee,1,ac,xgb_tot,Thermal Overload (% elements),0.19489588277333159,1
 case118_ieee,1,ac,xgb_tot,Thermal Overload (%),36.25063419583967,1
 case118_ieee,1,ac,xgb_tot,Thermal Overload Mean (% of rating),0.4325103732133475,1
 case118_ieee,1,ac,xgb_tot,Thermal Overload Worst (% of rating),0.4325103732133475,1
+case118_ieee,1,ac,xgb_tot,Thermal Overload Worst P99 (% of rating),1.129100066719574,1
 case118_ieee,1,ac,xgb_tot,Vm Violation (% elements),0.0,1
 case118_ieee,1,ac,xgb_tot,Vm Violation (%),0.0,1
 case118_ieee,1,ac,xgb_tot,Vm Violation Mean (p.u.),,0
 case118_ieee,1,ac,xgb_tot,Vm Violation Worst (p.u.),,0
+case118_ieee,1,ac,xgb_tot,Vm Violation Worst P99 (p.u.),0.0,1
 case118_ieee,1,dc,sarima,Diverged (n),0.0,1
 case118_ieee,1,dc,sarima,Insufficient Headroom (%),0.0,1
 case118_ieee,1,dc,sarima,Insufficient Headroom (n),0.0,1
@@ -121,6 +133,7 @@ case118_ieee,1,dc,sarima,Qg Violation (% elements),25.122770741793744,1
 case118_ieee,1,dc,sarima,Qg Violation (%),100.0,1
 case118_ieee,1,dc,sarima,Qg Violation Mean (MVAr),31.8484915449073,1
 case118_ieee,1,dc,sarima,Qg Violation Worst (MVAr),113.3186985330419,1
+case118_ieee,1,dc,sarima,Qg Violation Worst P99 (MVAr),124.67213780824451,1
 case118_ieee,1,dc,sarima,Rebalanced Gap,2.3021056981209242,1
 case118_ieee,1,dc,sarima,Rebalancing Cost (over-supply),-0.0035297418450021246,1
 case118_ieee,1,dc,sarima,Rebalancing Cost (under-supply),6.055272420753955,1
@@ -130,10 +143,12 @@ case118_ieee,1,dc,sarima,Thermal Overload (% elements),0.9731155518458509,1
 case118_ieee,1,dc,sarima,Thermal Overload (%),99.97463216641299,1
 case118_ieee,1,dc,sarima,Thermal Overload Mean (% of rating),3.6591564203293,1
 case118_ieee,1,dc,sarima,Thermal Overload Worst (% of rating),4.058414032495908,1
+case118_ieee,1,dc,sarima,Thermal Overload Worst P99 (% of rating),6.610203303135304,1
 case118_ieee,1,dc,sarima,Vm Violation (% elements),0.0,1
 case118_ieee,1,dc,sarima,Vm Violation (%),0.0,1
 case118_ieee,1,dc,sarima,Vm Violation Mean (p.u.),,0
 case118_ieee,1,dc,sarima,Vm Violation Worst (p.u.),,0
+case118_ieee,1,dc,sarima,Vm Violation Worst P99 (p.u.),0.0,1
 case118_ieee,1,dc,snaive,Diverged (n),0.0,1
 case118_ieee,1,dc,snaive,Insufficient Headroom (%),0.0,1
 case118_ieee,1,dc,snaive,Insufficient Headroom (n),0.0,1
@@ -148,6 +163,7 @@ case118_ieee,1,dc,snaive,Qg Violation (% elements),24.994495658749987,1
 case118_ieee,1,dc,snaive,Qg Violation (%),100.0,1
 case118_ieee,1,dc,snaive,Qg Violation Mean (MVAr),31.988145087719694,1
 case118_ieee,1,dc,snaive,Qg Violation Worst (MVAr),114.21809467011597,1
+case118_ieee,1,dc,snaive,Qg Violation Worst P99 (MVAr),128.26367600189914,1
 case118_ieee,1,dc,snaive,Rebalanced Gap,2.9183899384928784,1
 case118_ieee,1,dc,snaive,Rebalancing Cost (over-supply),-2.6018366094285414,1
 case118_ieee,1,dc,snaive,Rebalancing Cost (under-supply),8.165734823162119,1
@@ -157,10 +173,12 @@ case118_ieee,1,dc,snaive,Thermal Overload (% elements),0.7589892145791395,1
 case118_ieee,1,dc,snaive,Thermal Overload (%),77.85388127853882,1
 case118_ieee,1,dc,snaive,Thermal Overload Mean (% of rating),4.508250984603478,1
 case118_ieee,1,dc,snaive,Thermal Overload Worst (% of rating),5.184459097956312,1
+case118_ieee,1,dc,snaive,Thermal Overload Worst P99 (% of rating),11.902943951408789,1
 case118_ieee,1,dc,snaive,Vm Violation (% elements),0.0,1
 case118_ieee,1,dc,snaive,Vm Violation (%),0.0,1
 case118_ieee,1,dc,snaive,Vm Violation Mean (p.u.),,0
 case118_ieee,1,dc,snaive,Vm Violation Worst (p.u.),,0
+case118_ieee,1,dc,snaive,Vm Violation Worst P99 (p.u.),0.0,1
 case118_ieee,1,dc,xgb,Diverged (n),0.0,1
 case118_ieee,1,dc,xgb,Insufficient Headroom (%),0.0,1
 case118_ieee,1,dc,xgb,Insufficient Headroom (n),0.0,1
@@ -175,6 +193,7 @@ case118_ieee,1,dc,xgb,Qg Violation (% elements),25.123728018532876,1
 case118_ieee,1,dc,xgb,Qg Violation (%),100.0,1
 case118_ieee,1,dc,xgb,Qg Violation Mean (MVAr),31.844667881752276,1
 case118_ieee,1,dc,xgb,Qg Violation Worst (MVAr),113.3213502864738,1
+case118_ieee,1,dc,xgb,Qg Violation Worst P99 (MVAr),124.95741209382732,1
 case118_ieee,1,dc,xgb,Rebalanced Gap,2.2958572969773274,1
 case118_ieee,1,dc,xgb,Rebalancing Cost (over-supply),-0.0034844480190073814,1
 case118_ieee,1,dc,xgb,Rebalancing Cost (under-supply),6.0046055588855936,1
@@ -184,10 +203,12 @@ case118_ieee,1,dc,xgb,Thermal Overload (% elements),0.9733883242500123,1
 case118_ieee,1,dc,xgb,Thermal Overload (%),99.92389649923896,1
 case118_ieee,1,dc,xgb,Thermal Overload Mean (% of rating),3.628575437110703,1
 case118_ieee,1,dc,xgb,Thermal Overload Worst (% of rating),4.034520020983384,1
+case118_ieee,1,dc,xgb,Thermal Overload Worst P99 (% of rating),7.205412182972694,1
 case118_ieee,1,dc,xgb,Vm Violation (% elements),0.0,1
 case118_ieee,1,dc,xgb,Vm Violation (%),0.0,1
 case118_ieee,1,dc,xgb,Vm Violation Mean (p.u.),,0
 case118_ieee,1,dc,xgb,Vm Violation Worst (p.u.),,0
+case118_ieee,1,dc,xgb,Vm Violation Worst P99 (p.u.),0.0,1
 case118_ieee,1,dc,xgb_tot,Diverged (n),0.0,1
 case118_ieee,1,dc,xgb_tot,Insufficient Headroom (%),0.0,1
 case118_ieee,1,dc,xgb_tot,Insufficient Headroom (n),0.0,1
@@ -202,6 +223,7 @@ case118_ieee,1,dc,xgb_tot,Qg Violation (% elements),25.12420665690244,1
 case118_ieee,1,dc,xgb_tot,Qg Violation (%),100.0,1
 case118_ieee,1,dc,xgb_tot,Qg Violation Mean (MVAr),31.843778784055818,1
 case118_ieee,1,dc,xgb_tot,Qg Violation Worst (MVAr),113.28489707193661,1
+case118_ieee,1,dc,xgb_tot,Qg Violation Worst P99 (MVAr),124.5622117894232,1
 case118_ieee,1,dc,xgb_tot,Rebalanced Gap,2.2828979395078077,1
 case118_ieee,1,dc,xgb_tot,Rebalancing Cost (over-supply),-0.002262729669804385,1
 case118_ieee,1,dc,xgb_tot,Rebalancing Cost (under-supply),5.934777626560135,1
@@ -211,10 +233,12 @@ case118_ieee,1,dc,xgb_tot,Thermal Overload (% elements),0.971615303622963,1
 case118_ieee,1,dc,xgb_tot,Thermal Overload (%),99.94926433282598,1
 case118_ieee,1,dc,xgb_tot,Thermal Overload Mean (% of rating),3.606994088352226,1
 case118_ieee,1,dc,xgb_tot,Thermal Overload Worst (% of rating),4.006153111302205,1
+case118_ieee,1,dc,xgb_tot,Thermal Overload Worst P99 (% of rating),6.92009940645039,1
 case118_ieee,1,dc,xgb_tot,Vm Violation (% elements),0.0,1
 case118_ieee,1,dc,xgb_tot,Vm Violation (%),0.0,1
 case118_ieee,1,dc,xgb_tot,Vm Violation Mean (p.u.),,0
 case118_ieee,1,dc,xgb_tot,Vm Violation Worst (p.u.),,0
+case118_ieee,1,dc,xgb_tot,Vm Violation Worst P99 (p.u.),0.0,1
 case118_ieee,1,e2e,none,Diverged (n),0.0,3
 case118_ieee,1,e2e,none,Insufficient Headroom (%),0.0,3
 case118_ieee,1,e2e,none,Insufficient Headroom (n),0.0,3
@@ -229,6 +253,7 @@ case118_ieee,1,e2e,none,Qg Violation (% elements),10.21860701576004,3
 case118_ieee,1,e2e,none,Qg Violation (%),99.60176241315031,3
 case118_ieee,1,e2e,none,Qg Violation Mean (MVAr),1.6136814139611666,3
 case118_ieee,1,e2e,none,Qg Violation Worst (MVAr),2.971808755707952,3
+case118_ieee,1,e2e,none,Qg Violation Worst P99 (MVAr),8.338479747812196,3
 case118_ieee,1,e2e,none,Rebalanced Gap,0.08207556262962513,3
 case118_ieee,1,e2e,none,Rebalancing Cost (over-supply),-0.25634506195556245,3
 case118_ieee,1,e2e,none,Rebalancing Cost (under-supply),0.33200608703915313,3
@@ -238,10 +263,12 @@ case118_ieee,1,e2e,none,Thermal Overload (% elements),0.2339224443460467,3
 case118_ieee,1,e2e,none,Thermal Overload (%),43.50957464836468,3
 case118_ieee,1,e2e,none,Thermal Overload Mean (% of rating),0.42830309810216366,3
 case118_ieee,1,e2e,none,Thermal Overload Worst (% of rating),0.42830309810216366,3
+case118_ieee,1,e2e,none,Thermal Overload Worst P99 (% of rating),1.5584805480287847,3
 case118_ieee,1,e2e,none,Vm Violation (% elements),0.002780249110320285,3
 case118_ieee,1,e2e,none,Vm Violation (%),0.17793594306049823,3
 case118_ieee,1,e2e,none,Vm Violation Mean (p.u.),0.0013924240768638334,1
 case118_ieee,1,e2e,none,Vm Violation Worst (p.u.),0.0013924240768638334,1
+case118_ieee,1,e2e,none,Vm Violation Worst P99 (p.u.),0.0,3
 case118_ieee,1,surrogate,sarima,Diverged (n),0.0,3
 case118_ieee,1,surrogate,sarima,Insufficient Headroom (%),0.0,3
 case118_ieee,1,surrogate,sarima,Insufficient Headroom (n),0.0,3
@@ -256,6 +283,7 @@ case118_ieee,1,surrogate,sarima,Qg Violation (% elements),9.931427076253476,3
 case118_ieee,1,surrogate,sarima,Qg Violation (%),99.94080838829696,3
 case118_ieee,1,surrogate,sarima,Qg Violation Mean (MVAr),1.3988517934303275,3
 case118_ieee,1,surrogate,sarima,Qg Violation Worst (MVAr),2.694148200879297,3
+case118_ieee,1,surrogate,sarima,Qg Violation Worst P99 (MVAr),10.554901018603488,3
 case118_ieee,1,surrogate,sarima,Rebalanced Gap,0.23968594288088918,3
 case118_ieee,1,surrogate,sarima,Rebalancing Cost (over-supply),-0.635342375678785,3
 case118_ieee,1,surrogate,sarima,Rebalancing Cost (under-supply),0.3571177380134433,3
@@ -265,10 +293,12 @@ case118_ieee,1,surrogate,sarima,Thermal Overload (% elements),0.2887750518722188
 case118_ieee,1,surrogate,sarima,Thermal Overload (%),53.712159648232706,3
 case118_ieee,1,surrogate,sarima,Thermal Overload Mean (% of rating),0.9685757787323995,3
 case118_ieee,1,surrogate,sarima,Thermal Overload Worst (% of rating),0.9685757787323998,3
+case118_ieee,1,surrogate,sarima,Thermal Overload Worst P99 (% of rating),3.453720917846925,3
 case118_ieee,1,surrogate,sarima,Vm Violation (% elements),0.0,3
 case118_ieee,1,surrogate,sarima,Vm Violation (%),0.0,3
 case118_ieee,1,surrogate,sarima,Vm Violation Mean (p.u.),,0
 case118_ieee,1,surrogate,sarima,Vm Violation Worst (p.u.),,0
+case118_ieee,1,surrogate,sarima,Vm Violation Worst P99 (p.u.),0.0,3
 case118_ieee,1,surrogate,snaive,Diverged (n),0.0,3
 case118_ieee,1,surrogate,snaive,Insufficient Headroom (%),0.0,3
 case118_ieee,1,surrogate,snaive,Insufficient Headroom (n),0.0,3
@@ -283,6 +313,7 @@ case118_ieee,1,surrogate,snaive,Qg Violation (% elements),11.538216082887402,3
 case118_ieee,1,surrogate,snaive,Qg Violation (%),99.87316083206493,3
 case118_ieee,1,surrogate,snaive,Qg Violation Mean (MVAr),2.7702382709223765,3
 case118_ieee,1,surrogate,snaive,Qg Violation Worst (MVAr),5.145006095763577,3
+case118_ieee,1,surrogate,snaive,Qg Violation Worst P99 (MVAr),18.345017292566844,3
 case118_ieee,1,surrogate,snaive,Rebalanced Gap,1.173691607103015,3
 case118_ieee,1,surrogate,snaive,Rebalancing Cost (over-supply),-4.957688955512745,3
 case118_ieee,1,surrogate,snaive,Rebalancing Cost (under-supply),4.475159193212729,3
@@ -292,10 +323,12 @@ case118_ieee,1,surrogate,snaive,Thermal Overload (% elements),0.2802281832084944
 case118_ieee,1,surrogate,snaive,Thermal Overload (%),52.122442076779976,3
 case118_ieee,1,surrogate,snaive,Thermal Overload Mean (% of rating),2.8886918955960774,3
 case118_ieee,1,surrogate,snaive,Thermal Overload Worst (% of rating),2.8886918955960783,3
+case118_ieee,1,surrogate,snaive,Thermal Overload Worst P99 (% of rating),8.307089014218706,3
 case118_ieee,1,surrogate,snaive,Vm Violation (% elements),0.0,3
 case118_ieee,1,surrogate,snaive,Vm Violation (%),0.0,3
 case118_ieee,1,surrogate,snaive,Vm Violation Mean (p.u.),,0
 case118_ieee,1,surrogate,snaive,Vm Violation Worst (p.u.),,0
+case118_ieee,1,surrogate,snaive,Vm Violation Worst P99 (p.u.),0.0,3
 case118_ieee,1,surrogate,xgb,Diverged (n),0.0,3
 case118_ieee,1,surrogate,xgb,Insufficient Headroom (%),0.0,3
 case118_ieee,1,surrogate,xgb,Insufficient Headroom (n),0.0,3
@@ -310,6 +343,7 @@ case118_ieee,1,surrogate,xgb,Qg Violation (% elements),10.071827664659576,3
 case118_ieee,1,surrogate,xgb,Qg Violation (%),99.89852866565195,3
 case118_ieee,1,surrogate,xgb,Qg Violation Mean (MVAr),1.4192571590814866,3
 case118_ieee,1,surrogate,xgb,Qg Violation Worst (MVAr),2.747676651876437,3
+case118_ieee,1,surrogate,xgb,Qg Violation Worst P99 (MVAr),10.70648890471607,3
 case118_ieee,1,surrogate,xgb,Rebalanced Gap,0.262191062462196,3
 case118_ieee,1,surrogate,xgb,Rebalancing Cost (over-supply),-0.7977019793724326,3
 case118_ieee,1,surrogate,xgb,Rebalancing Cost (under-supply),0.504505487321342,3
@@ -319,10 +353,12 @@ case118_ieee,1,surrogate,xgb,Thermal Overload (% elements),0.28968429321942357,3
 case118_ieee,1,surrogate,xgb,Thermal Overload (%),53.881278538812786,3
 case118_ieee,1,surrogate,xgb,Thermal Overload Mean (% of rating),1.0322834327221178,3
 case118_ieee,1,surrogate,xgb,Thermal Overload Worst (% of rating),1.0322834327221178,3
+case118_ieee,1,surrogate,xgb,Thermal Overload Worst P99 (% of rating),3.7678757987350004,3
 case118_ieee,1,surrogate,xgb,Vm Violation (% elements),0.0,3
 case118_ieee,1,surrogate,xgb,Vm Violation (%),0.0,3
 case118_ieee,1,surrogate,xgb,Vm Violation Mean (p.u.),,0
 case118_ieee,1,surrogate,xgb,Vm Violation Worst (p.u.),,0
+case118_ieee,1,surrogate,xgb,Vm Violation Worst P99 (p.u.),0.0,3
 case118_ieee,1,surrogate,xgb_tot,Diverged (n),0.0,3
 case118_ieee,1,surrogate,xgb_tot,Insufficient Headroom (%),0.0,3
 case118_ieee,1,surrogate,xgb_tot,Insufficient Headroom (n),0.0,3
@@ -337,6 +373,7 @@ case118_ieee,1,surrogate,xgb_tot,Qg Violation (% elements),10.003861016181167,3
 case118_ieee,1,surrogate,xgb_tot,Qg Violation (%),99.93235244376797,3
 case118_ieee,1,surrogate,xgb_tot,Qg Violation Mean (MVAr),1.4152376478282136,3
 case118_ieee,1,surrogate,xgb_tot,Qg Violation Worst (MVAr),2.728220721807499,3
+case118_ieee,1,surrogate,xgb_tot,Qg Violation Worst P99 (MVAr),10.740556025312822,3
 case118_ieee,1,surrogate,xgb_tot,Rebalanced Gap,0.23910179503451703,3
 case118_ieee,1,surrogate,xgb_tot,Rebalancing Cost (over-supply),-0.7392286746769878,3
 case118_ieee,1,surrogate,xgb_tot,Rebalancing Cost (under-supply),0.36352624237386255,3
@@ -346,10 +383,12 @@ case118_ieee,1,surrogate,xgb_tot,Thermal Overload (% elements),0.287502113986132
 case118_ieee,1,surrogate,xgb_tot,Thermal Overload (%),53.475393201420594,3
 case118_ieee,1,surrogate,xgb_tot,Thermal Overload Mean (% of rating),0.9272719486476996,3
 case118_ieee,1,surrogate,xgb_tot,Thermal Overload Worst (% of rating),0.9272719486476996,3
+case118_ieee,1,surrogate,xgb_tot,Thermal Overload Worst P99 (% of rating),3.2874247697032906,3
 case118_ieee,1,surrogate,xgb_tot,Vm Violation (% elements),0.0,3
 case118_ieee,1,surrogate,xgb_tot,Vm Violation (%),0.0,3
 case118_ieee,1,surrogate,xgb_tot,Vm Violation Mean (p.u.),,0
 case118_ieee,1,surrogate,xgb_tot,Vm Violation Worst (p.u.),,0
+case118_ieee,1,surrogate,xgb_tot,Vm Violation Worst P99 (p.u.),0.0,3
 case118_ieee,6,ac,sarima,Diverged (n),0.0,1
 case118_ieee,6,ac,sarima,Insufficient Headroom (%),0.0,1
 case118_ieee,6,ac,sarima,Insufficient Headroom (n),0.0,1
@@ -364,6 +403,7 @@ case118_ieee,6,ac,sarima,Qg Violation (% elements),9.317984673705196,1
 case118_ieee,6,ac,sarima,Qg Violation (%),97.76902887139107,1
 case118_ieee,6,ac,sarima,Qg Violation Mean (MVAr),1.1567360414022025,1
 case118_ieee,6,ac,sarima,Qg Violation Worst (MVAr),1.967398063955514,1
+case118_ieee,6,ac,sarima,Qg Violation Worst P99 (MVAr),10.100763333369203,1
 case118_ieee,6,ac,sarima,Rebalanced Gap,0.4077090227700768,1
 case118_ieee,6,ac,sarima,Rebalancing Cost (over-supply),-1.6728140720101394,1
 case118_ieee,6,ac,sarima,Rebalancing Cost (under-supply),1.778905090989102,1
@@ -373,10 +413,12 @@ case118_ieee,6,ac,sarima,Thermal Overload (% elements),0.25347703025155155,1
 case118_ieee,6,ac,sarima,Thermal Overload (%),47.14672762678859,1
 case118_ieee,6,ac,sarima,Thermal Overload Mean (% of rating),1.1638873879159755,1
 case118_ieee,6,ac,sarima,Thermal Overload Worst (% of rating),1.1638873879159755,1
+case118_ieee,6,ac,sarima,Thermal Overload Worst P99 (% of rating),4.399793658602871,1
 case118_ieee,6,ac,sarima,Vm Violation (% elements),0.005820844975023283,1
 case118_ieee,6,ac,sarima,Vm Violation (%),0.3725340784014901,1
 case118_ieee,6,ac,sarima,Vm Violation Mean (p.u.),0.001427194932893104,1
 case118_ieee,6,ac,sarima,Vm Violation Worst (p.u.),0.001427194932893104,1
+case118_ieee,6,ac,sarima,Vm Violation Worst P99 (p.u.),0.0,1
 case118_ieee,6,ac,snaive,Diverged (n),0.0,1
 case118_ieee,6,ac,snaive,Insufficient Headroom (%),0.0,1
 case118_ieee,6,ac,snaive,Insufficient Headroom (n),0.0,1
@@ -391,6 +433,7 @@ case118_ieee,6,ac,snaive,Qg Violation (% elements),11.470039921211917,1
 case118_ieee,6,ac,snaive,Qg Violation (%),99.9745999491999,1
 case118_ieee,6,ac,snaive,Qg Violation Mean (MVAr),2.5167115198982564,1
 case118_ieee,6,ac,snaive,Qg Violation Worst (MVAr),5.034038687139794,1
+case118_ieee,6,ac,snaive,Qg Violation Worst P99 (MVAr),20.57230589326558,1
 case118_ieee,6,ac,snaive,Rebalanced Gap,1.1037499101984813,1
 case118_ieee,6,ac,snaive,Rebalancing Cost (over-supply),-4.740380035762231,1
 case118_ieee,6,ac,snaive,Rebalancing Cost (under-supply),4.669461204606467,1
@@ -400,10 +443,12 @@ case118_ieee,6,ac,snaive,Thermal Overload (% elements),0.2612381568849159,1
 case118_ieee,6,ac,snaive,Thermal Overload (%),48.59029718059436,1
 case118_ieee,6,ac,snaive,Thermal Overload Mean (% of rating),2.9135918407697416,1
 case118_ieee,6,ac,snaive,Thermal Overload Worst (% of rating),2.9135918407697425,1
+case118_ieee,6,ac,snaive,Thermal Overload Worst P99 (% of rating),8.41889239453848,1
 case118_ieee,6,ac,snaive,Vm Violation (% elements),0.07977203454406909,1
 case118_ieee,6,ac,snaive,Vm Violation (%),5.029210058420117,1
 case118_ieee,6,ac,snaive,Vm Violation Mean (p.u.),0.0017772588273605539,1
 case118_ieee,6,ac,snaive,Vm Violation Worst (p.u.),0.0017841166914277541,1
+case118_ieee,6,ac,snaive,Vm Violation Worst P99 (p.u.),0.002250781841000915,1
 case118_ieee,6,ac,xgb,Diverged (n),0.0,1
 case118_ieee,6,ac,xgb,Insufficient Headroom (%),0.0,1
 case118_ieee,6,ac,xgb,Insufficient Headroom (n),0.0,1
@@ -418,6 +463,7 @@ case118_ieee,6,ac,xgb,Qg Violation (% elements),10.064091197364784,1
 case118_ieee,6,ac,xgb,Qg Violation (%),99.65709931419863,1
 case118_ieee,6,ac,xgb,Qg Violation Mean (MVAr),1.076063602285606,1
 case118_ieee,6,ac,xgb,Qg Violation Worst (MVAr),1.950306478009404,1
+case118_ieee,6,ac,xgb,Qg Violation Worst P99 (MVAr),7.824268954748174,1
 case118_ieee,6,ac,xgb,Rebalanced Gap,0.3668699155690508,1
 case118_ieee,6,ac,xgb,Rebalancing Cost (over-supply),-1.5085037602445153,1
 case118_ieee,6,ac,xgb,Rebalancing Cost (under-supply),1.584587724289854,1
@@ -427,10 +473,12 @@ case118_ieee,6,ac,xgb,Thermal Overload (% elements),0.24268883663215354,1
 case118_ieee,6,ac,xgb,Thermal Overload (%),45.14012361358056,1
 case118_ieee,6,ac,xgb,Thermal Overload Mean (% of rating),1.206201255341108,1
 case118_ieee,6,ac,xgb,Thermal Overload Worst (% of rating),1.206201255341108,1
+case118_ieee,6,ac,xgb,Thermal Overload Worst P99 (% of rating),3.9087667613812385,1
 case118_ieee,6,ac,xgb,Vm Violation (% elements),0.0037703200406400813,1
 case118_ieee,6,ac,xgb,Vm Violation (%),0.2413004826009652,1
 case118_ieee,6,ac,xgb,Vm Violation Mean (p.u.),0.0013425491686076384,1
 case118_ieee,6,ac,xgb,Vm Violation Worst (p.u.),0.0013425491686076384,1
+case118_ieee,6,ac,xgb,Vm Violation Worst P99 (p.u.),0.0,1
 case118_ieee,6,ac,xgb_tot,Diverged (n),0.0,1
 case118_ieee,6,ac,xgb_tot,Insufficient Headroom (%),0.0,1
 case118_ieee,6,ac,xgb_tot,Insufficient Headroom (n),0.0,1
@@ -445,6 +493,7 @@ case118_ieee,6,ac,xgb_tot,Qg Violation (% elements),9.863846142786626,1
 case118_ieee,6,ac,xgb_tot,Qg Violation (%),99.66556599779867,1
 case118_ieee,6,ac,xgb_tot,Qg Violation Mean (MVAr),1.040616289471329,1
 case118_ieee,6,ac,xgb_tot,Qg Violation Worst (MVAr),1.8836767288471528,1
+case118_ieee,6,ac,xgb_tot,Qg Violation Worst P99 (MVAr),7.751948764118374,1
 case118_ieee,6,ac,xgb_tot,Rebalanced Gap,0.3269280975377772,1
 case118_ieee,6,ac,xgb_tot,Rebalancing Cost (over-supply),-1.3872861880121232,1
 case118_ieee,6,ac,xgb_tot,Rebalancing Cost (under-supply),1.367209230882299,1
@@ -454,10 +503,12 @@ case118_ieee,6,ac,xgb_tot,Thermal Overload (% elements),0.22753074179983485,1
 case118_ieee,6,ac,xgb_tot,Thermal Overload (%),42.32071797476928,1
 case118_ieee,6,ac,xgb_tot,Thermal Overload Mean (% of rating),1.05256448587701,1
 case118_ieee,6,ac,xgb_tot,Thermal Overload Worst (% of rating),1.05256448587701,1
+case118_ieee,6,ac,xgb_tot,Thermal Overload Worst P99 (% of rating),3.7169247913258627,1
 case118_ieee,6,ac,xgb_tot,Vm Violation (% elements),0.0033072982812632295,1
 case118_ieee,6,ac,xgb_tot,Vm Violation (%),0.21166709000084669,1
 case118_ieee,6,ac,xgb_tot,Vm Violation Mean (p.u.),0.00134965213360275,1
 case118_ieee,6,ac,xgb_tot,Vm Violation Worst (p.u.),0.00134965213360275,1
+case118_ieee,6,ac,xgb_tot,Vm Violation Worst P99 (p.u.),0.0,1
 case118_ieee,6,dc,sarima,Diverged (n),0.0,1
 case118_ieee,6,dc,sarima,Insufficient Headroom (%),0.0,1
 case118_ieee,6,dc,sarima,Insufficient Headroom (n),0.0,1
@@ -472,6 +523,7 @@ case118_ieee,6,dc,sarima,Qg Violation (% elements),25.102199261002294,1
 case118_ieee,6,dc,sarima,Qg Violation (%),100.0,1
 case118_ieee,6,dc,sarima,Qg Violation Mean (MVAr),31.861179797860945,1
 case118_ieee,6,dc,sarima,Qg Violation Worst (MVAr),113.48481308076924,1
+case118_ieee,6,dc,sarima,Qg Violation Worst P99 (MVAr),125.54677061412751,1
 case118_ieee,6,dc,sarima,Rebalanced Gap,2.4218885785230913,1
 case118_ieee,6,dc,sarima,Rebalancing Cost (over-supply),-0.4934350764689317,1
 case118_ieee,6,dc,sarima,Rebalancing Cost (under-supply),6.403422219808794,1
@@ -481,10 +533,12 @@ case118_ieee,6,dc,sarima,Thermal Overload (% elements),0.9187489701144277,1
 case118_ieee,6,dc,sarima,Thermal Overload (%),93.84472102277537,1
 case118_ieee,6,dc,sarima,Thermal Overload Mean (% of rating),3.8003720492464255,1
 case118_ieee,6,dc,sarima,Thermal Overload Worst (% of rating),4.279394142302784,1
+case118_ieee,6,dc,sarima,Thermal Overload Worst P99 (% of rating),8.171447995741154,1
 case118_ieee,6,dc,sarima,Vm Violation (% elements),0.0,1
 case118_ieee,6,dc,sarima,Vm Violation (%),0.0,1
 case118_ieee,6,dc,sarima,Vm Violation Mean (p.u.),,0
 case118_ieee,6,dc,sarima,Vm Violation Worst (p.u.),,0
+case118_ieee,6,dc,sarima,Vm Violation Worst P99 (p.u.),0.0,1
 case118_ieee,6,dc,snaive,Diverged (n),0.0,1
 case118_ieee,6,dc,snaive,Insufficient Headroom (%),0.0,1
 case118_ieee,6,dc,snaive,Insufficient Headroom (n),0.0,1
@@ -499,6 +553,7 @@ case118_ieee,6,dc,snaive,Qg Violation (% elements),24.988937399258447,1
 case118_ieee,6,dc,snaive,Qg Violation (%),100.0,1
 case118_ieee,6,dc,snaive,Qg Violation Mean (MVAr),31.988888441217114,1
 case118_ieee,6,dc,snaive,Qg Violation Worst (MVAr),114.2159697049553,1
+case118_ieee,6,dc,snaive,Qg Violation Worst P99 (MVAr),128.2860697306792,1
 case118_ieee,6,dc,snaive,Rebalanced Gap,2.9190128505620336,1
 case118_ieee,6,dc,snaive,Rebalancing Cost (over-supply),-2.6051409485311945,1
 case118_ieee,6,dc,snaive,Rebalancing Cost (under-supply),8.167528703903013,1
@@ -508,10 +563,12 @@ case118_ieee,6,dc,snaive,Thermal Overload (% elements),0.758382699561098,1
 case118_ieee,6,dc,snaive,Thermal Overload (%),77.82575565151132,1
 case118_ieee,6,dc,snaive,Thermal Overload Mean (% of rating),4.506306037831969,1
 case118_ieee,6,dc,snaive,Thermal Overload Worst (% of rating),5.180880895574716,1
+case118_ieee,6,dc,snaive,Thermal Overload Worst P99 (% of rating),11.93055871938158,1
 case118_ieee,6,dc,snaive,Vm Violation (% elements),0.0,1
 case118_ieee,6,dc,snaive,Vm Violation (%),0.0,1
 case118_ieee,6,dc,snaive,Vm Violation Mean (p.u.),,0
 case118_ieee,6,dc,snaive,Vm Violation Worst (p.u.),,0
+case118_ieee,6,dc,snaive,Vm Violation Worst P99 (p.u.),0.0,1
 case118_ieee,6,dc,xgb,Diverged (n),0.0,1
 case118_ieee,6,dc,xgb,Insufficient Headroom (%),0.0,1
 case118_ieee,6,dc,xgb,Insufficient Headroom (n),0.0,1
@@ -526,6 +583,7 @@ case118_ieee,6,dc,xgb,Qg Violation (% elements),25.123206221255213,1
 case118_ieee,6,dc,xgb,Qg Violation (%),100.0,1
 case118_ieee,6,dc,xgb,Qg Violation Mean (MVAr),31.833039470179322,1
 case118_ieee,6,dc,xgb,Qg Violation Worst (MVAr),113.452456581101,1
+case118_ieee,6,dc,xgb,Qg Violation Worst P99 (MVAr),125.58126602520097,1
 case118_ieee,6,dc,xgb,Rebalanced Gap,2.373922332657844,1
 case118_ieee,6,dc,xgb,Rebalancing Cost (over-supply),-0.2973975665161138,1
 case118_ieee,6,dc,xgb,Rebalancing Cost (under-supply),6.175958162679364,1
@@ -535,10 +593,12 @@ case118_ieee,6,dc,xgb,Thermal Overload (% elements),0.947654045845726,1
 case118_ieee,6,dc,xgb,Thermal Overload (%),95.9486918973838,1
 case118_ieee,6,dc,xgb,Thermal Overload Mean (% of rating),3.7189137981537974,1
 case118_ieee,6,dc,xgb,Thermal Overload Worst (% of rating),4.25327271660896,1
+case118_ieee,6,dc,xgb,Thermal Overload Worst P99 (% of rating),7.9448873204264805,1
 case118_ieee,6,dc,xgb,Vm Violation (% elements),0.0,1
 case118_ieee,6,dc,xgb,Vm Violation (%),0.0,1
 case118_ieee,6,dc,xgb,Vm Violation Mean (p.u.),,0
 case118_ieee,6,dc,xgb,Vm Violation Worst (p.u.),,0
+case118_ieee,6,dc,xgb,Vm Violation Worst P99 (p.u.),0.0,1
 case118_ieee,6,dc,xgb_tot,Diverged (n),0.0,1
 case118_ieee,6,dc,xgb_tot,Insufficient Headroom (%),0.0,1
 case118_ieee,6,dc,xgb_tot,Insufficient Headroom (n),0.0,1
@@ -553,6 +613,7 @@ case118_ieee,6,dc,xgb_tot,Qg Violation (% elements),25.123765341870307,1
 case118_ieee,6,dc,xgb_tot,Qg Violation (%),100.0,1
 case118_ieee,6,dc,xgb_tot,Qg Violation Mean (MVAr),31.829636577894167,1
 case118_ieee,6,dc,xgb_tot,Qg Violation Worst (MVAr),113.37186301901254,1
+case118_ieee,6,dc,xgb_tot,Qg Violation Worst P99 (MVAr),125.0943225668437,1
 case118_ieee,6,dc,xgb_tot,Rebalanced Gap,2.348498842923745,1
 case118_ieee,6,dc,xgb_tot,Rebalancing Cost (over-supply),-0.26826555696290044,1
 case118_ieee,6,dc,xgb_tot,Rebalancing Cost (under-supply),6.063239707242163,1
@@ -562,10 +623,12 @@ case118_ieee,6,dc,xgb_tot,Thermal Overload (% elements),0.946925728976906,1
 case118_ieee,6,dc,xgb_tot,Thermal Overload (%),96.42282617898569,1
 case118_ieee,6,dc,xgb_tot,Thermal Overload Mean (% of rating),3.675060878478792,1
 case118_ieee,6,dc,xgb_tot,Thermal Overload Worst (% of rating),4.1982483946628175,1
+case118_ieee,6,dc,xgb_tot,Thermal Overload Worst P99 (% of rating),7.9789898747861665,1
 case118_ieee,6,dc,xgb_tot,Vm Violation (% elements),0.0,1
 case118_ieee,6,dc,xgb_tot,Vm Violation (%),0.0,1
 case118_ieee,6,dc,xgb_tot,Vm Violation Mean (p.u.),,0
 case118_ieee,6,dc,xgb_tot,Vm Violation Worst (p.u.),,0
+case118_ieee,6,dc,xgb_tot,Vm Violation Worst P99 (p.u.),0.0,1
 case118_ieee,6,e2e,none,Diverged (n),0.0,3
 case118_ieee,6,e2e,none,Insufficient Headroom (%),0.0,3
 case118_ieee,6,e2e,none,Insufficient Headroom (n),0.0,3
@@ -580,6 +643,7 @@ case118_ieee,6,e2e,none,Qg Violation (% elements),10.634243849512767,3
 case118_ieee,6,e2e,none,Qg Violation (%),99.69355476472914,3
 case118_ieee,6,e2e,none,Qg Violation Mean (MVAr),1.7938225126466223,3
 case118_ieee,6,e2e,none,Qg Violation Worst (MVAr),3.1649065461618355,3
+case118_ieee,6,e2e,none,Qg Violation Worst P99 (MVAr),8.908702114402894,3
 case118_ieee,6,e2e,none,Rebalanced Gap,0.22128837070878035,3
 case118_ieee,6,e2e,none,Rebalancing Cost (over-supply),-0.8031126169068176,3
 case118_ieee,6,e2e,none,Rebalancing Cost (under-supply),1.0193777684462448,3
@@ -589,10 +653,12 @@ case118_ieee,6,e2e,none,Thermal Overload (% elements),0.2786417951152195,3
 case118_ieee,6,e2e,none,Thermal Overload (%),51.82737389143083,3
 case118_ieee,6,e2e,none,Thermal Overload Mean (% of rating),1.0108165887014469,3
 case118_ieee,6,e2e,none,Thermal Overload Worst (% of rating),1.0108165887014466,3
+case118_ieee,6,e2e,none,Thermal Overload Worst P99 (% of rating),3.6469302647766852,3
 case118_ieee,6,e2e,none,Vm Violation (% elements),0.0013901245551601424,3
 case118_ieee,6,e2e,none,Vm Violation (%),0.08896797153024912,3
 case118_ieee,6,e2e,none,Vm Violation Mean (p.u.),0.0012174785708458666,3
 case118_ieee,6,e2e,none,Vm Violation Worst (p.u.),0.0012174785708458666,3
+case118_ieee,6,e2e,none,Vm Violation Worst P99 (p.u.),0.0,3
 case118_ieee,6,surrogate,sarima,Diverged (n),0.0,3
 case118_ieee,6,surrogate,sarima,Insufficient Headroom (%),0.0,3
 case118_ieee,6,surrogate,sarima,Insufficient Headroom (n),0.0,3
@@ -607,6 +673,7 @@ case118_ieee,6,surrogate,sarima,Qg Violation (% elements),10.590649692829784,3
 case118_ieee,6,surrogate,sarima,Qg Violation (%),99.9054553664663,3
 case118_ieee,6,surrogate,sarima,Qg Violation Mean (MVAr),1.7537916671730798,3
 case118_ieee,6,surrogate,sarima,Qg Violation Worst (MVAr),3.248421127383375,3
+case118_ieee,6,surrogate,sarima,Qg Violation Worst P99 (MVAr),11.319367532768075,3
 case118_ieee,6,surrogate,sarima,Rebalanced Gap,0.5092120374895386,3
 case118_ieee,6,surrogate,sarima,Rebalancing Cost (over-supply),-1.8894565037766007,3
 case118_ieee,6,surrogate,sarima,Rebalancing Cost (under-supply),1.6225593176706266,3
@@ -616,10 +683,12 @@ case118_ieee,6,surrogate,sarima,Thermal Overload (% elements),0.2987237157270013
 case118_ieee,6,surrogate,sarima,Thermal Overload (%),55.562611125222254,3
 case118_ieee,6,surrogate,sarima,Thermal Overload Mean (% of rating),1.4750757084278143,3
 case118_ieee,6,surrogate,sarima,Thermal Overload Worst (% of rating),1.4750757084278143,3
+case118_ieee,6,surrogate,sarima,Thermal Overload Worst P99 (% of rating),4.59987622249247,3
 case118_ieee,6,surrogate,sarima,Vm Violation (% elements),0.0,3
 case118_ieee,6,surrogate,sarima,Vm Violation (%),0.0,3
 case118_ieee,6,surrogate,sarima,Vm Violation Mean (p.u.),,0
 case118_ieee,6,surrogate,sarima,Vm Violation Worst (p.u.),,0
+case118_ieee,6,surrogate,sarima,Vm Violation Worst P99 (p.u.),0.0,3
 case118_ieee,6,surrogate,snaive,Diverged (n),0.0,3
 case118_ieee,6,surrogate,snaive,Insufficient Headroom (%),0.0,3
 case118_ieee,6,surrogate,snaive,Insufficient Headroom (n),0.0,3
@@ -634,6 +703,7 @@ case118_ieee,6,surrogate,snaive,Qg Violation (% elements),11.539211128736723,3
 case118_ieee,6,surrogate,snaive,Qg Violation (%),99.8729997459995,3
 case118_ieee,6,surrogate,snaive,Qg Violation Mean (MVAr),2.771475406371481,3
 case118_ieee,6,surrogate,snaive,Qg Violation Worst (MVAr),5.147781849072999,3
+case118_ieee,6,surrogate,snaive,Qg Violation Worst P99 (MVAr),18.389601435005407,3
 case118_ieee,6,surrogate,snaive,Rebalanced Gap,1.1749881344068294,3
 case118_ieee,6,surrogate,snaive,Rebalancing Cost (over-supply),-4.963288161997699,3
 case118_ieee,6,surrogate,snaive,Rebalancing Cost (under-supply),4.479853896905119,3
@@ -643,10 +713,12 @@ case118_ieee,6,surrogate,snaive,Thermal Overload (% elements),0.2799012766484314
 case118_ieee,6,surrogate,snaive,Thermal Overload (%),52.061637456608246,3
 case118_ieee,6,surrogate,snaive,Thermal Overload Mean (% of rating),2.8885381294775065,3
 case118_ieee,6,surrogate,snaive,Thermal Overload Worst (% of rating),2.8885381294775065,3
+case118_ieee,6,surrogate,snaive,Thermal Overload Worst P99 (% of rating),8.330039185368696,3
 case118_ieee,6,surrogate,snaive,Vm Violation (% elements),0.0,3
 case118_ieee,6,surrogate,snaive,Vm Violation (%),0.0,3
 case118_ieee,6,surrogate,snaive,Vm Violation Mean (p.u.),,0
 case118_ieee,6,surrogate,snaive,Vm Violation Worst (p.u.),,0
+case118_ieee,6,surrogate,snaive,Vm Violation Worst P99 (p.u.),0.0,3
 case118_ieee,6,surrogate,xgb,Diverged (n),0.0,3
 case118_ieee,6,surrogate,xgb,Insufficient Headroom (%),0.0,3
 case118_ieee,6,surrogate,xgb,Insufficient Headroom (n),0.0,3
@@ -661,6 +733,7 @@ case118_ieee,6,surrogate,xgb,Qg Violation (% elements),10.70620128661641,3
 case118_ieee,6,surrogate,xgb,Qg Violation (%),99.8151440747326,3
 case118_ieee,6,surrogate,xgb,Qg Violation Mean (MVAr),1.7018722249079568,3
 case118_ieee,6,surrogate,xgb,Qg Violation Worst (MVAr),3.19509539905281,3
+case118_ieee,6,surrogate,xgb,Qg Violation Worst P99 (MVAr),11.05374243990675,3
 case118_ieee,6,surrogate,xgb,Rebalanced Gap,0.46123919944985486,3
 case118_ieee,6,surrogate,xgb,Rebalancing Cost (over-supply),-1.746334581436546,3
 case118_ieee,6,surrogate,xgb,Rebalancing Cost (under-supply),1.424645768878868,3
@@ -670,10 +743,12 @@ case118_ieee,6,surrogate,xgb,Thermal Overload (% elements),0.2907349900721307,3
 case118_ieee,6,surrogate,xgb,Thermal Overload (%),54.0767081534163,3
 case118_ieee,6,surrogate,xgb,Thermal Overload Mean (% of rating),1.4569336911170268,3
 case118_ieee,6,surrogate,xgb,Thermal Overload Worst (% of rating),1.4569336911170268,3
+case118_ieee,6,surrogate,xgb,Thermal Overload Worst P99 (% of rating),4.6269103323257355,3
 case118_ieee,6,surrogate,xgb,Vm Violation (% elements),0.0,3
 case118_ieee,6,surrogate,xgb,Vm Violation (%),0.0,3
 case118_ieee,6,surrogate,xgb,Vm Violation Mean (p.u.),,0
 case118_ieee,6,surrogate,xgb,Vm Violation Worst (p.u.),,0
+case118_ieee,6,surrogate,xgb,Vm Violation Worst P99 (p.u.),0.0,3
 case118_ieee,6,surrogate,xgb_tot,Diverged (n),0.0,3
 case118_ieee,6,surrogate,xgb_tot,Insufficient Headroom (%),0.0,3
 case118_ieee,6,surrogate,xgb_tot,Insufficient Headroom (n),0.0,3
@@ -688,6 +763,7 @@ case118_ieee,6,surrogate,xgb_tot,Qg Violation (% elements),10.65316470255582,3
 case118_ieee,6,surrogate,xgb_tot,Qg Violation (%),99.86735529026613,3
 case118_ieee,6,surrogate,xgb_tot,Qg Violation Mean (MVAr),1.6794693139661365,3
 case118_ieee,6,surrogate,xgb_tot,Qg Violation Worst (MVAr),3.150451402353871,3
+case118_ieee,6,surrogate,xgb_tot,Qg Violation Worst P99 (MVAr),11.097348707063638,3
 case118_ieee,6,surrogate,xgb_tot,Rebalanced Gap,0.4252429011231047,3
 case118_ieee,6,surrogate,xgb_tot,Rebalancing Cost (over-supply),-1.6308299487730402,3
 case118_ieee,6,surrogate,xgb_tot,Rebalancing Cost (under-supply),1.225012706784286,3
@@ -697,10 +773,12 @@ case118_ieee,6,surrogate,xgb_tot,Thermal Overload (% elements),0.284984321462071
 case118_ieee,6,surrogate,xgb_tot,Thermal Overload (%),53.007083791945355,3
 case118_ieee,6,surrogate,xgb_tot,Thermal Overload Mean (% of rating),1.3127731064184864,3
 case118_ieee,6,surrogate,xgb_tot,Thermal Overload Worst (% of rating),1.3127731064184864,3
+case118_ieee,6,surrogate,xgb_tot,Thermal Overload Worst P99 (% of rating),4.262018652404021,3
 case118_ieee,6,surrogate,xgb_tot,Vm Violation (% elements),0.0,3
 case118_ieee,6,surrogate,xgb_tot,Vm Violation (%),0.0,3
 case118_ieee,6,surrogate,xgb_tot,Vm Violation Mean (p.u.),,0
 case118_ieee,6,surrogate,xgb_tot,Vm Violation Worst (p.u.),,0
+case118_ieee,6,surrogate,xgb_tot,Vm Violation Worst P99 (p.u.),0.0,3
 case118_ieee,24,ac,sarima,Diverged (n),0.0,1
 case118_ieee,24,ac,sarima,Insufficient Headroom (%),0.0,1
 case118_ieee,24,ac,sarima,Insufficient Headroom (n),0.0,1
@@ -715,6 +793,7 @@ case118_ieee,24,ac,sarima,Qg Violation (% elements),11.431367262538094,1
 case118_ieee,24,ac,sarima,Qg Violation (%),99.42055796546738,1
 case118_ieee,24,ac,sarima,Qg Violation Mean (MVAr),2.0817251555139054,1
 case118_ieee,24,ac,sarima,Qg Violation Worst (MVAr),3.926248865533864,1
+case118_ieee,24,ac,sarima,Qg Violation Worst P99 (MVAr),16.87568238095534,1
 case118_ieee,24,ac,sarima,Rebalanced Gap,0.7894526248685876,1
 case118_ieee,24,ac,sarima,Rebalancing Cost (over-supply),-3.6128913301321086,1
 case118_ieee,24,ac,sarima,Rebalancing Cost (under-supply),3.2716824053801146,1
@@ -724,10 +803,12 @@ case118_ieee,24,ac,sarima,Thermal Overload (% elements),0.2699261295718588,1
 case118_ieee,24,ac,sarima,Thermal Overload (%),50.20626010036574,1
 case118_ieee,24,ac,sarima,Thermal Overload Mean (% of rating),2.1910203006025544,1
 case118_ieee,24,ac,sarima,Thermal Overload Worst (% of rating),2.191020300602555,1
+case118_ieee,24,ac,sarima,Thermal Overload Worst P99 (% of rating),6.468344774612196,1
 case118_ieee,24,ac,sarima,Vm Violation (% elements),0.04734546440418474,1
 case118_ieee,24,ac,sarima,Vm Violation (%),3.0290465254741856,1
 case118_ieee,24,ac,sarima,Vm Violation Mean (p.u.),0.0015309238739106895,1
 case118_ieee,24,ac,sarima,Vm Violation Worst (p.u.),0.0015310716639335392,1
+case118_ieee,24,ac,sarima,Vm Violation Worst P99 (p.u.),0.0015716649336558336,1
 case118_ieee,24,ac,snaive,Diverged (n),0.0,1
 case118_ieee,24,ac,snaive,Insufficient Headroom (%),0.0,1
 case118_ieee,24,ac,snaive,Insufficient Headroom (n),0.0,1
@@ -742,6 +823,7 @@ case118_ieee,24,ac,snaive,Qg Violation (% elements),11.48332346366115,1
 case118_ieee,24,ac,snaive,Qg Violation (%),99.9744832865527,1
 case118_ieee,24,ac,snaive,Qg Violation Mean (MVAr),2.520587726499668,1
 case118_ieee,24,ac,snaive,Qg Violation Worst (MVAr),5.046113065051864,1
+case118_ieee,24,ac,snaive,Qg Violation Worst P99 (MVAr),20.57230589326558,1
 case118_ieee,24,ac,snaive,Rebalanced Gap,1.1065382251844822,1
 case118_ieee,24,ac,snaive,Rebalancing Cost (over-supply),-4.755721121102719,1
 case118_ieee,24,ac,snaive,Rebalancing Cost (under-supply),4.6775929579682485,1
@@ -751,10 +833,12 @@ case118_ieee,24,ac,snaive,Thermal Overload (% elements),0.26038022646769116,1
 case118_ieee,24,ac,snaive,Thermal Overload (%),48.43072212299056,1
 case118_ieee,24,ac,snaive,Thermal Overload Mean (% of rating),2.9214607799786707,1
 case118_ieee,24,ac,snaive,Thermal Overload Worst (% of rating),2.9214607799786707,1
+case118_ieee,24,ac,snaive,Thermal Overload Worst P99 (% of rating),8.41889239453848,1
 case118_ieee,24,ac,snaive,Vm Violation (% elements),0.08013842817045164,1
 case118_ieee,24,ac,snaive,Vm Violation (%),5.052309262566982,1
 case118_ieee,24,ac,snaive,Vm Violation Mean (p.u.),0.0017772588273605539,1
 case118_ieee,24,ac,snaive,Vm Violation Worst (p.u.),0.0017841166914277541,1
+case118_ieee,24,ac,snaive,Vm Violation Worst P99 (p.u.),0.002250781841000915,1
 case118_ieee,24,ac,xgb,Diverged (n),0.0,1
 case118_ieee,24,ac,xgb,Insufficient Headroom (%),0.0,1
 case118_ieee,24,ac,xgb,Insufficient Headroom (n),0.0,1
@@ -769,6 +853,7 @@ case118_ieee,24,ac,xgb,Qg Violation (% elements),11.453212939380956,1
 case118_ieee,24,ac,xgb,Qg Violation (%),99.90962830654078,1
 case118_ieee,24,ac,xgb,Qg Violation Mean (MVAr),1.6163235885897722,1
 case118_ieee,24,ac,xgb,Qg Violation Worst (MVAr),3.1891815354662487,1
+case118_ieee,24,ac,xgb,Qg Violation Worst P99 (MVAr),11.950589409572725,1
 case118_ieee,24,ac,xgb,Rebalanced Gap,0.6020529113609009,1
 case118_ieee,24,ac,xgb,Rebalancing Cost (over-supply),-2.5391815935598614,1
 case118_ieee,24,ac,xgb,Rebalancing Cost (under-supply),2.5280730316162225,1
@@ -778,10 +863,12 @@ case118_ieee,24,ac,xgb,Thermal Overload (% elements),0.23917917580100986,1
 case118_ieee,24,ac,xgb,Thermal Overload (%),44.487326698987836,1
 case118_ieee,24,ac,xgb,Thermal Overload Mean (% of rating),1.836158927682863,1
 case118_ieee,24,ac,xgb,Thermal Overload Worst (% of rating),1.836158927682863,1
+case118_ieee,24,ac,xgb,Thermal Overload Worst P99 (% of rating),5.951052835564489,1
 case118_ieee,24,ac,xgb,Vm Violation (% elements),0.02048314302117887,1
 case118_ieee,24,ac,xgb,Vm Violation (%),1.3109211533554477,1
 case118_ieee,24,ac,xgb,Vm Violation Mean (p.u.),0.001393153702817827,1
 case118_ieee,24,ac,xgb,Vm Violation Worst (p.u.),0.001393153702817827,1
+case118_ieee,24,ac,xgb,Vm Violation Worst P99 (p.u.),0.0011571715574443915,1
 case118_ieee,24,ac,xgb_tot,Diverged (n),0.0,1
 case118_ieee,24,ac,xgb_tot,Insufficient Headroom (%),0.0,1
 case118_ieee,24,ac,xgb_tot,Insufficient Headroom (n),0.0,1
@@ -796,6 +883,7 @@ case118_ieee,24,ac,xgb_tot,Qg Violation (% elements),11.44438640328283,1
 case118_ieee,24,ac,xgb_tot,Qg Violation (%),99.8904907714553,1
 case118_ieee,24,ac,xgb_tot,Qg Violation Mean (MVAr),1.6153591650100758,1
 case118_ieee,24,ac,xgb_tot,Qg Violation Worst (MVAr),3.2572759295249902,1
+case118_ieee,24,ac,xgb_tot,Qg Violation Worst P99 (MVAr),12.861759596470268,1
 case118_ieee,24,ac,xgb_tot,Rebalanced Gap,0.57199454964599,1
 case118_ieee,24,ac,xgb_tot,Rebalancing Cost (over-supply),-2.5044098074316907,1
 case118_ieee,24,ac,xgb_tot,Rebalancing Cost (under-supply),2.322047238170474,1
@@ -805,10 +893,12 @@ case118_ieee,24,ac,xgb_tot,Thermal Overload (% elements),0.2382645982580956,1
 case118_ieee,24,ac,xgb_tot,Thermal Overload (%),44.31721527600578,1
 case118_ieee,24,ac,xgb_tot,Thermal Overload Mean (% of rating),1.7024266562284749,1
 case118_ieee,24,ac,xgb_tot,Thermal Overload Worst (% of rating),1.7024266562284753,1
+case118_ieee,24,ac,xgb_tot,Thermal Overload Worst P99 (% of rating),5.540463386060943,1
 case118_ieee,24,ac,xgb_tot,Vm Violation (% elements),0.016562606319639364,1
 case118_ieee,24,ac,xgb_tot,Vm Violation (%),1.0600068044569193,1
 case118_ieee,24,ac,xgb_tot,Vm Violation Mean (p.u.),0.0013587115509884774,1
 case118_ieee,24,ac,xgb_tot,Vm Violation Worst (p.u.),0.0013587115509884774,1
+case118_ieee,24,ac,xgb_tot,Vm Violation Worst P99 (p.u.),0.0010749445460584205,1
 case118_ieee,24,dc,sarima,Diverged (n),0.0,1
 case118_ieee,24,dc,sarima,Insufficient Headroom (%),0.0,1
 case118_ieee,24,dc,sarima,Insufficient Headroom (n),0.0,1
@@ -823,6 +913,7 @@ case118_ieee,24,dc,sarima,Qg Violation (% elements),25.084674565614062,1
 case118_ieee,24,dc,sarima,Qg Violation (%),100.0,1
 case118_ieee,24,dc,sarima,Qg Violation Mean (MVAr),31.844411035524026,1
 case118_ieee,24,dc,sarima,Qg Violation Worst (MVAr),113.89277758523708,1
+case118_ieee,24,dc,sarima,Qg Violation Worst P99 (MVAr),128.60731714819232,1
 case118_ieee,24,dc,sarima,Rebalanced Gap,2.70819351812776,1
 case118_ieee,24,dc,sarima,Rebalancing Cost (over-supply),-1.7629885553257416,1
 case118_ieee,24,dc,sarima,Rebalancing Cost (under-supply),7.1712089161973545,1
@@ -832,10 +923,12 @@ case118_ieee,24,dc,sarima,Thermal Overload (% elements),0.8375415332526676,1
 case118_ieee,24,dc,sarima,Thermal Overload (%),83.30462703070512,1
 case118_ieee,24,dc,sarima,Thermal Overload Mean (% of rating),4.23837324100755,1
 case118_ieee,24,dc,sarima,Thermal Overload Worst (% of rating),4.822726878740181,1
+case118_ieee,24,dc,sarima,Thermal Overload Worst P99 (% of rating),9.979436876721874,1
 case118_ieee,24,dc,sarima,Vm Violation (% elements),0.0,1
 case118_ieee,24,dc,sarima,Vm Violation (%),0.0,1
 case118_ieee,24,dc,sarima,Vm Violation Mean (p.u.),,0
 case118_ieee,24,dc,sarima,Vm Violation Worst (p.u.),,0
+case118_ieee,24,dc,sarima,Vm Violation Worst P99 (p.u.),0.0,1
 case118_ieee,24,dc,snaive,Diverged (n),0.0,1
 case118_ieee,24,dc,snaive,Insufficient Headroom (%),0.0,1
 case118_ieee,24,dc,snaive,Insufficient Headroom (n),0.0,1
@@ -850,6 +943,7 @@ case118_ieee,24,dc,snaive,Qg Violation (% elements),24.98507512987044,1
 case118_ieee,24,dc,snaive,Qg Violation (%),100.0,1
 case118_ieee,24,dc,snaive,Qg Violation Mean (MVAr),31.995396449204417,1
 case118_ieee,24,dc,snaive,Qg Violation Worst (MVAr),114.21992584785804,1
+case118_ieee,24,dc,snaive,Qg Violation Worst P99 (MVAr),128.2860697306792,1
 case118_ieee,24,dc,snaive,Rebalanced Gap,2.9212327505161757,1
 case118_ieee,24,dc,snaive,Rebalancing Cost (over-supply),-2.6162595577788585,1
 case118_ieee,24,dc,snaive,Rebalancing Cost (under-supply),8.171094045216362,1
@@ -859,10 +953,12 @@ case118_ieee,24,dc,snaive,Thermal Overload (% elements),0.7571958961076495,1
 case118_ieee,24,dc,snaive,Thermal Overload (%),77.72390916050013,1
 case118_ieee,24,dc,snaive,Thermal Overload Mean (% of rating),4.5051513798826415,1
 case118_ieee,24,dc,snaive,Thermal Overload Worst (% of rating),5.180859412474896,1
+case118_ieee,24,dc,snaive,Thermal Overload Worst P99 (% of rating),11.93055871938158,1
 case118_ieee,24,dc,snaive,Vm Violation (% elements),0.0,1
 case118_ieee,24,dc,snaive,Vm Violation (%),0.0,1
 case118_ieee,24,dc,snaive,Vm Violation Mean (p.u.),,0
 case118_ieee,24,dc,snaive,Vm Violation Worst (p.u.),,0
+case118_ieee,24,dc,snaive,Vm Violation Worst P99 (p.u.),0.0,1
 case118_ieee,24,dc,xgb,Diverged (n),0.0,1
 case118_ieee,24,dc,xgb,Insufficient Headroom (%),0.0,1
 case118_ieee,24,dc,xgb,Insufficient Headroom (n),0.0,1
@@ -877,6 +973,7 @@ case118_ieee,24,dc,xgb,Qg Violation (% elements),25.061765692377563,1
 case118_ieee,24,dc,xgb,Qg Violation (%),100.0,1
 case118_ieee,24,dc,xgb,Qg Violation Mean (MVAr),31.893633264191934,1
 case118_ieee,24,dc,xgb,Qg Violation Worst (MVAr),113.68968071498233,1
+case118_ieee,24,dc,xgb,Qg Violation Worst P99 (MVAr),126.51227328898318,1
 case118_ieee,24,dc,xgb,Rebalanced Gap,2.532311011363408,1
 case118_ieee,24,dc,xgb,Rebalancing Cost (over-supply),-0.8750861511143359,1
 case118_ieee,24,dc,xgb,Rebalancing Cost (under-supply),6.609271576351657,1
@@ -886,10 +983,12 @@ case118_ieee,24,dc,xgb,Thermal Overload (% elements),0.8929592162436288,1
 case118_ieee,24,dc,xgb,Thermal Overload (%),89.36378327804712,1
 case118_ieee,24,dc,xgb,Thermal Overload Mean (% of rating),3.8802034831795686,1
 case118_ieee,24,dc,xgb,Thermal Overload Worst (% of rating),4.529363313076904,1
+case118_ieee,24,dc,xgb,Thermal Overload Worst P99 (% of rating),9.446328978250351,1
 case118_ieee,24,dc,xgb,Vm Violation (% elements),0.0,1
 case118_ieee,24,dc,xgb,Vm Violation (%),0.0,1
 case118_ieee,24,dc,xgb,Vm Violation Mean (p.u.),,0
 case118_ieee,24,dc,xgb,Vm Violation Worst (p.u.),,0
+case118_ieee,24,dc,xgb,Vm Violation Worst P99 (p.u.),0.0,1
 case118_ieee,24,dc,xgb_tot,Diverged (n),0.0,1
 case118_ieee,24,dc,xgb_tot,Insufficient Headroom (%),0.0,1
 case118_ieee,24,dc,xgb_tot,Insufficient Headroom (n),0.0,1
@@ -904,6 +1003,7 @@ case118_ieee,24,dc,xgb_tot,Qg Violation (% elements),25.06792420733694,1
 case118_ieee,24,dc,xgb_tot,Qg Violation (%),100.0,1
 case118_ieee,24,dc,xgb_tot,Qg Violation Mean (MVAr),31.88122278156704,1
 case118_ieee,24,dc,xgb_tot,Qg Violation Worst (MVAr),113.57142786730492,1
+case118_ieee,24,dc,xgb_tot,Qg Violation Worst P99 (MVAr),126.0994326603189,1
 case118_ieee,24,dc,xgb_tot,Rebalanced Gap,2.508213479983856,1
 case118_ieee,24,dc,xgb_tot,Rebalancing Cost (over-supply),-0.8754930780562532,1
 case118_ieee,24,dc,xgb_tot,Rebalancing Cost (under-supply),6.445485857398814,1
@@ -913,10 +1013,12 @@ case118_ieee,24,dc,xgb_tot,Thermal Overload (% elements),0.893925238773332,1
 case118_ieee,24,dc,xgb_tot,Thermal Overload (%),89.45521816789997,1
 case118_ieee,24,dc,xgb_tot,Thermal Overload Mean (% of rating),3.870185656598468,1
 case118_ieee,24,dc,xgb_tot,Thermal Overload Worst (% of rating),4.540927279100987,1
+case118_ieee,24,dc,xgb_tot,Thermal Overload Worst P99 (% of rating),9.361827311825285,1
 case118_ieee,24,dc,xgb_tot,Vm Violation (% elements),0.0,1
 case118_ieee,24,dc,xgb_tot,Vm Violation (%),0.0,1
 case118_ieee,24,dc,xgb_tot,Vm Violation Mean (p.u.),,0
 case118_ieee,24,dc,xgb_tot,Vm Violation Worst (p.u.),,0
+case118_ieee,24,dc,xgb_tot,Vm Violation Worst P99 (p.u.),0.0,1
 case118_ieee,24,e2e,none,Diverged (n),0.0,3
 case118_ieee,24,e2e,none,Insufficient Headroom (%),0.0,3
 case118_ieee,24,e2e,none,Insufficient Headroom (n),0.0,3
@@ -931,6 +1033,7 @@ case118_ieee,24,e2e,none,Qg Violation (% elements),10.931499445092415,3
 case118_ieee,24,e2e,none,Qg Violation (%),99.69473416433478,3
 case118_ieee,24,e2e,none,Qg Violation Mean (MVAr),2.535882345874763,3
 case118_ieee,24,e2e,none,Qg Violation Worst (MVAr),4.616117597744357,3
+case118_ieee,24,e2e,none,Qg Violation Worst P99 (MVAr),12.022093659181545,3
 case118_ieee,24,e2e,none,Rebalanced Gap,0.47322465274678766,3
 case118_ieee,24,e2e,none,Rebalancing Cost (over-supply),-2.37272766532732,3
 case118_ieee,24,e2e,none,Rebalancing Cost (under-supply),1.9682906475361497,3
@@ -940,10 +1043,12 @@ case118_ieee,24,e2e,none,Thermal Overload (% elements),0.3104174245884883,3
 case118_ieee,24,e2e,none,Thermal Overload (%),57.73764097345884,3
 case118_ieee,24,e2e,none,Thermal Overload Mean (% of rating),2.094070627887437,3
 case118_ieee,24,e2e,none,Thermal Overload Worst (% of rating),2.0940706278874366,3
+case118_ieee,24,e2e,none,Thermal Overload Worst P99 (% of rating),8.007238589951658,3
 case118_ieee,24,e2e,none,Vm Violation (% elements),0.0,3
 case118_ieee,24,e2e,none,Vm Violation (%),0.0,3
 case118_ieee,24,e2e,none,Vm Violation Mean (p.u.),,0
 case118_ieee,24,e2e,none,Vm Violation Worst (p.u.),,0
+case118_ieee,24,e2e,none,Vm Violation Worst P99 (p.u.),0.0,3
 case118_ieee,24,surrogate,sarima,Diverged (n),0.0,3
 case118_ieee,24,surrogate,sarima,Insufficient Headroom (%),0.0,3
 case118_ieee,24,surrogate,sarima,Insufficient Headroom (n),0.0,3
@@ -958,6 +1063,7 @@ case118_ieee,24,surrogate,sarima,Qg Violation (% elements),11.442494047437549,3
 case118_ieee,24,surrogate,sarima,Qg Violation (%),99.95888973944601,3
 case118_ieee,24,surrogate,sarima,Qg Violation Mean (MVAr),2.4222748408676815,3
 case118_ieee,24,surrogate,sarima,Qg Violation Worst (MVAr),4.2998291884710715,3
+case118_ieee,24,surrogate,sarima,Qg Violation Worst P99 (MVAr),15.529868615155118,3
 case118_ieee,24,surrogate,sarima,Rebalanced Gap,0.8619804402560072,3
 case118_ieee,24,surrogate,sarima,Rebalancing Cost (over-supply),-3.8161988777144082,3
 case118_ieee,24,surrogate,sarima,Rebalancing Cost (under-supply),3.141564595267172,3
@@ -967,10 +1073,12 @@ case118_ieee,24,surrogate,sarima,Thermal Overload (% elements),0.299869017252895
 case118_ieee,24,surrogate,sarima,Thermal Overload (%),55.775637209038585,3
 case118_ieee,24,surrogate,sarima,Thermal Overload Mean (% of rating),2.353372683074004,3
 case118_ieee,24,surrogate,sarima,Thermal Overload Worst (% of rating),2.3533726830740043,3
+case118_ieee,24,surrogate,sarima,Thermal Overload Worst P99 (% of rating),6.709934876651384,3
 case118_ieee,24,surrogate,sarima,Vm Violation (% elements),0.0,3
 case118_ieee,24,surrogate,sarima,Vm Violation (%),0.0,3
 case118_ieee,24,surrogate,sarima,Vm Violation Mean (p.u.),,0
 case118_ieee,24,surrogate,sarima,Vm Violation Worst (p.u.),,0
+case118_ieee,24,surrogate,sarima,Vm Violation Worst P99 (p.u.),0.0,3
 case118_ieee,24,surrogate,snaive,Diverged (n),0.0,3
 case118_ieee,24,surrogate,snaive,Insufficient Headroom (%),0.0,3
 case118_ieee,24,surrogate,snaive,Insufficient Headroom (n),0.0,3
@@ -985,6 +1093,7 @@ case118_ieee,24,surrogate,snaive,Qg Violation (% elements),11.554932081142079,3
 case118_ieee,24,surrogate,snaive,Qg Violation (%),99.87241643276347,3
 case118_ieee,24,surrogate,snaive,Qg Violation Mean (MVAr),2.775948454043583,3
 case118_ieee,24,surrogate,snaive,Qg Violation Worst (MVAr),5.1606946035149805,3
+case118_ieee,24,surrogate,snaive,Qg Violation Worst P99 (MVAr),18.39002526425473,3
 case118_ieee,24,surrogate,snaive,Rebalanced Gap,1.177848962974139,3
 case118_ieee,24,surrogate,snaive,Rebalancing Cost (over-supply),-4.978823097947269,3
 case118_ieee,24,surrogate,snaive,Rebalancing Cost (under-supply),4.488102875121936,3
@@ -994,10 +1103,12 @@ case118_ieee,24,surrogate,snaive,Thermal Overload (% elements),0.279275779578276
 case118_ieee,24,surrogate,snaive,Thermal Overload (%),51.94529500155935,3
 case118_ieee,24,surrogate,snaive,Thermal Overload Mean (% of rating),2.8953735766467514,3
 case118_ieee,24,surrogate,snaive,Thermal Overload Worst (% of rating),2.8953735766467514,3
+case118_ieee,24,surrogate,snaive,Thermal Overload Worst P99 (% of rating),8.330166840172312,3
 case118_ieee,24,surrogate,snaive,Vm Violation (% elements),0.0,3
 case118_ieee,24,surrogate,snaive,Vm Violation (%),0.0,3
 case118_ieee,24,surrogate,snaive,Vm Violation Mean (p.u.),,0
 case118_ieee,24,surrogate,snaive,Vm Violation Worst (p.u.),,0
+case118_ieee,24,surrogate,snaive,Vm Violation Worst P99 (p.u.),0.0,3
 case118_ieee,24,surrogate,xgb,Diverged (n),0.0,3
 case118_ieee,24,surrogate,xgb,Insufficient Headroom (%),0.0,3
 case118_ieee,24,surrogate,xgb,Insufficient Headroom (n),0.0,3
@@ -1012,6 +1123,7 @@ case118_ieee,24,surrogate,xgb,Qg Violation (% elements),11.184525156430292,3
 case118_ieee,24,surrogate,xgb,Qg Violation (%),99.89190836664682,3
 case118_ieee,24,surrogate,xgb,Qg Violation Mean (MVAr),2.0372494463116184,3
 case118_ieee,24,surrogate,xgb,Qg Violation Worst (MVAr),3.727206979655144,3
+case118_ieee,24,surrogate,xgb,Qg Violation Worst P99 (MVAr),12.23911381538769,3
 case118_ieee,24,surrogate,xgb,Rebalanced Gap,0.6728929953666886,3
 case118_ieee,24,surrogate,xgb,Rebalancing Cost (over-supply),-2.6550755555653036,3
 case118_ieee,24,surrogate,xgb,Rebalancing Cost (under-supply),2.4471082854053687,3
@@ -1021,10 +1133,12 @@ case118_ieee,24,surrogate,xgb,Thermal Overload (% elements),0.2929220386665094,3
 case118_ieee,24,surrogate,xgb,Thermal Overload (%),54.48349919197074,3
 case118_ieee,24,surrogate,xgb,Thermal Overload Mean (% of rating),1.9944744626788644,3
 case118_ieee,24,surrogate,xgb,Thermal Overload Worst (% of rating),1.9944744626788644,3
+case118_ieee,24,surrogate,xgb,Thermal Overload Worst P99 (% of rating),6.0751335973912015,3
 case118_ieee,24,surrogate,xgb,Vm Violation (% elements),0.0,3
 case118_ieee,24,surrogate,xgb,Vm Violation (%),0.0,3
 case118_ieee,24,surrogate,xgb,Vm Violation Mean (p.u.),,0
 case118_ieee,24,surrogate,xgb,Vm Violation Worst (p.u.),,0
+case118_ieee,24,surrogate,xgb,Vm Violation Worst P99 (p.u.),0.0,3
 case118_ieee,24,surrogate,xgb_tot,Diverged (n),0.0,3
 case118_ieee,24,surrogate,xgb_tot,Insufficient Headroom (%),0.0,3
 case118_ieee,24,surrogate,xgb_tot,Insufficient Headroom (n),0.0,3
@@ -1039,6 +1153,7 @@ case118_ieee,24,surrogate,xgb_tot,Qg Violation (% elements),11.338180439005157,3
 case118_ieee,24,surrogate,xgb_tot,Qg Violation (%),99.86461965921012,3
 case118_ieee,24,surrogate,xgb_tot,Qg Violation Mean (MVAr),2.0659879890498907,3
 case118_ieee,24,surrogate,xgb_tot,Qg Violation Worst (MVAr),3.886672865627657,3
+case118_ieee,24,surrogate,xgb_tot,Qg Violation Worst P99 (MVAr),12.075599564394745,3
 case118_ieee,24,surrogate,xgb_tot,Rebalanced Gap,0.6519448926101109,3
 case118_ieee,24,surrogate,xgb_tot,Rebalancing Cost (over-supply),-2.7220461132784783,3
 case118_ieee,24,surrogate,xgb_tot,Rebalancing Cost (under-supply),2.180420423796502,3
@@ -1048,10 +1163,12 @@ case118_ieee,24,surrogate,xgb_tot,Thermal Overload (% elements),0.28088200638801
 case118_ieee,24,surrogate,xgb_tot,Thermal Overload (%),52.244053188171584,3
 case118_ieee,24,surrogate,xgb_tot,Thermal Overload Mean (% of rating),1.874762093526937,3
 case118_ieee,24,surrogate,xgb_tot,Thermal Overload Worst (% of rating),1.874762093526937,3
+case118_ieee,24,surrogate,xgb_tot,Thermal Overload Worst P99 (% of rating),5.78232775628365,3
 case118_ieee,24,surrogate,xgb_tot,Vm Violation (% elements),0.0,3
 case118_ieee,24,surrogate,xgb_tot,Vm Violation (%),0.0,3
 case118_ieee,24,surrogate,xgb_tot,Vm Violation Mean (p.u.),,0
 case118_ieee,24,surrogate,xgb_tot,Vm Violation Worst (p.u.),,0
+case118_ieee,24,surrogate,xgb_tot,Vm Violation Worst P99 (p.u.),0.0,3
 case14_ieee,1,ac,sarima,Diverged (n),0.0,1
 case14_ieee,1,ac,sarima,Insufficient Headroom (%),0.0,1
 case14_ieee,1,ac,sarima,Insufficient Headroom (n),0.0,1
@@ -1066,6 +1183,7 @@ case14_ieee,1,ac,sarima,Qg Violation (% elements),5.967782851344495,1
 case14_ieee,1,ac,sarima,Qg Violation (%),18.975139523084728,1
 case14_ieee,1,ac,sarima,Qg Violation Mean (MVAr),0.25115991894443457,1
 case14_ieee,1,ac,sarima,Qg Violation Worst (MVAr),0.27565786566158607,1
+case14_ieee,1,ac,sarima,Qg Violation Worst P99 (MVAr),0.6031571312479633,1
 case14_ieee,1,ac,sarima,Rebalanced Gap,0.1136815637575603,1
 case14_ieee,1,ac,sarima,Rebalancing Cost (over-supply),-0.4213077921709325,1
 case14_ieee,1,ac,sarima,Rebalancing Cost (under-supply),0.5165013763581323,1
@@ -1075,10 +1193,12 @@ case14_ieee,1,ac,sarima,Thermal Overload (% elements),0.0,1
 case14_ieee,1,ac,sarima,Thermal Overload (%),0.0,1
 case14_ieee,1,ac,sarima,Thermal Overload Mean (% of rating),,0
 case14_ieee,1,ac,sarima,Thermal Overload Worst (% of rating),,0
+case14_ieee,1,ac,sarima,Thermal Overload Worst P99 (% of rating),0.0,1
 case14_ieee,1,ac,sarima,Vm Violation (% elements),0.0,1
 case14_ieee,1,ac,sarima,Vm Violation (%),0.0,1
 case14_ieee,1,ac,sarima,Vm Violation Mean (p.u.),,0
 case14_ieee,1,ac,sarima,Vm Violation Worst (p.u.),,0
+case14_ieee,1,ac,sarima,Vm Violation Worst P99 (p.u.),0.0,1
 case14_ieee,1,ac,snaive,Diverged (n),0.0,1
 case14_ieee,1,ac,snaive,Insufficient Headroom (%),0.0,1
 case14_ieee,1,ac,snaive,Insufficient Headroom (n),0.0,1
@@ -1093,6 +1213,7 @@ case14_ieee,1,ac,snaive,Qg Violation (% elements),14.76407914764079,1
 case14_ieee,1,ac,snaive,Qg Violation (%),34.80466768138001,1
 case14_ieee,1,ac,snaive,Qg Violation Mean (MVAr),1.307391014644236,1
 case14_ieee,1,ac,snaive,Qg Violation Worst (MVAr),1.7057885756453246,1
+case14_ieee,1,ac,snaive,Qg Violation Worst P99 (MVAr),5.494846946596486,1
 case14_ieee,1,ac,snaive,Rebalanced Gap,1.162675881319537,1
 case14_ieee,1,ac,snaive,Rebalancing Cost (over-supply),-5.336514335418707,1
 case14_ieee,1,ac,snaive,Rebalancing Cost (under-supply),5.285766904849328,1
@@ -1102,10 +1223,12 @@ case14_ieee,1,ac,snaive,Thermal Overload (% elements),0.0,1
 case14_ieee,1,ac,snaive,Thermal Overload (%),0.0,1
 case14_ieee,1,ac,snaive,Thermal Overload Mean (% of rating),,0
 case14_ieee,1,ac,snaive,Thermal Overload Worst (% of rating),,0
+case14_ieee,1,ac,snaive,Thermal Overload Worst P99 (% of rating),0.0,1
 case14_ieee,1,ac,snaive,Vm Violation (% elements),0.8174079711370427,1
 case14_ieee,1,ac,snaive,Vm Violation (%),6.0882800608828,1
 case14_ieee,1,ac,snaive,Vm Violation Mean (p.u.),0.0028321053309717644,1
 case14_ieee,1,ac,snaive,Vm Violation Worst (p.u.),0.00294164547736151,1
+case14_ieee,1,ac,snaive,Vm Violation Worst P99 (p.u.),0.004978517349199796,1
 case14_ieee,1,ac,xgb,Diverged (n),0.0,1
 case14_ieee,1,ac,xgb,Insufficient Headroom (%),0.0,1
 case14_ieee,1,ac,xgb,Insufficient Headroom (n),0.0,1
@@ -1120,6 +1243,7 @@ case14_ieee,1,ac,xgb,Qg Violation (% elements),9.855403348554033,1
 case14_ieee,1,ac,xgb,Qg Violation (%),28.31050228310502,1
 case14_ieee,1,ac,xgb,Qg Violation Mean (MVAr),0.2836052081645183,1
 case14_ieee,1,ac,xgb,Qg Violation Worst (MVAr),0.33355747961712306,1
+case14_ieee,1,ac,xgb,Qg Violation Worst P99 (MVAr),0.7693157976602241,1
 case14_ieee,1,ac,xgb,Rebalanced Gap,0.19805117413308124,1
 case14_ieee,1,ac,xgb,Rebalancing Cost (over-supply),-0.6525846386974511,1
 case14_ieee,1,ac,xgb,Rebalancing Cost (under-supply),0.9037823484865259,1
@@ -1129,10 +1253,12 @@ case14_ieee,1,ac,xgb,Thermal Overload (% elements),0.0,1
 case14_ieee,1,ac,xgb,Thermal Overload (%),0.0,1
 case14_ieee,1,ac,xgb,Thermal Overload Mean (% of rating),,0
 case14_ieee,1,ac,xgb,Thermal Overload Worst (% of rating),,0
+case14_ieee,1,ac,xgb,Thermal Overload Worst P99 (% of rating),0.0,1
 case14_ieee,1,ac,xgb,Vm Violation (% elements),0.00845594452900389,1
 case14_ieee,1,ac,xgb,Vm Violation (%),0.076103500761035,1
 case14_ieee,1,ac,xgb,Vm Violation Mean (p.u.),0.0011456734660073575,1
 case14_ieee,1,ac,xgb,Vm Violation Worst (p.u.),0.0011456734660073575,1
+case14_ieee,1,ac,xgb,Vm Violation Worst P99 (p.u.),0.0,1
 case14_ieee,1,ac,xgb_tot,Diverged (n),0.0,1
 case14_ieee,1,ac,xgb_tot,Insufficient Headroom (%),0.0,1
 case14_ieee,1,ac,xgb_tot,Insufficient Headroom (n),0.0,1
@@ -1147,6 +1273,7 @@ case14_ieee,1,ac,xgb_tot,Qg Violation (% elements),8.859715880263826,1
 case14_ieee,1,ac,xgb_tot,Qg Violation (%),25.95129375951294,1
 case14_ieee,1,ac,xgb_tot,Qg Violation Mean (MVAr),0.26236490880838687,1
 case14_ieee,1,ac,xgb_tot,Qg Violation Worst (MVAr),0.3035926646194611,1
+case14_ieee,1,ac,xgb_tot,Qg Violation Worst P99 (MVAr),0.7207205615214165,1
 case14_ieee,1,ac,xgb_tot,Rebalanced Gap,0.21209242813135615,1
 case14_ieee,1,ac,xgb_tot,Rebalancing Cost (over-supply),-0.5326806683478167,1
 case14_ieee,1,ac,xgb_tot,Rebalancing Cost (under-supply),0.9690355238059429,1
@@ -1156,10 +1283,12 @@ case14_ieee,1,ac,xgb_tot,Thermal Overload (% elements),0.0,1
 case14_ieee,1,ac,xgb_tot,Thermal Overload (%),0.0,1
 case14_ieee,1,ac,xgb_tot,Thermal Overload Mean (% of rating),,0
 case14_ieee,1,ac,xgb_tot,Thermal Overload Worst (% of rating),,0
+case14_ieee,1,ac,xgb_tot,Thermal Overload Worst P99 (% of rating),0.0,1
 case14_ieee,1,ac,xgb_tot,Vm Violation (% elements),0.00845594452900389,1
 case14_ieee,1,ac,xgb_tot,Vm Violation (%),0.076103500761035,1
 case14_ieee,1,ac,xgb_tot,Vm Violation Mean (p.u.),0.0012637883725644301,1
 case14_ieee,1,ac,xgb_tot,Vm Violation Worst (p.u.),0.0012637883725644301,1
+case14_ieee,1,ac,xgb_tot,Vm Violation Worst P99 (p.u.),0.0,1
 case14_ieee,1,dc,sarima,Diverged (n),0.0,1
 case14_ieee,1,dc,sarima,Insufficient Headroom (%),0.0,1
 case14_ieee,1,dc,sarima,Insufficient Headroom (n),0.0,1
@@ -1174,6 +1303,7 @@ case14_ieee,1,dc,sarima,Qg Violation (% elements),45.13571790969051,1
 case14_ieee,1,dc,sarima,Qg Violation (%),100.0,1
 case14_ieee,1,dc,sarima,Qg Violation Mean (MVAr),9.900010997988202,1
 case14_ieee,1,dc,sarima,Qg Violation Worst (MVAr),13.598793344748294,1
+case14_ieee,1,dc,sarima,Qg Violation Worst P99 (MVAr),36.993380503394235,1
 case14_ieee,1,dc,sarima,Rebalanced Gap,1.6413756023217232,1
 case14_ieee,1,dc,sarima,Rebalancing Cost (over-supply),-0.02063498658882454,1
 case14_ieee,1,dc,sarima,Rebalancing Cost (under-supply),4.734765747097187,1
@@ -1183,10 +1313,12 @@ case14_ieee,1,dc,sarima,Thermal Overload (% elements),0.0,1
 case14_ieee,1,dc,sarima,Thermal Overload (%),0.0,1
 case14_ieee,1,dc,sarima,Thermal Overload Mean (% of rating),,0
 case14_ieee,1,dc,sarima,Thermal Overload Worst (% of rating),,0
+case14_ieee,1,dc,sarima,Thermal Overload Worst P99 (% of rating),0.0,1
 case14_ieee,1,dc,sarima,Vm Violation (% elements),0.0,1
 case14_ieee,1,dc,sarima,Vm Violation (%),0.0,1
 case14_ieee,1,dc,sarima,Vm Violation Mean (p.u.),,0
 case14_ieee,1,dc,sarima,Vm Violation Worst (p.u.),,0
+case14_ieee,1,dc,sarima,Vm Violation Worst P99 (p.u.),0.0,1
 case14_ieee,1,dc,snaive,Diverged (n),0.0,1
 case14_ieee,1,dc,snaive,Insufficient Headroom (%),0.0,1
 case14_ieee,1,dc,snaive,Insufficient Headroom (n),0.0,1
@@ -1201,6 +1333,7 @@ case14_ieee,1,dc,snaive,Qg Violation (% elements),44.951801116184676,1
 case14_ieee,1,dc,snaive,Qg Violation (%),100.0,1
 case14_ieee,1,dc,snaive,Qg Violation Mean (MVAr),9.829506837286793,1
 case14_ieee,1,dc,snaive,Qg Violation Worst (MVAr),13.485895426972993,1
+case14_ieee,1,dc,snaive,Qg Violation Worst P99 (MVAr),36.47853727577354,1
 case14_ieee,1,dc,snaive,Rebalanced Gap,2.326776755449291,1
 case14_ieee,1,dc,snaive,Rebalancing Cost (over-supply),-3.60511536722033,1
 case14_ieee,1,dc,snaive,Rebalancing Cost (under-supply),7.883798675835131,1
@@ -1210,10 +1343,12 @@ case14_ieee,1,dc,snaive,Thermal Overload (% elements),0.0,1
 case14_ieee,1,dc,snaive,Thermal Overload (%),0.0,1
 case14_ieee,1,dc,snaive,Thermal Overload Mean (% of rating),,0
 case14_ieee,1,dc,snaive,Thermal Overload Worst (% of rating),,0
+case14_ieee,1,dc,snaive,Thermal Overload Worst P99 (% of rating),0.0,1
 case14_ieee,1,dc,snaive,Vm Violation (% elements),0.0,1
 case14_ieee,1,dc,snaive,Vm Violation (%),0.0,1
 case14_ieee,1,dc,snaive,Vm Violation Mean (p.u.),,0
 case14_ieee,1,dc,snaive,Vm Violation Worst (p.u.),,0
+case14_ieee,1,dc,snaive,Vm Violation Worst P99 (p.u.),0.0,1
 case14_ieee,1,dc,xgb,Diverged (n),0.0,1
 case14_ieee,1,dc,xgb,Insufficient Headroom (%),0.0,1
 case14_ieee,1,dc,xgb,Insufficient Headroom (n),0.0,1
@@ -1228,6 +1363,7 @@ case14_ieee,1,dc,xgb,Qg Violation (% elements),45.15474378488077,1
 case14_ieee,1,dc,xgb,Qg Violation (%),100.0,1
 case14_ieee,1,dc,xgb,Qg Violation Mean (MVAr),9.883530940565027,1
 case14_ieee,1,dc,xgb,Qg Violation Worst (MVAr),13.576162395249375,1
+case14_ieee,1,dc,xgb,Qg Violation Worst P99 (MVAr),36.61478571157197,1
 case14_ieee,1,dc,xgb,Rebalanced Gap,1.6582426371754118,1
 case14_ieee,1,dc,xgb,Rebalancing Cost (over-supply),-0.02766213088254382,1
 case14_ieee,1,dc,xgb,Rebalancing Cost (under-supply),4.81600888847697,1
@@ -1237,10 +1373,12 @@ case14_ieee,1,dc,xgb,Thermal Overload (% elements),0.0,1
 case14_ieee,1,dc,xgb,Thermal Overload (%),0.0,1
 case14_ieee,1,dc,xgb,Thermal Overload Mean (% of rating),,0
 case14_ieee,1,dc,xgb,Thermal Overload Worst (% of rating),,0
+case14_ieee,1,dc,xgb,Thermal Overload Worst P99 (% of rating),0.0,1
 case14_ieee,1,dc,xgb,Vm Violation (% elements),0.0,1
 case14_ieee,1,dc,xgb,Vm Violation (%),0.0,1
 case14_ieee,1,dc,xgb,Vm Violation Mean (p.u.),,0
 case14_ieee,1,dc,xgb,Vm Violation Worst (p.u.),,0
+case14_ieee,1,dc,xgb,Vm Violation Worst P99 (p.u.),0.0,1
 case14_ieee,1,dc,xgb_tot,Diverged (n),0.0,1
 case14_ieee,1,dc,xgb_tot,Insufficient Headroom (%),0.0,1
 case14_ieee,1,dc,xgb_tot,Insufficient Headroom (n),0.0,1
@@ -1255,6 +1393,7 @@ case14_ieee,1,dc,xgb_tot,Qg Violation (% elements),45.161085743277525,1
 case14_ieee,1,dc,xgb_tot,Qg Violation (%),100.0,1
 case14_ieee,1,dc,xgb_tot,Qg Violation Mean (MVAr),9.875454144792128,1
 case14_ieee,1,dc,xgb_tot,Qg Violation Worst (MVAr),13.564336822212642,1
+case14_ieee,1,dc,xgb_tot,Qg Violation Worst P99 (MVAr),36.672702348984345,1
 case14_ieee,1,dc,xgb_tot,Rebalanced Gap,1.6991035301920359,1
 case14_ieee,1,dc,xgb_tot,Rebalancing Cost (over-supply),-0.017469246288803617,1
 case14_ieee,1,dc,xgb_tot,Rebalancing Cost (under-supply),5.004126259734636,1
@@ -1264,10 +1403,12 @@ case14_ieee,1,dc,xgb_tot,Thermal Overload (% elements),0.0,1
 case14_ieee,1,dc,xgb_tot,Thermal Overload (%),0.0,1
 case14_ieee,1,dc,xgb_tot,Thermal Overload Mean (% of rating),,0
 case14_ieee,1,dc,xgb_tot,Thermal Overload Worst (% of rating),,0
+case14_ieee,1,dc,xgb_tot,Thermal Overload Worst P99 (% of rating),0.0,1
 case14_ieee,1,dc,xgb_tot,Vm Violation (% elements),0.0,1
 case14_ieee,1,dc,xgb_tot,Vm Violation (%),0.0,1
 case14_ieee,1,dc,xgb_tot,Vm Violation Mean (p.u.),,0
 case14_ieee,1,dc,xgb_tot,Vm Violation Worst (p.u.),,0
+case14_ieee,1,dc,xgb_tot,Vm Violation Worst P99 (p.u.),0.0,1
 case14_ieee,1,e2e,none,Diverged (n),0.0,3
 case14_ieee,1,e2e,none,Insufficient Headroom (%),0.0,3
 case14_ieee,1,e2e,none,Insufficient Headroom (n),0.0,3
@@ -1282,6 +1423,7 @@ case14_ieee,1,e2e,none,Qg Violation (% elements),17.71098118962888,3
 case14_ieee,1,e2e,none,Qg Violation (%),49.20352482630063,3
 case14_ieee,1,e2e,none,Qg Violation Mean (MVAr),0.44794941131556226,3
 case14_ieee,1,e2e,none,Qg Violation Worst (MVAr),0.48870557569556744,3
+case14_ieee,1,e2e,none,Qg Violation Worst P99 (MVAr),1.1573265320371189,3
 case14_ieee,1,e2e,none,Rebalanced Gap,0.08469597366791258,3
 case14_ieee,1,e2e,none,Rebalancing Cost (over-supply),-0.2752673880223597,3
 case14_ieee,1,e2e,none,Rebalancing Cost (under-supply),0.32113899437775417,3
@@ -1291,10 +1433,12 @@ case14_ieee,1,e2e,none,Thermal Overload (% elements),0.0,3
 case14_ieee,1,e2e,none,Thermal Overload (%),0.0,3
 case14_ieee,1,e2e,none,Thermal Overload Mean (% of rating),,0
 case14_ieee,1,e2e,none,Thermal Overload Worst (% of rating),,0
+case14_ieee,1,e2e,none,Thermal Overload Worst P99 (% of rating),0.0,3
 case14_ieee,1,e2e,none,Vm Violation (% elements),0.0,3
 case14_ieee,1,e2e,none,Vm Violation (%),0.0,3
 case14_ieee,1,e2e,none,Vm Violation Mean (p.u.),,0
 case14_ieee,1,e2e,none,Vm Violation Worst (p.u.),,0
+case14_ieee,1,e2e,none,Vm Violation Worst P99 (p.u.),0.0,3
 case14_ieee,1,surrogate,sarima,Diverged (n),0.0,3
 case14_ieee,1,surrogate,sarima,Insufficient Headroom (%),0.0,3
 case14_ieee,1,surrogate,sarima,Insufficient Headroom (n),0.0,3
@@ -1309,6 +1453,7 @@ case14_ieee,1,surrogate,sarima,Qg Violation (% elements),13.402672078471165,3
 case14_ieee,1,surrogate,sarima,Qg Violation (%),37.18924403855911,3
 case14_ieee,1,surrogate,sarima,Qg Violation Mean (MVAr),0.2913664113981747,3
 case14_ieee,1,surrogate,sarima,Qg Violation Worst (MVAr),0.30943321827013576,3
+case14_ieee,1,surrogate,sarima,Qg Violation Worst P99 (MVAr),0.7698420693370481,3
 case14_ieee,1,surrogate,sarima,Rebalanced Gap,0.292502423828465,3
 case14_ieee,1,surrogate,sarima,Rebalancing Cost (over-supply),-0.4892726993395344,3
 case14_ieee,1,surrogate,sarima,Rebalancing Cost (under-supply),0.5248725807786001,3
@@ -1318,10 +1463,12 @@ case14_ieee,1,surrogate,sarima,Thermal Overload (% elements),0.0,3
 case14_ieee,1,surrogate,sarima,Thermal Overload (%),0.0,3
 case14_ieee,1,surrogate,sarima,Thermal Overload Mean (% of rating),,0
 case14_ieee,1,surrogate,sarima,Thermal Overload Worst (% of rating),,0
+case14_ieee,1,surrogate,sarima,Thermal Overload Worst P99 (% of rating),0.0,3
 case14_ieee,1,surrogate,sarima,Vm Violation (% elements),0.0,3
 case14_ieee,1,surrogate,sarima,Vm Violation (%),0.0,3
 case14_ieee,1,surrogate,sarima,Vm Violation Mean (p.u.),,0
 case14_ieee,1,surrogate,sarima,Vm Violation Worst (p.u.),,0
+case14_ieee,1,surrogate,sarima,Vm Violation Worst P99 (p.u.),0.0,3
 case14_ieee,1,surrogate,snaive,Diverged (n),0.0,3
 case14_ieee,1,surrogate,snaive,Insufficient Headroom (%),0.0,3
 case14_ieee,1,surrogate,snaive,Insufficient Headroom (n),0.0,3
@@ -1336,6 +1483,7 @@ case14_ieee,1,surrogate,snaive,Qg Violation (% elements),15.341197361745307,3
 case14_ieee,1,surrogate,snaive,Qg Violation (%),36.588871976999826,3
 case14_ieee,1,surrogate,snaive,Qg Violation Mean (MVAr),1.2652894042105471,3
 case14_ieee,1,surrogate,snaive,Qg Violation Worst (MVAr),1.5872755149519175,3
+case14_ieee,1,surrogate,snaive,Qg Violation Worst P99 (MVAr),5.341117295559311,3
 case14_ieee,1,surrogate,snaive,Rebalanced Gap,1.2939186585763878,3
 case14_ieee,1,surrogate,snaive,Rebalancing Cost (over-supply),-5.451529424559499,3
 case14_ieee,1,surrogate,snaive,Rebalancing Cost (under-supply),5.2936845784238065,3
@@ -1345,10 +1493,12 @@ case14_ieee,1,surrogate,snaive,Thermal Overload (% elements),0.0,3
 case14_ieee,1,surrogate,snaive,Thermal Overload (%),0.0,3
 case14_ieee,1,surrogate,snaive,Thermal Overload Mean (% of rating),,0
 case14_ieee,1,surrogate,snaive,Thermal Overload Worst (% of rating),,0
+case14_ieee,1,surrogate,snaive,Thermal Overload Worst P99 (% of rating),0.0,3
 case14_ieee,1,surrogate,snaive,Vm Violation (% elements),0.038521525076573276,3
 case14_ieee,1,surrogate,snaive,Vm Violation (%),0.3466937256891594,3
 case14_ieee,1,surrogate,snaive,Vm Violation Mean (p.u.),0.0017111232813219548,3
 case14_ieee,1,surrogate,snaive,Vm Violation Worst (p.u.),0.0017111232813219548,3
+case14_ieee,1,surrogate,snaive,Vm Violation Worst P99 (p.u.),0.0,3
 case14_ieee,1,surrogate,xgb,Diverged (n),0.0,3
 case14_ieee,1,surrogate,xgb,Insufficient Headroom (%),0.0,3
 case14_ieee,1,surrogate,xgb,Insufficient Headroom (n),0.0,3
@@ -1363,6 +1513,7 @@ case14_ieee,1,surrogate,xgb,Qg Violation (% elements),14.831726703872823,3
 case14_ieee,1,surrogate,xgb,Qg Violation (%),40.208016235413496,3
 case14_ieee,1,surrogate,xgb,Qg Violation Mean (MVAr),0.30757556887907805,3
 case14_ieee,1,surrogate,xgb,Qg Violation Worst (MVAr),0.3338429877490848,3
+case14_ieee,1,surrogate,xgb,Qg Violation Worst P99 (MVAr),0.8273930656511185,3
 case14_ieee,1,surrogate,xgb,Rebalanced Gap,0.3580749685396851,3
 case14_ieee,1,surrogate,xgb,Rebalancing Cost (over-supply),-0.739221902216047,3
 case14_ieee,1,surrogate,xgb,Rebalancing Cost (under-supply),0.9156097322550932,3
@@ -1372,10 +1523,12 @@ case14_ieee,1,surrogate,xgb,Thermal Overload (% elements),0.0,3
 case14_ieee,1,surrogate,xgb,Thermal Overload (%),0.0,3
 case14_ieee,1,surrogate,xgb,Thermal Overload Mean (% of rating),,0
 case14_ieee,1,surrogate,xgb,Thermal Overload Worst (% of rating),,0
+case14_ieee,1,surrogate,xgb,Thermal Overload Worst P99 (% of rating),0.0,3
 case14_ieee,1,surrogate,xgb,Vm Violation (% elements),0.0,3
 case14_ieee,1,surrogate,xgb,Vm Violation (%),0.0,3
 case14_ieee,1,surrogate,xgb,Vm Violation Mean (p.u.),,0
 case14_ieee,1,surrogate,xgb,Vm Violation Worst (p.u.),,0
+case14_ieee,1,surrogate,xgb,Vm Violation Worst P99 (p.u.),0.0,3
 case14_ieee,1,surrogate,xgb_tot,Diverged (n),0.0,3
 case14_ieee,1,surrogate,xgb_tot,Insufficient Headroom (%),0.0,3
 case14_ieee,1,surrogate,xgb_tot,Insufficient Headroom (n),0.0,3
@@ -1390,6 +1543,7 @@ case14_ieee,1,surrogate,xgb_tot,Qg Violation (% elements),14.309572129206833,3
 case14_ieee,1,surrogate,xgb_tot,Qg Violation (%),39.13411128023,3
 case14_ieee,1,surrogate,xgb_tot,Qg Violation Mean (MVAr),0.3021010217791517,3
 case14_ieee,1,surrogate,xgb_tot,Qg Violation Worst (MVAr),0.32628627563645957,3
+case14_ieee,1,surrogate,xgb_tot,Qg Violation Worst P99 (MVAr),0.8111938241569434,3
 case14_ieee,1,surrogate,xgb_tot,Rebalanced Gap,0.3837075637823242,3
 case14_ieee,1,surrogate,xgb_tot,Rebalancing Cost (over-supply),-0.6139306063895925,3
 case14_ieee,1,surrogate,xgb_tot,Rebalancing Cost (under-supply),0.9861466168897578,3
@@ -1399,10 +1553,12 @@ case14_ieee,1,surrogate,xgb_tot,Thermal Overload (% elements),0.0,3
 case14_ieee,1,surrogate,xgb_tot,Thermal Overload (%),0.0,3
 case14_ieee,1,surrogate,xgb_tot,Thermal Overload Mean (% of rating),,0
 case14_ieee,1,surrogate,xgb_tot,Thermal Overload Worst (% of rating),,0
+case14_ieee,1,surrogate,xgb_tot,Thermal Overload Worst P99 (% of rating),0.0,3
 case14_ieee,1,surrogate,xgb_tot,Vm Violation (% elements),0.0,3
 case14_ieee,1,surrogate,xgb_tot,Vm Violation (%),0.0,3
 case14_ieee,1,surrogate,xgb_tot,Vm Violation Mean (p.u.),,0
 case14_ieee,1,surrogate,xgb_tot,Vm Violation Worst (p.u.),,0
+case14_ieee,1,surrogate,xgb_tot,Vm Violation Worst P99 (p.u.),0.0,3
 case14_ieee,6,ac,sarima,Diverged (n),0.0,1
 case14_ieee,6,ac,sarima,Insufficient Headroom (%),0.0,1
 case14_ieee,6,ac,sarima,Insufficient Headroom (n),0.0,1
@@ -1417,6 +1573,7 @@ case14_ieee,6,ac,sarima,Qg Violation (% elements),11.392981119295571,1
 case14_ieee,6,ac,sarima,Qg Violation (%),29.620692574718483,1
 case14_ieee,6,ac,sarima,Qg Violation Mean (MVAr),0.6703034193759402,1
 case14_ieee,6,ac,sarima,Qg Violation Worst (MVAr),0.8450262225568232,1
+case14_ieee,6,ac,sarima,Qg Violation Worst P99 (MVAr),2.632474550102627,1
 case14_ieee,6,ac,sarima,Rebalanced Gap,0.4443569150092698,1
 case14_ieee,6,ac,sarima,Rebalancing Cost (over-supply),-1.8317001478748096,1
 case14_ieee,6,ac,sarima,Rebalancing Cost (under-supply),2.020162945461718,1
@@ -1426,10 +1583,12 @@ case14_ieee,6,ac,sarima,Thermal Overload (% elements),0.0,1
 case14_ieee,6,ac,sarima,Thermal Overload (%),0.0,1
 case14_ieee,6,ac,sarima,Thermal Overload Mean (% of rating),,0
 case14_ieee,6,ac,sarima,Thermal Overload Worst (% of rating),,0
+case14_ieee,6,ac,sarima,Thermal Overload Worst P99 (% of rating),0.0,1
 case14_ieee,6,ac,sarima,Vm Violation (% elements),0.1462854777561407,1
 case14_ieee,6,ac,sarima,Vm Violation (%),1.2446024892049785,1
 case14_ieee,6,ac,sarima,Vm Violation Mean (p.u.),0.0021407065206001867,1
 case14_ieee,6,ac,sarima,Vm Violation Worst (p.u.),0.0021368038275665145,1
+case14_ieee,6,ac,sarima,Vm Violation Worst P99 (p.u.),0.0012878411877337325,1
 case14_ieee,6,ac,snaive,Diverged (n),0.0,1
 case14_ieee,6,ac,snaive,Insufficient Headroom (%),0.0,1
 case14_ieee,6,ac,snaive,Insufficient Headroom (n),0.0,1
@@ -1444,6 +1603,7 @@ case14_ieee,6,ac,snaive,Qg Violation (% elements),14.766954533909068,1
 case14_ieee,6,ac,snaive,Qg Violation (%),34.78536957073914,1
 case14_ieee,6,ac,snaive,Qg Violation Mean (MVAr),1.3084448653946847,1
 case14_ieee,6,ac,snaive,Qg Violation Worst (MVAr),1.7083053509813382,1
+case14_ieee,6,ac,snaive,Qg Violation Worst P99 (MVAr),5.508291154039464,1
 case14_ieee,6,ac,snaive,Rebalanced Gap,1.1641507179413104,1
 case14_ieee,6,ac,snaive,Rebalancing Cost (over-supply),-5.338733035407198,1
 case14_ieee,6,ac,snaive,Rebalancing Cost (under-supply),5.292479842244361,1
@@ -1453,10 +1613,12 @@ case14_ieee,6,ac,snaive,Thermal Overload (% elements),0.0,1
 case14_ieee,6,ac,snaive,Thermal Overload (%),0.0,1
 case14_ieee,6,ac,snaive,Thermal Overload Mean (% of rating),,0
 case14_ieee,6,ac,snaive,Thermal Overload Worst (% of rating),,0
+case14_ieee,6,ac,snaive,Thermal Overload Worst P99 (% of rating),0.0,1
 case14_ieee,6,ac,snaive,Vm Violation (% elements),0.8184460813366071,1
 case14_ieee,6,ac,snaive,Vm Violation (%),6.096012192024384,1
 case14_ieee,6,ac,snaive,Vm Violation Mean (p.u.),0.0028321053309717644,1
 case14_ieee,6,ac,snaive,Vm Violation Worst (p.u.),0.00294164547736151,1
+case14_ieee,6,ac,snaive,Vm Violation Worst P99 (p.u.),0.004989816459952445,1
 case14_ieee,6,ac,xgb,Diverged (n),0.0,1
 case14_ieee,6,ac,xgb,Insufficient Headroom (%),0.0,1
 case14_ieee,6,ac,xgb,Insufficient Headroom (n),0.0,1
@@ -1471,6 +1633,7 @@ case14_ieee,6,ac,xgb,Qg Violation (% elements),14.034586402506138,1
 case14_ieee,6,ac,xgb,Qg Violation (%),34.78536957073914,1
 case14_ieee,6,ac,xgb,Qg Violation Mean (MVAr),0.5553238914128225,1
 case14_ieee,6,ac,xgb,Qg Violation Worst (MVAr),0.7075959630165007,1
+case14_ieee,6,ac,xgb,Qg Violation Worst P99 (MVAr),2.215793947252856,1
 case14_ieee,6,ac,xgb,Rebalanced Gap,0.44605784323327685,1
 case14_ieee,6,ac,xgb,Rebalancing Cost (over-supply),-1.7467804580322286,1
 case14_ieee,6,ac,xgb,Rebalancing Cost (under-supply),2.032798124355207,1
@@ -1480,10 +1643,12 @@ case14_ieee,6,ac,xgb,Thermal Overload (% elements),0.0,1
 case14_ieee,6,ac,xgb,Thermal Overload (%),0.0,1
 case14_ieee,6,ac,xgb,Thermal Overload Mean (% of rating),,0
 case14_ieee,6,ac,xgb,Thermal Overload Worst (% of rating),,0
+case14_ieee,6,ac,xgb,Thermal Overload Worst P99 (% of rating),0.0,1
 case14_ieee,6,ac,xgb,Vm Violation (% elements),0.10065946057818043,1
 case14_ieee,6,ac,xgb,Vm Violation (%),0.8720684108034883,1
 case14_ieee,6,ac,xgb,Vm Violation Mean (p.u.),0.0021188391234603127,1
 case14_ieee,6,ac,xgb,Vm Violation Worst (p.u.),0.0021368089135609864,1
+case14_ieee,6,ac,xgb,Vm Violation Worst P99 (p.u.),0.0,1
 case14_ieee,6,ac,xgb_tot,Diverged (n),0.0,1
 case14_ieee,6,ac,xgb_tot,Insufficient Headroom (%),0.0,1
 case14_ieee,6,ac,xgb_tot,Insufficient Headroom (n),0.0,1
@@ -1498,6 +1663,7 @@ case14_ieee,6,ac,xgb_tot,Qg Violation (% elements),13.428160189653711,1
 case14_ieee,6,ac,xgb_tot,Qg Violation (%),34.11650156633647,1
 case14_ieee,6,ac,xgb_tot,Qg Violation Mean (MVAr),0.5121539192866422,1
 case14_ieee,6,ac,xgb_tot,Qg Violation Worst (MVAr),0.6394794286053346,1
+case14_ieee,6,ac,xgb_tot,Qg Violation Worst P99 (MVAr),2.1162614422234602,1
 case14_ieee,6,ac,xgb_tot,Rebalanced Gap,0.452276750748857,1
 case14_ieee,6,ac,xgb_tot,Rebalancing Cost (over-supply),-1.5203386488077288,1
 case14_ieee,6,ac,xgb_tot,Rebalancing Cost (under-supply),2.062776056520894,1
@@ -1507,10 +1673,12 @@ case14_ieee,6,ac,xgb_tot,Thermal Overload (% elements),0.0,1
 case14_ieee,6,ac,xgb_tot,Thermal Overload (%),0.0,1
 case14_ieee,6,ac,xgb_tot,Thermal Overload Mean (% of rating),,0
 case14_ieee,6,ac,xgb_tot,Thermal Overload Worst (% of rating),,0
+case14_ieee,6,ac,xgb_tot,Thermal Overload Worst P99 (% of rating),0.0,1
 case14_ieee,6,ac,xgb_tot,Vm Violation (% elements),0.09313351960037253,1
 case14_ieee,6,ac,xgb_tot,Vm Violation (%),0.821268309203285,1
 case14_ieee,6,ac,xgb_tot,Vm Violation Mean (p.u.),0.002002212355669214,1
 case14_ieee,6,ac,xgb_tot,Vm Violation Worst (p.u.),0.002012186570326265,1
+case14_ieee,6,ac,xgb_tot,Vm Violation Worst P99 (p.u.),0.0,1
 case14_ieee,6,dc,sarima,Diverged (n),0.0,1
 case14_ieee,6,dc,sarima,Insufficient Headroom (%),0.0,1
 case14_ieee,6,dc,sarima,Insufficient Headroom (n),0.0,1
@@ -1525,6 +1693,7 @@ case14_ieee,6,dc,sarima,Qg Violation (% elements),45.07133180933028,1
 case14_ieee,6,dc,sarima,Qg Violation (%),100.0,1
 case14_ieee,6,dc,sarima,Qg Violation Mean (MVAr),9.886126604417791,1
 case14_ieee,6,dc,sarima,Qg Violation Worst (MVAr),13.566994021329032,1
+case14_ieee,6,dc,sarima,Qg Violation Worst P99 (MVAr),36.89819423288596,1
 case14_ieee,6,dc,sarima,Rebalanced Gap,1.8019952059665194,1
 case14_ieee,6,dc,sarima,Rebalancing Cost (over-supply),-0.8268148809718023,1
 case14_ieee,6,dc,sarima,Rebalancing Cost (under-supply),5.473940123385457,1
@@ -1534,10 +1703,12 @@ case14_ieee,6,dc,sarima,Thermal Overload (% elements),0.0,1
 case14_ieee,6,dc,sarima,Thermal Overload (%),0.0,1
 case14_ieee,6,dc,sarima,Thermal Overload Mean (% of rating),,0
 case14_ieee,6,dc,sarima,Thermal Overload Worst (% of rating),,0
+case14_ieee,6,dc,sarima,Thermal Overload Worst P99 (% of rating),0.0,1
 case14_ieee,6,dc,sarima,Vm Violation (% elements),0.0,1
 case14_ieee,6,dc,sarima,Vm Violation (%),0.0,1
 case14_ieee,6,dc,sarima,Vm Violation Mean (p.u.),,0
 case14_ieee,6,dc,sarima,Vm Violation Worst (p.u.),,0
+case14_ieee,6,dc,sarima,Vm Violation Worst P99 (p.u.),0.0,1
 case14_ieee,6,dc,snaive,Diverged (n),0.0,1
 case14_ieee,6,dc,snaive,Insufficient Headroom (%),0.0,1
 case14_ieee,6,dc,snaive,Insufficient Headroom (n),0.0,1
@@ -1552,6 +1723,7 @@ case14_ieee,6,dc,snaive,Qg Violation (% elements),44.94538989077978,1
 case14_ieee,6,dc,snaive,Qg Violation (%),100.0,1
 case14_ieee,6,dc,snaive,Qg Violation Mean (MVAr),9.829772791722235,1
 case14_ieee,6,dc,snaive,Qg Violation Worst (MVAr),13.48400951920424,1
+case14_ieee,6,dc,snaive,Qg Violation Worst P99 (MVAr),36.47937134368192,1
 case14_ieee,6,dc,snaive,Rebalanced Gap,2.328355388957891,1
 case14_ieee,6,dc,snaive,Rebalancing Cost (over-supply),-3.6089099624572163,1
 case14_ieee,6,dc,snaive,Rebalancing Cost (under-supply),7.89143004922562,1
@@ -1561,10 +1733,12 @@ case14_ieee,6,dc,snaive,Thermal Overload (% elements),0.0,1
 case14_ieee,6,dc,snaive,Thermal Overload (%),0.0,1
 case14_ieee,6,dc,snaive,Thermal Overload Mean (% of rating),,0
 case14_ieee,6,dc,snaive,Thermal Overload Worst (% of rating),,0
+case14_ieee,6,dc,snaive,Thermal Overload Worst P99 (% of rating),0.0,1
 case14_ieee,6,dc,snaive,Vm Violation (% elements),0.0,1
 case14_ieee,6,dc,snaive,Vm Violation (%),0.0,1
 case14_ieee,6,dc,snaive,Vm Violation Mean (p.u.),,0
 case14_ieee,6,dc,snaive,Vm Violation Worst (p.u.),,0
+case14_ieee,6,dc,snaive,Vm Violation Worst P99 (p.u.),0.0,1
 case14_ieee,6,dc,xgb,Diverged (n),0.0,1
 case14_ieee,6,dc,xgb,Insufficient Headroom (%),0.0,1
 case14_ieee,6,dc,xgb,Insufficient Headroom (n),0.0,1
@@ -1579,6 +1753,7 @@ case14_ieee,6,dc,xgb,Qg Violation (% elements),45.163406993480656,1
 case14_ieee,6,dc,xgb,Qg Violation (%),100.0,1
 case14_ieee,6,dc,xgb,Qg Violation Mean (MVAr),9.853350706429769,1
 case14_ieee,6,dc,xgb,Qg Violation Worst (MVAr),13.536797565276775,1
+case14_ieee,6,dc,xgb,Qg Violation Worst P99 (MVAr),36.61533963361817,1
 case14_ieee,6,dc,xgb,Rebalanced Gap,1.7851940177839305,1
 case14_ieee,6,dc,xgb,Rebalancing Cost (over-supply),-0.6984207574109272,1
 case14_ieee,6,dc,xgb,Rebalancing Cost (under-supply),5.402405839220709,1
@@ -1588,10 +1763,12 @@ case14_ieee,6,dc,xgb,Thermal Overload (% elements),0.0,1
 case14_ieee,6,dc,xgb,Thermal Overload (%),0.0,1
 case14_ieee,6,dc,xgb,Thermal Overload Mean (% of rating),,0
 case14_ieee,6,dc,xgb,Thermal Overload Worst (% of rating),,0
+case14_ieee,6,dc,xgb,Thermal Overload Worst P99 (% of rating),0.0,1
 case14_ieee,6,dc,xgb,Vm Violation (% elements),0.0,1
 case14_ieee,6,dc,xgb,Vm Violation (%),0.0,1
 case14_ieee,6,dc,xgb,Vm Violation Mean (p.u.),,0
 case14_ieee,6,dc,xgb,Vm Violation Worst (p.u.),,0
+case14_ieee,6,dc,xgb,Vm Violation Worst P99 (p.u.),0.0,1
 case14_ieee,6,dc,xgb_tot,Diverged (n),0.0,1
 case14_ieee,6,dc,xgb_tot,Insufficient Headroom (%),0.0,1
 case14_ieee,6,dc,xgb_tot,Insufficient Headroom (n),0.0,1
@@ -1606,6 +1783,7 @@ case14_ieee,6,dc,xgb_tot,Qg Violation (% elements),45.16129032258064,1
 case14_ieee,6,dc,xgb_tot,Qg Violation (%),100.0,1
 case14_ieee,6,dc,xgb_tot,Qg Violation Mean (MVAr),9.847824201692497,1
 case14_ieee,6,dc,xgb_tot,Qg Violation Worst (MVAr),13.524537787973468,1
+case14_ieee,6,dc,xgb_tot,Qg Violation Worst P99 (MVAr),36.621653365361865,1
 case14_ieee,6,dc,xgb_tot,Rebalanced Gap,1.8205561459849902,1
 case14_ieee,6,dc,xgb_tot,Rebalancing Cost (over-supply),-0.593350321316683,1
 case14_ieee,6,dc,xgb_tot,Rebalancing Cost (under-supply),5.5652948629621015,1
@@ -1615,10 +1793,12 @@ case14_ieee,6,dc,xgb_tot,Thermal Overload (% elements),0.0,1
 case14_ieee,6,dc,xgb_tot,Thermal Overload (%),0.0,1
 case14_ieee,6,dc,xgb_tot,Thermal Overload Mean (% of rating),,0
 case14_ieee,6,dc,xgb_tot,Thermal Overload Worst (% of rating),,0
+case14_ieee,6,dc,xgb_tot,Thermal Overload Worst P99 (% of rating),0.0,1
 case14_ieee,6,dc,xgb_tot,Vm Violation (% elements),0.0,1
 case14_ieee,6,dc,xgb_tot,Vm Violation (%),0.0,1
 case14_ieee,6,dc,xgb_tot,Vm Violation Mean (p.u.),,0
 case14_ieee,6,dc,xgb_tot,Vm Violation Worst (p.u.),,0
+case14_ieee,6,dc,xgb_tot,Vm Violation Worst P99 (p.u.),0.0,1
 case14_ieee,6,e2e,none,Diverged (n),0.0,3
 case14_ieee,6,e2e,none,Insufficient Headroom (%),0.0,3
 case14_ieee,6,e2e,none,Insufficient Headroom (n),0.0,3
@@ -1633,6 +1813,7 @@ case14_ieee,6,e2e,none,Qg Violation (% elements),15.81582217703214,3
 case14_ieee,6,e2e,none,Qg Violation (%),39.72208100321979,3
 case14_ieee,6,e2e,none,Qg Violation Mean (MVAr),0.7209126985884247,3
 case14_ieee,6,e2e,none,Qg Violation Worst (MVAr),0.8086376506308309,3
+case14_ieee,6,e2e,none,Qg Violation Worst P99 (MVAr),2.3135434169048783,3
 case14_ieee,6,e2e,none,Rebalanced Gap,0.30648898459180135,3
 case14_ieee,6,e2e,none,Rebalancing Cost (over-supply),-1.0834008620945135,3
 case14_ieee,6,e2e,none,Rebalancing Cost (under-supply),1.2745550268720787,3
@@ -1642,10 +1823,12 @@ case14_ieee,6,e2e,none,Thermal Overload (% elements),0.0,3
 case14_ieee,6,e2e,none,Thermal Overload (%),0.0,3
 case14_ieee,6,e2e,none,Thermal Overload Mean (% of rating),,0
 case14_ieee,6,e2e,none,Thermal Overload Worst (% of rating),,0
+case14_ieee,6,e2e,none,Thermal Overload Worst P99 (% of rating),0.0,3
 case14_ieee,6,e2e,none,Vm Violation (% elements),0.0,3
 case14_ieee,6,e2e,none,Vm Violation (%),0.0,3
 case14_ieee,6,e2e,none,Vm Violation Mean (p.u.),,0
 case14_ieee,6,e2e,none,Vm Violation Worst (p.u.),,0
+case14_ieee,6,e2e,none,Vm Violation Worst P99 (p.u.),0.0,3
 case14_ieee,6,surrogate,sarima,Diverged (n),0.0,3
 case14_ieee,6,surrogate,sarima,Insufficient Headroom (%),0.0,3
 case14_ieee,6,surrogate,sarima,Insufficient Headroom (n),0.0,3
@@ -1660,6 +1843,7 @@ case14_ieee,6,surrogate,sarima,Qg Violation (% elements),14.492845652357971,3
 case14_ieee,6,surrogate,sarima,Qg Violation (%),37.73318657748427,3
 case14_ieee,6,surrogate,sarima,Qg Violation Mean (MVAr),0.5889995693278585,3
 case14_ieee,6,surrogate,sarima,Qg Violation Worst (MVAr),0.6905049802240798,3
+case14_ieee,6,surrogate,sarima,Qg Violation Worst P99 (MVAr),2.499115060245795,3
 case14_ieee,6,surrogate,sarima,Rebalanced Gap,0.598155817731404,3
 case14_ieee,6,surrogate,sarima,Rebalancing Cost (over-supply),-1.9217457078359363,3
 case14_ieee,6,surrogate,sarima,Rebalancing Cost (under-supply),2.0333665349895136,3
@@ -1669,10 +1853,12 @@ case14_ieee,6,surrogate,sarima,Thermal Overload (% elements),0.0,3
 case14_ieee,6,surrogate,sarima,Thermal Overload (%),0.0,3
 case14_ieee,6,surrogate,sarima,Thermal Overload Mean (% of rating),,0
 case14_ieee,6,surrogate,sarima,Thermal Overload Worst (% of rating),,0
+case14_ieee,6,surrogate,sarima,Thermal Overload Worst P99 (% of rating),0.0,3
 case14_ieee,6,surrogate,sarima,Vm Violation (% elements),0.000783952185188321,3
 case14_ieee,6,surrogate,sarima,Vm Violation (%),0.007055569666694888,3
 case14_ieee,6,surrogate,sarima,Vm Violation Mean (p.u.),0.0015536565807058311,3
 case14_ieee,6,surrogate,sarima,Vm Violation Worst (p.u.),0.0015536565807058311,3
+case14_ieee,6,surrogate,sarima,Vm Violation Worst P99 (p.u.),0.0,3
 case14_ieee,6,surrogate,snaive,Diverged (n),0.0,3
 case14_ieee,6,surrogate,snaive,Insufficient Headroom (%),0.0,3
 case14_ieee,6,surrogate,snaive,Insufficient Headroom (n),0.0,3
@@ -1687,6 +1873,7 @@ case14_ieee,6,surrogate,snaive,Qg Violation (% elements),15.358564050461434,3
 case14_ieee,6,surrogate,snaive,Qg Violation (%),36.62687325374651,3
 case14_ieee,6,surrogate,snaive,Qg Violation Mean (MVAr),1.2654391566118373,3
 case14_ieee,6,surrogate,snaive,Qg Violation Worst (MVAr),1.5876004473634442,3
+case14_ieee,6,surrogate,snaive,Qg Violation Worst P99 (MVAr),5.359802396970276,3
 case14_ieee,6,surrogate,snaive,Rebalanced Gap,1.2955146392365287,3
 case14_ieee,6,surrogate,snaive,Rebalancing Cost (over-supply),-5.453635726794708,3
 case14_ieee,6,surrogate,snaive,Rebalancing Cost (under-supply),5.300408068602217,3
@@ -1696,10 +1883,12 @@ case14_ieee,6,surrogate,snaive,Thermal Overload (% elements),0.0,3
 case14_ieee,6,surrogate,snaive,Thermal Overload (%),0.0,3
 case14_ieee,6,surrogate,snaive,Thermal Overload Mean (% of rating),,0
 case14_ieee,6,surrogate,snaive,Thermal Overload Worst (% of rating),,0
+case14_ieee,6,surrogate,snaive,Thermal Overload Worst P99 (% of rating),0.0,3
 case14_ieee,6,surrogate,snaive,Vm Violation (% elements),0.03857044751126539,3
 case14_ieee,6,surrogate,snaive,Vm Violation (%),0.34713402760138856,3
 case14_ieee,6,surrogate,snaive,Vm Violation Mean (p.u.),0.0017111190653522294,3
 case14_ieee,6,surrogate,snaive,Vm Violation Worst (p.u.),0.0017111190653522294,3
+case14_ieee,6,surrogate,snaive,Vm Violation Worst P99 (p.u.),0.0,3
 case14_ieee,6,surrogate,xgb,Diverged (n),0.0,3
 case14_ieee,6,surrogate,xgb,Insufficient Headroom (%),0.0,3
 case14_ieee,6,surrogate,xgb,Insufficient Headroom (n),0.0,3
@@ -1714,6 +1903,7 @@ case14_ieee,6,surrogate,xgb,Qg Violation (% elements),16.247918606948325,3
 case14_ieee,6,surrogate,xgb,Qg Violation (%),40.54412553269551,3
 case14_ieee,6,surrogate,xgb,Qg Violation Mean (MVAr),0.5261294523301013,3
 case14_ieee,6,surrogate,xgb,Qg Violation Worst (MVAr),0.6183522605611348,3
+case14_ieee,6,surrogate,xgb,Qg Violation Worst P99 (MVAr),2.0557131875039762,3
 case14_ieee,6,surrogate,xgb,Rebalanced Gap,0.5878866919994045,3
 case14_ieee,6,surrogate,xgb,Rebalancing Cost (over-supply),-1.8535241692102342,3
 case14_ieee,6,surrogate,xgb,Rebalancing Cost (under-supply),2.0376265822634485,3
@@ -1723,10 +1913,12 @@ case14_ieee,6,surrogate,xgb,Thermal Overload (% elements),0.0,3
 case14_ieee,6,surrogate,xgb,Thermal Overload (%),0.0,3
 case14_ieee,6,surrogate,xgb,Thermal Overload Mean (% of rating),,0
 case14_ieee,6,surrogate,xgb,Thermal Overload Worst (% of rating),,0
+case14_ieee,6,surrogate,xgb,Thermal Overload Worst P99 (% of rating),0.0,3
 case14_ieee,6,surrogate,xgb,Vm Violation (% elements),0.0,3
 case14_ieee,6,surrogate,xgb,Vm Violation (%),0.0,3
 case14_ieee,6,surrogate,xgb,Vm Violation Mean (p.u.),,0
 case14_ieee,6,surrogate,xgb,Vm Violation Worst (p.u.),,0
+case14_ieee,6,surrogate,xgb,Vm Violation Worst P99 (p.u.),0.0,3
 case14_ieee,6,surrogate,xgb_tot,Diverged (n),0.0,3
 case14_ieee,6,surrogate,xgb_tot,Insufficient Headroom (%),0.0,3
 case14_ieee,6,surrogate,xgb_tot,Insufficient Headroom (n),0.0,3
@@ -1741,6 +1933,7 @@ case14_ieee,6,surrogate,xgb_tot,Qg Violation (% elements),15.870798408263482,3
 case14_ieee,6,surrogate,xgb_tot,Qg Violation (%),40.1744136821607,3
 case14_ieee,6,surrogate,xgb_tot,Qg Violation Mean (MVAr),0.5019894541218822,3
 case14_ieee,6,surrogate,xgb_tot,Qg Violation Worst (MVAr),0.5820820822265005,3
+case14_ieee,6,surrogate,xgb_tot,Qg Violation Worst P99 (MVAr),1.9373688675965746,3
 case14_ieee,6,surrogate,xgb_tot,Rebalanced Gap,0.603166677466001,3
 case14_ieee,6,surrogate,xgb_tot,Rebalancing Cost (over-supply),-1.626401776366461,3
 case14_ieee,6,surrogate,xgb_tot,Rebalancing Cost (under-supply),2.07493251708853,3
@@ -1750,10 +1943,12 @@ case14_ieee,6,surrogate,xgb_tot,Thermal Overload (% elements),0.0,3
 case14_ieee,6,surrogate,xgb_tot,Thermal Overload (%),0.0,3
 case14_ieee,6,surrogate,xgb_tot,Thermal Overload Mean (% of rating),,0
 case14_ieee,6,surrogate,xgb_tot,Thermal Overload Worst (% of rating),,0
+case14_ieee,6,surrogate,xgb_tot,Thermal Overload Worst P99 (% of rating),0.0,3
 case14_ieee,6,surrogate,xgb_tot,Vm Violation (% elements),0.0,3
 case14_ieee,6,surrogate,xgb_tot,Vm Violation (%),0.0,3
 case14_ieee,6,surrogate,xgb_tot,Vm Violation Mean (p.u.),,0
 case14_ieee,6,surrogate,xgb_tot,Vm Violation Worst (p.u.),,0
+case14_ieee,6,surrogate,xgb_tot,Vm Violation Worst P99 (p.u.),0.0,3
 case14_ieee,24,ac,sarima,Diverged (n),0.0,1
 case14_ieee,24,ac,sarima,Insufficient Headroom (%),0.0,1
 case14_ieee,24,ac,sarima,Insufficient Headroom (n),0.0,1
@@ -1768,6 +1963,7 @@ case14_ieee,24,ac,sarima,Qg Violation (% elements),15.394020583482181,1
 case14_ieee,24,ac,sarima,Qg Violation (%),37.21293697371779,1
 case14_ieee,24,ac,sarima,Qg Violation Mean (MVAr),1.0711456010733462,1
 case14_ieee,24,ac,sarima,Qg Violation Worst (MVAr),1.4215395442315801,1
+case14_ieee,24,ac,sarima,Qg Violation Worst P99 (MVAr),4.673076063938503,1
 case14_ieee,24,ac,sarima,Rebalanced Gap,0.8278598062864725,1
 case14_ieee,24,ac,sarima,Rebalancing Cost (over-supply),-3.8689033528520818,1
 case14_ieee,24,ac,sarima,Rebalancing Cost (under-supply),3.7696929342053345,1
@@ -1777,10 +1973,12 @@ case14_ieee,24,ac,sarima,Thermal Overload (% elements),0.0,1
 case14_ieee,24,ac,sarima,Thermal Overload (%),0.0,1
 case14_ieee,24,ac,sarima,Thermal Overload Mean (% of rating),,0
 case14_ieee,24,ac,sarima,Thermal Overload Worst (% of rating),,0
+case14_ieee,24,ac,sarima,Thermal Overload Worst P99 (% of rating),0.0,1
 case14_ieee,24,ac,sarima,Vm Violation (% elements),0.538449906911249,1
 case14_ieee,24,ac,sarima,Vm Violation (%),4.129454792889343,1
 case14_ieee,24,ac,sarima,Vm Violation Mean (p.u.),0.002687570546502173,1
 case14_ieee,24,ac,sarima,Vm Violation Worst (p.u.),0.00274907776764158,1
+case14_ieee,24,ac,sarima,Vm Violation Worst P99 (p.u.),0.003815063992102461,1
 case14_ieee,24,ac,snaive,Diverged (n),0.0,1
 case14_ieee,24,ac,snaive,Insufficient Headroom (%),0.0,1
 case14_ieee,24,ac,snaive,Insufficient Headroom (n),0.0,1
@@ -1795,6 +1993,7 @@ case14_ieee,24,ac,snaive,Qg Violation (% elements),14.782416858042016,1
 case14_ieee,24,ac,snaive,Qg Violation (%),34.77609083949987,1
 case14_ieee,24,ac,snaive,Qg Violation Mean (MVAr),1.310928937066784,1
 case14_ieee,24,ac,snaive,Qg Violation Worst (MVAr),1.7134121201737946,1
+case14_ieee,24,ac,snaive,Qg Violation Worst P99 (MVAr),5.508291154039464,1
 case14_ieee,24,ac,snaive,Rebalanced Gap,1.1663132681317212,1
 case14_ieee,24,ac,snaive,Rebalancing Cost (over-supply),-5.345063963872755,1
 case14_ieee,24,ac,snaive,Rebalancing Cost (under-supply),5.302352657791829,1
@@ -1804,10 +2003,12 @@ case14_ieee,24,ac,snaive,Thermal Overload (% elements),0.0,1
 case14_ieee,24,ac,snaive,Thermal Overload (%),0.0,1
 case14_ieee,24,ac,snaive,Thermal Overload Mean (% of rating),,0
 case14_ieee,24,ac,snaive,Thermal Overload Worst (% of rating),,0
+case14_ieee,24,ac,snaive,Thermal Overload Worst P99 (% of rating),0.0,1
 case14_ieee,24,ac,snaive,Vm Violation (% elements),0.8222052110799241,1
 case14_ieee,24,ac,snaive,Vm Violation (%),6.124011227353917,1
 case14_ieee,24,ac,snaive,Vm Violation Mean (p.u.),0.0028321053309717644,1
 case14_ieee,24,ac,snaive,Vm Violation Worst (p.u.),0.00294164547736151,1
+case14_ieee,24,ac,snaive,Vm Violation Worst P99 (p.u.),0.004989816459952445,1
 case14_ieee,24,ac,xgb,Diverged (n),0.0,1
 case14_ieee,24,ac,xgb,Insufficient Headroom (%),0.0,1
 case14_ieee,24,ac,xgb,Insufficient Headroom (n),0.0,1
@@ -1822,6 +2023,7 @@ case14_ieee,24,ac,xgb,Qg Violation (% elements),16.743748405205412,1
 case14_ieee,24,ac,xgb,Qg Violation (%),39.39355277706898,1
 case14_ieee,24,ac,xgb,Qg Violation Mean (MVAr),0.7803706621883055,1
 case14_ieee,24,ac,xgb,Qg Violation Worst (MVAr),1.0046467380096415,1
+case14_ieee,24,ac,xgb,Qg Violation Worst P99 (MVAr),3.1485867342135516,1
 case14_ieee,24,ac,xgb,Rebalanced Gap,0.7020855219862895,1
 case14_ieee,24,ac,xgb,Rebalancing Cost (over-supply),-2.9391327728104955,1
 case14_ieee,24,ac,xgb,Rebalancing Cost (under-supply),3.2018133963264606,1
@@ -1831,10 +2033,12 @@ case14_ieee,24,ac,xgb,Thermal Overload (% elements),0.0,1
 case14_ieee,24,ac,xgb,Thermal Overload (%),0.0,1
 case14_ieee,24,ac,xgb,Thermal Overload Mean (% of rating),,0
 case14_ieee,24,ac,xgb,Thermal Overload Worst (% of rating),,0
+case14_ieee,24,ac,xgb,Thermal Overload Worst P99 (% of rating),0.0,1
 case14_ieee,24,ac,xgb,Vm Violation (% elements),0.27418653662593445,1
 case14_ieee,24,ac,xgb,Vm Violation (%),2.329463298460492,1
 case14_ieee,24,ac,xgb,Vm Violation Mean (p.u.),0.002366870316522478,1
 case14_ieee,24,ac,xgb,Vm Violation Worst (p.u.),0.002398355770951938,1
+case14_ieee,24,ac,xgb,Vm Violation Worst P99 (p.u.),0.00215765859769078,1
 case14_ieee,24,ac,xgb_tot,Diverged (n),0.0,1
 case14_ieee,24,ac,xgb_tot,Insufficient Headroom (%),0.0,1
 case14_ieee,24,ac,xgb_tot,Insufficient Headroom (n),0.0,1
@@ -1849,6 +2053,7 @@ case14_ieee,24,ac,xgb_tot,Qg Violation (% elements),17.38512162966743,1
 case14_ieee,24,ac,xgb_tot,Qg Violation (%),42.41090414221315,1
 case14_ieee,24,ac,xgb_tot,Qg Violation Mean (MVAr),0.8391976690610554,1
 case14_ieee,24,ac,xgb_tot,Qg Violation Worst (MVAr),1.0669752229064684,1
+case14_ieee,24,ac,xgb_tot,Qg Violation Worst P99 (MVAr),3.351835311087746,1
 case14_ieee,24,ac,xgb_tot,Rebalanced Gap,0.7232047575643186,1
 case14_ieee,24,ac,xgb_tot,Rebalancing Cost (over-supply),-3.054566871680722,1
 case14_ieee,24,ac,xgb_tot,Rebalancing Cost (under-supply),3.298038961296197,1
@@ -1858,10 +2063,12 @@ case14_ieee,24,ac,xgb_tot,Thermal Overload (% elements),0.0,1
 case14_ieee,24,ac,xgb_tot,Thermal Overload (%),0.0,1
 case14_ieee,24,ac,xgb_tot,Thermal Overload Mean (% of rating),,0
 case14_ieee,24,ac,xgb_tot,Thermal Overload Worst (% of rating),,0
+case14_ieee,24,ac,xgb_tot,Thermal Overload Worst P99 (% of rating),0.0,1
 case14_ieee,24,ac,xgb_tot,Vm Violation (% elements),0.3411679094251179,1
 case14_ieee,24,ac,xgb_tot,Vm Violation (%),2.918474100535851,1
 case14_ieee,24,ac,xgb_tot,Vm Violation Mean (p.u.),0.0023413273889603885,1
 case14_ieee,24,ac,xgb_tot,Vm Violation Worst (p.u.),0.002357458738507662,1
+case14_ieee,24,ac,xgb_tot,Vm Violation Worst P99 (p.u.),0.002425554079831781,1
 case14_ieee,24,dc,sarima,Diverged (n),0.0,1
 case14_ieee,24,dc,sarima,Insufficient Headroom (%),0.0,1
 case14_ieee,24,dc,sarima,Insufficient Headroom (n),0.0,1
@@ -1876,6 +2083,7 @@ case14_ieee,24,dc,sarima,Qg Violation (% elements),45.09786722803436,1
 case14_ieee,24,dc,sarima,Qg Violation (%),100.0,1
 case14_ieee,24,dc,sarima,Qg Violation Mean (MVAr),9.83277583014967,1
 case14_ieee,24,dc,sarima,Qg Violation Worst (MVAr),13.49843906840186,1
+case14_ieee,24,dc,sarima,Qg Violation Worst P99 (MVAr),36.097356792254814,1
 case14_ieee,24,dc,sarima,Rebalanced Gap,2.0675139007314267,1
 case14_ieee,24,dc,sarima,Rebalancing Cost (over-supply),-2.432599146788717,1
 case14_ieee,24,dc,sarima,Rebalancing Cost (under-supply),6.6984635907551935,1
@@ -1885,10 +2093,12 @@ case14_ieee,24,dc,sarima,Thermal Overload (% elements),0.0,1
 case14_ieee,24,dc,sarima,Thermal Overload (%),0.0,1
 case14_ieee,24,dc,sarima,Thermal Overload Mean (% of rating),,0
 case14_ieee,24,dc,sarima,Thermal Overload Worst (% of rating),,0
+case14_ieee,24,dc,sarima,Thermal Overload Worst P99 (% of rating),0.0,1
 case14_ieee,24,dc,sarima,Vm Violation (% elements),0.0,1
 case14_ieee,24,dc,sarima,Vm Violation (%),0.0,1
 case14_ieee,24,dc,sarima,Vm Violation Mean (p.u.),,0
 case14_ieee,24,dc,sarima,Vm Violation Worst (p.u.),,0
+case14_ieee,24,dc,sarima,Vm Violation Worst P99 (p.u.),0.0,1
 case14_ieee,24,dc,snaive,Diverged (n),0.0,1
 case14_ieee,24,dc,snaive,Insufficient Headroom (%),0.0,1
 case14_ieee,24,dc,snaive,Insufficient Headroom (n),0.0,1
@@ -1903,6 +2113,7 @@ case14_ieee,24,dc,snaive,Qg Violation (% elements),44.950082929318704,1
 case14_ieee,24,dc,snaive,Qg Violation (%),100.0,1
 case14_ieee,24,dc,snaive,Qg Violation Mean (MVAr),9.837298382065443,1
 case14_ieee,24,dc,snaive,Qg Violation Worst (MVAr),13.491338499143277,1
+case14_ieee,24,dc,snaive,Qg Violation Worst P99 (MVAr),36.47937134368192,1
 case14_ieee,24,dc,snaive,Rebalanced Gap,2.331546682799524,1
 case14_ieee,24,dc,snaive,Rebalancing Cost (over-supply),-3.618598723139488,1
 case14_ieee,24,dc,snaive,Rebalancing Cost (under-supply),7.905745396745206,1
@@ -1912,10 +2123,12 @@ case14_ieee,24,dc,snaive,Thermal Overload (% elements),0.0,1
 case14_ieee,24,dc,snaive,Thermal Overload (%),0.0,1
 case14_ieee,24,dc,snaive,Thermal Overload Mean (% of rating),,0
 case14_ieee,24,dc,snaive,Thermal Overload Worst (% of rating),,0
+case14_ieee,24,dc,snaive,Thermal Overload Worst P99 (% of rating),0.0,1
 case14_ieee,24,dc,snaive,Vm Violation (% elements),0.0,1
 case14_ieee,24,dc,snaive,Vm Violation (%),0.0,1
 case14_ieee,24,dc,snaive,Vm Violation Mean (p.u.),,0
 case14_ieee,24,dc,snaive,Vm Violation Worst (p.u.),,0
+case14_ieee,24,dc,snaive,Vm Violation Worst P99 (p.u.),0.0,1
 case14_ieee,24,dc,xgb,Diverged (n),0.0,1
 case14_ieee,24,dc,xgb,Insufficient Headroom (%),0.0,1
 case14_ieee,24,dc,xgb,Insufficient Headroom (n),0.0,1
@@ -1930,6 +2143,7 @@ case14_ieee,24,dc,xgb,Qg Violation (% elements),45.18744152419835,1
 case14_ieee,24,dc,xgb,Qg Violation (%),100.0,1
 case14_ieee,24,dc,xgb,Qg Violation Mean (MVAr),9.814509442613902,1
 case14_ieee,24,dc,xgb,Qg Violation Worst (MVAr),13.48391780179636,1
+case14_ieee,24,dc,xgb,Qg Violation Worst P99 (MVAr),36.39590151052937,1
 case14_ieee,24,dc,xgb,Rebalanced Gap,1.973344492597897,1
 case14_ieee,24,dc,xgb,Rebalancing Cost (over-supply),-1.6594400960082716,1
 case14_ieee,24,dc,xgb,Rebalancing Cost (under-supply),6.270559545760917,1
@@ -1939,10 +2153,12 @@ case14_ieee,24,dc,xgb,Thermal Overload (% elements),0.0,1
 case14_ieee,24,dc,xgb,Thermal Overload (%),0.0,1
 case14_ieee,24,dc,xgb,Thermal Overload Mean (% of rating),,0
 case14_ieee,24,dc,xgb,Thermal Overload Worst (% of rating),,0
+case14_ieee,24,dc,xgb,Thermal Overload Worst P99 (% of rating),0.0,1
 case14_ieee,24,dc,xgb,Vm Violation (% elements),0.0,1
 case14_ieee,24,dc,xgb,Vm Violation (%),0.0,1
 case14_ieee,24,dc,xgb,Vm Violation Mean (p.u.),,0
 case14_ieee,24,dc,xgb,Vm Violation Worst (p.u.),,0
+case14_ieee,24,dc,xgb,Vm Violation Worst P99 (p.u.),0.0,1
 case14_ieee,24,dc,xgb_tot,Diverged (n),0.0,1
 case14_ieee,24,dc,xgb_tot,Insufficient Headroom (%),0.0,1
 case14_ieee,24,dc,xgb_tot,Insufficient Headroom (n),0.0,1
@@ -1957,6 +2173,7 @@ case14_ieee,24,dc,xgb_tot,Qg Violation (% elements),45.16670919452241,1
 case14_ieee,24,dc,xgb_tot,Qg Violation (%),100.0,1
 case14_ieee,24,dc,xgb_tot,Qg Violation Mean (MVAr),9.819407234123751,1
 case14_ieee,24,dc,xgb_tot,Qg Violation Worst (MVAr),13.486600799536332,1
+case14_ieee,24,dc,xgb_tot,Qg Violation Worst P99 (MVAr),36.23116367477939,1
 case14_ieee,24,dc,xgb_tot,Rebalanced Gap,1.9859363881183556,1
 case14_ieee,24,dc,xgb_tot,Rebalancing Cost (over-supply),-1.7449107648400253,1
 case14_ieee,24,dc,xgb_tot,Rebalancing Cost (under-supply),6.328225933953944,1
@@ -1966,10 +2183,12 @@ case14_ieee,24,dc,xgb_tot,Thermal Overload (% elements),0.0,1
 case14_ieee,24,dc,xgb_tot,Thermal Overload (%),0.0,1
 case14_ieee,24,dc,xgb_tot,Thermal Overload Mean (% of rating),,0
 case14_ieee,24,dc,xgb_tot,Thermal Overload Worst (% of rating),,0
+case14_ieee,24,dc,xgb_tot,Thermal Overload Worst P99 (% of rating),0.0,1
 case14_ieee,24,dc,xgb_tot,Vm Violation (% elements),0.0,1
 case14_ieee,24,dc,xgb_tot,Vm Violation (%),0.0,1
 case14_ieee,24,dc,xgb_tot,Vm Violation Mean (p.u.),,0
 case14_ieee,24,dc,xgb_tot,Vm Violation Worst (p.u.),,0
+case14_ieee,24,dc,xgb_tot,Vm Violation Worst P99 (p.u.),0.0,1
 case14_ieee,24,e2e,none,Diverged (n),0.0,3
 case14_ieee,24,e2e,none,Insufficient Headroom (%),0.0,3
 case14_ieee,24,e2e,none,Insufficient Headroom (n),0.0,3
@@ -1984,6 +2203,7 @@ case14_ieee,24,e2e,none,Qg Violation (% elements),14.87676305152774,3
 case14_ieee,24,e2e,none,Qg Violation (%),36.60858136182481,3
 case14_ieee,24,e2e,none,Qg Violation Mean (MVAr),1.032799241652729,3
 case14_ieee,24,e2e,none,Qg Violation Worst (MVAr),1.2312155189478329,3
+case14_ieee,24,e2e,none,Qg Violation Worst P99 (MVAr),3.3518465944579403,3
 case14_ieee,24,e2e,none,Rebalanced Gap,0.724297471075848,3
 case14_ieee,24,e2e,none,Rebalancing Cost (over-supply),-2.5088563695655135,3
 case14_ieee,24,e2e,none,Rebalancing Cost (under-supply),3.059626851956248,3
@@ -1993,10 +2213,12 @@ case14_ieee,24,e2e,none,Thermal Overload (% elements),0.0,3
 case14_ieee,24,e2e,none,Thermal Overload (%),0.0,3
 case14_ieee,24,e2e,none,Thermal Overload Mean (% of rating),,0
 case14_ieee,24,e2e,none,Thermal Overload Worst (% of rating),,0
+case14_ieee,24,e2e,none,Thermal Overload Worst P99 (% of rating),0.0,3
 case14_ieee,24,e2e,none,Vm Violation (% elements),0.0,3
 case14_ieee,24,e2e,none,Vm Violation (%),0.0,3
 case14_ieee,24,e2e,none,Vm Violation Mean (p.u.),,0
 case14_ieee,24,e2e,none,Vm Violation Worst (p.u.),,0
+case14_ieee,24,e2e,none,Vm Violation Worst P99 (p.u.),0.0,3
 case14_ieee,24,surrogate,sarima,Diverged (n),0.0,3
 case14_ieee,24,surrogate,sarima,Insufficient Headroom (%),0.0,3
 case14_ieee,24,surrogate,sarima,Insufficient Headroom (n),0.0,3
@@ -2011,6 +2233,7 @@ case14_ieee,24,surrogate,sarima,Qg Violation (% elements),16.246792690879193,3
 case14_ieee,24,surrogate,sarima,Qg Violation (%),39.295738708854294,3
 case14_ieee,24,surrogate,sarima,Qg Violation Mean (MVAr),0.9877819564954428,3
 case14_ieee,24,surrogate,sarima,Qg Violation Worst (MVAr),1.2498308870255503,3
+case14_ieee,24,surrogate,sarima,Qg Violation Worst P99 (MVAr),4.421630593257553,3
 case14_ieee,24,surrogate,sarima,Rebalanced Gap,0.9679708747900025,3
 case14_ieee,24,surrogate,sarima,Rebalancing Cost (over-supply),-3.959668630950419,3
 case14_ieee,24,surrogate,sarima,Rebalancing Cost (under-supply),3.791618959041474,3
@@ -2020,10 +2243,12 @@ case14_ieee,24,surrogate,sarima,Thermal Overload (% elements),0.0,3
 case14_ieee,24,surrogate,sarima,Thermal Overload (%),0.0,3
 case14_ieee,24,surrogate,sarima,Thermal Overload Mean (% of rating),,0
 case14_ieee,24,surrogate,sarima,Thermal Overload Worst (% of rating),,0
+case14_ieee,24,surrogate,sarima,Thermal Overload Worst P99 (% of rating),0.0,3
 case14_ieee,24,surrogate,sarima,Vm Violation (% elements),0.02232712426639449,3
 case14_ieee,24,surrogate,sarima,Vm Violation (%),0.20094411839755036,3
 case14_ieee,24,surrogate,sarima,Vm Violation Mean (p.u.),0.001913034842649687,3
 case14_ieee,24,surrogate,sarima,Vm Violation Worst (p.u.),0.001913034842649687,3
+case14_ieee,24,surrogate,sarima,Vm Violation Worst P99 (p.u.),0.0,3
 case14_ieee,24,surrogate,snaive,Diverged (n),0.0,3
 case14_ieee,24,surrogate,snaive,Insufficient Headroom (%),0.0,3
 case14_ieee,24,surrogate,snaive,Insufficient Headroom (n),0.0,3
@@ -2038,6 +2263,7 @@ case14_ieee,24,surrogate,snaive,Qg Violation (% elements),15.396235575968928,3
 case14_ieee,24,surrogate,snaive,Qg Violation (%),36.69232513963313,3
 case14_ieee,24,surrogate,snaive,Qg Violation Mean (MVAr),1.267160745273375,3
 case14_ieee,24,surrogate,snaive,Qg Violation Worst (MVAr),1.5907017037056834,3
+case14_ieee,24,surrogate,snaive,Qg Violation Worst P99 (MVAr),5.35983152861579,3
 case14_ieee,24,surrogate,snaive,Rebalanced Gap,1.2976988874649502,3
 case14_ieee,24,surrogate,snaive,Rebalancing Cost (over-supply),-5.459961883961113,3
 case14_ieee,24,surrogate,snaive,Rebalancing Cost (under-supply),5.310245672843895,3
@@ -2047,10 +2273,12 @@ case14_ieee,24,surrogate,snaive,Thermal Overload (% elements),0.0,3
 case14_ieee,24,surrogate,snaive,Thermal Overload (%),0.0,3
 case14_ieee,24,surrogate,snaive,Thermal Overload Mean (% of rating),,0
 case14_ieee,24,surrogate,snaive,Thermal Overload Worst (% of rating),,0
+case14_ieee,24,surrogate,snaive,Thermal Overload Worst P99 (% of rating),0.0,3
 case14_ieee,24,surrogate,snaive,Vm Violation (% elements),0.038747601901467685,3
 case14_ieee,24,surrogate,snaive,Vm Violation (%),0.3487284171132092,3
 case14_ieee,24,surrogate,snaive,Vm Violation Mean (p.u.),0.001711120705199459,3
 case14_ieee,24,surrogate,snaive,Vm Violation Worst (p.u.),0.001711120705199459,3
+case14_ieee,24,surrogate,snaive,Vm Violation Worst P99 (p.u.),0.0,3
 case14_ieee,24,surrogate,xgb,Diverged (n),0.0,3
 case14_ieee,24,surrogate,xgb,Insufficient Headroom (%),0.0,3
 case14_ieee,24,surrogate,xgb,Insufficient Headroom (n),0.0,3
@@ -2065,6 +2293,7 @@ case14_ieee,24,surrogate,xgb,Qg Violation (% elements),17.478062714411273,3
 case14_ieee,24,surrogate,xgb,Qg Violation (%),42.14297865101641,3
 case14_ieee,24,surrogate,xgb,Qg Violation Mean (MVAr),0.7730121373723643,3
 case14_ieee,24,surrogate,xgb,Qg Violation Worst (MVAr),0.9352986694268758,3
+case14_ieee,24,surrogate,xgb,Qg Violation Worst P99 (MVAr),2.995535425174349,3
 case14_ieee,24,surrogate,xgb,Rebalanced Gap,0.8386678295418989,3
 case14_ieee,24,surrogate,xgb,Rebalancing Cost (over-supply),-3.0390442425698296,3
 case14_ieee,24,surrogate,xgb,Rebalancing Cost (under-supply),3.216877439770636,3
@@ -2074,10 +2303,12 @@ case14_ieee,24,surrogate,xgb,Thermal Overload (% elements),0.0,3
 case14_ieee,24,surrogate,xgb,Thermal Overload (%),0.0,3
 case14_ieee,24,surrogate,xgb,Thermal Overload Mean (% of rating),,0
 case14_ieee,24,surrogate,xgb,Thermal Overload Worst (% of rating),,0
+case14_ieee,24,surrogate,xgb,Thermal Overload Worst P99 (% of rating),0.0,3
 case14_ieee,24,surrogate,xgb,Vm Violation (% elements),7.875528841761725e-05,3
 case14_ieee,24,surrogate,xgb,Vm Violation (%),0.0007087975957585552,3
 case14_ieee,24,surrogate,xgb,Vm Violation Mean (p.u.),0.001174350878170527,1
 case14_ieee,24,surrogate,xgb,Vm Violation Worst (p.u.),0.001174350878170527,1
+case14_ieee,24,surrogate,xgb,Vm Violation Worst P99 (p.u.),0.0,3
 case14_ieee,24,surrogate,xgb_tot,Diverged (n),0.0,3
 case14_ieee,24,surrogate,xgb_tot,Insufficient Headroom (%),0.0,3
 case14_ieee,24,surrogate,xgb_tot,Insufficient Headroom (n),0.0,3
@@ -2092,6 +2323,7 @@ case14_ieee,24,surrogate,xgb_tot,Qg Violation (% elements),17.966867256386266,3
 case14_ieee,24,surrogate,xgb_tot,Qg Violation (%),44.80841200986646,3
 case14_ieee,24,surrogate,xgb_tot,Qg Violation Mean (MVAr),0.8222156133598691,3
 case14_ieee,24,surrogate,xgb_tot,Qg Violation Worst (MVAr),0.998761820330223,3
+case14_ieee,24,surrogate,xgb_tot,Qg Violation Worst P99 (MVAr),3.1803343662386094,3
 case14_ieee,24,surrogate,xgb_tot,Rebalanced Gap,0.8514270969689073,3
 case14_ieee,24,surrogate,xgb_tot,Rebalancing Cost (over-supply),-3.2226415676718774,3
 case14_ieee,24,surrogate,xgb_tot,Rebalancing Cost (under-supply),3.2837263679294977,3
@@ -2101,10 +2333,12 @@ case14_ieee,24,surrogate,xgb_tot,Thermal Overload (% elements),0.0,3
 case14_ieee,24,surrogate,xgb_tot,Thermal Overload (%),0.0,3
 case14_ieee,24,surrogate,xgb_tot,Thermal Overload Mean (% of rating),,0
 case14_ieee,24,surrogate,xgb_tot,Thermal Overload Worst (% of rating),,0
+case14_ieee,24,surrogate,xgb_tot,Thermal Overload Worst P99 (% of rating),0.0,3
 case14_ieee,24,surrogate,xgb_tot,Vm Violation (% elements),0.0003937764420880862,3
 case14_ieee,24,surrogate,xgb_tot,Vm Violation (%),0.003543987978792776,3
 case14_ieee,24,surrogate,xgb_tot,Vm Violation Mean (p.u.),0.001321306089593799,3
 case14_ieee,24,surrogate,xgb_tot,Vm Violation Worst (p.u.),0.001321306089593799,3
+case14_ieee,24,surrogate,xgb_tot,Vm Violation Worst P99 (p.u.),0.0,3
 case500_goc,1,ac,sarima,Diverged (n),0.0,1
 case500_goc,1,ac,sarima,Insufficient Headroom (%),0.0,1
 case500_goc,1,ac,sarima,Insufficient Headroom (n),0.0,1
@@ -2119,6 +2353,7 @@ case500_goc,1,ac,sarima,Qg Violation (% elements),12.748242371530043,1
 case500_goc,1,ac,sarima,Qg Violation (%),94.62201927955353,1
 case500_goc,1,ac,sarima,Qg Violation Mean (MVAr),0.8258983114764595,1
 case500_goc,1,ac,sarima,Qg Violation Worst (MVAr),2.0173843871221537,1
+case500_goc,1,ac,sarima,Qg Violation Worst P99 (MVAr),13.723431684190285,1
 case500_goc,1,ac,sarima,Rebalanced Gap,0.27667699454702843,1
 case500_goc,1,ac,sarima,Rebalancing Cost (over-supply),-0.2108414359247874,1
 case500_goc,1,ac,sarima,Rebalancing Cost (under-supply),0.481982999285433,1
@@ -2128,10 +2363,12 @@ case500_goc,1,ac,sarima,Thermal Overload (% elements),0.001080223682963409,1
 case500_goc,1,ac,sarima,Thermal Overload (%),0.7356671740233384,1
 case500_goc,1,ac,sarima,Thermal Overload Mean (% of rating),0.1873713259629609,1
 case500_goc,1,ac,sarima,Thermal Overload Worst (% of rating),0.185729659855922,1
+case500_goc,1,ac,sarima,Thermal Overload Worst P99 (% of rating),0.0,1
 case500_goc,1,ac,sarima,Vm Violation (% elements),0.06345235894632377,1
 case500_goc,1,ac,sarima,Vm Violation (%),7.179096905124302,1
 case500_goc,1,ac,sarima,Vm Violation Mean (p.u.),0.001647423488290022,1
 case500_goc,1,ac,sarima,Vm Violation Worst (p.u.),0.00180160246143268,1
+case500_goc,1,ac,sarima,Vm Violation Worst P99 (p.u.),0.0024953750455361206,1
 case500_goc,1,ac,snaive,Diverged (n),0.0,1
 case500_goc,1,ac,snaive,Insufficient Headroom (%),0.0,1
 case500_goc,1,ac,snaive,Insufficient Headroom (n),0.0,1
@@ -2146,6 +2383,7 @@ case500_goc,1,ac,snaive,Qg Violation (% elements),21.801161484380664,1
 case500_goc,1,ac,snaive,Qg Violation (%),100.0,1
 case500_goc,1,ac,snaive,Qg Violation Mean (MVAr),6.26330294386801,1
 case500_goc,1,ac,snaive,Qg Violation Worst (MVAr),23.07659607595016,1
+case500_goc,1,ac,snaive,Qg Violation Worst P99 (MVAr),105.34066570712626,1
 case500_goc,1,ac,snaive,Rebalanced Gap,2.887422793299242,1
 case500_goc,1,ac,snaive,Rebalancing Cost (over-supply),-2.789109017052036,1
 case500_goc,1,ac,snaive,Rebalancing Cost (under-supply),5.01065417341383,1
@@ -2155,10 +2393,12 @@ case500_goc,1,ac,snaive,Thermal Overload (% elements),0.011011312381175396,1
 case500_goc,1,ac,snaive,Thermal Overload (%),5.32724505327245,1
 case500_goc,1,ac,snaive,Thermal Overload Mean (% of rating),2.354321018489326,1
 case500_goc,1,ac,snaive,Thermal Overload Worst (% of rating),2.41145119936017,1
+case500_goc,1,ac,snaive,Thermal Overload Worst P99 (% of rating),4.694515792908782,1
 case500_goc,1,ac,snaive,Vm Violation (% elements),0.8616541925097374,1
 case500_goc,1,ac,snaive,Vm Violation (%),51.166920345002545,1
 case500_goc,1,ac,snaive,Vm Violation Mean (p.u.),0.005435456092430338,1
 case500_goc,1,ac,snaive,Vm Violation Worst (p.u.),0.007083065636264303,1
+case500_goc,1,ac,snaive,Vm Violation Worst P99 (p.u.),0.026869830213140912,1
 case500_goc,1,ac,xgb,Diverged (n),0.0,1
 case500_goc,1,ac,xgb,Insufficient Headroom (%),0.0,1
 case500_goc,1,ac,xgb,Insufficient Headroom (n),0.0,1
@@ -2173,6 +2413,7 @@ case500_goc,1,ac,xgb,Qg Violation (% elements),15.081630064506776,1
 case500_goc,1,ac,xgb,Qg Violation (%),99.49264332825976,1
 case500_goc,1,ac,xgb,Qg Violation Mean (MVAr),0.893303254089713,1
 case500_goc,1,ac,xgb,Qg Violation Worst (MVAr),2.820979737955604,1
+case500_goc,1,ac,xgb,Qg Violation Worst P99 (MVAr),12.484445211321928,1
 case500_goc,1,ac,xgb,Rebalanced Gap,0.3331844608339077,1
 case500_goc,1,ac,xgb,Rebalancing Cost (over-supply),-0.23434629586752376,1
 case500_goc,1,ac,xgb,Rebalancing Cost (under-supply),0.6409166131323408,1
@@ -2182,10 +2423,12 @@ case500_goc,1,ac,xgb,Thermal Overload (% elements),0.009164478342560534,1
 case500_goc,1,ac,xgb,Thermal Overload (%),6.2404870624048705,1
 case500_goc,1,ac,xgb,Thermal Overload Mean (% of rating),0.32145426877973277,1
 case500_goc,1,ac,xgb,Thermal Overload Worst (% of rating),0.3204478671690594,1
+case500_goc,1,ac,xgb,Thermal Overload Worst P99 (% of rating),0.45134345770350276,1
 case500_goc,1,ac,xgb,Vm Violation (% elements),0.09970148549313887,1
 case500_goc,1,ac,xgb,Vm Violation (%),17.45306950786403,1
 case500_goc,1,ac,xgb,Vm Violation Mean (p.u.),0.0016442509359626825,1
 case500_goc,1,ac,xgb,Vm Violation Worst (p.u.),0.0017610028892368367,1
+case500_goc,1,ac,xgb,Vm Violation Worst P99 (p.u.),0.003049558864450631,1
 case500_goc,1,ac,xgb_tot,Diverged (n),0.0,1
 case500_goc,1,ac,xgb_tot,Insufficient Headroom (%),0.0,1
 case500_goc,1,ac,xgb_tot,Insufficient Headroom (n),0.0,1
@@ -2200,6 +2443,7 @@ case500_goc,1,ac,xgb_tot,Qg Violation (% elements),14.161366601435093,1
 case500_goc,1,ac,xgb_tot,Qg Violation (%),99.34043632673769,1
 case500_goc,1,ac,xgb_tot,Qg Violation Mean (MVAr),0.7987488947138864,1
 case500_goc,1,ac,xgb_tot,Qg Violation Worst (MVAr),2.3036356165939655,1
+case500_goc,1,ac,xgb_tot,Qg Violation Worst P99 (MVAr),10.60876633620879,1
 case500_goc,1,ac,xgb_tot,Rebalanced Gap,0.2827127039369398,1
 case500_goc,1,ac,xgb_tot,Rebalancing Cost (over-supply),-0.20050702297818376,1
 case500_goc,1,ac,xgb_tot,Rebalancing Cost (under-supply),0.5352058552486483,1
@@ -2209,10 +2453,12 @@ case500_goc,1,ac,xgb_tot,Thermal Overload (% elements),0.00804940873434024,1
 case500_goc,1,ac,xgb_tot,Thermal Overload (%),5.707762557077626,1
 case500_goc,1,ac,xgb_tot,Thermal Overload Mean (% of rating),0.2691375294326975,1
 case500_goc,1,ac,xgb_tot,Thermal Overload Worst (% of rating),0.2679400662149668,1
+case500_goc,1,ac,xgb_tot,Thermal Overload Worst P99 (% of rating),0.35972067287281045,1
 case500_goc,1,ac,xgb_tot,Vm Violation (% elements),0.08265849651995275,1
 case500_goc,1,ac,xgb_tot,Vm Violation (%),16.184677828513443,1
 case500_goc,1,ac,xgb_tot,Vm Violation Mean (p.u.),0.0016317742063755403,1
 case500_goc,1,ac,xgb_tot,Vm Violation Worst (p.u.),0.0017297562320613088,1
+case500_goc,1,ac,xgb_tot,Vm Violation Worst P99 (p.u.),0.002819985986039623,1
 case500_goc,1,dc,sarima,Diverged (n),0.0,1
 case500_goc,1,dc,sarima,Insufficient Headroom (%),0.0,1
 case500_goc,1,dc,sarima,Insufficient Headroom (n),0.0,1
@@ -2227,6 +2473,7 @@ case500_goc,1,dc,sarima,Qg Violation (% elements),46.78757157353048,1
 case500_goc,1,dc,sarima,Qg Violation (%),100.0,1
 case500_goc,1,dc,sarima,Qg Violation Mean (MVAr),60.56326146518045,1
 case500_goc,1,dc,sarima,Qg Violation Worst (MVAr),391.00748983687686,1
+case500_goc,1,dc,sarima,Qg Violation Worst P99 (MVAr),470.9870010450287,1
 case500_goc,1,dc,sarima,Rebalanced Gap,1.46629640568157,1
 case500_goc,1,dc,sarima,Rebalancing Cost (over-supply),-0.020174903178774555,1
 case500_goc,1,dc,sarima,Rebalancing Cost (under-supply),2.979116461922963,1
@@ -2236,10 +2483,12 @@ case500_goc,1,dc,sarima,Thermal Overload (% elements),0.01365960270069859,1
 case500_goc,1,dc,sarima,Thermal Overload (%),6.291222729578894,1
 case500_goc,1,dc,sarima,Thermal Overload Mean (% of rating),1.5780452954312316,1
 case500_goc,1,dc,sarima,Thermal Overload Worst (% of rating),1.480679944419983,1
+case500_goc,1,dc,sarima,Thermal Overload Worst P99 (% of rating),2.6646682309982848,1
 case500_goc,1,dc,sarima,Vm Violation (% elements),0.0,1
 case500_goc,1,dc,sarima,Vm Violation (%),0.0,1
 case500_goc,1,dc,sarima,Vm Violation Mean (p.u.),,0
 case500_goc,1,dc,sarima,Vm Violation Worst (p.u.),,0
+case500_goc,1,dc,sarima,Vm Violation Worst P99 (p.u.),0.0,1
 case500_goc,1,dc,snaive,Diverged (n),0.0,1
 case500_goc,1,dc,snaive,Insufficient Headroom (%),0.0,1
 case500_goc,1,dc,snaive,Insufficient Headroom (n),0.0,1
@@ -2254,6 +2503,7 @@ case500_goc,1,dc,snaive,Qg Violation (% elements),46.98258679423063,1
 case500_goc,1,dc,snaive,Qg Violation (%),100.0,1
 case500_goc,1,dc,snaive,Qg Violation Mean (MVAr),60.62138676416025,1
 case500_goc,1,dc,snaive,Qg Violation Worst (MVAr),393.2833294367694,1
+case500_goc,1,dc,snaive,Qg Violation Worst P99 (MVAr),468.41123677668264,1
 case500_goc,1,dc,snaive,Rebalanced Gap,3.5471149063545977,1
 case500_goc,1,dc,snaive,Rebalancing Cost (over-supply),-2.1004500905092156,1
 case500_goc,1,dc,snaive,Rebalancing Cost (under-supply),6.51062576308434,1
@@ -2263,10 +2513,12 @@ case500_goc,1,dc,snaive,Thermal Overload (% elements),0.019234950741800056,1
 case500_goc,1,dc,snaive,Thermal Overload (%),7.9908675799086755,1
 case500_goc,1,dc,snaive,Thermal Overload Mean (% of rating),2.3240706289302926,1
 case500_goc,1,dc,snaive,Thermal Overload Worst (% of rating),2.4449350016728357,1
+case500_goc,1,dc,snaive,Thermal Overload Worst P99 (% of rating),4.75444216070666,1
 case500_goc,1,dc,snaive,Vm Violation (% elements),0.0,1
 case500_goc,1,dc,snaive,Vm Violation (%),0.0,1
 case500_goc,1,dc,snaive,Vm Violation Mean (p.u.),,0
 case500_goc,1,dc,snaive,Vm Violation Worst (p.u.),,0
+case500_goc,1,dc,snaive,Vm Violation Worst P99 (p.u.),0.0,1
 case500_goc,1,dc,xgb,Diverged (n),0.0,1
 case500_goc,1,dc,xgb,Insufficient Headroom (%),0.0,1
 case500_goc,1,dc,xgb,Insufficient Headroom (n),0.0,1
@@ -2281,6 +2533,7 @@ case500_goc,1,dc,xgb,Qg Violation (% elements),46.78394759730376,1
 case500_goc,1,dc,xgb,Qg Violation (%),100.0,1
 case500_goc,1,dc,xgb,Qg Violation Mean (MVAr),60.560150278182974,1
 case500_goc,1,dc,xgb,Qg Violation Worst (MVAr),390.81124953249844,1
+case500_goc,1,dc,xgb,Qg Violation Worst P99 (MVAr),470.72445190141775,1
 case500_goc,1,dc,xgb,Rebalanced Gap,1.4778984500882815,1
 case500_goc,1,dc,xgb,Rebalancing Cost (over-supply),-0.016275178916935883,1
 case500_goc,1,dc,xgb,Rebalancing Cost (under-supply),3.0612094708549353,1
@@ -2290,10 +2543,12 @@ case500_goc,1,dc,xgb,Thermal Overload (% elements),0.014112599729038083,1
 case500_goc,1,dc,xgb,Thermal Overload (%),6.367326230339929,1
 case500_goc,1,dc,xgb,Thermal Overload Mean (% of rating),1.570324925906669,1
 case500_goc,1,dc,xgb,Thermal Overload Worst (% of rating),1.4845797415900444,1
+case500_goc,1,dc,xgb,Thermal Overload Worst P99 (% of rating),2.678312097917164,1
 case500_goc,1,dc,xgb,Vm Violation (% elements),0.0,1
 case500_goc,1,dc,xgb,Vm Violation (%),0.0,1
 case500_goc,1,dc,xgb,Vm Violation Mean (p.u.),,0
 case500_goc,1,dc,xgb,Vm Violation Worst (p.u.),,0
+case500_goc,1,dc,xgb,Vm Violation Worst P99 (p.u.),0.0,1
 case500_goc,1,dc,xgb_tot,Diverged (n),0.0,1
 case500_goc,1,dc,xgb_tot,Insufficient Headroom (%),0.0,1
 case500_goc,1,dc,xgb_tot,Insufficient Headroom (n),0.0,1
@@ -2308,6 +2563,7 @@ case500_goc,1,dc,xgb_tot,Qg Violation (% elements),46.779417627020365,1
 case500_goc,1,dc,xgb_tot,Qg Violation (%),100.0,1
 case500_goc,1,dc,xgb_tot,Qg Violation Mean (MVAr),60.56413143126908,1
 case500_goc,1,dc,xgb_tot,Qg Violation Worst (MVAr),390.8716896616982,1
+case500_goc,1,dc,xgb_tot,Qg Violation Worst P99 (MVAr),471.221581254605,1
 case500_goc,1,dc,xgb_tot,Rebalanced Gap,1.4707865572786416,1
 case500_goc,1,dc,xgb_tot,Rebalancing Cost (over-supply),-0.011125067403806133,1
 case500_goc,1,dc,xgb_tot,Rebalancing Cost (under-supply),3.028992930283174,1
@@ -2317,10 +2573,12 @@ case500_goc,1,dc,xgb_tot,Thermal Overload (% elements),0.013868678252239896,1
 case500_goc,1,dc,xgb_tot,Thermal Overload (%),6.341958396752917,1
 case500_goc,1,dc,xgb_tot,Thermal Overload Mean (% of rating),1.492041869479128,1
 case500_goc,1,dc,xgb_tot,Thermal Overload Worst (% of rating),1.4771636144121179,1
+case500_goc,1,dc,xgb_tot,Thermal Overload Worst P99 (% of rating),2.606974934173942,1
 case500_goc,1,dc,xgb_tot,Vm Violation (% elements),0.0,1
 case500_goc,1,dc,xgb_tot,Vm Violation (%),0.0,1
 case500_goc,1,dc,xgb_tot,Vm Violation Mean (p.u.),,0
 case500_goc,1,dc,xgb_tot,Vm Violation Worst (p.u.),,0
+case500_goc,1,dc,xgb_tot,Vm Violation Worst P99 (p.u.),0.0,1
 case500_goc,1,e2e,none,Diverged (n),0.0,2
 case500_goc,1,e2e,none,Insufficient Headroom (%),0.0,2
 case500_goc,1,e2e,none,Insufficient Headroom (n),0.0,2
@@ -2335,6 +2593,7 @@ case500_goc,1,e2e,none,Qg Violation (% elements),19.173051782990775,2
 case500_goc,1,e2e,none,Qg Violation (%),100.0,2
 case500_goc,1,e2e,none,Qg Violation Mean (MVAr),2.3930257787638203,2
 case500_goc,1,e2e,none,Qg Violation Worst (MVAr),10.293382510492004,2
+case500_goc,1,e2e,none,Qg Violation Worst P99 (MVAr),29.479394735724703,2
 case500_goc,1,e2e,none,Rebalanced Gap,0.2557070317718808,2
 case500_goc,1,e2e,none,Rebalancing Cost (over-supply),-0.18989666071750141,2
 case500_goc,1,e2e,none,Rebalancing Cost (under-supply),0.44141639983773384,2
@@ -2344,10 +2603,12 @@ case500_goc,1,e2e,none,Thermal Overload (% elements),0.004259847930412241,2
 case500_goc,1,e2e,none,Thermal Overload (%),2.8215556685307575,2
 case500_goc,1,e2e,none,Thermal Overload Mean (% of rating),0.48953497804228807,2
 case500_goc,1,e2e,none,Thermal Overload Worst (% of rating),0.5070427600508751,2
+case500_goc,1,e2e,none,Thermal Overload Worst P99 (% of rating),0.5557915752331415,2
 case500_goc,1,e2e,none,Vm Violation (% elements),0.37567538808952367,2
 case500_goc,1,e2e,none,Vm Violation (%),67.73004575495679,2
 case500_goc,1,e2e,none,Vm Violation Mean (p.u.),0.0035326295312729265,2
 case500_goc,1,e2e,none,Vm Violation Worst (p.u.),0.004456379181106695,2
+case500_goc,1,e2e,none,Vm Violation Worst P99 (p.u.),0.010438447347253053,2
 case500_goc,1,surrogate,sarima,Diverged (n),0.0,3
 case500_goc,1,surrogate,sarima,Insufficient Headroom (%),0.0,3
 case500_goc,1,surrogate,sarima,Insufficient Headroom (n),0.0,3
@@ -2362,6 +2623,7 @@ case500_goc,1,surrogate,sarima,Qg Violation (% elements),25.619397936749536,3
 case500_goc,1,surrogate,sarima,Qg Violation (%),100.0,3
 case500_goc,1,surrogate,sarima,Qg Violation Mean (MVAr),13.167583898721858,3
 case500_goc,1,surrogate,sarima,Qg Violation Worst (MVAr),55.338634827222414,3
+case500_goc,1,surrogate,sarima,Qg Violation Worst P99 (MVAr),161.2545695759509,3
 case500_goc,1,surrogate,sarima,Rebalanced Gap,1.287763100417649,3
 case500_goc,1,surrogate,sarima,Rebalancing Cost (over-supply),-1.4505308902047174,3
 case500_goc,1,surrogate,sarima,Rebalancing Cost (under-supply),1.085042347966646,3
@@ -2371,10 +2633,12 @@ case500_goc,1,surrogate,sarima,Thermal Overload (% elements),0.00227660045011643
 case500_goc,1,surrogate,sarima,Thermal Overload (%),1.657365127684762,3
 case500_goc,1,surrogate,sarima,Thermal Overload Mean (% of rating),3.406101417829278,1
 case500_goc,1,surrogate,sarima,Thermal Overload Worst (% of rating),3.406101417829278,1
+case500_goc,1,surrogate,sarima,Thermal Overload Worst P99 (% of rating),1.501172753325367,3
 case500_goc,1,surrogate,sarima,Vm Violation (% elements),0.06262205948352752,3
 case500_goc,1,surrogate,sarima,Vm Violation (%),16.404532386267544,3
 case500_goc,1,surrogate,sarima,Vm Violation Mean (p.u.),0.003841188023405324,3
 case500_goc,1,surrogate,sarima,Vm Violation Worst (p.u.),0.003926816081352728,3
+case500_goc,1,surrogate,sarima,Vm Violation Worst P99 (p.u.),0.006942314351379867,3
 case500_goc,1,surrogate,snaive,Diverged (n),0.0,3
 case500_goc,1,surrogate,snaive,Insufficient Headroom (%),0.0,3
 case500_goc,1,surrogate,snaive,Insufficient Headroom (n),0.0,3
@@ -2389,6 +2653,7 @@ case500_goc,1,surrogate,snaive,Qg Violation (% elements),26.02694426324563,3
 case500_goc,1,surrogate,snaive,Qg Violation (%),100.0,3
 case500_goc,1,surrogate,snaive,Qg Violation Mean (MVAr),13.932636110889604,3
 case500_goc,1,surrogate,snaive,Qg Violation Worst (MVAr),58.57449939130226,3
+case500_goc,1,surrogate,snaive,Qg Violation Worst P99 (MVAr),168.4933703805194,3
 case500_goc,1,surrogate,snaive,Rebalanced Gap,2.9224223084233274,3
 case500_goc,1,surrogate,snaive,Rebalancing Cost (over-supply),-3.5353555271885306,3
 case500_goc,1,surrogate,snaive,Rebalancing Cost (under-supply),4.189158341326505,3
@@ -2398,10 +2663,12 @@ case500_goc,1,surrogate,snaive,Thermal Overload (% elements),0.00620257469572538
 case500_goc,1,surrogate,snaive,Thermal Overload (%),3.4162015897175713,3
 case500_goc,1,surrogate,snaive,Thermal Overload Mean (% of rating),2.530909665418371,3
 case500_goc,1,surrogate,snaive,Thermal Overload Worst (% of rating),2.554915161469411,3
+case500_goc,1,surrogate,snaive,Thermal Overload Worst P99 (% of rating),2.839396114298791,3
 case500_goc,1,surrogate,snaive,Vm Violation (% elements),0.07090320412562692,3
 case500_goc,1,surrogate,snaive,Vm Violation (%),16.7343142228987,3
 case500_goc,1,surrogate,snaive,Vm Violation Mean (p.u.),0.0038938192403180434,3
 case500_goc,1,surrogate,snaive,Vm Violation Worst (p.u.),0.004164229789023802,3
+case500_goc,1,surrogate,snaive,Vm Violation Worst P99 (p.u.),0.007203408414019591,3
 case500_goc,1,surrogate,xgb,Diverged (n),0.0,3
 case500_goc,1,surrogate,xgb,Insufficient Headroom (%),0.0,3
 case500_goc,1,surrogate,xgb,Insufficient Headroom (n),0.0,3
@@ -2416,6 +2683,7 @@ case500_goc,1,surrogate,xgb,Qg Violation (% elements),25.633742842646953,3
 case500_goc,1,surrogate,xgb,Qg Violation (%),100.0,3
 case500_goc,1,surrogate,xgb,Qg Violation Mean (MVAr),13.18903011705134,3
 case500_goc,1,surrogate,xgb,Qg Violation Worst (MVAr),55.55503987988649,3
+case500_goc,1,surrogate,xgb,Qg Violation Worst P99 (MVAr),161.43543496018302,3
 case500_goc,1,surrogate,xgb,Rebalanced Gap,1.2998927970103382,3
 case500_goc,1,surrogate,xgb,Rebalancing Cost (over-supply),-1.4375103346621507,3
 case500_goc,1,surrogate,xgb,Rebalancing Cost (under-supply),1.1337990352588099,3
@@ -2425,10 +2693,12 @@ case500_goc,1,surrogate,xgb,Thermal Overload (% elements),0.0023230616837922775,
 case500_goc,1,surrogate,xgb,Thermal Overload (%),1.6911889058007779,3
 case500_goc,1,surrogate,xgb,Thermal Overload Mean (% of rating),1.8022832913178681,2
 case500_goc,1,surrogate,xgb,Thermal Overload Worst (% of rating),1.8022832913178681,2
+case500_goc,1,surrogate,xgb,Thermal Overload Worst P99 (% of rating),1.4459923824528926,3
 case500_goc,1,surrogate,xgb,Vm Violation (% elements),0.062403559624896916,3
 case500_goc,1,surrogate,xgb,Vm Violation (%),16.404532386267547,3
 case500_goc,1,surrogate,xgb,Vm Violation Mean (p.u.),0.003852324227596213,3
 case500_goc,1,surrogate,xgb,Vm Violation Worst (p.u.),0.0039421607720477704,3
+case500_goc,1,surrogate,xgb,Vm Violation Worst P99 (p.u.),0.006925593961289507,3
 case500_goc,1,surrogate,xgb_tot,Diverged (n),0.0,3
 case500_goc,1,surrogate,xgb_tot,Insufficient Headroom (%),0.0,3
 case500_goc,1,surrogate,xgb_tot,Insufficient Headroom (n),0.0,3
@@ -2443,6 +2713,7 @@ case500_goc,1,surrogate,xgb_tot,Qg Violation (% elements),25.624984900099054,3
 case500_goc,1,surrogate,xgb_tot,Qg Violation (%),100.0,3
 case500_goc,1,surrogate,xgb_tot,Qg Violation Mean (MVAr),13.18173413122762,3
 case500_goc,1,surrogate,xgb_tot,Qg Violation Worst (MVAr),55.44532570934387,3
+case500_goc,1,surrogate,xgb_tot,Qg Violation Worst P99 (MVAr),159.08308525359985,3
 case500_goc,1,surrogate,xgb_tot,Rebalanced Gap,1.2883572679550557,3
 case500_goc,1,surrogate,xgb_tot,Rebalancing Cost (over-supply),-1.4436152138453207,3
 case500_goc,1,surrogate,xgb_tot,Rebalancing Cost (under-supply),1.1039647122916827,3
@@ -2452,10 +2723,12 @@ case500_goc,1,surrogate,xgb_tot,Thermal Overload (% elements),0.0022882157585353
 case500_goc,1,surrogate,xgb_tot,Thermal Overload (%),1.665821072213766,3
 case500_goc,1,surrogate,xgb_tot,Thermal Overload Mean (% of rating),1.7974659178580221,2
 case500_goc,1,surrogate,xgb_tot,Thermal Overload Worst (% of rating),1.7974659178580221,2
+case500_goc,1,surrogate,xgb_tot,Thermal Overload Worst P99 (% of rating),1.453117315969772,3
 case500_goc,1,surrogate,xgb_tot,Vm Violation (% elements),0.06260020949766446,3
 case500_goc,1,surrogate,xgb_tot,Vm Violation (%),16.455268053441568,3
 case500_goc,1,surrogate,xgb_tot,Vm Violation Mean (p.u.),0.0038411432232444867,3
 case500_goc,1,surrogate,xgb_tot,Vm Violation Worst (p.u.),0.003926960029260976,3
+case500_goc,1,surrogate,xgb_tot,Vm Violation Worst P99 (p.u.),0.006917173753763409,3
 case500_goc,6,ac,sarima,Diverged (n),0.0,1
 case500_goc,6,ac,sarima,Insufficient Headroom (%),0.0,1
 case500_goc,6,ac,sarima,Insufficient Headroom (n),0.0,1
@@ -2470,6 +2743,7 @@ case500_goc,6,ac,sarima,Qg Violation (% elements),17.638465447154474,1
 case500_goc,6,ac,sarima,Qg Violation (%),98.77625338753387,1
 case500_goc,6,ac,sarima,Qg Violation Mean (MVAr),2.7170545393368566,1
 case500_goc,6,ac,sarima,Qg Violation Worst (MVAr),8.345297702694909,1
+case500_goc,6,ac,sarima,Qg Violation Worst P99 (MVAr),51.601569408019394,1
 case500_goc,6,ac,sarima,Rebalanced Gap,1.0785732422559593,1
 case500_goc,6,ac,sarima,Rebalancing Cost (over-supply),-0.9239398026510344,1
 case500_goc,6,ac,sarima,Rebalancing Cost (under-supply),1.9471526851941159,1
@@ -2479,10 +2753,12 @@ case500_goc,6,ac,sarima,Thermal Overload (% elements),0.006450506641055421,1
 case500_goc,6,ac,sarima,Thermal Overload (%),3.6500677506775068,1
 case500_goc,6,ac,sarima,Thermal Overload Mean (% of rating),0.823627942363979,1
 case500_goc,6,ac,sarima,Thermal Overload Worst (% of rating),0.7494144515045512,1
+case500_goc,6,ac,sarima,Thermal Overload Worst P99 (% of rating),0.686364122165394,1
 case500_goc,6,ac,sarima,Vm Violation (% elements),0.40846261983291665,1
 case500_goc,6,ac,sarima,Vm Violation (%),32.66006097560975,1
 case500_goc,6,ac,sarima,Vm Violation Mean (p.u.),0.003315159125906684,1
 case500_goc,6,ac,sarima,Vm Violation Worst (p.u.),0.0038039316183086994,1
+case500_goc,6,ac,sarima,Vm Violation Worst P99 (p.u.),0.010599365535893388,1
 case500_goc,6,ac,snaive,Diverged (n),0.0,1
 case500_goc,6,ac,snaive,Insufficient Headroom (%),0.0,1
 case500_goc,6,ac,snaive,Insufficient Headroom (n),0.0,1
@@ -2497,6 +2773,7 @@ case500_goc,6,ac,snaive,Qg Violation (% elements),21.801937056255063,1
 case500_goc,6,ac,snaive,Qg Violation (%),100.0,1
 case500_goc,6,ac,snaive,Qg Violation Mean (MVAr),6.268507326029931,1
 case500_goc,6,ac,snaive,Qg Violation Worst (MVAr),23.09565783525582,1
+case500_goc,6,ac,snaive,Qg Violation Worst P99 (MVAr),105.42031366793212,1
 case500_goc,6,ac,snaive,Rebalanced Gap,2.8907006928153502,1
 case500_goc,6,ac,snaive,Rebalancing Cost (over-supply),-2.791597955142328,1
 case500_goc,6,ac,snaive,Rebalancing Cost (under-supply),5.016743892334706,1
@@ -2506,10 +2783,12 @@ case500_goc,6,ac,snaive,Thermal Overload (% elements),0.011002036656087963,1
 case500_goc,6,ac,snaive,Thermal Overload (%),5.317077300821269,1
 case500_goc,6,ac,snaive,Thermal Overload Mean (% of rating),2.35880653355696,1
 case500_goc,6,ac,snaive,Thermal Overload Worst (% of rating),2.418389985372468,1
+case500_goc,6,ac,snaive,Thermal Overload Worst P99 (% of rating),4.701239315442485,1
 case500_goc,6,ac,snaive,Vm Violation (% elements),0.8620484079900116,1
 case500_goc,6,ac,snaive,Vm Violation (%),51.1260689188045,1
 case500_goc,6,ac,snaive,Vm Violation Mean (p.u.),0.005438118661131189,1
 case500_goc,6,ac,snaive,Vm Violation Worst (p.u.),0.007091745503115743,1
+case500_goc,6,ac,snaive,Vm Violation Worst P99 (p.u.),0.02695872427885715,1
 case500_goc,6,ac,xgb,Diverged (n),0.0,1
 case500_goc,6,ac,xgb,Insufficient Headroom (%),0.0,1
 case500_goc,6,ac,xgb,Insufficient Headroom (n),0.0,1
@@ -2524,6 +2803,7 @@ case500_goc,6,ac,xgb,Qg Violation (% elements),18.75555626111252,1
 case500_goc,6,ac,xgb,Qg Violation (%),99.97036660739988,1
 case500_goc,6,ac,xgb,Qg Violation Mean (MVAr),2.0974981759168836,1
 case500_goc,6,ac,xgb,Qg Violation Worst (MVAr),7.2844028398010385,1
+case500_goc,6,ac,xgb,Qg Violation Worst P99 (MVAr),41.31889673198256,1
 case500_goc,6,ac,xgb,Rebalanced Gap,0.8575163763329761,1
 case500_goc,6,ac,xgb,Rebalancing Cost (over-supply),-0.6763648395629478,1
 case500_goc,6,ac,xgb,Rebalancing Cost (under-supply),1.6359444490648483,1
@@ -2533,10 +2813,12 @@ case500_goc,6,ac,xgb,Thermal Overload (% elements),0.009327308031905441,1
 case500_goc,6,ac,xgb,Thermal Overload (%),5.668444670222674,1
 case500_goc,6,ac,xgb,Thermal Overload Mean (% of rating),0.70783386657455,1
 case500_goc,6,ac,xgb,Thermal Overload Worst (% of rating),0.6520930403802295,1
+case500_goc,6,ac,xgb,Thermal Overload Worst P99 (% of rating),0.813696258534295,1
 case500_goc,6,ac,xgb,Vm Violation (% elements),0.3726544059461935,1
 case500_goc,6,ac,xgb,Vm Violation (%),39.88654643975955,1
 case500_goc,6,ac,xgb,Vm Violation Mean (p.u.),0.0026559870901172555,1
 case500_goc,6,ac,xgb,Vm Violation Worst (p.u.),0.0030022488451430375,1
+case500_goc,6,ac,xgb,Vm Violation Worst P99 (p.u.),0.008531344711140273,1
 case500_goc,6,ac,xgb_tot,Diverged (n),0.0,1
 case500_goc,6,ac,xgb_tot,Insufficient Headroom (%),0.0,1
 case500_goc,6,ac,xgb_tot,Insufficient Headroom (n),0.0,1
@@ -2551,6 +2833,7 @@ case500_goc,6,ac,xgb_tot,Qg Violation (% elements),18.141721700110068,1
 case500_goc,6,ac,xgb_tot,Qg Violation (%),99.94496655659978,1
 case500_goc,6,ac,xgb_tot,Qg Violation Mean (MVAr),2.108557094798185,1
 case500_goc,6,ac,xgb_tot,Qg Violation Worst (MVAr),7.064269415227354,1
+case500_goc,6,ac,xgb_tot,Qg Violation Worst P99 (MVAr),41.799903083253575,1
 case500_goc,6,ac,xgb_tot,Rebalanced Gap,0.8415438263491551,1
 case500_goc,6,ac,xgb_tot,Rebalancing Cost (over-supply),-0.6650469594135573,1
 case500_goc,6,ac,xgb_tot,Rebalancing Cost (under-supply),1.598404610521671,1
@@ -2560,10 +2843,12 @@ case500_goc,6,ac,xgb_tot,Thermal Overload (% elements),0.008728359947562386,1
 case500_goc,6,ac,xgb_tot,Thermal Overload (%),5.554144441622216,1
 case500_goc,6,ac,xgb_tot,Thermal Overload Mean (% of rating),0.5818549522930038,1
 case500_goc,6,ac,xgb_tot,Thermal Overload Worst (% of rating),0.5301130089137176,1
+case500_goc,6,ac,xgb_tot,Thermal Overload Worst P99 (% of rating),0.6690025337338646,1
 case500_goc,6,ac,xgb_tot,Vm Violation (% elements),0.35848857227430214,1
 case500_goc,6,ac,xgb_tot,Vm Violation (%),39.41241215815765,1
 case500_goc,6,ac,xgb_tot,Vm Violation Mean (p.u.),0.00269372757121184,1
 case500_goc,6,ac,xgb_tot,Vm Violation Worst (p.u.),0.0029861673284533627,1
+case500_goc,6,ac,xgb_tot,Vm Violation Worst P99 (p.u.),0.008833730358106669,1
 case500_goc,6,dc,sarima,Diverged (n),0.0,1
 case500_goc,6,dc,sarima,Insufficient Headroom (%),0.0,1
 case500_goc,6,dc,sarima,Insufficient Headroom (n),0.0,1
@@ -2578,6 +2863,7 @@ case500_goc,6,dc,sarima,Qg Violation (% elements),46.832920477642276,1
 case500_goc,6,dc,sarima,Qg Violation (%),100.0,1
 case500_goc,6,dc,sarima,Qg Violation Mean (MVAr),60.600287585042786,1
 case500_goc,6,dc,sarima,Qg Violation Worst (MVAr),391.79631101712505,1
+case500_goc,6,dc,sarima,Qg Violation Worst P99 (MVAr),470.278079631619,1
 case500_goc,6,dc,sarima,Rebalanced Gap,2.0096824755434923,1
 case500_goc,6,dc,sarima,Rebalancing Cost (over-supply),-0.5132255211308108,1
 case500_goc,6,dc,sarima,Rebalancing Cost (under-supply),3.9652589213847675,1
@@ -2587,10 +2873,12 @@ case500_goc,6,dc,sarima,Thermal Overload (% elements),0.015343946365287828,1
 case500_goc,6,dc,sarima,Thermal Overload (%),6.5929878048780495,1
 case500_goc,6,dc,sarima,Thermal Overload Mean (% of rating),1.7796875273055972,1
 case500_goc,6,dc,sarima,Thermal Overload Worst (% of rating),1.698464555483209,1
+case500_goc,6,dc,sarima,Thermal Overload Worst P99 (% of rating),2.97304660265622,1
 case500_goc,6,dc,sarima,Vm Violation (% elements),0.0,1
 case500_goc,6,dc,sarima,Vm Violation (%),0.0,1
 case500_goc,6,dc,sarima,Vm Violation Mean (p.u.),,0
 case500_goc,6,dc,sarima,Vm Violation Worst (p.u.),,0
+case500_goc,6,dc,sarima,Vm Violation Worst P99 (p.u.),0.0,1
 case500_goc,6,dc,snaive,Diverged (n),0.0,1
 case500_goc,6,dc,snaive,Insufficient Headroom (%),0.0,1
 case500_goc,6,dc,snaive,Insufficient Headroom (n),0.0,1
@@ -2605,6 +2893,7 @@ case500_goc,6,dc,snaive,Qg Violation (% elements),46.98733474847902,1
 case500_goc,6,dc,snaive,Qg Violation (%),100.0,1
 case500_goc,6,dc,snaive,Qg Violation Mean (MVAr),60.62317273256732,1
 case500_goc,6,dc,snaive,Qg Violation Worst (MVAr),393.28817119855137,1
+case500_goc,6,dc,snaive,Qg Violation Worst P99 (MVAr),468.5270184368863,1
 case500_goc,6,dc,snaive,Rebalanced Gap,3.5502645099106003,1
 case500_goc,6,dc,snaive,Rebalancing Cost (over-supply),-2.1029812192038655,1
 case500_goc,6,dc,snaive,Rebalancing Cost (under-supply),6.516196297940221,1
@@ -2614,10 +2903,12 @@ case500_goc,6,dc,snaive,Thermal Overload (% elements),0.019259379178099015,1
 case500_goc,6,dc,snaive,Thermal Overload (%),8.001016002032003,1
 case500_goc,6,dc,snaive,Thermal Overload Mean (% of rating),2.3240706289302926,1
 case500_goc,6,dc,snaive,Thermal Overload Worst (% of rating),2.4449350016728357,1
+case500_goc,6,dc,snaive,Thermal Overload Worst P99 (% of rating),4.7773566817771895,1
 case500_goc,6,dc,snaive,Vm Violation (% elements),0.0,1
 case500_goc,6,dc,snaive,Vm Violation (%),0.0,1
 case500_goc,6,dc,snaive,Vm Violation Mean (p.u.),,0
 case500_goc,6,dc,snaive,Vm Violation Worst (p.u.),,0
+case500_goc,6,dc,snaive,Vm Violation Worst P99 (p.u.),0.0,1
 case500_goc,6,dc,xgb,Diverged (n),0.0,1
 case500_goc,6,dc,xgb,Insufficient Headroom (%),0.0,1
 case500_goc,6,dc,xgb,Insufficient Headroom (n),0.0,1
@@ -2632,6 +2923,7 @@ case500_goc,6,dc,xgb,Qg Violation (% elements),46.81357874620511,1
 case500_goc,6,dc,xgb,Qg Violation (%),100.0,1
 case500_goc,6,dc,xgb,Qg Violation Mean (MVAr),60.58163033090723,1
 case500_goc,6,dc,xgb,Qg Violation Worst (MVAr),391.0857900420735,1
+case500_goc,6,dc,xgb,Qg Violation Worst P99 (MVAr),469.18978639307034,1
 case500_goc,6,dc,xgb,Rebalanced Gap,1.7857459980505364,1
 case500_goc,6,dc,xgb,Rebalancing Cost (over-supply),-0.28277968842355516,1
 case500_goc,6,dc,xgb,Rebalancing Cost (under-supply),3.660046117245324,1
@@ -2641,10 +2933,12 @@ case500_goc,6,dc,xgb,Thermal Overload (% elements),0.01625882372643866,1
 case500_goc,6,dc,xgb,Thermal Overload (%),6.637879942426552,1
 case500_goc,6,dc,xgb,Thermal Overload Mean (% of rating),1.6266088746066416,1
 case500_goc,6,dc,xgb,Thermal Overload Worst (% of rating),1.638037769974183,1
+case500_goc,6,dc,xgb,Thermal Overload Worst P99 (% of rating),2.7960045915403424,1
 case500_goc,6,dc,xgb,Vm Violation (% elements),0.0,1
 case500_goc,6,dc,xgb,Vm Violation (%),0.0,1
 case500_goc,6,dc,xgb,Vm Violation Mean (p.u.),,0
 case500_goc,6,dc,xgb,Vm Violation Worst (p.u.),,0
+case500_goc,6,dc,xgb,Vm Violation Worst P99 (p.u.),0.0,1
 case500_goc,6,dc,xgb_tot,Diverged (n),0.0,1
 case500_goc,6,dc,xgb_tot,Insufficient Headroom (%),0.0,1
 case500_goc,6,dc,xgb_tot,Insufficient Headroom (n),0.0,1
@@ -2659,6 +2953,7 @@ case500_goc,6,dc,xgb_tot,Qg Violation (% elements),46.8379960569445,1
 case500_goc,6,dc,xgb_tot,Qg Violation (%),100.0,1
 case500_goc,6,dc,xgb_tot,Qg Violation Mean (MVAr),60.55623348415898,1
 case500_goc,6,dc,xgb_tot,Qg Violation Worst (MVAr),391.07864229240664,1
+case500_goc,6,dc,xgb_tot,Qg Violation Worst P99 (MVAr),470.16493602643806,1
 case500_goc,6,dc,xgb_tot,Rebalanced Gap,1.7900499483869179,1
 case500_goc,6,dc,xgb_tot,Rebalancing Cost (over-supply),-0.2884939820245162,1
 case500_goc,6,dc,xgb_tot,Rebalancing Cost (under-supply),3.6606892034359095,1
@@ -2668,10 +2963,12 @@ case500_goc,6,dc,xgb_tot,Thermal Overload (% elements),0.015444719534127713,1
 case500_goc,6,dc,xgb_tot,Thermal Overload (%),6.587079840826348,1
 case500_goc,6,dc,xgb_tot,Thermal Overload Mean (% of rating),1.5718298526452694,1
 case500_goc,6,dc,xgb_tot,Thermal Overload Worst (% of rating),1.5768095823260675,1
+case500_goc,6,dc,xgb_tot,Thermal Overload Worst P99 (% of rating),2.711924352157631,1
 case500_goc,6,dc,xgb_tot,Vm Violation (% elements),0.0,1
 case500_goc,6,dc,xgb_tot,Vm Violation (%),0.0,1
 case500_goc,6,dc,xgb_tot,Vm Violation Mean (p.u.),,0
 case500_goc,6,dc,xgb_tot,Vm Violation Worst (p.u.),,0
+case500_goc,6,dc,xgb_tot,Vm Violation Worst P99 (p.u.),0.0,1
 case500_goc,6,e2e,none,Diverged (n),0.0,1
 case500_goc,6,e2e,none,Insufficient Headroom (%),0.0,1
 case500_goc,6,e2e,none,Insufficient Headroom (n),0.0,1
@@ -2686,6 +2983,7 @@ case500_goc,6,e2e,none,Qg Violation (% elements),20.330770208439247,1
 case500_goc,6,e2e,none,Qg Violation (%),100.0,1
 case500_goc,6,e2e,none,Qg Violation Mean (MVAr),3.211433824935525,1
 case500_goc,6,e2e,none,Qg Violation Worst (MVAr),13.98166244523345,1
+case500_goc,6,e2e,none,Qg Violation Worst P99 (MVAr),47.51908525485095,1
 case500_goc,6,e2e,none,Rebalanced Gap,0.6641636466432269,1
 case500_goc,6,e2e,none,Rebalancing Cost (over-supply),-0.5813540437261498,1
 case500_goc,6,e2e,none,Rebalancing Cost (under-supply),1.1734527422352863,1
@@ -2695,10 +2993,12 @@ case500_goc,6,e2e,none,Thermal Overload (% elements),0.004853433297764768,1
 case500_goc,6,e2e,none,Thermal Overload (%),3.4528046093882394,1
 case500_goc,6,e2e,none,Thermal Overload Mean (% of rating),0.6619296988707178,1
 case500_goc,6,e2e,none,Thermal Overload Worst (% of rating),0.6642496545139913,1
+case500_goc,6,e2e,none,Thermal Overload Worst P99 (% of rating),0.822999571945417,1
 case500_goc,6,e2e,none,Vm Violation (% elements),0.5079943092026185,1
 case500_goc,6,e2e,none,Vm Violation (%),69.72123368920522,1
 case500_goc,6,e2e,none,Vm Violation Mean (p.u.),0.0038391571695483837,1
 case500_goc,6,e2e,none,Vm Violation Worst (p.u.),0.005180147616249156,1
+case500_goc,6,e2e,none,Vm Violation Worst P99 (p.u.),0.012417577285751812,1
 case500_goc,6,surrogate,sarima,Diverged (n),0.0,3
 case500_goc,6,surrogate,sarima,Insufficient Headroom (%),0.0,3
 case500_goc,6,surrogate,sarima,Insufficient Headroom (n),0.0,3
@@ -2713,6 +3013,7 @@ case500_goc,6,surrogate,sarima,Qg Violation (% elements),25.76409299643996,3
 case500_goc,6,surrogate,sarima,Qg Violation (%),100.0,3
 case500_goc,6,surrogate,sarima,Qg Violation Mean (MVAr),13.32113434679737,3
 case500_goc,6,surrogate,sarima,Qg Violation Worst (MVAr),55.89175903890078,3
+case500_goc,6,surrogate,sarima,Qg Violation Worst P99 (MVAr),162.34406542123602,3
 case500_goc,6,surrogate,sarima,Rebalanced Gap,1.7046551607784348,3
 case500_goc,6,surrogate,sarima,Rebalancing Cost (over-supply),-1.943171077028502,3
 case500_goc,6,surrogate,sarima,Rebalancing Cost (under-supply),1.9412512942964524,3
@@ -2722,10 +3023,12 @@ case500_goc,6,surrogate,sarima,Thermal Overload (% elements),0.00294434349552459
 case500_goc,6,surrogate,sarima,Thermal Overload (%),1.9967262156746537,3
 case500_goc,6,surrogate,sarima,Thermal Overload Mean (% of rating),1.8813296654926663,3
 case500_goc,6,surrogate,sarima,Thermal Overload Worst (% of rating),1.9027172624556676,3
+case500_goc,6,surrogate,sarima,Thermal Overload Worst P99 (% of rating),1.4805740158650196,3
 case500_goc,6,surrogate,sarima,Vm Violation (% elements),0.06513731086606589,3
 case500_goc,6,surrogate,sarima,Vm Violation (%),16.560833121666246,3
 case500_goc,6,surrogate,sarima,Vm Violation Mean (p.u.),0.003830345597463367,3
 case500_goc,6,surrogate,sarima,Vm Violation Worst (p.u.),0.003992053584308778,3
+case500_goc,6,surrogate,sarima,Vm Violation Worst P99 (p.u.),0.006992553529275342,3
 case500_goc,6,surrogate,snaive,Diverged (n),0.0,3
 case500_goc,6,surrogate,snaive,Insufficient Headroom (%),0.0,3
 case500_goc,6,surrogate,snaive,Insufficient Headroom (n),0.0,3
@@ -2740,6 +3043,7 @@ case500_goc,6,surrogate,snaive,Qg Violation (% elements),26.03241883071068,3
 case500_goc,6,surrogate,snaive,Qg Violation (%),100.0,3
 case500_goc,6,surrogate,snaive,Qg Violation Mean (MVAr),13.927873642294022,3
 case500_goc,6,surrogate,snaive,Qg Violation Worst (MVAr),58.55547825177908,3
+case500_goc,6,surrogate,snaive,Qg Violation Worst P99 (MVAr),168.5822375824894,3
 case500_goc,6,surrogate,snaive,Rebalanced Gap,2.923759823495176,3
 case500_goc,6,surrogate,snaive,Rebalancing Cost (over-supply),-3.5385886582646173,3
 case500_goc,6,surrogate,snaive,Rebalancing Cost (under-supply),4.19146360950017,3
@@ -2749,10 +3053,12 @@ case500_goc,6,surrogate,snaive,Thermal Overload (% elements),0.00620851363802849
 case500_goc,6,surrogate,snaive,Thermal Overload (%),3.4205401744136825,3
 case500_goc,6,surrogate,snaive,Thermal Overload Mean (% of rating),2.531606511700176,3
 case500_goc,6,surrogate,snaive,Thermal Overload Worst (% of rating),2.5550383371340635,3
+case500_goc,6,surrogate,snaive,Thermal Overload Worst P99 (% of rating),2.8691480113194543,3
 case500_goc,6,surrogate,snaive,Vm Violation (% elements),0.07099689766419441,3
 case500_goc,6,surrogate,snaive,Vm Violation (%),16.752744616600346,3
 case500_goc,6,surrogate,snaive,Vm Violation Mean (p.u.),0.003893726995989199,3
 case500_goc,6,surrogate,snaive,Vm Violation Worst (p.u.),0.004164668473942594,3
+case500_goc,6,surrogate,snaive,Vm Violation Worst P99 (p.u.),0.007222683483287006,3
 case500_goc,6,surrogate,xgb,Diverged (n),0.0,3
 case500_goc,6,surrogate,xgb,Insufficient Headroom (%),0.0,3
 case500_goc,6,surrogate,xgb,Insufficient Headroom (n),0.0,3
@@ -2767,6 +3073,7 @@ case500_goc,6,surrogate,xgb,Qg Violation (% elements),25.741401780422606,3
 case500_goc,6,surrogate,xgb,Qg Violation (%),100.0,3
 case500_goc,6,surrogate,xgb,Qg Violation Mean (MVAr),13.270270990962345,3
 case500_goc,6,surrogate,xgb,Qg Violation Worst (MVAr),55.77208164834065,3
+case500_goc,6,surrogate,xgb,Qg Violation Worst P99 (MVAr),161.39507798108446,3
 case500_goc,6,surrogate,xgb,Rebalanced Gap,1.5596740807258787,3
 case500_goc,6,surrogate,xgb,Rebalancing Cost (over-supply),-1.7156961489004476,3
 case500_goc,6,surrogate,xgb,Rebalancing Cost (under-supply),1.692285792965581,3
@@ -2776,10 +3083,12 @@ case500_goc,6,surrogate,xgb,Thermal Overload (% elements),0.0027698925971722517,
 case500_goc,6,surrogate,xgb,Thermal Overload (%),1.892303784607569,3
 case500_goc,6,surrogate,xgb,Thermal Overload Mean (% of rating),2.272765039208498,3
 case500_goc,6,surrogate,xgb,Thermal Overload Worst (% of rating),2.2698094964572997,3
+case500_goc,6,surrogate,xgb,Thermal Overload Worst P99 (% of rating),1.4045416357680542,3
 case500_goc,6,surrogate,xgb,Vm Violation (% elements),0.06384652447743024,3
 case500_goc,6,surrogate,xgb,Vm Violation (%),16.75980018626704,3
 case500_goc,6,surrogate,xgb,Vm Violation Mean (p.u.),0.003847803551286609,3
 case500_goc,6,surrogate,xgb,Vm Violation Worst (p.u.),0.003976571001986544,3
+case500_goc,6,surrogate,xgb,Vm Violation Worst P99 (p.u.),0.006948026218718178,3
 case500_goc,6,surrogate,xgb_tot,Diverged (n),0.0,3
 case500_goc,6,surrogate,xgb_tot,Insufficient Headroom (%),0.0,3
 case500_goc,6,surrogate,xgb_tot,Insufficient Headroom (n),0.0,3
@@ -2794,6 +3103,7 @@ case500_goc,6,surrogate,xgb_tot,Qg Violation (% elements),25.736135301635684,3
 case500_goc,6,surrogate,xgb_tot,Qg Violation (%),100.0,3
 case500_goc,6,surrogate,xgb_tot,Qg Violation Mean (MVAr),13.265236363797314,3
 case500_goc,6,surrogate,xgb_tot,Qg Violation Worst (MVAr),55.633158303422285,3
+case500_goc,6,surrogate,xgb_tot,Qg Violation Worst P99 (MVAr),159.36003152667604,3
 case500_goc,6,surrogate,xgb_tot,Rebalanced Gap,1.5592804599724819,3
 case500_goc,6,surrogate,xgb_tot,Rebalancing Cost (over-supply),-1.7208522142560703,3
 case500_goc,6,surrogate,xgb_tot,Rebalancing Cost (under-supply),1.678678394283681,3
@@ -2803,10 +3113,12 @@ case500_goc,6,surrogate,xgb_tot,Thermal Overload (% elements),0.0031091026773018
 case500_goc,6,surrogate,xgb_tot,Thermal Overload (%),2.2055710778088224,3
 case500_goc,6,surrogate,xgb_tot,Thermal Overload Mean (% of rating),1.8666243449321176,3
 case500_goc,6,surrogate,xgb_tot,Thermal Overload Worst (% of rating),1.9023562577311957,3
+case500_goc,6,surrogate,xgb_tot,Thermal Overload Worst P99 (% of rating),1.4600475332146388,3
 case500_goc,6,surrogate,xgb_tot,Vm Violation (% elements),0.06359493052032329,3
 case500_goc,6,surrogate,xgb_tot,Vm Violation (%),16.711822312533513,3
 case500_goc,6,surrogate,xgb_tot,Vm Violation Mean (p.u.),0.003842679951942554,3
 case500_goc,6,surrogate,xgb_tot,Vm Violation Worst (p.u.),0.003968711024556189,3
+case500_goc,6,surrogate,xgb_tot,Vm Violation Worst P99 (p.u.),0.006931001102056374,3
 case500_goc,24,ac,sarima,Diverged (n),0.0,1
 case500_goc,24,ac,sarima,Insufficient Headroom (%),0.0,1
 case500_goc,24,ac,sarima,Insufficient Headroom (n),0.0,1
@@ -2821,6 +3133,7 @@ case500_goc,24,ac,sarima,Qg Violation (% elements),21.112345257082097,1
 case500_goc,24,ac,sarima,Qg Violation (%),99.69484316852738,1
 case500_goc,24,ac,sarima,Qg Violation Mean (MVAr),4.948021025660316,1
 case500_goc,24,ac,sarima,Qg Violation Worst (MVAr),17.351962956277365,1
+case500_goc,24,ac,sarima,Qg Violation Worst P99 (MVAr),80.02976325683288,1
 case500_goc,24,ac,sarima,Rebalanced Gap,2.015624832674871,1
 case500_goc,24,ac,sarima,Rebalancing Cost (over-supply),-1.9582515683590875,1
 case500_goc,24,ac,sarima,Rebalancing Cost (under-supply),3.783048378379054,1
@@ -2830,10 +3143,12 @@ case500_goc,24,ac,sarima,Thermal Overload (% elements),0.012776696987223304,1
 case500_goc,24,ac,sarima,Thermal Overload (%),6.144603934077619,1
 case500_goc,24,ac,sarima,Thermal Overload Mean (% of rating),2.111995666822661,1
 case500_goc,24,ac,sarima,Thermal Overload Worst (% of rating),2.105685213971917,1
+case500_goc,24,ac,sarima,Thermal Overload Worst P99 (% of rating),4.440683836237689,1
 case500_goc,24,ac,sarima,Vm Violation (% elements),0.6722467432381753,1
 case500_goc,24,ac,sarima,Vm Violation (%),44.348750664540134,1
 case500_goc,24,ac,sarima,Vm Violation Mean (p.u.),0.0048237375690345745,1
 case500_goc,24,ac,sarima,Vm Violation Worst (p.u.),0.005967943765301825,1
+case500_goc,24,ac,sarima,Vm Violation Worst P99 (p.u.),0.01851410450832046,1
 case500_goc,24,ac,snaive,Diverged (n),0.0,1
 case500_goc,24,ac,snaive,Insufficient Headroom (%),0.0,1
 case500_goc,24,ac,snaive,Insufficient Headroom (n),0.0,1
@@ -2848,6 +3163,7 @@ case500_goc,24,ac,snaive,Qg Violation (% elements),21.81712224632134,1
 case500_goc,24,ac,snaive,Qg Violation (%),100.0,1
 case500_goc,24,ac,snaive,Qg Violation Mean (MVAr),6.2827997986289,1
 case500_goc,24,ac,snaive,Qg Violation Worst (MVAr),23.1571444069059,1
+case500_goc,24,ac,snaive,Qg Violation Worst P99 (MVAr),105.42031366793212,1
 case500_goc,24,ac,snaive,Rebalanced Gap,2.896244026778118,1
 case500_goc,24,ac,snaive,Rebalancing Cost (over-supply),-2.7988190902186103,1
 case500_goc,24,ac,snaive,Rebalancing Cost (under-supply),5.027921407253519,1
@@ -2857,10 +3173,12 @@ case500_goc,24,ac,snaive,Thermal Overload (% elements),0.011043806495452323,1
 case500_goc,24,ac,snaive,Thermal Overload (%),5.335119503274645,1
 case500_goc,24,ac,snaive,Thermal Overload Mean (% of rating),2.3604934953200316,1
 case500_goc,24,ac,snaive,Thermal Overload Worst (% of rating),2.4210034380554575,1
+case500_goc,24,ac,snaive,Thermal Overload Worst P99 (% of rating),4.701239315442485,1
 case500_goc,24,ac,snaive,Vm Violation (% elements),0.8627687634108351,1
 case500_goc,24,ac,snaive,Vm Violation (%),51.09402908905333,1
 case500_goc,24,ac,snaive,Vm Violation Mean (p.u.),0.0054492059557139086,1
 case500_goc,24,ac,snaive,Vm Violation Worst (p.u.),0.00711144637465081,1
+case500_goc,24,ac,snaive,Vm Violation Worst P99 (p.u.),0.02695872427885715,1
 case500_goc,24,ac,xgb,Diverged (n),0.0,1
 case500_goc,24,ac,xgb,Insufficient Headroom (%),0.0,1
 case500_goc,24,ac,xgb,Insufficient Headroom (n),0.0,1
@@ -2875,6 +3193,7 @@ case500_goc,24,ac,xgb,Qg Violation (% elements),20.871133762257134,1
 case500_goc,24,ac,xgb,Qg Violation (%),100.0,1
 case500_goc,24,ac,xgb,Qg Violation Mean (MVAr),3.5197189226148202,1
 case500_goc,24,ac,xgb,Qg Violation Worst (MVAr),13.044916374914246,1
+case500_goc,24,ac,xgb,Qg Violation Worst P99 (MVAr),62.7028499854126,1
 case500_goc,24,ac,xgb,Rebalanced Gap,1.5046319721493124,1
 case500_goc,24,ac,xgb,Rebalancing Cost (over-supply),-1.2918854367299584,1
 case500_goc,24,ac,xgb,Rebalancing Cost (under-supply),2.863190432017067,1
@@ -2884,10 +3203,12 @@ case500_goc,24,ac,xgb,Thermal Overload (% elements),0.010702064797497307,1
 case500_goc,24,ac,xgb,Thermal Overload (%),5.993238070936464,1
 case500_goc,24,ac,xgb,Thermal Overload Mean (% of rating),1.1573471655307201,1
 case500_goc,24,ac,xgb,Thermal Overload Worst (% of rating),1.0856048232507423,1
+case500_goc,24,ac,xgb,Thermal Overload Worst P99 (% of rating),1.8783123605394232,1
 case500_goc,24,ac,xgb,Vm Violation (% elements),0.5752826563931674,1
 case500_goc,24,ac,xgb,Vm Violation (%),49.33018627200816,1
 case500_goc,24,ac,xgb,Vm Violation Mean (p.u.),0.0035934648640052664,1
 case500_goc,24,ac,xgb,Vm Violation Worst (p.u.),0.004374034362868894,1
+case500_goc,24,ac,xgb,Vm Violation Worst P99 (p.u.),0.013955886646729304,1
 case500_goc,24,ac,xgb_tot,Diverged (n),0.0,1
 case500_goc,24,ac,xgb_tot,Insufficient Headroom (%),0.0,1
 case500_goc,24,ac,xgb_tot,Insufficient Headroom (n),0.0,1
@@ -2902,6 +3223,7 @@ case500_goc,24,ac,xgb_tot,Qg Violation (% elements),20.879905132504646,1
 case500_goc,24,ac,xgb_tot,Qg Violation (%),99.99787360721272,1
 case500_goc,24,ac,xgb_tot,Qg Violation Mean (MVAr),3.4804490940349173,1
 case500_goc,24,ac,xgb_tot,Qg Violation Worst (MVAr),12.824812106832725,1
+case500_goc,24,ac,xgb_tot,Qg Violation Worst P99 (MVAr),62.84088331827997,1
 case500_goc,24,ac,xgb_tot,Rebalanced Gap,1.4143329641794347,1
 case500_goc,24,ac,xgb_tot,Rebalancing Cost (over-supply),-1.265818923090554,1
 case500_goc,24,ac,xgb_tot,Rebalancing Cost (under-supply),2.686583717120976,1
@@ -2911,10 +3233,12 @@ case500_goc,24,ac,xgb_tot,Thermal Overload (% elements),0.009930955325188548,1
 case500_goc,24,ac,xgb_tot,Thermal Overload (%),5.716807008590627,1
 case500_goc,24,ac,xgb_tot,Thermal Overload Mean (% of rating),1.0712303238689693,1
 case500_goc,24,ac,xgb_tot,Thermal Overload Worst (% of rating),0.9770245309746567,1
+case500_goc,24,ac,xgb_tot,Thermal Overload Worst P99 (% of rating),1.378283332994795,1
 case500_goc,24,ac,xgb_tot,Vm Violation (% elements),0.5674693991748058,1
 case500_goc,24,ac,xgb_tot,Vm Violation (%),51.40554563238921,1
 case500_goc,24,ac,xgb_tot,Vm Violation Mean (p.u.),0.0036294601886673016,1
 case500_goc,24,ac,xgb_tot,Vm Violation Worst (p.u.),0.004368795999015549,1
+case500_goc,24,ac,xgb_tot,Vm Violation Worst P99 (p.u.),0.013639338774383062,1
 case500_goc,24,dc,sarima,Diverged (n),0.0,1
 case500_goc,24,dc,sarima,Insufficient Headroom (%),0.0,1
 case500_goc,24,dc,sarima,Insufficient Headroom (n),0.0,1
@@ -2929,6 +3253,7 @@ case500_goc,24,dc,sarima,Qg Violation (% elements),46.915840738209155,1
 case500_goc,24,dc,sarima,Qg Violation (%),100.0,1
 case500_goc,24,dc,sarima,Qg Violation Mean (MVAr),60.62002069517062,1
 case500_goc,24,dc,sarima,Qg Violation Worst (MVAr),392.2166804608734,1
+case500_goc,24,dc,sarima,Qg Violation Worst P99 (MVAr),467.61210228597605,1
 case500_goc,24,dc,sarima,Rebalanced Gap,2.8041381237502807,1
 case500_goc,24,dc,sarima,Rebalancing Cost (over-supply),-1.4097140728727595,1
 case500_goc,24,dc,sarima,Rebalancing Cost (under-supply),5.5160386001193205,1
@@ -2938,10 +3263,12 @@ case500_goc,24,dc,sarima,Thermal Overload (% elements),0.021203942256573835,1
 case500_goc,24,dc,sarima,Thermal Overload (%),8.04997341839447,1
 case500_goc,24,dc,sarima,Thermal Overload Mean (% of rating),2.3496045727353185,1
 case500_goc,24,dc,sarima,Thermal Overload Worst (% of rating),2.481967177582178,1
+case500_goc,24,dc,sarima,Thermal Overload Worst P99 (% of rating),5.144211114394661,1
 case500_goc,24,dc,sarima,Vm Violation (% elements),0.0,1
 case500_goc,24,dc,sarima,Vm Violation (%),0.0,1
 case500_goc,24,dc,sarima,Vm Violation Mean (p.u.),,0
 case500_goc,24,dc,sarima,Vm Violation Worst (p.u.),,0
+case500_goc,24,dc,sarima,Vm Violation Worst P99 (p.u.),0.0,1
 case500_goc,24,dc,snaive,Diverged (n),0.0,1
 case500_goc,24,dc,snaive,Insufficient Headroom (%),0.0,1
 case500_goc,24,dc,snaive,Insufficient Headroom (n),0.0,1
@@ -2956,6 +3283,7 @@ case500_goc,24,dc,snaive,Qg Violation (% elements),46.98652170743266,1
 case500_goc,24,dc,snaive,Qg Violation (%),100.0,1
 case500_goc,24,dc,snaive,Qg Violation Mean (MVAr),60.628642921960925,1
 case500_goc,24,dc,snaive,Qg Violation Worst (MVAr),393.2980217820044,1
+case500_goc,24,dc,snaive,Qg Violation Worst P99 (MVAr),468.5270184368863,1
 case500_goc,24,dc,snaive,Rebalanced Gap,3.5557010859793756,1
 case500_goc,24,dc,snaive,Rebalancing Cost (over-supply),-2.1103059834674873,1
 case500_goc,24,dc,snaive,Rebalancing Cost (under-supply),6.527597588716621,1
@@ -2965,10 +3293,12 @@ case500_goc,24,dc,snaive,Thermal Overload (% elements),0.019347837668837922,1
 case500_goc,24,dc,snaive,Thermal Overload (%),8.037764735902016,1
 case500_goc,24,dc,snaive,Thermal Overload Mean (% of rating),2.3240706289302926,1
 case500_goc,24,dc,snaive,Thermal Overload Worst (% of rating),2.4449350016728357,1
+case500_goc,24,dc,snaive,Thermal Overload Worst P99 (% of rating),4.7773566817771895,1
 case500_goc,24,dc,snaive,Vm Violation (% elements),0.0,1
 case500_goc,24,dc,snaive,Vm Violation (%),0.0,1
 case500_goc,24,dc,snaive,Vm Violation Mean (p.u.),,0
 case500_goc,24,dc,snaive,Vm Violation Worst (p.u.),,0
+case500_goc,24,dc,snaive,Vm Violation Worst P99 (p.u.),0.0,1
 case500_goc,24,dc,xgb,Diverged (n),0.0,1
 case500_goc,24,dc,xgb,Insufficient Headroom (%),0.0,1
 case500_goc,24,dc,xgb,Insufficient Headroom (n),0.0,1
@@ -2983,6 +3313,7 @@ case500_goc,24,dc,xgb,Qg Violation (% elements),46.88083808734007,1
 case500_goc,24,dc,xgb,Qg Violation (%),100.0,1
 case500_goc,24,dc,xgb,Qg Violation Mean (MVAr),60.57295843526461,1
 case500_goc,24,dc,xgb,Qg Violation Worst (MVAr),391.2698149531473,1
+case500_goc,24,dc,xgb,Qg Violation Worst P99 (MVAr),467.54156703810145,1
 case500_goc,24,dc,xgb,Rebalanced Gap,2.303369350386413,1
 case500_goc,24,dc,xgb,Rebalancing Cost (over-supply),-0.7803830019564099,1
 case500_goc,24,dc,xgb,Rebalancing Cost (under-supply),4.63998885325861,1
@@ -2992,10 +3323,12 @@ case500_goc,24,dc,xgb,Thermal Overload (% elements),0.019185729427500287,1
 case500_goc,24,dc,xgb,Thermal Overload (%),7.262694564940035,1
 case500_goc,24,dc,xgb,Thermal Overload Mean (% of rating),1.7959621770317014,1
 case500_goc,24,dc,xgb,Thermal Overload Worst (% of rating),1.916691543913468,1
+case500_goc,24,dc,xgb,Thermal Overload Worst P99 (% of rating),3.3082714305462004,1
 case500_goc,24,dc,xgb,Vm Violation (% elements),0.0,1
 case500_goc,24,dc,xgb,Vm Violation (%),0.0,1
 case500_goc,24,dc,xgb,Vm Violation Mean (p.u.),,0
 case500_goc,24,dc,xgb,Vm Violation Worst (p.u.),,0
+case500_goc,24,dc,xgb,Vm Violation Worst P99 (p.u.),0.0,1
 case500_goc,24,dc,xgb_tot,Diverged (n),0.0,1
 case500_goc,24,dc,xgb_tot,Insufficient Headroom (%),0.0,1
 case500_goc,24,dc,xgb_tot,Insufficient Headroom (n),0.0,1
@@ -3010,6 +3343,7 @@ case500_goc,24,dc,xgb_tot,Qg Violation (% elements),46.913578840569144,1
 case500_goc,24,dc,xgb_tot,Qg Violation (%),100.0,1
 case500_goc,24,dc,xgb_tot,Qg Violation Mean (MVAr),60.54223529400441,1
 case500_goc,24,dc,xgb_tot,Qg Violation Worst (MVAr),391.2398724528238,1
+case500_goc,24,dc,xgb_tot,Qg Violation Worst P99 (MVAr),467.1864848491364,1
 case500_goc,24,dc,xgb_tot,Rebalanced Gap,2.225168263559721,1
 case500_goc,24,dc,xgb_tot,Rebalancing Cost (over-supply),-0.7703310074215679,1
 case500_goc,24,dc,xgb_tot,Rebalancing Cost (under-supply),4.492753463375538,1
@@ -3019,10 +3353,12 @@ case500_goc,24,dc,xgb_tot,Thermal Overload (% elements),0.01834159822485926,1
 case500_goc,24,dc,xgb_tot,Thermal Overload (%),7.260568172152761,1
 case500_goc,24,dc,xgb_tot,Thermal Overload Mean (% of rating),1.7541507634966313,1
 case500_goc,24,dc,xgb_tot,Thermal Overload Worst (% of rating),1.8033513233379537,1
+case500_goc,24,dc,xgb_tot,Thermal Overload Worst P99 (% of rating),3.083839110038535,1
 case500_goc,24,dc,xgb_tot,Vm Violation (% elements),0.0,1
 case500_goc,24,dc,xgb_tot,Vm Violation (%),0.0,1
 case500_goc,24,dc,xgb_tot,Vm Violation Mean (p.u.),,0
 case500_goc,24,dc,xgb_tot,Vm Violation Worst (p.u.),,0
+case500_goc,24,dc,xgb_tot,Vm Violation Worst P99 (p.u.),0.0,1
 case500_goc,24,e2e,none,Diverged (n),0.0,1
 case500_goc,24,e2e,none,Insufficient Headroom (%),0.0,1
 case500_goc,24,e2e,none,Insufficient Headroom (n),0.0,1
@@ -3037,6 +3373,7 @@ case500_goc,24,e2e,none,Qg Violation (% elements),21.877763443204806,1
 case500_goc,24,e2e,none,Qg Violation (%),100.0,1
 case500_goc,24,e2e,none,Qg Violation Mean (MVAr),4.251092731096724,1
 case500_goc,24,e2e,none,Qg Violation Worst (MVAr),17.19690385819003,1
+case500_goc,24,e2e,none,Qg Violation Worst P99 (MVAr),63.456330930444786,1
 case500_goc,24,e2e,none,Rebalanced Gap,1.2310215710617214,1
 case500_goc,24,e2e,none,Rebalancing Cost (over-supply),-1.343326831326716,1
 case500_goc,24,e2e,none,Rebalancing Cost (under-supply),2.080521453624834,1
@@ -3046,10 +3383,12 @@ case500_goc,24,e2e,none,Thermal Overload (% elements),0.005857393052127216,1
 case500_goc,24,e2e,none,Thermal Overload (%),4.0373526668362585,1
 case500_goc,24,e2e,none,Thermal Overload Mean (% of rating),1.0469348371905183,1
 case500_goc,24,e2e,none,Thermal Overload Worst (% of rating),1.0263396437928083,1
+case500_goc,24,e2e,none,Thermal Overload Worst P99 (% of rating),1.460360239989765,1
 case500_goc,24,e2e,none,Vm Violation (% elements),0.43493589132606364,1
 case500_goc,24,e2e,none,Vm Violation (%),64.29767658780634,1
 case500_goc,24,e2e,none,Vm Violation Mean (p.u.),0.004471768500181038,1
 case500_goc,24,e2e,none,Vm Violation Worst (p.u.),0.005844347623462632,1
+case500_goc,24,e2e,none,Vm Violation Worst P99 (p.u.),0.0143826132509206,1
 case500_goc,24,surrogate,sarima,Diverged (n),0.0,3
 case500_goc,24,surrogate,sarima,Insufficient Headroom (%),0.0,3
 case500_goc,24,surrogate,sarima,Insufficient Headroom (n),0.0,3
@@ -3064,6 +3403,7 @@ case500_goc,24,surrogate,sarima,Qg Violation (% elements),25.99562013714221,3
 case500_goc,24,surrogate,sarima,Qg Violation (%),100.0,3
 case500_goc,24,surrogate,sarima,Qg Violation Mean (MVAr),13.740465140724668,3
 case500_goc,24,surrogate,sarima,Qg Violation Worst (MVAr),57.38729630296177,3
+case500_goc,24,surrogate,sarima,Qg Violation Worst P99 (MVAr),169.0566437306377,3
 case500_goc,24,surrogate,sarima,Rebalanced Gap,2.318159915371504,3
 case500_goc,24,surrogate,sarima,Rebalancing Cost (over-supply),-2.8553934504912952,3
 case500_goc,24,surrogate,sarima,Rebalancing Cost (under-supply),3.3249102511545323,3
@@ -3073,10 +3413,12 @@ case500_goc,24,surrogate,sarima,Thermal Overload (% elements),0.0069365775700299
 case500_goc,24,surrogate,sarima,Thermal Overload (%),3.696379461880865,3
 case500_goc,24,surrogate,sarima,Thermal Overload Mean (% of rating),2.615150445404015,3
 case500_goc,24,surrogate,sarima,Thermal Overload Worst (% of rating),2.660664772742573,3
+case500_goc,24,surrogate,sarima,Thermal Overload Worst P99 (% of rating),3.1251427638754294,3
 case500_goc,24,surrogate,sarima,Vm Violation (% elements),0.06877259773110043,3
 case500_goc,24,surrogate,sarima,Vm Violation (%),16.992713560715604,3
 case500_goc,24,surrogate,sarima,Vm Violation Mean (p.u.),0.003872585787746177,3
 case500_goc,24,surrogate,sarima,Vm Violation Worst (p.u.),0.004096727543208088,3
+case500_goc,24,surrogate,sarima,Vm Violation Worst P99 (p.u.),0.007144060403478332,3
 case500_goc,24,surrogate,snaive,Diverged (n),0.0,3
 case500_goc,24,surrogate,snaive,Insufficient Headroom (%),0.0,3
 case500_goc,24,surrogate,snaive,Insufficient Headroom (n),0.0,3
@@ -3091,6 +3433,7 @@ case500_goc,24,surrogate,snaive,Qg Violation (% elements),26.041559081317313,3
 case500_goc,24,surrogate,snaive,Qg Violation (%),100.0,3
 case500_goc,24,surrogate,snaive,Qg Violation Mean (MVAr),13.933386832172431,3
 case500_goc,24,surrogate,snaive,Qg Violation Worst (MVAr),58.57889637945735,3
+case500_goc,24,surrogate,snaive,Qg Violation Worst P99 (MVAr),168.5826346595497,3
 case500_goc,24,surrogate,snaive,Rebalanced Gap,2.9286185127413216,3
 case500_goc,24,surrogate,snaive,Rebalancing Cost (over-supply),-3.547133401681973,3
 case500_goc,24,surrogate,snaive,Rebalancing Cost (under-supply),4.203079620095755,3
@@ -3100,10 +3443,12 @@ case500_goc,24,surrogate,snaive,Thermal Overload (% elements),0.0062380030165179
 case500_goc,24,surrogate,snaive,Thermal Overload (%),3.436250744237476,3
 case500_goc,24,surrogate,snaive,Thermal Overload Mean (% of rating),2.531338811174327,3
 case500_goc,24,surrogate,snaive,Thermal Overload Worst (% of rating),2.5550563004624376,3
+case500_goc,24,surrogate,snaive,Thermal Overload Worst P99 (% of rating),2.8703334152128064,3
 case500_goc,24,surrogate,snaive,Vm Violation (% elements),0.07117646554617306,3
 case500_goc,24,surrogate,snaive,Vm Violation (%),16.79070624592441,3
 case500_goc,24,surrogate,snaive,Vm Violation Mean (p.u.),0.003893635443310816,3
 case500_goc,24,surrogate,snaive,Vm Violation Worst (p.u.),0.004164277993363076,3
+case500_goc,24,surrogate,snaive,Vm Violation Worst P99 (p.u.),0.007222815938121374,3
 case500_goc,24,surrogate,xgb,Diverged (n),0.0,3
 case500_goc,24,surrogate,xgb,Insufficient Headroom (%),0.0,3
 case500_goc,24,surrogate,xgb,Insufficient Headroom (n),0.0,3
@@ -3118,6 +3463,7 @@ case500_goc,24,surrogate,xgb,Qg Violation (% elements),25.851572847179188,3
 case500_goc,24,surrogate,xgb,Qg Violation (%),100.0,3
 case500_goc,24,surrogate,xgb,Qg Violation Mean (MVAr),13.450690569441555,3
 case500_goc,24,surrogate,xgb,Qg Violation Worst (MVAr),56.199283455273054,3
+case500_goc,24,surrogate,xgb,Qg Violation Worst P99 (MVAr),162.36353289699605,3
 case500_goc,24,surrogate,xgb,Rebalanced Gap,1.957601738429468,3
 case500_goc,24,surrogate,xgb,Rebalancing Cost (over-supply),-2.255134569582454,3
 case500_goc,24,surrogate,xgb,Rebalancing Cost (under-supply),2.5472586496042484,3
@@ -3127,10 +3473,12 @@ case500_goc,24,surrogate,xgb,Thermal Overload (% elements),0.004219195578598488,
 case500_goc,24,surrogate,xgb,Thermal Overload (%),2.6831532987440103,3
 case500_goc,24,surrogate,xgb,Thermal Overload Mean (% of rating),2.4429242786225616,3
 case500_goc,24,surrogate,xgb,Thermal Overload Worst (% of rating),2.4108827053764164,3
+case500_goc,24,surrogate,xgb,Thermal Overload Worst P99 (% of rating),1.4061473253759198,3
 case500_goc,24,surrogate,xgb,Vm Violation (% elements),0.06520754729145177,3
 case500_goc,24,surrogate,xgb,Vm Violation (%),16.889937909330612,3
 case500_goc,24,surrogate,xgb,Vm Violation Mean (p.u.),0.003859421349529376,3
 case500_goc,24,surrogate,xgb,Vm Violation Worst (p.u.),0.004029115718320408,3
+case500_goc,24,surrogate,xgb,Vm Violation Worst P99 (p.u.),0.006999751887684906,3
 case500_goc,24,surrogate,xgb_tot,Diverged (n),0.0,3
 case500_goc,24,surrogate,xgb_tot,Insufficient Headroom (%),0.0,3
 case500_goc,24,surrogate,xgb_tot,Insufficient Headroom (n),0.0,3
@@ -3145,6 +3493,7 @@ case500_goc,24,surrogate,xgb_tot,Qg Violation (% elements),25.83807088583498,3
 case500_goc,24,surrogate,xgb_tot,Qg Violation (%),100.0,3
 case500_goc,24,surrogate,xgb_tot,Qg Violation Mean (MVAr),13.467202862883823,3
 case500_goc,24,surrogate,xgb_tot,Qg Violation Worst (MVAr),56.26186536478482,3
+case500_goc,24,surrogate,xgb_tot,Qg Violation Worst P99 (MVAr),161.14830059698045,3
 case500_goc,24,surrogate,xgb_tot,Rebalanced Gap,1.9076469404550307,3
 case500_goc,24,surrogate,xgb_tot,Rebalancing Cost (over-supply),-2.238733105478179,3
 case500_goc,24,surrogate,xgb_tot,Rebalancing Cost (under-supply),2.426371544508011,3
@@ -3154,7 +3503,9 @@ case500_goc,24,surrogate,xgb_tot,Thermal Overload (% elements),0.003845811130832
 case500_goc,24,surrogate,xgb_tot,Thermal Overload (%),2.569036885826883,3
 case500_goc,24,surrogate,xgb_tot,Thermal Overload Mean (% of rating),2.8135690299463127,3
 case500_goc,24,surrogate,xgb_tot,Thermal Overload Worst (% of rating),2.8073133028108472,3
+case500_goc,24,surrogate,xgb_tot,Thermal Overload Worst P99 (% of rating),1.4492608878755144,3
 case500_goc,24,surrogate,xgb_tot,Vm Violation (% elements),0.06575150823703393,3
 case500_goc,24,surrogate,xgb_tot,Vm Violation (%),16.91722661676732,3
 case500_goc,24,surrogate,xgb_tot,Vm Violation Mean (p.u.),0.0038649626402626823,3
 case500_goc,24,surrogate,xgb_tot,Vm Violation Worst (p.u.),0.004045490884698758,3
+case500_goc,24,surrogate,xgb_tot,Vm Violation Worst P99 (p.u.),0.007036567187856673,3

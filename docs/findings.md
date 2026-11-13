@@ -9,6 +9,9 @@ RETRACTED entries stay so they are not re-proposed. ML-arm findings: `~/gridfm-g
 
 - **Splits**: forecasters + E2E base = 70/15/15; surrogate + E2E tiny = 80/10/10. Chronological — `temporal_split`
   is checked BEFORE `split_by_load_scenario_idx` in the datamodule branch.
+  - 2026-11-13 (audit F1.1, decision mine): surrogate runs up to 2026-10-17 = 80/10/10 (val hours 21024–23651 overlap the
+    test period 22338–26279; checkpoint selection only). Surrogate config switched to 70/15/15 (= forecasters: train
+    0–18395, val 18396–22337); retrain + re-eval pending, thesis text already describes 70/15/15.
 - **HPO**: graphkit has none (no optuna/ray); the GNN val split only drives ReduceLROnPlateau + best-checkpoint
   selection. XGB gets 20 Optuna trials on val RMSE.
 - Horizon > 1 → fewer forecast starts (test idx 85..99: h=1 → 15 starts, h=6 → 10).
@@ -335,6 +338,14 @@ RETRACTED entries stay so they are not re-proposed. ML-arm findings: `~/gridfm-g
       thermal case118 AC 0.20–0.24 (0.3–1.7), E2E 0.23–0.31 (0.4–2.1), DC 0.89–0.97 (3.6–3.9) [% of rating]; Qg AC 6–21
       (0.3–3.5), E2E 10–22 (0.4–4.3), surrogate case500 26 (13), DC 25–47 (10–61) [MVAr]; Vm ≤ 0.57 (≤ 0.0045 p.u.).
       → AC lowest on most Q3 cells; E2E close to AC except case500 Vm; DC far worst on thermal + Qg.
+  - 2026-11-09: **tail per constraint** = P99 over all converged samples of the per-sample worst violation (0 if none),
+    "Worst P99" metrics (romeo 9457317 on expost_pf_v2, 117 arms, gates ok, all 3159 previous values identical).
+    Best forecaster by rebalanced gap; AC / E2E:
+    - Qg [MVAr]: H1 case14 0.6 / 1.2, case118 2.4 / 8.3, case500 13.7 / 29.5; H24 3.4 / 3.4, 12.9 / 12.0, 62.8 / 63.5
+      → E2E's tail ≈ AC's at H24, up to 3.5× at H1 (AC's tail grows with H, E2E's less). Surrogate case500 ~160,
+      DC 37 / 125 / 470 (case-file voltage setpoints), both ≈ constant over H.
+    - Vm case500 [1e-3 p.u.]: AC 2.5 → 8.8 → 13.6, E2E 10.4 → 12.4 → 14.4 (H1 → H6 → H24); elsewhere ≤ 2.4.
+    - Thermal case118 [% of rating above 100]: AC 1.0 / 3.7 / 5.5, E2E 1.6 / 3.7 / 8.0, DC 6.9–9.4; case500 ≤ 3.1.
 
 ## 9. Dispatch structure: why E2E barely beats 2-step on Pg (2026-10-13, `exp1/generate_metrics/dispatch_diag.py`)
 
@@ -516,5 +527,11 @@ RETRACTED entries stay so they are not re-proposed. ML-arm findings: `~/gridfm-g
       the top 10 % of samples give 49–69 % of the MSE gap and the top 1 % 12–25 %, about their share of AC's own MSE
       (52–64 % / 14–20 %, heavy tail). E2E's quantile function lies below AC's at 99–100 % of ranks on case14 h1/h6
       and case118 h6 (whole distribution shifts), at 51–62 % on case500 h6/h24 (gain in the upper half).
+  - 2026-11-09, volume vs allocation with the same arms (per sample: volume |Σ_g ΔPg|, allocation 2·misplaced =
+    Σ_g|ΔPg| − |Σ_g ΔPg|; mean MW, 2-step AC / E2E): E2E volume lower in 9/9 cells (e.g. case118 h6 50.6 / 33.5).
+    Allocation: case14 ≈ 0 for both; case118 0.2–2.1 / 3.5–9.6; case500 0.2 / 46–96 (2-step AC ≈ 0: the OPF puts
+    the whole volume error on the marginal units, all with the same sign). E2E's Pg RMSE is higher exactly in the
+    cells where its extra allocation error outweighs the volume gain: case118 h24 (8.77 / 9.20), case500 h1
+    (3.11 / 3.28). MAE-type split, so it explains the RMSE ranking, not an exact RMSE decomposition.
   - Bug fixed on the way: 2-step ΔD was summed over all forecast samples, Pg over OPF-solved ones (case500 h6/h24
     sarima: 6 no_dispatch) → ΔD now on the solved samples only; affects dD_abs_mw there by ≤ 6/23604 samples.

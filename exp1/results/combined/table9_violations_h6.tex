@@ -1,31 +1,31 @@
 \begin{table}[t]
 \centering
-\caption{Limit violations after the ex-post AC power flow ($H=6$). Per constraint group: share of elements with a violation (\% el.; $Q_g$: without the reference bus) and mean violation per violating element (mean; thermal: \% of the rating above 100\,\%, $V_m$: $10^{-3}$\,p.u., $Q_g$: MVAr); 0 = none, 0.00 = rounds to zero; -- = no violation. 2-step: forecaster with the lowest rebalanced gap per optimizer; ML arms: mean over seeds.}
+\caption{Limit violations after the ex-post AC power flow ($H=6$). Per constraint group: share of elements with a violation (\% el.; $Q_g$: without the reference bus), mean violation per violating element (mean), 99th percentile over test samples of the largest violation per sample, 0 if none (P99); magnitudes: thermal in \% of the rating above 100\,\%, $V_m$ in $10^{-3}$\,p.u., $Q_g$ in MVAr. 0 = none, 0.00 = rounds to zero, -- = no violation. 2-step: forecaster with the lowest rebalanced gap per optimizer; ML arms: mean over seeds.}
 \label{tab:violations_h6}
 \resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{%
-\begin{tabular}{lrrrrrr}
+\begin{tabular}{lrrrrrrrrr}
 \toprule
- & \multicolumn{2}{c}{Thermal (lines)} & \multicolumn{2}{c}{$V_m$ (PQ buses)} & \multicolumn{2}{c}{$Q_g$ (generator buses)} \\
-\cmidrule(lr){2-3} \cmidrule(lr){4-5} \cmidrule(lr){6-7}
-Model & \% el. & mean & \% el. & mean & \% el. & mean \\
+ & \multicolumn{3}{c}{Thermal (lines)} & \multicolumn{3}{c}{$V_m$ (PQ buses)} & \multicolumn{3}{c}{$Q_g$ (generator buses)} \\
+\cmidrule(lr){2-4} \cmidrule(lr){5-7} \cmidrule(lr){8-10}
+Model & \% el. & mean & P99 & \% el. & mean & P99 & \% el. & mean & P99 \\
 \midrule
-\multicolumn{7}{@{}l}{\textit{case14}} \\[2pt]
-SARIMA-AC & 0 & -- & 0.15 & 2.14 & 11.39 & 0.67 \\
-SARIMA-DC & 0 & -- & 0 & -- & 45.07 & 9.89 \\
-SARIMA-Surrogate & 0 & -- & 0.00 & 1.55 & 14.49 & 0.59 \\
-E2E & 0 & -- & 0 & -- & 15.82 & 0.72 \\
+\multicolumn{10}{@{}l}{\textit{case14}} \\[2pt]
+SARIMA-AC & 0 & -- & 0 & 0.15 & 2.14 & 1.29 & 11.39 & 0.67 & 2.63 \\
+SARIMA-DC & 0 & -- & 0 & 0 & -- & 0 & 45.07 & 9.89 & 36.90 \\
+SARIMA-Surrogate & 0 & -- & 0 & 0.00 & 1.55 & 0 & 14.49 & 0.59 & 2.50 \\
+E2E & 0 & -- & 0 & 0 & -- & 0 & 15.82 & 0.72 & 2.31 \\
 \midrule
-\multicolumn{7}{@{}l}{\textit{case118}} \\[2pt]
-XGB-AC & 0.23 & 1.05 & 0.00 & 1.35 & 9.86 & 1.04 \\
-XGB-DC & 0.95 & 3.68 & 0 & -- & 25.12 & 31.83 \\
-XGB-Surrogate & 0.28 & 1.31 & 0 & -- & 10.65 & 1.68 \\
-E2E & 0.28 & 1.01 & 0.00 & 1.22 & 10.63 & 1.79 \\
+\multicolumn{10}{@{}l}{\textit{case118}} \\[2pt]
+XGB-AC & 0.23 & 1.05 & 3.72 & 0.00 & 1.35 & 0 & 9.86 & 1.04 & 7.75 \\
+XGB-DC & 0.95 & 3.68 & 7.98 & 0 & -- & 0 & 25.12 & 31.83 & 125.09 \\
+XGB-Surrogate & 0.28 & 1.31 & 4.26 & 0 & -- & 0 & 10.65 & 1.68 & 11.10 \\
+E2E & 0.28 & 1.01 & 3.65 & 0.00 & 1.22 & 0 & 10.63 & 1.79 & 8.91 \\
 \midrule
-\multicolumn{7}{@{}l}{\textit{case500}} \\[2pt]
-XGB-AC & 0.01 & 0.58 & 0.36 & 2.69 & 18.14 & 2.11 \\
-XGB-DC & 0.02 & 1.57 & 0 & -- & 46.84 & 60.56 \\
-XGB-Surrogate & 0.00 & 1.87 & 0.06 & 3.84 & 25.74 & 13.27 \\
-E2E & 0.00 & 0.66 & 0.51 & 3.84 & 20.33 & 3.21 \\
+\multicolumn{10}{@{}l}{\textit{case500}} \\[2pt]
+XGB-AC & 0.01 & 0.58 & 0.67 & 0.36 & 2.69 & 8.83 & 18.14 & 2.11 & 41.80 \\
+XGB-DC & 0.02 & 1.57 & 2.71 & 0 & -- & 0 & 46.84 & 60.56 & 470.16 \\
+XGB-Surrogate & 0.00 & 1.87 & 1.46 & 0.06 & 3.84 & 6.93 & 25.74 & 13.27 & 159.36 \\
+E2E & 0.00 & 0.66 & 0.82 & 0.51 & 3.84 & 12.42 & 20.33 & 3.21 & 47.52 \\
 \bottomrule
 \end{tabular}}
 \end{table}

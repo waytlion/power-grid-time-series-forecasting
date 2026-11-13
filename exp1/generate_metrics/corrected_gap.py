@@ -50,7 +50,8 @@ def violation_metrics(name, unit, n, worst, total, n_el):
     bad = n > 0
     out = {f"{name} (%)": bad.mean() * 100,
            f"{name} (% elements)": n.sum() / (len(n) * n_el) * 100,
-           f"{name} Worst ({unit})": worst[bad].mean()}
+           f"{name} Worst ({unit})": worst[bad].mean(),
+           f"{name} Worst P99 ({unit})": np.percentile(worst.where(bad, 0), 99)}  # all samples, none = 0
     if total is not None:
         out[f"{name} Mean ({unit})"] = total.sum() / n.sum() if n.sum() else np.nan
     return out
