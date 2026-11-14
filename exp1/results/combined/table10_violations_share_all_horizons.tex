@@ -1,6 +1,6 @@
 \begingroup\footnotesize\setlength{\tabcolsep}{3pt}
 \begin{longtable}{lrrrrrr}
-\caption{Limit violations after the ex-post AC power flow: frequency. Per constraint group: share of test samples with at least one violation (\% smp.), share of elements with a violation (\% el.; $Q_g$: without the reference bus). 0 = none, 0.00 = rounds to zero, -- = no violation. 2-step: forecaster with the lowest rebalanced gap per optimizer; ML arms: mean over seeds.}\label{tab:violations_share_all_horizons}\\
+\caption{Limit violations after the ex-post AC power flow: frequency. Per constraint group: share of test samples with at least one violation (\% smp.); share of elements with a violation (\% el.; $Q_g$: without the reference bus). 0 = none, 0.00 = rounds to zero, -- = no violation or too few. 2-step: forecaster with the lowest rebalanced gap per optimizer; ML arms: shares averaged over seeds.}\label{tab:violations_share_all_horizons}\\
 \toprule
  & \multicolumn{2}{c}{Thermal (lines)} & \multicolumn{2}{c}{$V_m$ (PQ buses)} & \multicolumn{2}{c}{$Q_g$ (generator buses)} \\
 \cmidrule(lr){2-3} \cmidrule(lr){4-5} \cmidrule(lr){6-7}

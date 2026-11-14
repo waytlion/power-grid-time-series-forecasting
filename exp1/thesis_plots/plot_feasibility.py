@@ -14,7 +14,7 @@ import pandas as pd
 
 from colors import ARM_COLORS, OPT_LABELS, OPT_ORDER
 from plot_rmse import (CASE_LABELS, CASE_ORDER, HORIZONS, LS, SLIDE_RC, best_forecaster_per_metric, h_label,
-                       keep_forecasters, optimizer_handles, save)
+                       keep_forecasters, log_ticks, optimizer_handles, save)
 
 IN = "exp1/results/combined/corrected_gap.csv"
 CCDF_IN = "exp1/results/combined/violation_ccdf.csv"
@@ -87,6 +87,7 @@ def plot_ccdf(cc, h):
                 s = sub[sub["optimizer"] == o]
                 ax.plot(s["viol"] * scale, s["exceed"], color=ARM_COLORS[o], ls=LS[o], lw=1.5)
             ax.set(xscale="log", yscale="log", ylim=(1e-4, 1.5), xlabel=xlabel)
+            log_ticks(ax.xaxis)
             for y, label in ((0.5, "median"), (0.01, "P99")):
                 ax.axhline(y, color="0.6", ls=":", lw=0.8)
                 if c == len(CASE_ORDER) - 1:

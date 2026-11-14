@@ -43,7 +43,12 @@ CASE=case14_ieee SEEDS="0 1 2" sbatch scripts/phase1c_surrogate_eval.sbatch   # 
 sbatch scripts/surrogate_smoke.sbatch                    # smoke: surrogate, seed 0, h=1, true forecaster
 sbatch tests/phase1b_1c/phase1b_1c_test.sbatch           # regression: case14, 10% data, vs tests/phase1b_1c/golden/
 python tests/scripts/phase1c_preflight.py                # before phase1c eval runs
-python exp1/generate_metrics/aggregate_results.py ...    # tidy cross-arm CSV; then thesis_plots/make_latex_tables.py
+python exp1/generate_metrics/aggregate_results.py --results-root exp1/results \
+    --mlruns-dir <data>/mlruns/764191360493391788 <data>/mlruns/108250444742230565 \
+    --timing-csv phase1_baseline/output/2019-2021/timing_benchmark.csv \
+    --xgb-tot-timing phase1_baseline/output/2019-2021/xgb_totlag/A2/timing_*_h*.csv \
+    --datakit-out-dir <data>/2019-2021/phase_1c/data_out --out exp1/results/combined/case118_combined.csv
+                                                         # tidy cross-arm CSV (mean/std/count over seeds); then make_latex_tables
 sbatch scripts/backup_pack.sh core                       # backup tar after every final run (from login1.barnard)
 ```
 

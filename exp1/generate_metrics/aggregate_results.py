@@ -280,9 +280,9 @@ def build_timing_rows(quality, forecast_t, datakit_t, ml_timing):
 
 
 def reduce_over_seed(tidy):
-    """mean over seed; deterministic arms (seed=None) pass through as n=1."""
+    """mean + std over seed; deterministic arms (seed=None) pass through as n=1 (std NaN)."""
     keys = ["case", "horizon", "optimizer", "forecaster", "metric"]
-    return tidy.groupby(keys, dropna=False)["value"].agg(["mean", "count"]).reset_index()
+    return tidy.groupby(keys, dropna=False)["value"].agg(["mean", "std", "count"]).reset_index()
 
 
 def main(argv=None):

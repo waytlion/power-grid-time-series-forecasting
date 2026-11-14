@@ -17,6 +17,8 @@
      - row 1: Pd RMSE, 2-step best forecaster vs E2E; E2E vs 2-step in % per horizon
      - row 2: Pg RMSE per optimizer (log y), best forecaster per metric; E2E vs AC in % per horizon
 """
+import math
+
 import pandas as pd
 import matplotlib
 matplotlib.use("Agg")
@@ -162,6 +164,14 @@ X_OF = {h: i for i, h in enumerate(HORIZONS)}
 LS = {o: "--" if o == "surrogate" else "-" for o in OPT_ORDER}  # surrogate ≈ AC on case14/118 -> keep AC visible
 
 
+def log_ticks(axis):
+    """log axis (call after plotting): ticks at 1, 2, 5 x 10^n (only 10^n beyond 3 decades), plain numbers"""
+    lo, hi = sorted(axis.get_view_interval())
+    axis.set_major_locator(LogLocator(subs=(1, 2, 5) if math.log10(hi / lo) <= 3 else (1,)))
+    axis.set_major_formatter(FuncFormatter(lambda v, _: f"{v:g}"))
+    axis.set_minor_formatter(FuncFormatter(lambda v, _: ""))
+
+
 def pct_row(ax, e2e, ref, tag=None):
     """E2E vs ref in % per horizon along the bottom of ax (text ink, identity stays with the marks)
     - e2e, ref: mean per horizon; tag: row label (first column only)"""
@@ -181,9 +191,7 @@ def optimizer_lines(ax, sub, tag=False):
         ax.plot(s["horizon"].map(X_OF), s["mean"], marker="o", ls=LS[o], color=ARM_COLORS[o], lw=2, ms=6)
     ax.set_yscale("log")
     ax.set_ylim(sub["mean"].min() / 3, sub["mean"].max() * 1.6)
-    ax.yaxis.set_major_locator(LogLocator(subs=(1, 2, 5)))
-    ax.yaxis.set_major_formatter(FuncFormatter(lambda v, _: f"{v:g}"))
-    ax.yaxis.set_minor_formatter(FuncFormatter(lambda v, _: ""))
+    log_ticks(ax.yaxis)
     by_h = lambda o: sub[sub["optimizer"] == o].set_index("horizon")["mean"]
     pct_row(ax, by_h("e2e"), by_h("ac"), f"E2E vs {OPT_LABELS['ac']}" if tag else None)
 

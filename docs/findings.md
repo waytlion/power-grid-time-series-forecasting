@@ -348,6 +348,18 @@ RETRACTED entries stay so they are not re-proposed. ML-arm findings: `~/gridfm-g
       DC 37 / 125 / 470 (case-file voltage setpoints), both ≈ constant over H.
     - Vm case500 [1e-3 p.u.]: AC 2.5 → 8.8 → 13.6, E2E 10.4 → 12.4 → 14.4 (H1 → H6 → H24); elsewhere ≤ 2.4.
     - Thermal case118 [% of rating above 100]: AC 1.0 / 3.7 / 5.5, E2E 1.6 / 3.7 / 8.0, DC 6.9–9.4; case500 ≤ 3.1.
+    - SUPERSEDED 2026-11-14 (metric dropped, user chose per-element severity, entry below); numbers stand as measured.
+  - 2026-11-14: **severity per violating element** (expost_pf_v3: romeo 9482941–43, per-sample columns bit-identical to v2
+    in a 200-sample smoke; corrgap 9482950, 117 arms, gates ok, all 3159 previous values identical). Median / P99 over
+    violating elements, ML seeds pooled, only with ≥ 100 elements. H6, best forecaster by rebalanced gap,
+    AC / E2E / surrogate / DC:
+    - Qg [MVAr] median case14 0.42 / 0.59 / 0.39 / 8.40, case118 0.68 / 1.42 / 1.22 / 15.5, case500 0.84 / 1.60 / 7.28
+      / 29.2; P99 case14 3.29 / 2.55 / 2.90 / 35.4, case118 5.43 / 6.84 / 7.61 / 118, case500 18.8 / 22.9 / 106 / 390
+      → E2E: median 1.4–2.1× AC, P99 ≈ AC (−22 … +26 %); DC P99 11–22× AC; surrogate case500 P99 5.6× AC.
+    - Thermal case118 [% above rating] median 0.76 / 0.74 / 1.02 / 3.58, P99 4.53 / 4.19 / 4.77 / 7.64; case500 P99
+      3.39 / 2.26 / 5.22 / 5.12 (≤ 7 % of samples).
+    - Vm case500 [1e-3 p.u.] median 2.09 / 3.25 / 3.87 / –, P99 10.6 / 11.8 / 12.1 / – (DC: none); case14 AC only
+      (median 1.79, P99 6.68); case118 < 100 violating elements in every arm.
 
 ## 9. Dispatch structure: why E2E barely beats 2-step on Pg (2026-10-13, `exp1/generate_metrics/dispatch_diag.py`)
 
@@ -512,6 +524,15 @@ RETRACTED entries stay so they are not re-proposed. ML-arm findings: `~/gridfm-g
     2-step forecast vs E2E s0, h1/h6/h24: case14 0.24/1.05/1.68 vs 0.31/0.85/1.63; case118 0.36/1.58/2.36 vs
     0.71/1.52/2.46; case500 0.52/2.29/3.51 vs 0.81/2.14/3.44 → on load buses E2E is worse only at h1 (all grids)
     and case118 h24; at case500 h6/h24 the all-bus "E2E slightly worse" comes from its zero-load-bus predictions.
+  - 2026-11-14, **MAE ≠ RMSE ranking** (combined CSV, E2E vs best 2-step; Pd: best forecaster per metric, Pg: 2-step AC,
+    best forecaster per metric; ML arms mean over seeds, E2E case500 1 seed). E2E vs 2-step in %, h1/h6/h24:
+    - Pd RMSE case14 +48/−12/−2, case118 +135/−4/+7, case500 +76/+5/+1; Pd MAE +145/+19/+6, +253/+30/+20,
+      +146/+39/+14 → E2E worse in MAE in all 9 cells (all-bus pooling; zero-load buses weigh more in MAE).
+    - Pg RMSE case14 −36/−29/−7, case118 −5/−24/+2, case500 +6/−17/−11; Pg MAE −34/−35/−13, −5/−24/0, +57/+9/+13
+      → case14/118 same as RMSE; case500 E2E worse in MAE at every h. Consistent with allocation (§9 2026-11-09):
+      2-step AC puts its error on few marginal units (large, rare → RMSE), E2E spreads small errors over many units (MAE).
+    - Pg pooling includes units with Pmax = 0 / pinned units: zero error in every arm (all bound Pg to [Pmin, Pmax]) →
+      same factor on every arm's RMSE/MAE, ratios unchanged (not checked numerically).
   - 2026-11-08, **2-step ΣPg error > ΣPd error = network losses**: exact OPF power balance → per sample
     ΣΔPg − ΣΔPd = ΔL (change in losses incl. shunt consumption). Slope of ΔL on ΣΔPd (marginal loss factor):
     case14 0.060–0.091 (R² 0.88–0.93), case118 0.020–0.025 (R² 0.73–0.85), case500 0.016–0.020 (R² 0.43–0.73);
@@ -535,5 +556,12 @@ RETRACTED entries stay so they are not re-proposed. ML-arm findings: `~/gridfm-g
     the whole volume error on the marginal units, all with the same sign). E2E's Pg RMSE is higher exactly in the
     cells where its extra allocation error outweighs the volume gain: case118 h24 (8.77 / 9.20), case500 h1
     (3.11 / 3.28). MAE-type split, so it explains the RMSE ranking, not an exact RMSE decomposition.
+  - 2026-11-14, RMSE vs MAE verdict (logged metrics, seed means, best forecaster per metric, E2E vs best 2-step arm,
+    9 cells, % = E2E / 2-step − 1): Pg RMSE / MAE case500 h1 +6 / +57, h6 −17 / +9, h24 −11 / +13 (flip at h6, h24);
+    case14/118 same sign (e.g. case118 h6 −24 / −24). Pd: E2E worse under MAE in 9/9 (RMSE better in 3/9: case14 h6/h24,
+    case118 h6; e.g. case118 h1 +135 / +253). Vm same verdict 9/9, Va 8/9 (flip case500 h24).
+    Hypothesis (unverified): 2-step AC has exactly zero error on units pinned at limits (and zero-load buses for Pd,
+    pooled in the logged metrics) and concentrates its error on few marginal units; E2E spreads small errors over all
+    → MAE counts the many small errors, RMSE the few large ones. Check: share of units / buses with |error| > tol.
   - Bug fixed on the way: 2-step ΔD was summed over all forecast samples, Pg over OPF-solved ones (case500 h6/h24
     sarima: 6 no_dispatch) → ΔD now on the solved samples only; affects dD_abs_mw there by ≤ 6/23604 samples.

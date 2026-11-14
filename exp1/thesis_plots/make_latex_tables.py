@@ -10,11 +10,13 @@
 # Table 8 (appendix, Q2): gap + supply, all grids and horizons
 # Table 9 (Q3): limit violations after the ex-post AC-PF, all grids, horizon = 6 (frequency + magnitude)
 # Table 10 / 11 (appendix, Q3): violation frequency / magnitude, all grids and horizons
+# Table 12 (appendix, Q1): RMSE of the predicted state, all grids and horizons (forecaster rule of rmse_slide)
 
-"""One-shot: combined CSV (+ corrected_gap.csv) -> 11 LaTeX tables (metrics as columns, models as rows). No config, just run it."""
+"""One-shot: combined CSV (+ corrected_gap.csv) -> 12 LaTeX tables (metrics as columns, models as rows). No config, just run it."""
 import pandas as pd
 
-from plot_rmse import h_label, keep_forecasters
+from colors import OPT_LABELS as ARM_LABELS
+from plot_rmse import best_forecaster_pd, best_forecaster_per_metric, h_label, keep_forecasters
 
 IN = "exp1/results/combined/case118_combined.csv"
 CORR_IN = "exp1/results/combined/corrected_gap.csv"  # exp1/generate_metrics/corrected_gap.py
@@ -352,3 +354,21 @@ q3_table(df, ("smp", "el"), "table10_violations_share_all_horizons", ": frequenc
          "tab:violations_share_all_horizons", **ALL_H)
 q3_table(df, ("mean", "median", "p99"), "table11_violations_magnitude_all_horizons", ": magnitude",
          "tab:violations_magnitude_all_horizons", **ALL_H)
+
+# Table 12 (appendix, Q1): RMSE per arm, all grids and horizons; 2-step forecaster per variable as in rmse_slide
+# - Pd: the shared 2-step forecast (best forecaster, same for all 2-step arms) repeated per 2-step row
+Q1_RMSE = {"RMSE Pd": "$P_d$ [MW]", "Generator Pg RMSE": "$P_g$ [MW]", "Vm RMSE": "$V_m$ [$10^{-3}$\\,p.u.]",
+           "Va RMSE": "$V_a$ [deg]"}
+fc = best_forecaster_pd(df)
+q1 = pd.concat([fc[fc["series"] != "E2E"].assign(optimizer=o) for o in ("ac", "dc", "surrogate")]
+               + [fc[fc["series"] == "E2E"].assign(optimizer="e2e")]).assign(metric="RMSE Pd")
+q1 = pd.concat([q1] + [best_forecaster_per_metric(df, m) for m in list(Q1_RMSE)[1:]], ignore_index=True)
+q1.loc[q1["metric"] == "Vm RMSE", "mean"] *= 1e3
+q1 = q1.assign(model=q1["optimizer"].map(ARM_LABELS), model_order=q1["optimizer"].map(OPT_ORDER),
+               case_label=q1["case"].map(CASE_LABELS))
+write_table(q1, Q1_RMSE, f"{OUT_DIR}/table12_rmse_all_horizons.tex",
+            "RMSE of the predicted operating state per arm across grids and horizons. 2-step: best forecaster per "
+            "variable; $P_d$ is the forecast shared by all 2-step arms. ML arms: mean over seeds (E2E on case500: one "
+            "seed). -- = not predicted (DC-OPF has no voltage magnitudes).",
+            "tab:rmse_all_horizons", group_col="case_label", group_labels=lambda g: g, fmt=lambda v: f"{v:.2f}",
+            **ALL_H)
