@@ -96,7 +96,8 @@ def filter_best_forecaster(d, metric="Mean Optimality Gap"):
 
 
 def write_table(sub, metrics, out_path, caption, label, group_col=None, group_labels=None,
-                sub_group_col=None, sub_group_labels=None, longtable=False, fmt=None, header_groups=None):
+                sub_group_col=None, sub_group_labels=None, longtable=False, fmt=None, header_groups=None,
+                with_std=False):
     """group_col: optional column ('case_label' or 'horizon') whose distinct values get their
     own \\multicolumn section header, so it's clear where each case/horizon's rows start.
     sub_group_col: optional second-level column, emitted as an indented sub-header within
@@ -106,9 +107,13 @@ def write_table(sub, metrics, out_path, caption, label, group_col=None, group_la
     Longtable in \\footnotesize with narrow column padding (no resizebox possible).
     Requires \\usepackage{longtable} (+ booktabs) in the preamble.
     fmt: value -> str (default: rounded to 3 decimals).
-    header_groups: [(title, n_columns), ...] over the metric columns -> extra header row with \\cmidrule"""
+    header_groups: [(title, n_columns), ...] over the metric columns -> extra header row with \\cmidrule
+    with_std: append ' ± std' where a std over seeds exists (> 1 seed); needs fmt"""
     sub = sub[sub["metric"].isin(metrics)].dropna(subset=["mean"]).copy()  # undefined (e.g. no violation) -> "--"
     sub["val"] = sub["mean"].map(fmt) if fmt else sub["mean"].round(3).astype(str)
+    if with_std:
+        has = sub["std"].notna()
+        sub.loc[has, "val"] += " $\\pm$ " + sub.loc[has, "std"].map(fmt)
 
     cols = list(metrics)
     n_cols = 1 + len(cols)
@@ -360,15 +365,16 @@ q3_table(df, ("mean", "median", "p99"), "table11_violations_magnitude_all_horizo
 Q1_RMSE = {"RMSE Pd": "$P_d$ [MW]", "Generator Pg RMSE": "$P_g$ [MW]", "Vm RMSE": "$V_m$ [$10^{-3}$\\,p.u.]",
            "Va RMSE": "$V_a$ [deg]"}
 fc = best_forecaster_pd(df)
-q1 = pd.concat([fc[fc["series"] != "E2E"].assign(optimizer=o) for o in ("ac", "dc", "surrogate")]
-               + [fc[fc["series"] == "E2E"].assign(optimizer="e2e")]).assign(metric="RMSE Pd")
-q1 = pd.concat([q1] + [best_forecaster_per_metric(df, m) for m in list(Q1_RMSE)[1:]], ignore_index=True)
-q1.loc[q1["metric"] == "Vm RMSE", "mean"] *= 1e3
+pd_e2e = best_forecaster_per_metric(df, "RMSE Pd").query("optimizer == 'e2e'")  # keeps its seed std
+q1 = pd.concat([fc[fc["series"] != "E2E"].assign(optimizer=o, metric="RMSE Pd") for o in ("ac", "dc", "surrogate")]
+               + [pd_e2e] + [best_forecaster_per_metric(df, m) for m in list(Q1_RMSE)[1:]], ignore_index=True)
+q1.loc[q1["metric"] == "Vm RMSE", ["mean", "std"]] *= 1e3
 q1 = q1.assign(model=q1["optimizer"].map(ARM_LABELS), model_order=q1["optimizer"].map(OPT_ORDER),
                case_label=q1["case"].map(CASE_LABELS))
 write_table(q1, Q1_RMSE, f"{OUT_DIR}/table12_rmse_all_horizons.tex",
             "RMSE of the predicted operating state per arm across grids and horizons. 2-step: best forecaster per "
-            "variable; $P_d$ is the forecast shared by all 2-step arms. ML arms: mean over seeds (E2E on case500: one "
-            "seed). -- = not predicted (DC-OPF has no voltage magnitudes).",
+            "variable; $P_d$ is the forecast shared by all 2-step arms. ML arms: mean $\\pm$ std over three seeds (E2E "
+            "on case500: two seeds at $H=1$, one seed at $H=6$ and $H=24$, no std). -- = not predicted (DC-OPF has no "
+            "voltage magnitudes).",
             "tab:rmse_all_horizons", group_col="case_label", group_labels=lambda g: g, fmt=lambda v: f"{v:.2f}",
-            **ALL_H)
+            with_std=True, **ALL_H)

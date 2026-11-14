@@ -557,11 +557,16 @@ RETRACTED entries stay so they are not re-proposed. ML-arm findings: `~/gridfm-g
     cells where its extra allocation error outweighs the volume gain: case118 h24 (8.77 / 9.20), case500 h1
     (3.11 / 3.28). MAE-type split, so it explains the RMSE ranking, not an exact RMSE decomposition.
   - 2026-11-14, RMSE vs MAE verdict (logged metrics, seed means, best forecaster per metric, E2E vs best 2-step arm,
-    9 cells, % = E2E / 2-step − 1): Pg RMSE / MAE case500 h1 +6 / +57, h6 −17 / +9, h24 −11 / +13 (flip at h6, h24);
+    9 cells, % = E2E / 2-step − 1): Pg RMSE / MAE case500 h1 +6 / +58 (2 seeds, see next entry), h6 −17 / +9,
+    h24 −11 / +13 (flip at h6, h24);
     case14/118 same sign (e.g. case118 h6 −24 / −24). Pd: E2E worse under MAE in 9/9 (RMSE better in 3/9: case14 h6/h24,
     case118 h6; e.g. case118 h1 +135 / +253). Vm same verdict 9/9, Va 8/9 (flip case500 h24).
     Hypothesis (unverified): 2-step AC has exactly zero error on units pinned at limits (and zero-load buses for Pd,
     pooled in the logged metrics) and concentrates its error on few marginal units; E2E spreads small errors over all
     → MAE counts the many small errors, RMSE the few large ones. Check: share of units / buses with |error| > tol.
+  - 2026-11-14, combined CSV re-aggregated with seed std (romeo 9483097, command now in CLAUDE.md): 6314/6367 rows
+    bit-identical; the other 53 = E2E case500 h1, which now has 2 seeds (old CSV of 2026-10-24: 1, s1 finished later;
+    corrected_gap already used 2). Shift < 2 %: Pg RMSE 3.279 → 3.286 ± 0.009, Pd RMSE 0.680 → 0.692 ± 0.017,
+    mean opt. gap 0.494 → 0.490 %. Seeds: E2E + surrogate 3 everywhere, except E2E case500 2 / 1 / 1 (h1 / h6 / h24).
   - Bug fixed on the way: 2-step ΔD was summed over all forecast samples, Pg over OPF-solved ones (case500 h6/h24
     sarima: 6 no_dispatch) → ΔD now on the solved samples only; affects dD_abs_mw there by ≤ 6/23604 samples.
