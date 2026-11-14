@@ -16,6 +16,8 @@ losses included); its PF-solved dispatch P̃ is the rebalanced dispatch, re-cost
   (in-service lines, PQ buses, non-REF gen buses): share of samples / of elements with a violation, worst violation
   per violating sample (mean), violation per violating element (mean; needs the *_sum columns, expost_pf ≥ 2026-11-01)
   - thermal magnitudes in % of the rating above 100 %
+  - per violating element, ML seeds pooled (needs h<H>/elements/, expost_pf ≥ v3): median + P99 (≥ MIN_EL elements)
+    and the exceedance curve (share of violating elements above a violation) -> --ccdf-out
 - ΔP = ΣP̂ - ΣP* (MW, < 0 = short)
 - arms: exact -> "ac", dc (DC-OPF dispatch, case-file generator voltage setpoints), surrogate, e2e (seed per file)
 Gate: the raw |gap| recomputed from the ex-post costs must reproduce the logged Mean Optimality Gap
@@ -33,6 +35,10 @@ from gridfm_datakit.utils.idx_gen import GEN_BUS
 KEY = ["case", "horizon", "optimizer", "forecaster"]
 OPT = {"exact": "ac", "dc": "dc", "surrogate": "surrogate", "e2e": "e2e"}
 EXPOST = Path("/data/horse/ws/tibo990i-thesis_data/2019-2021/phase_1c/expost_pf")
+GROUPS = {"thermal": ("Thermal Overload", "% of rating", 100), "vm": ("Vm Violation", "p.u.", 1),
+          "qg": ("Qg Violation", "MVAr", 1)}  # element group -> (metric name, unit, scale of the stored violation)
+MIN_EL = 100  # violating elements needed for a quantile
+LEVELS = np.logspace(0, -4, 81)  # exceedance-curve levels (share of violating elements above)
 
 
 def element_counts(case):
@@ -50,11 +56,24 @@ def violation_metrics(name, unit, n, worst, total, n_el):
     bad = n > 0
     out = {f"{name} (%)": bad.mean() * 100,
            f"{name} (% elements)": n.sum() / (len(n) * n_el) * 100,
-           f"{name} Worst ({unit})": worst[bad].mean(),
-           f"{name} Worst P99 ({unit})": np.percentile(worst.where(bad, 0), 99)}  # all samples, none = 0
+           f"{name} Worst ({unit})": worst[bad].mean()}
     if total is not None:
         out[f"{name} Mean ({unit})"] = total.sum() / n.sum() if n.sum() else np.nan
     return out
+
+
+def element_stats(e):
+    """violating elements of one arm (seeds pooled) -> median / P99 per group + exceedance-curve rows"""
+    met, ccdf = {}, []
+    for g, (name, unit, scale) in GROUPS.items():
+        v = e.viol[e.group == g].to_numpy() * scale
+        ok = len(v) >= MIN_EL
+        met |= {f"{name} Median ({unit})": np.median(v) if ok else np.nan,
+                f"{name} P99 ({unit})": np.quantile(v, 0.99) if ok else np.nan}
+        if ok:
+            lv = LEVELS[LEVELS * len(v) >= 1]  # >= 1 element above each level
+            ccdf += [dict(group=g, n=len(v), exceed=x, viol=q) for x, q in zip(lv, np.quantile(v, 1 - lv))]
+    return met, ccdf
 
 
 def gap_metrics(d, n_el):
@@ -97,11 +116,12 @@ def main():
     ap.add_argument("--cases", nargs="+", default=["case118_ieee"])
     ap.add_argument("--seeds", nargs="+", type=int, default=[0])
     ap.add_argument("--out", type=Path, default=Path("exp1/results/combined/corrected_gap.csv"))
+    ap.add_argument("--ccdf-out", type=Path, default=Path("exp1/results/combined/violation_ccdf.csv"))
     args = ap.parse_args()
 
     comb = pd.read_csv(args.combined)
     logged = comb[comb["metric"] == "Mean Optimality Gap"].set_index(KEY)["mean"]
-    out = []
+    out, pooled = [], {}  # pooled: key -> element tables of all seeds
     for case in args.cases:
         n_el = element_counts(case)
         print(f"[{case}] element sets: {n_el}")
@@ -122,7 +142,16 @@ def main():
             if abs(met["Optimality Gap (recomputed)"] - ref) > 1e-3:
                 raise ValueError(f"{p}: recomputed gap {met['Optimality Gap (recomputed)']:.4f} != logged {ref:.4f}")
             out += [dict(zip(KEY, key), metric=k, mean=v) for k, v in met.items()]
+            if (el := p.parent / "elements" / p.name).exists():
+                pooled.setdefault(key, []).append(pd.read_parquet(el, columns=["group", "viol"]))
     out = pd.DataFrame(out).groupby(KEY + ["metric"], as_index=False)["mean"].agg(["mean", "count"])  # over seeds
+    if pooled:
+        stats = {key: element_stats(pd.concat(els)) for key, els in pooled.items()}
+        q = [dict(zip(KEY, key), metric=m, mean=v, count=len(pooled[key])) for key, (met, _) in stats.items()
+             for m, v in met.items()]
+        out = pd.concat([out, pd.DataFrame(q)], ignore_index=True)
+        pd.DataFrame([dict(zip(KEY, key), **r) for key, (_, rows) in stats.items() for r in rows]).to_csv(
+            args.ccdf_out, index=False)
     out.to_csv(args.out, index=False)
     print(f"Wrote {args.out} ({out.groupby(KEY).ngroups} arms, all reproduce the logged gap)")
 

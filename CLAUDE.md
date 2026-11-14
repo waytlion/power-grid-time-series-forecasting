@@ -15,8 +15,10 @@ exp1/generate_metrics/
   compare.py             exact + 2-step arms → results/<run>/<forecaster>/<case>_metrics.csv (AC + DC in one CSV, 'AC '/'DC ' prefix)
   aggregate_results.py   all arms from their native locations (compare.py tree + mlruns eval CSVs) → one tidy long CSV
   metrics.py, loaders.py, config.py   shared metric helpers / datakit loaders / paths
-  expost_pf.py           ex-post AC-PF (pypowsybl, distributed slack): PF-solved dispatch = rebalanced dispatch + feasibility
-  corrected_gap.py       rebalanced opt gap + Q3 shares from the expost_pf outputs (AC/DC 2-step, surrogate, E2E)
+  expost_pf.py           ex-post AC-PF (pypowsybl, distributed slack): PF-solved dispatch = rebalanced dispatch + feasibility;
+                         h<H>/elements/: one row per violating element (≥ expost_pf_v3)
+  corrected_gap.py       rebalanced opt gap + Q3 shares from the expost_pf outputs (AC/DC 2-step, surrogate, E2E);
+                         per-element median/P99 + violation_ccdf.csv (exceedance curves) from elements/
   dispatch_diag.py       diagnostics: Pg error by unit class (2-step vs E2E), Pg vs total demand, cross-bus Pd error corr
 exp1/ml_surrogate/build_eval_set.py   forecast profiles → graphkit HeteroData eval sets (only Pd_forecast + Qd_derived in bus.x)
 exp1/thesis_plots/       ALL thesis figures/tables (make_latex_tables.py, plot_*.py, run_residual_pipeline_h1.py,

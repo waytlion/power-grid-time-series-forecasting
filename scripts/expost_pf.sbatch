@@ -12,7 +12,8 @@
 # Submit from Thesis_Repo root; override from env, e.g.
 #   CASE=case500_goc sbatch scripts/expost_pf.sbatch
 #   CASE=case118_ieee HORIZONS=6 LIMIT=200 sbatch scripts/expost_pf.sbatch     # smoke test
-# Output: /data/horse/ws/tibo990i-thesis_data/2019-2021/phase_1c/expost_pf/<case>/h<H>/<arm>[_<fc>][_s<seed>].parquet
+# Output: ${OUT_DIR:-/data/horse/ws/tibo990i-thesis_data/2019-2021/phase_1c/expost_pf}/<case>/h<H>/<arm>[_<fc>][_s<seed>].parquet
+#         + h<H>/elements/<same name>.parquet (one row per violating element)
 set -euo pipefail
 export LD_PRELOAD="${LD_PRELOAD-}"
 export LD_LIBRARY_PATH="${LD_LIBRARY_PATH-}"
@@ -23,6 +24,7 @@ ARMS=${ARMS:-"label exact dc surrogate e2e"}
 FORECASTERS=${FORECASTERS:-"true xgb sarima snaive"}
 SEEDS=${SEEDS:-0}
 LIMIT=${LIMIT:-}
+OUT_DIR=${OUT_DIR:-}
 
 set +u
 module --force purge
@@ -35,4 +37,4 @@ source "$SLURM_SUBMIT_DIR/../thesis_env/bin/activate"
 mkdir -p logs
 
 python -u exp1/generate_metrics/expost_pf.py --case "$CASE" --horizons $HORIZONS --arms $ARMS \
-    --forecasters $FORECASTERS --seeds $SEEDS --workers "$SLURM_CPUS_PER_TASK" ${LIMIT:+--limit $LIMIT}
+    --forecasters $FORECASTERS --seeds $SEEDS --workers "$SLURM_CPUS_PER_TASK" ${LIMIT:+--limit $LIMIT} ${OUT_DIR:+--out-dir $OUT_DIR}

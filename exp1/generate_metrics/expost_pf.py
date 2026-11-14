@@ -8,7 +8,7 @@ What?
            -> PF-solved dispatch P̃ = rebalanced dispatch, single source for cost and feasibility
         2. limits on the PF solution: convergence, thermal, PQ voltage, bus-level Qg, units at/beyond P limits,
            active power mismatch left on the slack bus; thermal / Vm / Qg each as count, worst, and sum over the
-           violating elements
+           violating elements; every violating element -> elements/<tag>.parquet (one row per element)
         3. costs C(P̂), C(P̃), C(P*) per sample -> γ_reb, R in corrected_gap.py
 Why?
     - replaces realized-space residuals (dispatch frozen, true load inserted), which are no physical operating point
@@ -242,6 +242,9 @@ def _solve(task):
     at_lim = (pmax - pmin > TOL_P) & ((p >= pmax - TOL_P) | (p <= pmin + TOL_P))
     beyond = np.maximum(p - pmax, 0) + np.maximum(pmin - p, 0)
     t_bad, q_bad = loading > 1 + TOL_REL, q_viol > TOL_GEN
+    groups = ((_NET.idx_branches_in_service[t_bad], loading[t_bad] - 1),  # same units as the *_sum columns
+              (np.flatnonzero(pq_)[v_bad], v_viol[v_bad]),
+              (np.flatnonzero(gen_bus)[q_bad], q_viol[q_bad]))
 
     return dict(
         status="converged",
@@ -258,13 +261,15 @@ def _solve(task):
         qg_sum_mvar=q_viol[q_bad].sum(),
         pg_lim_n=int(at_lim.sum()),
         pg_beyond_n=int((beyond > TOL_P).sum()),
+        el=np.concatenate([np.column_stack((np.full(len(i), g), i, x)) for g, (i, x) in enumerate(groups)]),
     )
 
 
 # ---------------------------------------------------------------- driver
 
 def evaluate(pool, case, pred, limit=None):
-    """align with truth, solve PF with distributed slack, cost P̂ / P̃ / P* -> one row per sample"""
+    """align with truth, solve PF with distributed slack, cost P̂ / P̃ / P* -> one row per sample
+    + one row per violating element (group thermal / vm / qg, element = branch / bus index, viol as *_sum)"""
     order = np.lexsort((pred["k"], pred["target"]))
     if limit:  # smoke test: evenly spread subset
         order = order[np.linspace(0, len(order) - 1, min(limit, len(order))).astype(int)]
@@ -279,6 +284,13 @@ def evaluate(pool, case, pred, limit=None):
 
     res = pool.map(_solve, [(gt["pd"][j], gt["qd"][j], pg[r], vm[r]) for r, j in enumerate(i)], chunksize=16)
     pg_pf = np.array([r.pop("pg_pf", np.full(pg.shape[1], np.nan)) for r in res])
+    el = [r.pop("el", np.empty((0, 3))) for r in res]
+    n = [len(e) for e in el]
+    elements = pd.DataFrame(np.concatenate(el), columns=["group", "element", "viol"])
+    elements = elements.astype({"group": int, "element": int}).assign(
+        group=lambda e: e.group.map(dict(enumerate(("thermal", "vm", "qg")))))
+    elements.insert(0, "target", np.repeat(target, n))
+    elements.insert(1, "k", np.repeat(k, n))
     cost = lambda p: (gt["c0"] + gt["c1"] * p + gt["c2"] * p ** 2).sum(1)
 
     df = pd.DataFrame(dict(
@@ -291,7 +303,7 @@ def evaluate(pool, case, pred, limit=None):
         miss = pd.DataFrame(dict(target=pred["missing"][0], k=pred["missing"][1], status="no_dispatch"))
         df = pd.concat([df, miss], ignore_index=True)
     df["slack_mismatch_flag"] = df.slack_mismatch_mw.abs() > TOL_P
-    return df
+    return df, elements
 
 
 def summarize(tag, df):
@@ -353,7 +365,7 @@ def main():
                         raise FileNotFoundError(f"no run with state dump named {names}")
                     print(f"[{a.case} h{H} {tag}] run {run}", flush=True)
                     pred = load_ml(arm, a.case, H, run)
-                df = evaluate(pool, a.case, pred, a.limit)
+                df, elements = evaluate(pool, a.case, pred, a.limit)
             except (FileNotFoundError, AssertionError) as e:  # missing inputs / failed alignment check
                 print(f"SKIP [{a.case} h{H} {tag}]: {e!r}", flush=True)
                 continue
@@ -363,6 +375,8 @@ def main():
                 df.insert(pos, col, val)
             out.parent.mkdir(parents=True, exist_ok=True)
             df.to_parquet(out, index=False)
+            (out.parent / "elements").mkdir(exist_ok=True)
+            elements.to_parquet(out.parent / "elements" / out.name, index=False)
             summarize(f"{a.case} h{H} {tag}", df)
 
 

@@ -6,15 +6,23 @@
   - feasibility_slide (thermal): case14 omitted (0 everywhere)
   - zero-checks (diverged PF, insufficient headroom, Pg out of limits, case14 thermal) asserted here, reported as a
     sentence in the results text (MA-tex results.tex Q3), not on the figure
+  - violation_ccdf_h<H>: exceedance curve of the violation per violating element (seeds pooled, corrected_gap.py
+    --ccdf-out); rows = constraint group, cols = case, line = arm; median / P99 where a curve crosses 0.5 / 0.01
 """
 import matplotlib.pyplot as plt
 import pandas as pd
 
 from colors import ARM_COLORS, OPT_LABELS, OPT_ORDER
-from plot_rmse import (CASE_LABELS, CASE_ORDER, HORIZONS, SLIDE_RC, best_forecaster_per_metric, h_label,
-                       keep_forecasters, save)
+from plot_rmse import (CASE_LABELS, CASE_ORDER, HORIZONS, LS, SLIDE_RC, best_forecaster_per_metric, h_label,
+                       keep_forecasters, optimizer_handles, save)
 
 IN = "exp1/results/combined/corrected_gap.csv"
+CCDF_IN = "exp1/results/combined/violation_ccdf.csv"
+CCDF_ROWS = [  # element group, x label, display scale of the stored violation
+    ("thermal", "loading above rating [%]", 1),
+    ("vm", "$V_m$ violation [$10^{-3}$ p.u.]", 1e3),
+    ("qg", "$Q_g$ violation [MVAr]", 1),
+]
 ZERO = ["Diverged (n)", "Insufficient Headroom (n)", "Pred. Pg out of limits (%)"]
 KEY = ["case", "horizon", "optimizer", "forecaster"]
 GROUPS = [  # slide, constraint, share metric, worst metric, worst unit, worst format, cases
@@ -63,13 +71,45 @@ def table_slide(on, name, group, elements, metric_unit, unit, fmt, cases):
         save(fig, name)
 
 
+def plot_ccdf(cc, h):
+    """exceedance curves per violating element at horizon h; cc = violation_ccdf rows of the best forecasters"""
+    fig, axes = plt.subplots(len(CCDF_ROWS), len(CASE_ORDER), figsize=(9, 7.5), sharey=True)
+    for r, (g, xlabel, scale) in enumerate(CCDF_ROWS):
+        for c, case in enumerate(CASE_ORDER):
+            ax, sub = axes[r][c], cc[(cc["case"] == case) & (cc["horizon"] == h) & (cc["group"] == g)]
+            if r == 0:
+                ax.set_title(CASE_LABELS[case])
+            if sub.empty:  # no arm with >= MIN_EL violating elements
+                ax.text(0.5, 0.5, "no or too few violations", ha="center", transform=ax.transAxes, color="0.45")
+                ax.set_xticks([])
+                continue
+            for o in OPT_ORDER:
+                s = sub[sub["optimizer"] == o]
+                ax.plot(s["viol"] * scale, s["exceed"], color=ARM_COLORS[o], ls=LS[o], lw=1.5)
+            ax.set(xscale="log", yscale="log", ylim=(1e-4, 1.5), xlabel=xlabel)
+            for y, label in ((0.5, "median"), (0.01, "P99")):
+                ax.axhline(y, color="0.6", ls=":", lw=0.8)
+                if c == len(CASE_ORDER) - 1:
+                    ax.text(1.02, y, label, transform=ax.get_yaxis_transform(), va="center", fontsize=8, color="0.45")
+            ax.grid(color="0.92", lw=0.5)
+        axes[r][0].set_ylabel("share of violating\nelements above $x$")
+    fig.legend(handles=optimizer_handles(), loc="upper center", ncol=len(OPT_ORDER), frameon=False,
+               bbox_to_anchor=(0.5, 1.02))
+    fig.tight_layout(rect=(0, 0, 1, 0.96))
+    save(fig, f"violation_ccdf_h{h}")
+
+
 def main():
     df = keep_forecasters(pd.read_csv(IN))
     assert df[df["metric"].isin(ZERO)]["mean"].eq(0).all(), "results-text zero-check no longer true"
     assert df[(df["metric"] == "Thermal Overload (%)") & (df["case"] == "case14_ieee")]["mean"].eq(0).all()
-    on = df.merge(best_forecaster_per_metric(df, "Rebalanced Gap")[KEY], on=KEY)
+    best = best_forecaster_per_metric(df, "Rebalanced Gap")[KEY]
+    on = df.merge(best, on=KEY)
     for g in GROUPS:
         table_slide(on, *g)
+    cc = pd.read_csv(CCDF_IN).merge(best, on=KEY)
+    for h in HORIZONS:
+        plot_ccdf(cc, h)
 
 
 if __name__ == "__main__":

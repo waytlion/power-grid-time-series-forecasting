@@ -219,6 +219,8 @@ RETRACTED entries stay so they are not re-proposed. ML-arm findings: `~/gridfm-g
       violated at 45 % of generator buses, 100 % of samples, H=6). DC's Vm / Qg columns reflect the case-file
       setpoints, not the DC dispatch. AC uses its OPF Vm setpoints (cost-optimal, typically near Vmax for lower losses
       → PQ buses close to the bound; not checked on our data).
+    - 2026-11-14: 1.0 p.u. = the flat voltage profile DC-OPF itself assumes → DC's Vm / Qg results are a consequence
+      of the DC approximation, not an evaluation artifact; case-file setpoints kept (training-mean schedule dropped).
   - Reporting (corrected_gap): thermal overload share, insufficient headroom (% and n), diverged / no_dispatch
     counts. A violation-free γ_reb was tested (numbers below) and dropped the same day: not reported.
 - 2026-10-13: case118 h1 test, all arms, final settings. n = 3942 each (E2E 3934); capella srun, 2 CPUs, 5 m 46 s.
