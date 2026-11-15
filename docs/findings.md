@@ -31,6 +31,16 @@ RETRACTED entries stay so they are not re-proposed. ML-arm findings: `~/gridfm-g
 - Surrogate GNN training time is NOT logged → surrogate "Train" column = forecaster training time only.
 - Case for timing joins comes from the `<network>` path component, so several networks under one
   `--datakit-out-dir` aggregate correctly.
+- 2026-11-14, H=1 timing per dispatch decision (combined CSV of 2026-11-14; ML = batched GPU throughput, AC/DC =
+  sequential CPU solves; range over the load forecasts fed to the OPF), case14 / case118 / case500:
+  - OPF step: AC 9 ms / 0.10–0.14 s / 0.79–1.08 s; DC 2 / 12–14 / 55–73 ms; surrogate forward 0.6–2.1 / 0.9–1.9 /
+    1.4 ms. E2E incl. its forecast: 2.0 / 14.6 / 47.2 ms → vs one AC solve ≈ 4–5× / 7–9× / 17–23× faster (grows with
+    grid size); comparable to DC, slower than the surrogate's forward pass.
+  - Forecast step (full pipeline − OPF step): XGB 16 / 3 / 4 ms, SARIMA 72 / 397 / 2634 ms (dominates its pipelines).
+  - Training (min): E2E 69 / 393 / 1527; XGB 0.9 / 5.9 / 20; SARIMA 0.4 / 1.2 / 4.3; surrogate not logged.
+  - Hardware (sbatch configs + ZIH compendium): AC/DC solves on Barnard (exclusive node, 2× Intel Xeon Platinum 8470,
+    104 cores; phase1c.sbatch); E2E train + eval on Capella with 4× H100-SXM5 (graphkit train.sh, --gres=gpu:4);
+    surrogate train + eval on 1× H100 (train_surrogate.sh, phase1c_surrogate_eval.sbatch, --gres=gpu:1).
 
 ## 3. Forecasters (phase 1b)
 
@@ -360,6 +370,15 @@ RETRACTED entries stay so they are not re-proposed. ML-arm findings: `~/gridfm-g
       3.39 / 2.26 / 5.22 / 5.12 (≤ 7 % of samples).
     - Vm case500 [1e-3 p.u.] median 2.09 / 3.25 / 3.87 / –, P99 10.6 / 11.8 / 12.1 / – (DC: none); case14 AC only
       (median 1.79, P99 6.68); case118 < 100 violating elements in every arm.
+- 2026-11-14, gap significance E2E vs 2-step AC (best forecaster by the metric, treated as fixed): corrected_gap per
+  seed (romeo 9483961, `--seeds 0/1/2` on expost_pf_v3; per-seed means == committed corrected_gap.csv), one-sample
+  t-test, n = 3, df = 2. Rebalanced gap E2E / AC (%): case118 0.082 / 0.102 (p 0.057), 0.221 / 0.327 (p 0.001),
+  0.473 / 0.572 (p 0.005); case14 0.085 / 0.114 (p 0.073), 0.306 / 0.444 (p 0.030), 0.724 / 0.723 (p 0.96)
+  → significant in 3/6 (H=6 both, case118 H=24); H=1 lower but n.s. (seed std 0.009 / 0.014 vs gaps ≈ 0.1 %).
+  No-refund gap: significant in 6/6 (−8 … −40 %, p ≤ 0.025). case500: 2 / 1 / 1 seeds, not testable.
+- 2026-11-15, rebalancing volume = mean |ΔP| = |ΣP̂ − ΣP*| (table-8 selection, best forecaster by rebalanced gap):
+  E2E lowest of all arms in 9/9 cells; vs 2-step AC case14 0.7 / 2.9 / 6.9 vs 1.1 / 4.7 / 7.9 MW, case118 11.0 /
+  33.9 / 81.4 vs 14.9 / 50.6 / 89.0, case500 66.1 / 187.6 / 379.3 vs 71.9 / 235.5 / 420.9 (H1 / H6 / H24).
 
 ## 9. Dispatch structure: why E2E barely beats 2-step on Pg (2026-10-13, `exp1/generate_metrics/dispatch_diag.py`)
 
@@ -568,5 +587,36 @@ RETRACTED entries stay so they are not re-proposed. ML-arm findings: `~/gridfm-g
     bit-identical; the other 53 = E2E case500 h1, which now has 2 seeds (old CSV of 2026-10-24: 1, s1 finished later;
     corrected_gap already used 2). Shift < 2 %: Pg RMSE 3.279 → 3.286 ± 0.009, Pd RMSE 0.680 → 0.692 ± 0.017,
     mean opt. gap 0.494 → 0.490 %. Seeds: E2E + surrogate 3 everywhere, except E2E case500 2 / 1 / 1 (h1 / h6 / h24).
+  - 2026-11-14, E2E's Pd output as a 2-step load forecaster (control route E2E Pd → AC-OPF, seed 0, `_e2e_pd/phaseB_*`)
+    vs best 2-step AC (Pg RMSE, xgb_tot / sarima): the route would be the best 2-step AC only in case14 h6 (2.21 vs
+    2.81 MW); E2E's Pg output (1.99, seed mean) still beats it (−10 % instead of −29 %). Other 8 cells: route worse
+    than the best 2-step AC (e.g. case118 h6 5.61 vs 5.35, case500 h24 12.87 vs 12.77) → story unchanged.
+  - 2026-11-14, forecaster choice in rmse_slide (best per variable AND per optimizer): the Pg-best 2-step AC forecaster
+    differs from the Pd-best (lowest per-bus Pd RMSE) in 3/9 cells (case14 h6, case118 h6, case500 h1: Pd SARIMA, Pg
+    xgb_tot). In 9/9 cells the Pg-best (sarima vs xgb_tot, `_dispatch_diag/step1_split`) is the one with the smaller
+    summed-load error RMSE (e.g. case118 h6 dD 71.9 vs 92.6 MW → Pg 5.35 vs 6.80) → Pg follows the total load error,
+    not the per-bus Pd error (supports the Q1 mechanism).
+  - 2026-11-14, summed-load-error RMSE E2E (s0) vs best 2-step (`step1_split` dD_rmse_mw): E2E smaller in 2/9 cells,
+    case14 h6 (4.6 vs 5.8 MW) and case500 h6 (321 vs 335); larger or equal elsewhere. There, E2E's Pg gain could stem
+    from its load forecast; the control rules it out (route Pg 2.21 vs E2E 1.97, 8.29 vs 6.84 MW).
+  - 2026-11-14, why E2E's cost advantage (raw / rebalanced / no-refund gap lowest in 9/9 cells, rebalanced case14 h24
+    a tie 0.724 vs 0.723 %) is more consistent than its Pg RMSE advantage (7/9): raw-gap split (`step1_split`, proxy =
+    true optimal dispatch of the hour with the nearest total) AC / E2E: volume cost gap_volume 0.56–5.63 / 0.50–5.00 %,
+    E2E lower in 9/9; allocation cost gap_alloc ≤ 0.19 / ≤ 0.12 % although E2E misallocates far more MW (case500
+    46–96 vs 0.2 MW) → cost is dominated by the volume error; E2E's misallocations are cheap (between similarly priced
+    units), while Pg RMSE weights every misplaced MW alike. Proxy is noisy (AC gap_alloc 0.18 % on case118 at ≈ 0 MW).
+    Rebalancing ∝ Pmax is cost-blind → its cost grows with |volume| → smaller E2E volume error = cheaper correction.
+  - 2026-11-15, voltages: two error sources (load-driven vs learning the physics). RMSE H1 / H6 / H24, 2-step AC vs E2E
+    (best forecaster per metric, seed means): |V| [1e-3 p.u.] case14 0.30/1.04/1.72 vs 2.29/3.70/6.42, case118
+    0.27/0.89/1.40 vs 4.12/4.46/7.35, case500 0.79/2.41/3.67 vs 4.91/4.92/6.04; θ [deg] case14 0.07/0.29/0.49 vs
+    0.18/0.41/0.65, case118 0.09/0.36/0.59 vs 0.43/0.55/0.73, case500 0.45/1.31/1.99 vs 1.24/1.82/1.96. 2-step AC grows
+    ×4.4–6.7 H1→H24 (load error ×6.6–7.1; Qd ∝ Pd, so |V| follows the load), E2E only ×1.2–3.5 → E2E's voltage error
+    is dominated by learning the physics (already 2.3–4.9e-3 p.u. at H1), 2-step AC's by the (small) load error.
+    Surrogate |V| +166 … +4094 % vs 2-step AC.
+  - 2026-11-14, Pg significance E2E vs 2-step AC (deterministic): one-sample t-test over E2E seeds, n = 3, df = 2,
+    significant at 5 % if |diff| > 4.30/√3 = 2.48 seed std. case14 / case118: diff = 12.3 / 18.9 / 3.3 and 5.2 / 28.4 /
+    0.5 std (h1 / h6 / h24) → all significant except case118 h24 (+1.6 %, p = 0.52). case500: 2 / 1 / 1 seeds, not
+    testable. 2-step AC value treated as fixed (SARIMA deterministic; XGB HPO + training run once).
+    Covers training randomness only, not test-set sampling (no block bootstrap).
   - Bug fixed on the way: 2-step ΔD was summed over all forecast samples, Pg over OPF-solved ones (case500 h6/h24
     sarima: 6 no_dispatch) → ΔD now on the solved samples only; affects dD_abs_mw there by ≤ 6/23604 samples.

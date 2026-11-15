@@ -212,7 +212,8 @@ def optimizer_handles():
 
 def finish_slide(fig, handles, name):
     fig.legend(handles=handles, loc="upper center", ncol=len(handles), frameon=False, bbox_to_anchor=(0.5, 1.02))
-    fig.text(0.99, -0.01, "2-step: best forecaster per metric; means over seeds", ha="right", fontsize=8, color="0.35")
+    fig.text(0.99, -0.01, "2-step: best forecaster per metric and optimizer; means over seeds", ha="right", fontsize=8,
+             color="0.35")
     fig.tight_layout(rect=(0, 0, 1, 0.95))
     save(fig, name)
 

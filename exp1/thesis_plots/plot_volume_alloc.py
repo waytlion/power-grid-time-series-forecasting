@@ -6,11 +6,9 @@
      samples (long upper tail would flatten the bodies), ◆ = overall RMSE over all samples (= rmse_slide, E2E seed 0)
      - per sample, not per bus: per-bus/-gen RMSE would be dominated by zero-load buses and pinned units (AC exact 0)
   b) corr_slide: load-bus Pd error correlation matrix (2-step, CORR_CASE at CORR_H)
-  0) totals_slide: RMSE over test samples of each arm's own summed Pd error (hatched) vs summed Pg error (solid),
-     AC (best forecaster) vs E2E; AC: Pg = Pd + loss change (+2–9 %), E2E: Pg below its own Pd
-  0b) control_totals_slide: control arm, input exp1/results/_e2e_pd/phaseB_<case>_h1-6-24.csv (e2e_pd_opf.py table):
-     E2E's summed Pd error (hatched) vs the summed Pg error of its Pd → AC-OPF route and of its own Pg output
-     (identical Pd)
+  0) totals_slide: RMSE over test samples of the summed Pd error (hatched) vs summed Pg error (solid) per arm:
+     2-step AC (best forecaster) | E2E, plus the control route (dotted) = 2-step AC with E2E's load forecast
+     (exp1/results/_e2e_pd/phaseB_<case>_h1-6-24.csv): same Pd as E2E, propagated ≈ 1:1 like 2-step
   1) volume_alloc_example: 3 generators (true 10 MW each) -> Σ_g |ΔPg_g| = volume + allocation, schematic
   2) volume_alloc_slide (absolute errors, the split is exact for |.| only): per test sample, mean MW, x = horizon
      - Σ_g |ΔPg_g| = volume |Σ_g ΔPg_g| + allocation Σ_g |ΔPg_g| − |Σ_g ΔPg_g| (exact split per sample)
@@ -146,17 +144,27 @@ def plot_example():
         save(fig, "volume_alloc_example")
 
 
+CONTROL = "exp1/results/_e2e_pd/phaseB_{}_h1-6-24.csv"  # e2e_pd_opf.py table; arm e2e_pd_ac = control route
+HATCH = dict(facecolor="white", hatch="////", lw=0.8)  # summed Pd error
+ROUTE = dict(facecolor="white", edgecolor=ARM_COLORS["ac"], hatch="....", lw=0.8)  # control route, summed Pg error
+
+
 def plot_totals(data):
-    w = W / 2
+    """per horizon: 2-step AC summed Pd | Pg, E2E summed Pd | control route Pg | E2E Pg
+    - control route = 2-step AC with E2E's load forecast (seed 0, phaseB; case500 H=24 without its OPF failures)"""
+    w, offsets = 0.16, (-2.2, -1.2, 0.05, 1.05, 2.05)
     with plt.rc_context(SLIDE_RC):
         fig, axes = plt.subplots(1, len(data), figsize=(10, 3.9), squeeze=False)
         for ax, (case, d) in zip(axes[0], data.items()):
-            for opt, dx in (("ac", -W / 2 - 0.02), ("e2e", W / 2 + 0.02)):
-                r = d[d["opt"] == opt].set_index("H").reindex(HORIZONS)
-                x = np.array([X_OF[h] + dx for h in HORIZONS])
-                ax.bar(x - w / 2, r["dD_rmse_mw"], w, facecolor="white", edgecolor=ARM_COLORS[opt], hatch="////",
-                       lw=0.8)
-                ax.bar(x + w / 2, r["total_rmse_mw"], w, color=ARM_COLORS[opt])
+            r = {o: d[d["opt"] == o].set_index("H").reindex(HORIZONS) for o in ("ac", "e2e")}
+            route = pd.read_csv(CONTROL.format(case)).set_index(["arm", "H"])["total_rmse_mw"]
+            bars = [(r["ac"]["dD_rmse_mw"], dict(edgecolor=ARM_COLORS["ac"], **HATCH)),
+                    (r["ac"]["total_rmse_mw"], dict(color=ARM_COLORS["ac"])),
+                    (r["e2e"]["dD_rmse_mw"], dict(edgecolor=ARM_COLORS["e2e"], **HATCH)),
+                    ([route[("e2e_pd_ac", h)] for h in HORIZONS], ROUTE),
+                    (r["e2e"]["total_rmse_mw"], dict(color=ARM_COLORS["e2e"]))]
+            for off, (vals, style) in zip(offsets, bars):
+                ax.bar([X_OF[h] + off * w for h in HORIZONS], vals, w * 0.92, **style)
             ax.set_title(CASE_LABELS[case])
             ax.set_xticks(range(len(HORIZONS)))
             ax.set_xticklabels([f"{h_label(h)}" for h in HORIZONS])
@@ -164,41 +172,12 @@ def plot_totals(data):
             ax.set_axisbelow(True)
         axes[0][0].set_ylabel("RMSE of summed error [MW]")
         handles = [plt.Rectangle((0, 0), 1, 1, color=ARM_COLORS[o], label=LABELS[o]) for o in LABELS]
-        handles += [plt.Rectangle((0, 0), 1, 1, facecolor="white", edgecolor="0.3", hatch="////",
-                                  label="summed $P_d$ error"),
+        handles += [plt.Rectangle((0, 0), 1, 1, label="2-step AC with E2E load forecast", **ROUTE),
+                    plt.Rectangle((0, 0), 1, 1, edgecolor="0.3", label="summed $P_d$ error", **HATCH),
                     plt.Rectangle((0, 0), 1, 1, color="0.45", label="summed $P_g$ error")]
-        fig.legend(handles=handles, loc="upper center", ncol=len(handles), frameon=False, bbox_to_anchor=(0.5, 1.04))
-        fig.tight_layout(rect=(0, 0, 1, 0.93))
+        fig.legend(handles=handles, loc="upper center", ncol=3, frameon=False, bbox_to_anchor=(0.5, 1.1))
+        fig.tight_layout(rect=(0, 0, 1, 0.9))
         save(fig, "totals_slide")
-
-
-def plot_control_totals():
-    """bars per horizon: E2E summed Pd error | Pg via AC-OPF on that Pd | E2E Pg output (route's samples for Pd)"""
-    files = {c: Path(f"exp1/results/_e2e_pd/phaseB_{c}_h1-6-24.csv") for c in CASE_ORDER}
-    files = {c: f for c, f in files.items() if f.exists()}
-    w = 0.26
-    bars = [("e2e_pd_ac", "dD_rmse_mw", dict(facecolor="white", edgecolor=ARM_COLORS["e2e"], hatch="////", lw=0.8),
-             "E2E summed $P_d$ error"),
-            ("e2e_pd_ac", "total_rmse_mw", dict(color=ARM_COLORS["ac"]),
-             "summed $P_g$ error: E2E $P_d \\rightarrow$ AC-OPF"),
-            ("e2e", "total_rmse_mw", dict(color=ARM_COLORS["e2e"]), "summed $P_g$ error: E2E $P_g$ output")]
-    with plt.rc_context(SLIDE_RC):
-        fig, axes = plt.subplots(1, len(files), figsize=(10, 3.9), squeeze=False)
-        for ax, (case, f) in zip(axes[0], files.items()):
-            s = pd.read_csv(f).set_index(["arm", "H"])
-            for i, (arm, col, style, _) in enumerate(bars):
-                ax.bar([X_OF[h] + (i - 1) * w for h in HORIZONS], [s.loc[(arm, h), col] for h in HORIZONS], w * 0.92,
-                       **style)
-            ax.set_title(CASE_LABELS[case])
-            ax.set_xticks(range(len(HORIZONS)))
-            ax.set_xticklabels([f"{h_label(h)}" for h in HORIZONS])
-            ax.grid(axis="y", color="0.9", lw=0.6)
-            ax.set_axisbelow(True)
-        axes[0][0].set_ylabel("RMSE of summed error [MW]")
-        handles = [plt.Rectangle((0, 0), 1, 1, **style, label=label) for _, _, style, label in bars]
-        fig.legend(handles=handles, loc="upper center", ncol=len(handles), frameon=False, bbox_to_anchor=(0.5, 1.04))
-        fig.tight_layout(rect=(0, 0, 1, 0.93))
-        save(fig, "control_totals_slide")
 
 
 def plot_bars(data):
@@ -262,7 +241,6 @@ def main():
     plot_violins(data, log=True, name="violin_slide_log")
     plot_corr(data)
     plot_totals(data)
-    plot_control_totals()
     plot_bars(data)
     plot_scatter(data)
 

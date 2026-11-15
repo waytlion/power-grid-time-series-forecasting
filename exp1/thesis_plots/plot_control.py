@@ -15,7 +15,7 @@ from plot_rmse import h_label, CASE_LABELS, CASE_ORDER, HORIZONS, SLIDE_RC, X_OF
 
 PD_ROUTE = Path("exp1/results/_e2e_pd")
 SPLIT = Path("exp1/results/_dispatch_diag")
-ROUTE, OUTPUT = "E2E $P_d \\rightarrow$ AC-OPF", "E2E $P_g$ output"
+ROUTE, OUTPUT = "2-step AC with E2E load forecast", "E2E $P_g$ output"
 SERIES = {ROUTE: ("--", "white"), OUTPUT: ("-", ARM_COLORS["e2e"])}  # name: (line style, marker face)
 
 

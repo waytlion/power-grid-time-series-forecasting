@@ -54,7 +54,6 @@ CORR_GAP_METRICS = {
     "Rebalancing Cost (under-supply)": "$R^{+}$ \\%",
     "Rebalancing Cost (over-supply)": "$R^{-}$ \\%",
     "Rebalanced Gap": "Rebal. Gap \\%",
-    "No-refund Gap": "No-refund Gap \\%",
     "Signed Rebalanced Gap": "Signed Rebal. Gap \\%",
     "Thermal Overload (%)": "Thermal \\%",
 }
@@ -292,13 +291,13 @@ write_table(
 )
 
 # Table 8 (appendix, Q2): gaps + supply error across grids and horizons; forecaster per arm = lowest rebalanced gap
-# (same operating state as gap_slide row 1)
+# (same operating state as gap_slide)
 write_table(
     filter_best_forecaster(df, "Rebalanced Gap"),
-    {"Optimality Gap (recomputed)": "raw", "Rebalanced Gap": "rebal.", "No-refund Gap": "no-refund",
+    {"Optimality Gap (recomputed)": "raw", "Rebalanced Gap": "rebal.",
      "Mean dPg (MW)": "$\\Delta P$", "Mean |dPg| (MW)": "$|\\Delta P|$"},
     f"{OUT_DIR}/table8_gap_supply_grid_all_horizons.tex",
-    "Raw, rebalanced and no-refund optimality gap and the supply error "
+    "Raw and rebalanced optimality gap and the supply error "
     "$\\Delta P = \\sum_g \\hat P_g - \\sum_g P^{*}_g$ "
     "(signed and absolute mean, MW) across grids and horizons. 2-step: forecaster with the lowest rebalanced gap per "
     "optimizer; ML arms: mean over seeds.",
@@ -308,7 +307,7 @@ write_table(
     sub_group_col="horizon",
     sub_group_labels=lambda h: f"Horizon {h_label(int(h))}",
     longtable=True,
-    header_groups=[("Optimality gap (\\%)", 3), ("Supply error (MW)", 2)],
+    header_groups=[("Optimality gap (\\%)", 2), ("Supply error (MW)", 2)],
 )
 
 
