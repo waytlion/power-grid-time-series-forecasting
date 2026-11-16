@@ -16,7 +16,8 @@ exp1/generate_metrics/
   aggregate_results.py   all arms from their native locations (compare.py tree + mlruns eval CSVs) → one tidy long CSV
   metrics.py, loaders.py, config.py   shared metric helpers / datakit loaders / paths
   expost_pf.py           ex-post AC-PF (pypowsybl, distributed slack): PF-solved dispatch = rebalanced dispatch + feasibility;
-                         h<H>/elements/: one row per violating element (≥ expost_pf_v3)
+                         h<H>/elements/: one row per violating element (≥ expost_pf_v3);
+                         --q-limits (sbatch Q_LIMITS=1): PV→PQ at the Q limit, |V| at all buses (→ expost_pf_v4_qlim)
   corrected_gap.py       rebalanced opt gap + Q3 shares from the expost_pf outputs (AC/DC 2-step, surrogate, E2E);
                          per-element median/P99 + violation_ccdf.csv (exceedance curves) from elements/
   dispatch_diag.py       diagnostics: Pg error by unit class (2-step vs E2E), Pg vs total demand, cross-bus Pd error corr

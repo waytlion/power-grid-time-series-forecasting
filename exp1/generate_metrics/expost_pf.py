@@ -3,12 +3,15 @@ Ex-post AC power flow: is each arm's dispatch operable once the true load arrive
 
 What?
     - per test sample (realized target hour, horizon step k), per arm:
-        1. AC-PF (pypowsybl OpenLoadFlow, distributed slack ∝ Pmax, NO Q limits): predicted dispatch P̂ as target P,
+        1. AC-PF (pypowsybl OpenLoadFlow, distributed slack ∝ Pmax): predicted dispatch P̂ as target P,
            predicted Vm at gen buses, true Pd/Qd everywhere; the imbalance (load error + losses) is spread over the units
            -> PF-solved dispatch P̃ = rebalanced dispatch, single source for cost and feasibility
-        2. limits on the PF solution: convergence, thermal, PQ voltage, bus-level Qg, units at/beyond P limits,
-           active power mismatch left on the slack bus; thermal / Vm / Qg each as count, worst, and sum over the
-           violating elements; every violating element -> elements/<tag>.parquet (one row per element)
+           - default: no Q limits (setpoints held, unholdable setpoint -> Qg violation)
+           - --q-limits: units at their Q limit switch PV -> PQ (Qg capped, |V| free -> Vm violation instead)
+        2. limits on the PF solution: convergence, thermal, voltage (PQ buses; all buses with --q-limits), bus-level Qg,
+           gen buses that lost voltage control, units at/beyond P limits, active power mismatch left on the slack bus;
+           thermal / Vm / Qg each as count, worst, and sum over the violating elements;
+           every violating element -> elements/<tag>.parquet (one row per element)
         3. costs C(P̂), C(P̃), C(P*) per sample -> γ_reb, R in corrected_gap.py
 Why?
     - replaces realized-space residuals (dispatch frozen, true load inserted), which are no physical operating point
@@ -19,7 +22,7 @@ How?
     - samples aligned on the target hour (load_scenario_idx), never on row order (ML test order is shuffled)
     - Qg per bus vs summed limits: PF fixes only the bus total, its per-gen split on multi-gen buses is arbitrary
     - datakit Network -> pypowsybl via gridfm_datakit.powsybl (one network per worker, updated in place);
-      slack = case-file REF bus; LF_PARAMS + OLF provider defaults logged to <OUT>/<case>/run_config_<job>.json
+      slack = case-file REF bus; lf_params + OLF provider defaults logged to <OUT>/<case>/run_config_<job>.json
     - insufficient headroom: remainder left on the REF unit beyond its limit (LEAVE_ON_SLACK_BUS) -> stays in the cost
       metric (priced on its cost curve = lower bound), flagged + counted as P-limit violation
     - status: converged | diverged (NR, no solution -> infeasible) | no_dispatch (2-step: OPF failed on the forecast)
@@ -33,6 +36,7 @@ import argparse
 import glob
 import json
 import os
+import time
 from multiprocessing import get_context
 from pathlib import Path
 
@@ -64,20 +68,24 @@ TOL_P = 0.01    # MW: P-limit checks = slack distribution stop (slackBusPMaxMism
 TOL_REL = 1e-3  # voltage + thermal limits: 0.1 %
 B, G, BR = ({c: i for i, c in enumerate(cols)} for cols in (BUS_COLUMNS, GEN_COLUMNS, BRANCH_COLUMNS))
 
-LF_PARAMS = lf.Parameters(
-    distributed_slack=True,
-    balance_type=lf.BalanceType.PROPORTIONAL_TO_GENERATION_P_MAX,
-    use_reactive_limits=False,
-    read_slack_bus=True,  # slackTerminal of the case-file REF bus (MATPOWER import)
-    write_slack_bus=True,
-    twt_split_shunt_admittance=True,  # MATPOWER pi model; without it case118 labels miss by 1.8e-3 p.u. (bus 86)
-    provider_parameters={
-        "generatorsWithZeroMwTargetAreNotStarted": "false",  # units at P̂ = 0 take part too
-        "slackBusPMaxMismatch": str(TOL_P),  # residual left on the slack bus < TOL_P (default 1 MW)
-        # insufficient headroom: remainder stays on the REF unit (beyond its limit) instead of a failed solve
-        "slackDistributionFailureBehavior": "LEAVE_ON_SLACK_BUS",
-    },
-)
+def lf_params(q_limits):
+    """q_limits: units at their Q limit switch PV -> PQ (OLF reactive-limits outer loop)"""
+    return lf.Parameters(
+        distributed_slack=True,
+        balance_type=lf.BalanceType.PROPORTIONAL_TO_GENERATION_P_MAX,
+        use_reactive_limits=q_limits,
+        read_slack_bus=True,  # slackTerminal of the case-file REF bus (MATPOWER import)
+        write_slack_bus=True,
+        twt_split_shunt_admittance=True,  # MATPOWER pi model; without it case118 labels miss by 1.8e-3 p.u. (bus 86)
+        provider_parameters={
+            "generatorsWithZeroMwTargetAreNotStarted": "false",  # units at P̂ = 0 take part too
+            "slackBusPMaxMismatch": str(TOL_P),  # residual left on the slack bus < TOL_P (default 1 MW)
+            # insufficient headroom: remainder stays on the REF unit (beyond its limit) instead of a failed solve
+            "slackDistributionFailureBehavior": "LEAVE_ON_SLACK_BUS",
+        },
+    )
+
+
 OLF_DEFAULTS = lf.get_provider_parameters()["default"]  # logged; useActiveLimits=true kept
 
 
@@ -185,11 +193,12 @@ def load_ml(arm, case, H, run):
 
 # ---------------------------------------------------------------- AC-PF (worker side)
 
-_NET = _PP = _MAP = _REF = None
+_NET = _PP = _MAP = _REF = _LF = None
 
 
-def _init_worker(case):
-    global _NET, _PP, _MAP, _REF
+def _init_worker(case, q_limits):
+    global _NET, _PP, _MAP, _REF, _LF
+    _LF = lf_params(q_limits)
     _NET = load_net_from_pglib(case)
     conv = to_powsybl(_NET)
     _PP, _MAP = conv.pp_net, conv.mapping_p2g
@@ -206,7 +215,7 @@ def _solve(task):
     info = dict(pg_pred_out_n=int((dev > TOL_P).sum()), pg_pred_out_max_mw=dev.max())
     _NET.Pd, _NET.Qd, _NET.Pg_gen, _NET.Vm = pd_, qd, pg, vm
     update_powsybl(_PP, _NET, _MAP)  # in place: loads, target P, target V (uniform voltage init -> no carry-over)
-    r = lf.run_ac(_PP, LF_PARAMS)
+    r = lf.run_ac(_PP, _LF)
     slack = r[0].slack_bus_results[0]
     assert slack.id == _REF, f"slack bus {slack.id} != case-file REF bus {_REF}"
     info["slack_mismatch_mw"] = slack.active_power_mismatch  # left on the slack bus: > TOL_P = insufficient headroom
@@ -223,8 +232,8 @@ def _solve(task):
     s = np.maximum(np.hypot(br[:, BR["pf"]], br[:, BR["qf"]]), np.hypot(br[:, BR["pt"]], br[:, BR["qt"]]))
     loading = s / br[:, BR["rate_a"]]
 
-    # voltage at PQ buses (gen-bus Vm is a fixed setpoint)
-    pq_ = bus[:, B["PQ"]] == 1
+    # voltage at PQ buses (no Q limits: gen-bus Vm is a fixed setpoint); all buses with Q limits (gen buses may switch)
+    pq_ = np.ones(len(bus), bool) if _LF.use_reactive_limits else bus[:, B["PQ"]] == 1
     v, vmin, vmax = bus[pq_, B["Vm"]], bus[pq_, B["min_vm_pu"]], bus[pq_, B["max_vm_pu"]]
     v_viol = np.maximum(v - vmax, 0) + np.maximum(vmin - v, 0)
     v_bad = (v > vmax * (1 + TOL_REL)) | (v < vmin * (1 - TOL_REL))
@@ -234,6 +243,7 @@ def _solve(task):
     n = len(bus)
     q, qmin, qmax = (np.bincount(gb, gen[:, G[c]], n) for c in ("q_mvar", "min_q_mvar", "max_q_mvar"))
     gen_bus = np.bincount(gb, minlength=n) > 0
+    vctl_lost = gen_bus & (np.abs(bus[:, B["Vm"]] - vm) > TOL_REL * vm)  # |V| off its setpoint (Q limit hit)
     gen_bus[_NET.ref_bus_idx] = False
     q_viol = (np.maximum(q - qmax, 0) + np.maximum(qmin - q, 0))[gen_bus]
 
@@ -259,6 +269,7 @@ def _solve(task):
         qg_max_viol_mvar=q_viol.max(initial=0.0),
         qg_n=int(q_bad.sum()),
         qg_sum_mvar=q_viol[q_bad].sum(),
+        vctl_lost_n=int(vctl_lost.sum()),
         pg_lim_n=int(at_lim.sum()),
         pg_beyond_n=int((beyond > TOL_P).sum()),
         el=np.concatenate([np.column_stack((np.full(len(i), g), i, x)) for g, (i, x) in enumerate(groups)]),
@@ -306,16 +317,18 @@ def evaluate(pool, case, pred, limit=None):
     return df, elements
 
 
-def summarize(tag, df):
+def summarize(tag, df, dt):
+    """dt: wall time of the config [s]"""
     c = df[df.status == "converged"]
     share = lambda col: (c[col] > 0).mean()
     gap = (c.cost_pf - c.cost_true) / c.cost_true * 100
     print(f"[{tag}] n={len(df)} " + " ".join(f"{s}={n}" for s, n in df.status.value_counts().items()) + " | "
           f"viol share thermal={share('thermal_n'):.4f} vm={share('vm_n'):.4f} qg={share('qg_n'):.4f} "
+          f"vctl_lost={share('vctl_lost_n'):.4f} "
           f"pg_beyond={share('pg_beyond_n'):.4f} headroom={c.slack_mismatch_flag.mean():.4f} "
           f"pred_out={(df.pg_pred_out_n > 0).mean():.4f} | "
           f"γ_reb signed={gap.mean():+.4f} % |γ_reb|={gap.abs().mean():.4f} % | "
-          f"mean |ΣP̃-ΣP̂|={(c.pg_pf_mw - c.pg_pred_mw).abs().mean():.2f} MW", flush=True)
+          f"mean |ΣP̃-ΣP̂|={(c.pg_pf_mw - c.pg_pred_mw).abs().mean():.2f} MW | {dt:.0f} s", flush=True)
 
 
 def main():
@@ -328,6 +341,7 @@ def main():
     p.add_argument("--workers", type=int, default=int(os.environ.get("SLURM_CPUS_PER_TASK", 1)))
     p.add_argument("--limit", type=int, default=None, help="smoke test: N samples per config")
     p.add_argument("--out-dir", type=Path, default=OUT)
+    p.add_argument("--q-limits", action="store_true", help="enforce generator Q limits (PV -> PQ switching)")
     a = p.parse_args()
 
     # (arm, horizon, forecaster, seed) configs; label = phase1a labels on the 2-step h1 test hours
@@ -340,15 +354,16 @@ def main():
     cfg = a.out_dir / a.case / f"run_config_{os.environ.get('SLURM_JOB_ID', 'local')}.json"
     cfg.parent.mkdir(parents=True, exist_ok=True)
     cfg.write_text(json.dumps(dict(args={**vars(a), "out_dir": str(a.out_dir)}, pypowsybl=pp.__version__,
-                                   load_flow=repr(LF_PARAMS), olf_provider_defaults=OLF_DEFAULTS.to_dict(),
+                                   load_flow=repr(lf_params(a.q_limits)), olf_provider_defaults=OLF_DEFAULTS.to_dict(),
                                    tol_gen=TOL_GEN, tol_p=TOL_P, tol_rel=TOL_REL), indent=1))
 
     load_net_from_pglib(a.case)  # download + correct the grid once, before workers race on the cache
     # spawn: fresh pypowsybl runtime per worker instead of a forked copy of the parent's
-    with get_context("spawn").Pool(a.workers, initializer=_init_worker, initargs=(a.case,)) as pool:
+    with get_context("spawn").Pool(a.workers, initializer=_init_worker, initargs=(a.case, a.q_limits)) as pool:
         for arm, H, fc, seed in configs:
             tag = "_".join(str(x) for x in (arm, fc, f"s{seed}" if seed is not None else None) if x)
             out = a.out_dir / a.case / f"h{H}" / f"{tag}{f'_limit{a.limit}' if a.limit else ''}.parquet"
+            t0 = time.time()
             try:
                 if arm == "label":
                     hours = np.unique(flat_targets(a.case, 1)[0])
@@ -369,7 +384,7 @@ def main():
             except (FileNotFoundError, AssertionError) as e:  # missing inputs / failed alignment check
                 print(f"SKIP [{a.case} h{H} {tag}]: {e!r}", flush=True)
                 continue
-            meta = dict(arm=arm, case=a.case, horizon=H, forecaster=fc, seed=seed,
+            meta = dict(arm=arm, case=a.case, horizon=H, forecaster=fc, seed=seed, q_limits=a.q_limits,
                         run=str(run) if arm in ("surrogate", "e2e") else None)  # run -> logged-gap gate
             for pos, (col, val) in enumerate(meta.items()):
                 df.insert(pos, col, val)
@@ -377,7 +392,7 @@ def main():
             df.to_parquet(out, index=False)
             (out.parent / "elements").mkdir(exist_ok=True)
             elements.to_parquet(out.parent / "elements" / out.name, index=False)
-            summarize(f"{a.case} h{H} {tag}", df)
+            summarize(f"{a.case} h{H} {tag}", df, time.time() - t0)
 
 
 if __name__ == "__main__":

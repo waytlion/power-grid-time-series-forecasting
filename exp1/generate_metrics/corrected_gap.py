@@ -12,11 +12,11 @@ losses included); its PF-solved dispatch P̃ is the rebalanced dispatch, re-cost
   its cost curve = lower bound)
 - Q3: thermal overload share over converged; insufficient headroom (remainder > TOL_P on the slack) and
   diverged (no solution = infeasible) / no_dispatch counted per arm, case, horizon
-- Q3 per constraint group (thermal, PQ voltage, Qg), over converged samples, element sets as in expost_pf
-  (in-service lines, PQ buses, non-REF gen buses): share of samples / of elements with a violation, worst violation
+- Q3 per constraint group (thermal, voltage, Qg), over converged samples, element sets as in expost_pf
+  (in-service lines, PQ buses (all buses with --q-limits), non-REF gen buses): share of samples / of elements with a violation, worst violation
   per violating sample (mean), violation per violating element (mean; needs the *_sum columns, expost_pf ≥ 2026-11-01)
   - thermal magnitudes in % of the rating above 100 %
-  - per violating element, ML seeds pooled (needs h<H>/elements/, expost_pf ≥ v3): median + P99 (≥ MIN_EL elements)
+  - per violating element, ML seeds pooled (needs h<H>/elements/, expost_pf ≥ v3): median, P99, max (≥ MIN_EL elements)
     and the exceedance curve (share of violating elements above a violation) -> --ccdf-out
 - ΔP = ΣP̂ - ΣP* (MW, < 0 = short)
 - arms: exact -> "ac", dc (DC-OPF dispatch, case-file generator voltage setpoints), surrogate, e2e (seed per file)
@@ -42,11 +42,12 @@ LEVELS = np.logspace(0, -4, 81)  # exceedance-curve levels (share of violating e
 
 
 def element_counts(case):
-    """size of the element sets expost_pf checks: in-service lines, PQ buses, non-REF gen buses"""
+    """size of the element sets expost_pf checks: in-service lines, PQ buses (vm_all: all buses, --q-limits),
+    non-REF gen buses"""
     net = load_net_from_pglib(case)
     gb = np.unique(net.gens[net.idx_gens_in_service, GEN_BUS].astype(int))
     return dict(thermal=len(net.idx_branches_in_service), vm=int((net.buses[:, BUS_TYPE] == PQ).sum()),
-                qg=len(gb) - int(net.ref_bus_idx in gb))
+                vm_all=len(net.buses), qg=len(gb) - int(net.ref_bus_idx in gb))
 
 
 def violation_metrics(name, unit, n, worst, total, n_el):
@@ -63,13 +64,14 @@ def violation_metrics(name, unit, n, worst, total, n_el):
 
 
 def element_stats(e):
-    """violating elements of one arm (seeds pooled) -> median / P99 per group + exceedance-curve rows"""
+    """violating elements of one arm (seeds pooled) -> median / P99 / max per group + exceedance-curve rows"""
     met, ccdf = {}, []
     for g, (name, unit, scale) in GROUPS.items():
         v = e.viol[e.group == g].to_numpy() * scale
         ok = len(v) >= MIN_EL
         met |= {f"{name} Median ({unit})": np.median(v) if ok else np.nan,
-                f"{name} P99 ({unit})": np.quantile(v, 0.99) if ok else np.nan}
+                f"{name} P99 ({unit})": np.quantile(v, 0.99) if ok else np.nan,
+                f"{name} Max ({unit})": v.max() if ok else np.nan}
         if ok:
             lv = LEVELS[LEVELS * len(v) >= 1]  # >= 1 element above each level
             ccdf += [dict(group=g, n=len(v), exceed=x, viol=q) for x, q in zip(lv, np.quantile(v, 1 - lv))]
@@ -138,7 +140,8 @@ def main():
                 ref = float(m.loc[m["Metric"] == "Mean Optimality Gap", "Value"].iloc[0])
             if ref is None:  # arm absent from the combined CSV
                 continue
-            met = gap_metrics(d, n_el)
+            q_lim = "q_limits" in d and d.q_limits.iloc[0]  # voltage checked at all buses
+            met = gap_metrics(d, {**n_el, "vm": n_el["vm_all"]} if q_lim else n_el)
             if abs(met["Optimality Gap (recomputed)"] - ref) > 1e-3:
                 raise ValueError(f"{p}: recomputed gap {met['Optimality Gap (recomputed)']:.4f} != logged {ref:.4f}")
             out += [dict(zip(KEY, key), metric=k, mean=v) for k, v in met.items()]
