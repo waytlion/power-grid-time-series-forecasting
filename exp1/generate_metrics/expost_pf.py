@@ -9,7 +9,7 @@ What?
            - default: no Q limits (setpoints held, unholdable setpoint -> Qg violation)
            - --q-limits: units at their Q limit switch PV -> PQ (Qg capped, |V| free -> Vm violation instead)
         2. limits on the PF solution: convergence, thermal, voltage (PQ buses; all buses with --q-limits), bus-level Qg,
-           gen buses that lost voltage control, units at/beyond P limits, active power mismatch left on the slack bus;
+           gen buses that lost voltage control (Q range ≥ 1 MVAr only), units at/beyond P limits, active power mismatch left on the slack bus;
            thermal / Vm / Qg each as count, worst, and sum over the violating elements;
            every violating element -> elements/<tag>.parquet (one row per element)
         3. costs C(P̂), C(P̃), C(P*) per sample -> γ_reb, R in corrected_gap.py
@@ -54,7 +54,7 @@ from gridfm_datakit.powsybl.preprocess import get_pf_res
 from gridfm_datakit.process.process_network import pf_post_processing
 from gridfm_datakit.utils.column_names import BUS_COLUMNS, GEN_COLUMNS, BRANCH_COLUMNS
 from gridfm_datakit.utils.idx_bus import VM
-from gridfm_datakit.utils.idx_gen import GEN_BUS, PMIN, PMAX, VG
+from gridfm_datakit.utils.idx_gen import GEN_BUS, PMIN, PMAX, QMIN, QMAX, VG
 
 DATA = Path("/data/horse/ws/tibo990i-thesis_data")
 PHASE1A = DATA / "2019-2021/phase_1a/data_out"
@@ -193,13 +193,17 @@ def load_ml(arm, case, H, run):
 
 # ---------------------------------------------------------------- AC-PF (worker side)
 
-_NET = _PP = _MAP = _REF = _LF = None
+_NET = _PP = _MAP = _REF = _LF = _VCTL = None
 
 
 def _init_worker(case, q_limits):
-    global _NET, _PP, _MAP, _REF, _LF
+    global _NET, _PP, _MAP, _REF, _LF, _VCTL
     _LF = lf_params(q_limits)
     _NET = load_net_from_pglib(case)
+    # buses that can control voltage: OLF (Q limits on) drops units with a Q range < 1 MVAr (reactiveRangeCheckMode)
+    g = _NET.gens[_NET.idx_gens_in_service]
+    _VCTL = np.zeros(len(_NET.buses), bool)
+    _VCTL[g[g[:, QMAX] - g[:, QMIN] >= 1, GEN_BUS].astype(int)] = True
     conv = to_powsybl(_NET)
     _PP, _MAP = conv.pp_net, conv.mapping_p2g
     _REF = next(b for b, i in _MAP.bus.items() if i == _NET.ref_bus_idx)
@@ -243,7 +247,7 @@ def _solve(task):
     n = len(bus)
     q, qmin, qmax = (np.bincount(gb, gen[:, G[c]], n) for c in ("q_mvar", "min_q_mvar", "max_q_mvar"))
     gen_bus = np.bincount(gb, minlength=n) > 0
-    vctl_lost = gen_bus & (np.abs(bus[:, B["Vm"]] - vm) > TOL_REL * vm)  # |V| off its setpoint (Q limit hit)
+    vctl_lost = _VCTL & (np.abs(bus[:, B["Vm"]] - vm) > TOL_REL * vm)  # |V| off its setpoint (Q limit hit)
     gen_bus[_NET.ref_bus_idx] = False
     q_viol = (np.maximum(q - qmax, 0) + np.maximum(qmin - q, 0))[gen_bus]
 
