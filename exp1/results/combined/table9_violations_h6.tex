@@ -1,31 +1,31 @@
 \begin{table}[t]
 \centering
-\caption{Rebalanced optimality gap and limit violations after the ex-post AC power flow ($H=6$). Lower is better for every metric; bold: best arm per grid and column. $\gamma^{\mathrm{reb}}$: rebalanced optimality gap (\%). Per constraint group: share of test samples with at least one violation (\% smp.); mean share of elements violated per sample (\% el.; lines, PQ buses, generator buses without the reference bus); mean, 99th percentile (P99) of the violation over all violating elements (thermal in \% of the rating above 100\,\%, $|V|$ in $10^{-3}$\,p.u., $Q_{\mathrm{g}}$ in MVAr; only with at least 100 violating elements, ML seeds pooled). 0 = no violation; -- = fewer than 100 violating elements. 2-step: forecaster with the lowest rebalanced gap per optimizer; ML arms: mean over seeds (quantiles: pooled seeds). DC: generator voltage setpoints from the case file (1.0\,p.u.), since DC-OPF has no voltages.}
+\caption{Rebalanced optimality gap and limit violations after the ex-post AC power flow ($H=6$). Lower is better for every metric; bold: best arm per grid and column. $\gamma^{\mathrm{reb}}$: rebalanced optimality gap (\%). Generator reactive limits enforced: a unit at its limit stops controlling its bus voltage (lost volt. control: voltage off its setpoint). Diverged: no power-flow solution (infeasible; share of test samples, not in the other columns). Per constraint group: share of test samples with at least one violation (\% smp.); mean share of elements violated per sample (\% el.; lines, all buses, generator buses that can control voltage); mean, 99th percentile (P99) of the violation over all violating elements (thermal in \% of the rating above 100\,\%, $|V|$ in $10^{-3}$\,p.u.; only with at least 100 violating elements, ML seeds pooled). 0 = no violation; -- = fewer than 100 violating elements. 2-step: forecaster with the lowest rebalanced gap per optimizer; ML arms: mean over seeds (quantiles: pooled seeds). DC: generator voltage setpoints from the case file (1.0\,p.u.), since DC-OPF has no voltages.}
 \label{tab:violations_h6}
 \resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{%
-\begin{tabular}{lrrrrrrrrrrrrr}
+\begin{tabular}{lrrrrrrrrrrrr}
 \toprule
- & \multicolumn{1}{c}{$\gamma^{\mathrm{reb}}$} & \multicolumn{4}{c}{Thermal (lines)} & \multicolumn{4}{c}{$|V|$ (PQ buses)} & \multicolumn{4}{c}{$Q_{\mathrm{g}}$ (generator buses)} \\
-\cmidrule(lr){2-2} \cmidrule(lr){3-6} \cmidrule(lr){7-10} \cmidrule(lr){11-14}
-Model & \% & \% smp. & \% el. & mean & P99 & \% smp. & \% el. & mean & P99 & \% smp. & \% el. & mean & P99 \\
+ & \multicolumn{1}{c}{$\gamma^{\mathrm{reb}}$} & \multicolumn{4}{c}{Thermal (lines)} & \multicolumn{4}{c}{$|V|$ (buses)} & \multicolumn{2}{c}{Lost volt. control (gen. buses)} & \multicolumn{1}{c}{Diverged} \\
+\cmidrule(lr){2-2} \cmidrule(lr){3-6} \cmidrule(lr){7-10} \cmidrule(lr){11-12} \cmidrule(lr){13-13}
+Model & \% & \% smp. & \% el. & mean & P99 & \% smp. & \% el. & mean & P99 & \% smp. & \% el. & \% smp. \\
 \midrule
-\multicolumn{14}{@{}l}{\textit{case14}} \\[2pt]
-SARIMA-AC & 0.44 & 0 & 0 & -- & -- & 1.24 & 0.15 & 2.14 & 6.68 & \textbf{29.62} & \textbf{11.39} & 0.67 & 3.29 \\
-SARIMA-DC & 1.80 & 0 & 0 & -- & -- & \textbf{0} & \textbf{0} & -- & -- & 100.00 & 45.07 & 9.89 & 35.38 \\
-SARIMA-Surrogate & 0.60 & 0 & 0 & -- & -- & 0.0071 & 0.00078 & -- & -- & 37.73 & 14.49 & \textbf{0.59} & 2.90 \\
-E2E & \textbf{0.31} & 0 & 0 & -- & -- & \textbf{0} & \textbf{0} & -- & -- & 39.72 & 15.82 & 0.72 & \textbf{2.55} \\
+\multicolumn{13}{@{}l}{\textit{case14}} \\[2pt]
+SARIMA-AC & 0.44 & 0 & 0 & -- & -- & 18.25 & 2.22 & 2.94 & 10.31 & \textbf{19.12} & \textbf{6.42} & 0 \\
+SARIMA-DC & 1.45 & 0 & 0 & -- & -- & \textbf{0} & \textbf{0} & -- & -- & 100.00 & 49.72 & 0 \\
+SARIMA-Surrogate & 0.60 & 0 & 0 & -- & -- & 1.53 & 0.17 & 2.71 & 7.91 & 24.65 & 8.00 & 0 \\
+E2E & \textbf{0.31} & 0 & 0 & -- & -- & 9.20 & 1.02 & \textbf{2.28} & \textbf{5.74} & 31.82 & 10.63 & 0 \\
 \midrule
-\multicolumn{14}{@{}l}{\textit{case118}} \\[2pt]
-XGB-AC & 0.33 & \textbf{42.32} & \textbf{0.23} & 1.05 & 4.53 & 0.21 & 0.0033 & -- & -- & \textbf{99.67} & \textbf{9.86} & \textbf{1.04} & \textbf{5.43} \\
-XGB-DC & 2.35 & 96.42 & 0.95 & 3.68 & 7.64 & \textbf{0} & \textbf{0} & -- & -- & 100.00 & 25.12 & 31.83 & 118.13 \\
-XGB-Surrogate & 0.43 & 53.01 & 0.28 & 1.31 & 4.77 & \textbf{0} & \textbf{0} & -- & -- & 99.87 & 10.65 & 1.68 & 7.61 \\
-E2E & \textbf{0.22} & 51.83 & 0.28 & \textbf{1.01} & \textbf{4.19} & 0.089 & 0.0014 & -- & -- & 99.69 & 10.63 & 1.79 & 6.84 \\
+\multicolumn{13}{@{}l}{\textit{case118}} \\[2pt]
+XGB-AC & 0.33 & \textbf{42.33} & \textbf{0.23} & 1.05 & 4.53 & 3.80 & 0.039 & 1.55 & 3.34 & \textbf{26.09} & \textbf{0.95} & 0 \\
+XGB-DC & 2.34 & 95.81 & 0.92 & 3.39 & 6.86 & \textbf{0} & \textbf{0} & -- & -- & 100.00 & 25.09 & 0 \\
+XGB-Surrogate & 0.43 & 53.05 & 0.29 & 1.32 & 4.78 & 0.60 & 0.0080 & \textbf{1.49} & \textbf{2.73} & 63.22 & 3.08 & 0 \\
+E2E & \textbf{0.22} & 51.95 & 0.28 & \textbf{1.01} & \textbf{4.19} & 2.63 & 0.041 & 1.86 & 3.79 & 67.37 & 3.30 & 0 \\
 \midrule
-\multicolumn{14}{@{}l}{\textit{case500}} \\[2pt]
-XGB-AC & 0.84 & 5.55 & 0.0087 & \textbf{0.58} & 3.39 & 39.41 & 0.36 & \textbf{2.69} & \textbf{10.56} & \textbf{99.94} & \textbf{18.14} & \textbf{2.11} & \textbf{18.80} \\
-XGB-DC & 1.79 & 6.59 & 0.015 & 1.57 & 5.12 & \textbf{0} & \textbf{0} & -- & -- & 100.00 & 46.84 & 60.56 & 389.60 \\
-XGB-Surrogate & 1.56 & \textbf{2.21} & \textbf{0.0031} & 1.87 & 5.22 & 16.71 & 0.064 & 3.84 & 12.12 & 100.00 & 25.74 & 13.27 & 106.01 \\
-E2E & \textbf{0.66} & 3.45 & 0.0049 & 0.66 & \textbf{2.26} & 69.72 & 0.51 & 3.84 & 11.81 & 100.00 & 20.33 & 3.21 & 22.85 \\
+\multicolumn{13}{@{}l}{\textit{case500}} \\[2pt]
+XGB-AC & 0.84 & 5.66 & 0.0089 & \textbf{0.60} & 3.43 & 47.48 & 0.42 & \textbf{4.60} & \textbf{33.44} & \textbf{60.21} & \textbf{10.28} & \textbf{0.0085} \\
+XGB-DC & 1.70 & 3.76 & 0.0083 & 2.36 & 7.02 & 51.74 & 0.93 & 25.62 & 149.11 & 100.00 & 56.49 & 2.43 \\
+XGB-Surrogate & 1.57 & \textbf{2.26} & \textbf{0.0032} & 1.87 & 5.02 & \textbf{23.29} & \textbf{0.17} & 13.87 & 78.45 & 100.00 & 27.59 & 0.70 \\
+E2E & \textbf{0.67} & 3.44 & 0.0049 & 0.66 & \textbf{2.38} & 70.52 & 0.50 & 6.49 & 54.87 & 96.08 & 14.66 & 0.13 \\
 \bottomrule
 \end{tabular}}
 \end{table}

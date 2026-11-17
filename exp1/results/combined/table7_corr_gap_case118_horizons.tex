@@ -1,6 +1,6 @@
 \begin{table}[t]
 \centering
-\caption{Raw and rebalanced optimality gap across forecast horizons (case118; best 2-step forecaster per optimizer; ML arms: mean over seeds). Rebal.: AC power flow on the realised load with the predicted dispatch as setpoints; the mismatch (forecast error and losses) is distributed over all in-service units in proportion to $P_{\max}$ within their limits (distributed slack), and the PF-solved dispatch is re-costed. DC-OPF has no voltages: its dispatch runs with the case-file generator voltage setpoints. $R^{+}$/$R^{-}$: under-/over-supply contributions to the mean rebalancing cost (sum = mean). Thermal: share of samples with a line overload.}
+\caption{Raw and rebalanced optimality gap across forecast horizons (case118; best 2-step forecaster per optimizer; ML arms: mean over seeds). Rebal.: AC power flow on the realised load with the predicted dispatch as setpoints; the mismatch (forecast error and losses) is distributed over all in-service units in proportion to $P_{\max}$ within their limits (distributed slack), and the PF-solved dispatch is re-costed. Generator reactive limits are enforced. DC-OPF has no voltages: its dispatch runs with the case-file generator voltage setpoints. $R^{+}$/$R^{-}$: under-/over-supply contributions to the mean rebalancing cost (sum = mean). Thermal: share of samples with a line overload.}
 \label{tab:corr_gap_case118_horizons}
 \resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{%
 \begin{tabular}{lrrrrrrrrr}
@@ -9,21 +9,21 @@ Model & Opt. Gap \% & Signed Opt. Gap \% & $\Delta P$ (MW) & $|\Delta P|$ \% & $
 \midrule
 \multicolumn{10}{@{}l}{\textit{Horizon $H=1$}} \\[2pt]
 SARIMA-AC & 0.822 & 0.024 & 0.293 & 0.675 & 0.461 & -0.384 & 0.102 & 0.102 & 36.707 \\
-XGB-DC & 3.662 & -3.65 & -51.587 & 2.163 & 5.935 & -0.002 & 2.283 & 2.283 & 99.949 \\
-SARIMA-Surrogate & 1.011 & 0.518 & 5.705 & 0.778 & 0.357 & -0.635 & 0.24 & 0.24 & 53.712 \\
-E2E & 0.567 & 0.005 & -0.328 & 0.468 & 0.332 & -0.256 & 0.082 & 0.081 & 43.51 \\
+XGB-DC & 3.662 & -3.65 & -51.587 & 2.163 & 5.923 & -0.002 & 2.271 & 2.271 & 99.594 \\
+SARIMA-Surrogate & 1.011 & 0.518 & 5.705 & 0.778 & 0.358 & -0.635 & 0.241 & 0.241 & 53.754 \\
+E2E & 0.567 & 0.005 & -0.328 & 0.468 & 0.333 & -0.256 & 0.083 & 0.082 & 43.882 \\
 \midrule
 \multicolumn{10}{@{}l}{\textit{Horizon $H=6$}} \\[2pt]
-XGB-AC & 2.71 & 0.345 & 3.193 & 2.23 & 1.367 & -1.387 & 0.327 & 0.325 & 42.321 \\
-XGB-DC & 4.328 & -3.446 & -50.835 & 2.979 & 6.063 & -0.268 & 2.348 & 2.348 & 96.423 \\
-XGB-Surrogate & 2.813 & 0.831 & 8.596 & 2.283 & 1.225 & -1.631 & 0.425 & 0.425 & 53.007 \\
-E2E & 1.767 & 0.0 & -1.792 & 1.456 & 1.019 & -0.803 & 0.221 & 0.217 & 51.827 \\
+XGB-AC & 2.71 & 0.345 & 3.193 & 2.23 & 1.367 & -1.387 & 0.327 & 0.325 & 42.333 \\
+XGB-DC & 4.328 & -3.446 & -50.835 & 2.979 & 6.053 & -0.269 & 2.337 & 2.337 & 95.809 \\
+XGB-Surrogate & 2.813 & 0.831 & 8.596 & 2.283 & 1.226 & -1.63 & 0.427 & 0.426 & 53.051 \\
+E2E & 1.767 & 0.0 & -1.792 & 1.456 & 1.02 & -0.802 & 0.222 & 0.218 & 51.954 \\
 \midrule
 \multicolumn{10}{@{}l}{\textit{Horizon $H=24$}} \\[2pt]
-XGB-AC & 4.771 & 0.752 & 4.678 & 3.919 & 2.322 & -2.504 & 0.572 & 0.57 & 44.317 \\
-XGB-DC & 5.647 & -3.062 & -49.252 & 4.308 & 6.445 & -0.875 & 2.508 & 2.508 & 89.455 \\
-XGB-Surrogate & 4.826 & 1.193 & 9.497 & 3.943 & 2.18 & -2.722 & 0.652 & 0.651 & 52.244 \\
-E2E & 4.31 & 0.867 & 12.009 & 3.545 & 1.968 & -2.373 & 0.473 & 0.463 & 57.738 \\
+XGB-AC & 4.771 & 0.752 & 4.678 & 3.919 & 2.322 & -2.504 & 0.572 & 0.57 & 44.338 \\
+XGB-DC & 5.647 & -3.062 & -49.252 & 4.308 & 6.437 & -0.877 & 2.498 & 2.498 & 88.858 \\
+XGB-Surrogate & 4.826 & 1.193 & 9.497 & 3.943 & 2.181 & -2.721 & 0.653 & 0.653 & 52.283 \\
+E2E & 4.31 & 0.867 & 12.009 & 3.545 & 1.969 & -2.371 & 0.475 & 0.465 & 57.839 \\
 \bottomrule
 \end{tabular}}
 \end{table}

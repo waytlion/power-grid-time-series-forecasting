@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
   "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="503.43615pt" height="371.988pt" viewBox="0 0 503.43615 371.988" xmlns="http://www.w3.org/2000/svg" version="1.1">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="498.22115pt" height="371.988pt" viewBox="0 0 498.22115 371.988" xmlns="http://www.w3.org/2000/svg" version="1.1">
  <metadata>
   <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
    <cc:Work>
     <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
-    <dc:date>2026-11-14T12:06:00.085188</dc:date>
+    <dc:date>2026-11-17T08:57:16.642649</dc:date>
     <dc:format>image/svg+xml</dc:format>
     <dc:creator>
      <cc:Agent>
@@ -22,8 +22,8 @@
  <g id="figure_1">
   <g id="patch_1">
    <path d="M 0 371.988 
-L 503.43615 371.988 
-L 503.43615 0 
+L 498.22115 371.988 
+L 498.22115 0 
 L 0 0 
 z
 " style="fill: #ffffff"/>
@@ -32,27 +32,27 @@ z
    <g id="line2d_1">
     <path d="M 124.7148 12.56382 
 L 159.534 12.56382 
-" clip-path="url(#p7f86649a9f)" style="fill: none; stroke: #2a78d6; stroke-width: 3; stroke-linecap: square"/>
+" clip-path="url(#pd5e9fbc44e)" style="fill: none; stroke: #2a78d6; stroke-width: 3; stroke-linecap: square"/>
    </g>
    <g id="line2d_2">
     <path d="M 207.4104 12.56382 
 L 242.2296 12.56382 
-" clip-path="url(#p7f86649a9f)" style="fill: none; stroke: #eb6834; stroke-width: 3; stroke-linecap: square"/>
+" clip-path="url(#pd5e9fbc44e)" style="fill: none; stroke: #eb6834; stroke-width: 3; stroke-linecap: square"/>
    </g>
    <g id="line2d_3">
     <path d="M 290.106 12.56382 
 L 324.9252 12.56382 
-" clip-path="url(#p7f86649a9f)" style="fill: none; stroke: #1baf7a; stroke-width: 3; stroke-linecap: square"/>
+" clip-path="url(#pd5e9fbc44e)" style="fill: none; stroke: #1baf7a; stroke-width: 3; stroke-linecap: square"/>
    </g>
    <g id="line2d_4">
     <path d="M 372.8016 12.56382 
 L 407.6208 12.56382 
-" clip-path="url(#p7f86649a9f)" style="fill: none; stroke: #eda100; stroke-width: 3; stroke-linecap: square"/>
+" clip-path="url(#pd5e9fbc44e)" style="fill: none; stroke: #eda100; stroke-width: 3; stroke-linecap: square"/>
    </g>
    <g id="line2d_5">
     <path d="M 7.2 51.8985 
 L 442.44 51.8985 
-" clip-path="url(#p7f86649a9f)" style="fill: none; stroke: #999999; stroke-width: 0.8; stroke-linecap: square"/>
+" clip-path="url(#pd5e9fbc44e)" style="fill: none; stroke: #999999; stroke-width: 0.8; stroke-linecap: square"/>
    </g>
    <g id="text_1">
     <!-- 2-step AC -->
@@ -865,21 +865,8 @@ z
     </g>
    </g>
    <g id="text_6">
-    <g id="patch_2">
-     <path d="M 133.794713 83.656662 
-L 150.454088 83.656662 
-Q 153.454088 83.656662 153.454088 80.656662 
-L 153.454088 71.778537 
-Q 153.454088 68.778537 150.454088 68.778537 
-L 133.794713 68.778537 
-Q 130.794713 68.778537 130.794713 71.778537 
-L 130.794713 80.656662 
-Q 130.794713 83.656662 133.794713 83.656662 
-z
-" style="fill: #e6e6e6"/>
-    </g>
-    <!-- 0 % -->
-    <g transform="translate(133.794713 78.7176) scale(0.1 -0.1)">
+    <!-- 0.22 %  (0.0015) -->
+    <g transform="translate(106.315025 78.7176) scale(0.1 -0.1)">
      <defs>
       <path id="Cmr10-30" d="M 1600 -141 
 Q 816 -141 533 504 
@@ -909,6 +896,18 @@ Q 806 1788 823 1472
 Q 841 1156 916 820 
 Q 991 484 1158 254 
 Q 1325 25 1600 25 
+z
+" transform="scale(0.015625)"/>
+      <path id="Cmr10-2e" d="M 538 353 
+Q 538 497 644 600 
+Q 750 703 891 703 
+Q 978 703 1062 656 
+Q 1147 609 1194 525 
+Q 1241 441 1241 353 
+Q 1241 213 1137 106 
+Q 1034 0 891 0 
+Q 750 0 644 106 
+Q 538 213 538 353 
 z
 " transform="scale(0.015625)"/>
       <path id="Cmr10-25" d="M 891 -231 
@@ -978,16 +977,187 @@ Q 3616 522 3722 165
 Q 3828 -191 4141 -191 
 z
 " transform="scale(0.015625)"/>
+      <path id="Cmr10-28" d="M 1984 -1588 
+Q 1628 -1306 1370 -942 
+Q 1113 -578 948 -165 
+Q 784 247 703 697 
+Q 622 1147 622 1600 
+Q 622 2059 703 2509 
+Q 784 2959 951 3375 
+Q 1119 3791 1378 4153 
+Q 1638 4516 1984 4788 
+Q 1984 4800 2016 4800 
+L 2075 4800 
+Q 2094 4800 2109 4783 
+Q 2125 4766 2125 4744 
+Q 2125 4716 2113 4703 
+Q 1800 4397 1592 4047 
+Q 1384 3697 1257 3301 
+Q 1131 2906 1075 2482 
+Q 1019 2059 1019 1600 
+Q 1019 -434 2106 -1491 
+Q 2125 -1509 2125 -1544 
+Q 2125 -1559 2108 -1579 
+Q 2091 -1600 2075 -1600 
+L 2016 -1600 
+Q 1984 -1600 1984 -1588 
+z
+" transform="scale(0.015625)"/>
+      <path id="Cmr10-35" d="M 556 728 
+Q 622 541 758 387 
+Q 894 234 1080 148 
+Q 1266 63 1466 63 
+Q 1928 63 2103 422 
+Q 2278 781 2278 1294 
+Q 2278 1516 2270 1667 
+Q 2263 1819 2228 1959 
+Q 2169 2184 2020 2353 
+Q 1872 2522 1656 2522 
+Q 1441 2522 1286 2456 
+Q 1131 2391 1034 2303 
+Q 938 2216 863 2119 
+Q 788 2022 769 2016 
+L 697 2016 
+Q 681 2016 657 2036 
+Q 634 2056 634 2075 
+L 634 4213 
+Q 634 4228 654 4245 
+Q 675 4263 697 4263 
+L 716 4263 
+Q 1147 4056 1631 4056 
+Q 2106 4056 2547 4263 
+L 2566 4263 
+Q 2588 4263 2606 4247 
+Q 2625 4231 2625 4213 
+L 2625 4153 
+Q 2625 4122 2613 4122 
+Q 2394 3831 2064 3668 
+Q 1734 3506 1381 3506 
+Q 1125 3506 856 3578 
+L 856 2369 
+Q 1069 2541 1236 2614 
+Q 1403 2688 1663 2688 
+Q 2016 2688 2295 2484 
+Q 2575 2281 2725 1954 
+Q 2875 1628 2875 1288 
+Q 2875 903 2686 575 
+Q 2497 247 2172 53 
+Q 1847 -141 1466 -141 
+Q 1150 -141 886 21 
+Q 622 184 470 459 
+Q 319 734 319 1044 
+Q 319 1188 412 1278 
+Q 506 1369 647 1369 
+Q 788 1369 883 1276 
+Q 978 1184 978 1044 
+Q 978 906 883 811 
+Q 788 716 647 716 
+Q 625 716 597 720 
+Q 569 725 556 728 
+z
+" transform="scale(0.015625)"/>
+      <path id="Cmr10-29" d="M 416 -1600 
+Q 359 -1600 359 -1544 
+Q 359 -1516 372 -1503 
+Q 1466 -434 1466 1600 
+Q 1466 3634 384 4691 
+Q 359 4706 359 4744 
+Q 359 4766 376 4783 
+Q 394 4800 416 4800 
+L 475 4800 
+Q 494 4800 506 4788 
+Q 966 4425 1272 3906 
+Q 1578 3388 1720 2800 
+Q 1863 2213 1863 1600 
+Q 1863 1147 1786 708 
+Q 1709 269 1542 -157 
+Q 1375 -584 1119 -945 
+Q 863 -1306 506 -1588 
+Q 494 -1600 475 -1600 
+L 416 -1600 
+z
+" transform="scale(0.015625)"/>
      </defs>
      <use xlink:href="#Cmr10-30"/>
-     <use xlink:href="#Cmr10-20" transform="translate(50 0)"/>
-     <use xlink:href="#Cmr10-25" transform="translate(83.300781 0)"/>
+     <use xlink:href="#Cmr10-2e" transform="translate(50 0)"/>
+     <use xlink:href="#Cmr10-32" transform="translate(77.685547 0)"/>
+     <use xlink:href="#Cmr10-32" transform="translate(127.685547 0)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(177.685547 0)"/>
+     <use xlink:href="#Cmr10-25" transform="translate(210.986328 0)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(294.287109 0)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(327.587891 0)"/>
+     <use xlink:href="#Cmr10-28" transform="translate(360.888672 0)"/>
+     <use xlink:href="#Cmr10-30" transform="translate(399.707031 0)"/>
+     <use xlink:href="#Cmr10-2e" transform="translate(449.707031 0)"/>
+     <use xlink:href="#Cmr10-30" transform="translate(477.392578 0)"/>
+     <use xlink:href="#Cmr10-30" transform="translate(527.392578 0)"/>
+     <use xlink:href="#Cmr10-31" transform="translate(577.392578 0)"/>
+     <use xlink:href="#Cmr10-35" transform="translate(627.392578 0)"/>
+     <use xlink:href="#Cmr10-29" transform="translate(677.392578 0)"/>
     </g>
    </g>
    <g id="text_7">
-    <!-- 0 % of samples -->
+    <!-- 3 % of samples -->
     <g style="fill: #737373" transform="translate(117.621666 89.397562) scale(0.075 -0.075)">
      <defs>
+      <path id="Cmr10-33" d="M 609 494 
+Q 759 275 1012 169 
+Q 1266 63 1556 63 
+Q 1928 63 2084 380 
+Q 2241 697 2241 1100 
+Q 2241 1281 2208 1462 
+Q 2175 1644 2097 1800 
+Q 2019 1956 1883 2050 
+Q 1747 2144 1550 2144 
+L 1125 2144 
+Q 1069 2144 1069 2203 
+L 1069 2259 
+Q 1069 2309 1125 2309 
+L 1478 2338 
+Q 1703 2338 1851 2506 
+Q 2000 2675 2069 2917 
+Q 2138 3159 2138 3378 
+Q 2138 3684 1994 3881 
+Q 1850 4078 1556 4078 
+Q 1313 4078 1091 3986 
+Q 869 3894 738 3706 
+Q 750 3709 759 3711 
+Q 769 3713 781 3713 
+Q 925 3713 1022 3613 
+Q 1119 3513 1119 3372 
+Q 1119 3234 1022 3134 
+Q 925 3034 781 3034 
+Q 641 3034 541 3134 
+Q 441 3234 441 3372 
+Q 441 3647 606 3850 
+Q 772 4053 1033 4158 
+Q 1294 4263 1556 4263 
+Q 1750 4263 1965 4205 
+Q 2181 4147 2356 4039 
+Q 2531 3931 2642 3762 
+Q 2753 3594 2753 3378 
+Q 2753 3109 2633 2881 
+Q 2513 2653 2303 2487 
+Q 2094 2322 1844 2241 
+Q 2122 2188 2372 2031 
+Q 2622 1875 2773 1631 
+Q 2925 1388 2925 1106 
+Q 2925 753 2731 467 
+Q 2538 181 2222 20 
+Q 1906 -141 1556 -141 
+Q 1256 -141 954 -26 
+Q 653 88 461 316 
+Q 269 544 269 863 
+Q 269 1022 375 1128 
+Q 481 1234 641 1234 
+Q 744 1234 830 1186 
+Q 916 1138 964 1050 
+Q 1013 963 1013 863 
+Q 1013 706 903 600 
+Q 794 494 641 494 
+L 609 494 
+z
+" transform="scale(0.015625)"/>
       <path id="Cmr10-66" d="M 206 0 
 L 206 225 
 Q 422 225 562 259 
@@ -1093,7 +1263,7 @@ L 197 0
 z
 " transform="scale(0.015625)"/>
      </defs>
-     <use xlink:href="#Cmr10-30"/>
+     <use xlink:href="#Cmr10-33"/>
      <use xlink:href="#Cmr10-20" transform="translate(50 0)"/>
      <use xlink:href="#Cmr10-25" transform="translate(83.300781 0)"/>
      <use xlink:href="#Cmr10-20" transform="translate(166.601562 0)"/>
@@ -1110,7 +1280,7 @@ z
     </g>
    </g>
    <g id="text_8">
-    <g id="patch_3">
+    <g id="patch_2">
      <path d="M 216.490313 83.656662 
 L 233.149688 83.656662 
 Q 236.149688 83.656662 236.149688 80.656662 
@@ -1150,7 +1320,7 @@ z
     </g>
    </g>
    <g id="text_10">
-    <g id="patch_4">
+    <g id="patch_3">
      <path d="M 299.185913 83.656662 
 L 315.845288 83.656662 
 Q 318.845288 83.656662 318.845288 80.656662 
@@ -1190,48 +1360,8 @@ z
     </g>
    </g>
    <g id="text_12">
-    <g id="patch_5">
-     <path d="M 381.881513 83.656662 
-L 398.540888 83.656662 
-Q 401.540888 83.656662 401.540888 80.656662 
-L 401.540888 71.778537 
-Q 401.540888 68.778537 398.540888 68.778537 
-L 381.881513 68.778537 
-Q 378.881513 68.778537 378.881513 71.778537 
-L 378.881513 80.656662 
-Q 378.881513 83.656662 381.881513 83.656662 
-z
-" style="fill: #e6e6e6"/>
-    </g>
-    <!-- 0 % -->
-    <g transform="translate(381.881513 78.7176) scale(0.1 -0.1)">
-     <use xlink:href="#Cmr10-30"/>
-     <use xlink:href="#Cmr10-20" transform="translate(50 0)"/>
-     <use xlink:href="#Cmr10-25" transform="translate(83.300781 0)"/>
-    </g>
-   </g>
-   <g id="text_13">
-    <!-- 0 % of samples -->
-    <g style="fill: #737373" transform="translate(365.708466 89.397562) scale(0.075 -0.075)">
-     <use xlink:href="#Cmr10-30"/>
-     <use xlink:href="#Cmr10-20" transform="translate(50 0)"/>
-     <use xlink:href="#Cmr10-25" transform="translate(83.300781 0)"/>
-     <use xlink:href="#Cmr10-20" transform="translate(166.601562 0)"/>
-     <use xlink:href="#Cmr10-6f" transform="translate(199.902344 0)"/>
-     <use xlink:href="#Cmr10-66" transform="translate(249.902344 0)"/>
-     <use xlink:href="#Cmr10-20" transform="translate(280.419922 0)"/>
-     <use xlink:href="#Cmr10-73" transform="translate(313.720703 0)"/>
-     <use xlink:href="#Cmr10-61" transform="translate(353.125 0)"/>
-     <use xlink:href="#Cmr10-6d" transform="translate(403.125 0)"/>
-     <use xlink:href="#Cmr10-70" transform="translate(486.425781 0)"/>
-     <use xlink:href="#Cmr10-6c" transform="translate(541.943359 0)"/>
-     <use xlink:href="#Cmr10-65" transform="translate(569.628906 0)"/>
-     <use xlink:href="#Cmr10-73" transform="translate(614.013672 0)"/>
-    </g>
-   </g>
-   <g id="text_14">
-    <!-- case14   $H=6$ -->
-    <g transform="translate(11.5524 104.14608) scale(0.11 -0.11)">
+    <!-- 0.23 %  (0.0016) -->
+    <g transform="translate(354.401825 78.7176) scale(0.1 -0.1)">
      <defs>
       <path id="Cmr10-36" d="M 1600 -141 
 Q 1203 -141 937 70 
@@ -1289,141 +1419,10 @@ Q 1316 63 1600 63
 z
 " transform="scale(0.015625)"/>
      </defs>
-     <use xlink:href="#Cmr10-63" transform="translate(0 0.6875)"/>
-     <use xlink:href="#Cmr10-61" transform="translate(44.384766 0.6875)"/>
-     <use xlink:href="#Cmr10-73" transform="translate(94.384766 0.6875)"/>
-     <use xlink:href="#Cmr10-65" transform="translate(133.789062 0.6875)"/>
-     <use xlink:href="#Cmr10-31" transform="translate(178.173828 0.6875)"/>
-     <use xlink:href="#Cmr10-34" transform="translate(228.173828 0.6875)"/>
-     <use xlink:href="#Cmr10-20" transform="translate(278.173828 0.6875)"/>
-     <use xlink:href="#Cmr10-20" transform="translate(311.474609 0.6875)"/>
-     <use xlink:href="#Cmr10-20" transform="translate(344.775391 0.6875)"/>
-     <use xlink:href="#Cmmi10-48" transform="translate(378.076172 0.6875)"/>
-     <use xlink:href="#Cmr10-3d" transform="translate(478.740234 0.6875)"/>
-     <use xlink:href="#Cmr10-36" transform="translate(573.984375 0.6875)"/>
-    </g>
-   </g>
-   <g id="text_15">
-    <!-- 0.15 %  (0.0021) -->
-    <g transform="translate(106.315025 104.14608) scale(0.1 -0.1)">
-     <defs>
-      <path id="Cmr10-2e" d="M 538 353 
-Q 538 497 644 600 
-Q 750 703 891 703 
-Q 978 703 1062 656 
-Q 1147 609 1194 525 
-Q 1241 441 1241 353 
-Q 1241 213 1137 106 
-Q 1034 0 891 0 
-Q 750 0 644 106 
-Q 538 213 538 353 
-z
-" transform="scale(0.015625)"/>
-      <path id="Cmr10-35" d="M 556 728 
-Q 622 541 758 387 
-Q 894 234 1080 148 
-Q 1266 63 1466 63 
-Q 1928 63 2103 422 
-Q 2278 781 2278 1294 
-Q 2278 1516 2270 1667 
-Q 2263 1819 2228 1959 
-Q 2169 2184 2020 2353 
-Q 1872 2522 1656 2522 
-Q 1441 2522 1286 2456 
-Q 1131 2391 1034 2303 
-Q 938 2216 863 2119 
-Q 788 2022 769 2016 
-L 697 2016 
-Q 681 2016 657 2036 
-Q 634 2056 634 2075 
-L 634 4213 
-Q 634 4228 654 4245 
-Q 675 4263 697 4263 
-L 716 4263 
-Q 1147 4056 1631 4056 
-Q 2106 4056 2547 4263 
-L 2566 4263 
-Q 2588 4263 2606 4247 
-Q 2625 4231 2625 4213 
-L 2625 4153 
-Q 2625 4122 2613 4122 
-Q 2394 3831 2064 3668 
-Q 1734 3506 1381 3506 
-Q 1125 3506 856 3578 
-L 856 2369 
-Q 1069 2541 1236 2614 
-Q 1403 2688 1663 2688 
-Q 2016 2688 2295 2484 
-Q 2575 2281 2725 1954 
-Q 2875 1628 2875 1288 
-Q 2875 903 2686 575 
-Q 2497 247 2172 53 
-Q 1847 -141 1466 -141 
-Q 1150 -141 886 21 
-Q 622 184 470 459 
-Q 319 734 319 1044 
-Q 319 1188 412 1278 
-Q 506 1369 647 1369 
-Q 788 1369 883 1276 
-Q 978 1184 978 1044 
-Q 978 906 883 811 
-Q 788 716 647 716 
-Q 625 716 597 720 
-Q 569 725 556 728 
-z
-" transform="scale(0.015625)"/>
-      <path id="Cmr10-28" d="M 1984 -1588 
-Q 1628 -1306 1370 -942 
-Q 1113 -578 948 -165 
-Q 784 247 703 697 
-Q 622 1147 622 1600 
-Q 622 2059 703 2509 
-Q 784 2959 951 3375 
-Q 1119 3791 1378 4153 
-Q 1638 4516 1984 4788 
-Q 1984 4800 2016 4800 
-L 2075 4800 
-Q 2094 4800 2109 4783 
-Q 2125 4766 2125 4744 
-Q 2125 4716 2113 4703 
-Q 1800 4397 1592 4047 
-Q 1384 3697 1257 3301 
-Q 1131 2906 1075 2482 
-Q 1019 2059 1019 1600 
-Q 1019 -434 2106 -1491 
-Q 2125 -1509 2125 -1544 
-Q 2125 -1559 2108 -1579 
-Q 2091 -1600 2075 -1600 
-L 2016 -1600 
-Q 1984 -1600 1984 -1588 
-z
-" transform="scale(0.015625)"/>
-      <path id="Cmr10-29" d="M 416 -1600 
-Q 359 -1600 359 -1544 
-Q 359 -1516 372 -1503 
-Q 1466 -434 1466 1600 
-Q 1466 3634 384 4691 
-Q 359 4706 359 4744 
-Q 359 4766 376 4783 
-Q 394 4800 416 4800 
-L 475 4800 
-Q 494 4800 506 4788 
-Q 966 4425 1272 3906 
-Q 1578 3388 1720 2800 
-Q 1863 2213 1863 1600 
-Q 1863 1147 1786 708 
-Q 1709 269 1542 -157 
-Q 1375 -584 1119 -945 
-Q 863 -1306 506 -1588 
-Q 494 -1600 475 -1600 
-L 416 -1600 
-z
-" transform="scale(0.015625)"/>
-     </defs>
      <use xlink:href="#Cmr10-30"/>
      <use xlink:href="#Cmr10-2e" transform="translate(50 0)"/>
-     <use xlink:href="#Cmr10-31" transform="translate(77.685547 0)"/>
-     <use xlink:href="#Cmr10-35" transform="translate(127.685547 0)"/>
+     <use xlink:href="#Cmr10-32" transform="translate(77.685547 0)"/>
+     <use xlink:href="#Cmr10-33" transform="translate(127.685547 0)"/>
      <use xlink:href="#Cmr10-20" transform="translate(177.685547 0)"/>
      <use xlink:href="#Cmr10-25" transform="translate(210.986328 0)"/>
      <use xlink:href="#Cmr10-20" transform="translate(294.287109 0)"/>
@@ -1433,286 +1432,14 @@ z
      <use xlink:href="#Cmr10-2e" transform="translate(449.707031 0)"/>
      <use xlink:href="#Cmr10-30" transform="translate(477.392578 0)"/>
      <use xlink:href="#Cmr10-30" transform="translate(527.392578 0)"/>
-     <use xlink:href="#Cmr10-32" transform="translate(577.392578 0)"/>
-     <use xlink:href="#Cmr10-31" transform="translate(627.392578 0)"/>
+     <use xlink:href="#Cmr10-31" transform="translate(577.392578 0)"/>
+     <use xlink:href="#Cmr10-36" transform="translate(627.392578 0)"/>
      <use xlink:href="#Cmr10-29" transform="translate(677.392578 0)"/>
     </g>
    </g>
-   <g id="text_16">
-    <!-- 1 % of samples -->
-    <g style="fill: #737373" transform="translate(117.621666 114.826042) scale(0.075 -0.075)">
-     <use xlink:href="#Cmr10-31"/>
-     <use xlink:href="#Cmr10-20" transform="translate(50 0)"/>
-     <use xlink:href="#Cmr10-25" transform="translate(83.300781 0)"/>
-     <use xlink:href="#Cmr10-20" transform="translate(166.601562 0)"/>
-     <use xlink:href="#Cmr10-6f" transform="translate(199.902344 0)"/>
-     <use xlink:href="#Cmr10-66" transform="translate(249.902344 0)"/>
-     <use xlink:href="#Cmr10-20" transform="translate(280.419922 0)"/>
-     <use xlink:href="#Cmr10-73" transform="translate(313.720703 0)"/>
-     <use xlink:href="#Cmr10-61" transform="translate(353.125 0)"/>
-     <use xlink:href="#Cmr10-6d" transform="translate(403.125 0)"/>
-     <use xlink:href="#Cmr10-70" transform="translate(486.425781 0)"/>
-     <use xlink:href="#Cmr10-6c" transform="translate(541.943359 0)"/>
-     <use xlink:href="#Cmr10-65" transform="translate(569.628906 0)"/>
-     <use xlink:href="#Cmr10-73" transform="translate(614.013672 0)"/>
-    </g>
-   </g>
-   <g id="text_17">
-    <g id="patch_6">
-     <path d="M 216.490313 109.085142 
-L 233.149688 109.085142 
-Q 236.149688 109.085142 236.149688 106.085142 
-L 236.149688 97.207017 
-Q 236.149688 94.207017 233.149688 94.207017 
-L 216.490313 94.207017 
-Q 213.490313 94.207017 213.490313 97.207017 
-L 213.490313 106.085142 
-Q 213.490313 109.085142 216.490313 109.085142 
-z
-" style="fill: #e6e6e6"/>
-    </g>
-    <!-- 0 % -->
-    <g transform="translate(216.490313 104.14608) scale(0.1 -0.1)">
-     <use xlink:href="#Cmr10-30"/>
-     <use xlink:href="#Cmr10-20" transform="translate(50 0)"/>
-     <use xlink:href="#Cmr10-25" transform="translate(83.300781 0)"/>
-    </g>
-   </g>
-   <g id="text_18">
-    <!-- 0 % of samples -->
-    <g style="fill: #737373" transform="translate(200.317266 114.826042) scale(0.075 -0.075)">
-     <use xlink:href="#Cmr10-30"/>
-     <use xlink:href="#Cmr10-20" transform="translate(50 0)"/>
-     <use xlink:href="#Cmr10-25" transform="translate(83.300781 0)"/>
-     <use xlink:href="#Cmr10-20" transform="translate(166.601562 0)"/>
-     <use xlink:href="#Cmr10-6f" transform="translate(199.902344 0)"/>
-     <use xlink:href="#Cmr10-66" transform="translate(249.902344 0)"/>
-     <use xlink:href="#Cmr10-20" transform="translate(280.419922 0)"/>
-     <use xlink:href="#Cmr10-73" transform="translate(313.720703 0)"/>
-     <use xlink:href="#Cmr10-61" transform="translate(353.125 0)"/>
-     <use xlink:href="#Cmr10-6d" transform="translate(403.125 0)"/>
-     <use xlink:href="#Cmr10-70" transform="translate(486.425781 0)"/>
-     <use xlink:href="#Cmr10-6c" transform="translate(541.943359 0)"/>
-     <use xlink:href="#Cmr10-65" transform="translate(569.628906 0)"/>
-     <use xlink:href="#Cmr10-73" transform="translate(614.013672 0)"/>
-    </g>
-   </g>
-   <g id="text_19">
-    <!-- &lt; 0.001 %  (0.0016) -->
-    <g transform="translate(266.157006 104.14608) scale(0.1 -0.1)">
-     <defs>
-      <path id="Cmr10-3c" d="M 538 -1063 
-L 538 -1025 
-L 800 1925 
-Q 800 1944 814 1964 
-Q 828 1984 850 1984 
-L 928 1984 
-Q 950 1984 967 1965 
-Q 984 1947 984 1925 
-L 1241 -1025 
-L 1241 -1063 
-Q 1241 -1197 1136 -1289 
-Q 1031 -1381 891 -1381 
-Q 753 -1381 645 -1289 
-Q 538 -1197 538 -1063 
-z
-M 538 2847 
-Q 538 2988 644 3094 
-Q 750 3200 891 3200 
-Q 978 3200 1062 3153 
-Q 1147 3106 1194 3022 
-Q 1241 2938 1241 2847 
-Q 1241 2709 1137 2603 
-Q 1034 2497 891 2497 
-Q 750 2497 644 2603 
-Q 538 2709 538 2847 
-z
-" transform="scale(0.015625)"/>
-     </defs>
-     <use xlink:href="#Cmr10-3c"/>
-     <use xlink:href="#Cmr10-20" transform="translate(27.685547 0)"/>
-     <use xlink:href="#Cmr10-30" transform="translate(60.986328 0)"/>
-     <use xlink:href="#Cmr10-2e" transform="translate(110.986328 0)"/>
-     <use xlink:href="#Cmr10-30" transform="translate(138.671875 0)"/>
-     <use xlink:href="#Cmr10-30" transform="translate(188.671875 0)"/>
-     <use xlink:href="#Cmr10-31" transform="translate(238.671875 0)"/>
-     <use xlink:href="#Cmr10-20" transform="translate(288.671875 0)"/>
-     <use xlink:href="#Cmr10-25" transform="translate(321.972656 0)"/>
-     <use xlink:href="#Cmr10-20" transform="translate(405.273438 0)"/>
-     <use xlink:href="#Cmr10-20" transform="translate(438.574219 0)"/>
-     <use xlink:href="#Cmr10-28" transform="translate(471.875 0)"/>
-     <use xlink:href="#Cmr10-30" transform="translate(510.693359 0)"/>
-     <use xlink:href="#Cmr10-2e" transform="translate(560.693359 0)"/>
-     <use xlink:href="#Cmr10-30" transform="translate(588.378906 0)"/>
-     <use xlink:href="#Cmr10-30" transform="translate(638.378906 0)"/>
-     <use xlink:href="#Cmr10-31" transform="translate(688.378906 0)"/>
-     <use xlink:href="#Cmr10-36" transform="translate(738.378906 0)"/>
-     <use xlink:href="#Cmr10-29" transform="translate(788.378906 0)"/>
-    </g>
-   </g>
-   <g id="text_20">
-    <!-- &lt; 1 % of samples -->
-    <g style="fill: #737373" transform="translate(280.725952 114.826042) scale(0.075 -0.075)">
-     <use xlink:href="#Cmr10-3c"/>
-     <use xlink:href="#Cmr10-20" transform="translate(27.685547 0)"/>
-     <use xlink:href="#Cmr10-31" transform="translate(60.986328 0)"/>
-     <use xlink:href="#Cmr10-20" transform="translate(110.986328 0)"/>
-     <use xlink:href="#Cmr10-25" transform="translate(144.287109 0)"/>
-     <use xlink:href="#Cmr10-20" transform="translate(227.587891 0)"/>
-     <use xlink:href="#Cmr10-6f" transform="translate(260.888672 0)"/>
-     <use xlink:href="#Cmr10-66" transform="translate(310.888672 0)"/>
-     <use xlink:href="#Cmr10-20" transform="translate(341.40625 0)"/>
-     <use xlink:href="#Cmr10-73" transform="translate(374.707031 0)"/>
-     <use xlink:href="#Cmr10-61" transform="translate(414.111328 0)"/>
-     <use xlink:href="#Cmr10-6d" transform="translate(464.111328 0)"/>
-     <use xlink:href="#Cmr10-70" transform="translate(547.412109 0)"/>
-     <use xlink:href="#Cmr10-6c" transform="translate(602.929688 0)"/>
-     <use xlink:href="#Cmr10-65" transform="translate(630.615234 0)"/>
-     <use xlink:href="#Cmr10-73" transform="translate(675 0)"/>
-    </g>
-   </g>
-   <g id="text_21">
-    <g id="patch_7">
-     <path d="M 381.881513 109.085142 
-L 398.540888 109.085142 
-Q 401.540888 109.085142 401.540888 106.085142 
-L 401.540888 97.207017 
-Q 401.540888 94.207017 398.540888 94.207017 
-L 381.881513 94.207017 
-Q 378.881513 94.207017 378.881513 97.207017 
-L 378.881513 106.085142 
-Q 378.881513 109.085142 381.881513 109.085142 
-z
-" style="fill: #e6e6e6"/>
-    </g>
-    <!-- 0 % -->
-    <g transform="translate(381.881513 104.14608) scale(0.1 -0.1)">
-     <use xlink:href="#Cmr10-30"/>
-     <use xlink:href="#Cmr10-20" transform="translate(50 0)"/>
-     <use xlink:href="#Cmr10-25" transform="translate(83.300781 0)"/>
-    </g>
-   </g>
-   <g id="text_22">
-    <!-- 0 % of samples -->
-    <g style="fill: #737373" transform="translate(365.708466 114.826042) scale(0.075 -0.075)">
-     <use xlink:href="#Cmr10-30"/>
-     <use xlink:href="#Cmr10-20" transform="translate(50 0)"/>
-     <use xlink:href="#Cmr10-25" transform="translate(83.300781 0)"/>
-     <use xlink:href="#Cmr10-20" transform="translate(166.601562 0)"/>
-     <use xlink:href="#Cmr10-6f" transform="translate(199.902344 0)"/>
-     <use xlink:href="#Cmr10-66" transform="translate(249.902344 0)"/>
-     <use xlink:href="#Cmr10-20" transform="translate(280.419922 0)"/>
-     <use xlink:href="#Cmr10-73" transform="translate(313.720703 0)"/>
-     <use xlink:href="#Cmr10-61" transform="translate(353.125 0)"/>
-     <use xlink:href="#Cmr10-6d" transform="translate(403.125 0)"/>
-     <use xlink:href="#Cmr10-70" transform="translate(486.425781 0)"/>
-     <use xlink:href="#Cmr10-6c" transform="translate(541.943359 0)"/>
-     <use xlink:href="#Cmr10-65" transform="translate(569.628906 0)"/>
-     <use xlink:href="#Cmr10-73" transform="translate(614.013672 0)"/>
-    </g>
-   </g>
-   <g id="text_23">
-    <!-- case14   $H=24$ -->
-    <g transform="translate(11.5524 129.57456) scale(0.11 -0.11)">
-     <use xlink:href="#Cmr10-63" transform="translate(0 0.6875)"/>
-     <use xlink:href="#Cmr10-61" transform="translate(44.384766 0.6875)"/>
-     <use xlink:href="#Cmr10-73" transform="translate(94.384766 0.6875)"/>
-     <use xlink:href="#Cmr10-65" transform="translate(133.789062 0.6875)"/>
-     <use xlink:href="#Cmr10-31" transform="translate(178.173828 0.6875)"/>
-     <use xlink:href="#Cmr10-34" transform="translate(228.173828 0.6875)"/>
-     <use xlink:href="#Cmr10-20" transform="translate(278.173828 0.6875)"/>
-     <use xlink:href="#Cmr10-20" transform="translate(311.474609 0.6875)"/>
-     <use xlink:href="#Cmr10-20" transform="translate(344.775391 0.6875)"/>
-     <use xlink:href="#Cmmi10-48" transform="translate(378.076172 0.6875)"/>
-     <use xlink:href="#Cmr10-3d" transform="translate(478.740234 0.6875)"/>
-     <use xlink:href="#Cmr10-32" transform="translate(573.984375 0.6875)"/>
-     <use xlink:href="#Cmr10-34" transform="translate(623.984375 0.6875)"/>
-    </g>
-   </g>
-   <g id="text_24">
-    <!-- 0.34 %  (0.0023) -->
-    <g transform="translate(106.315025 129.57456) scale(0.1 -0.1)">
-     <defs>
-      <path id="Cmr10-33" d="M 609 494 
-Q 759 275 1012 169 
-Q 1266 63 1556 63 
-Q 1928 63 2084 380 
-Q 2241 697 2241 1100 
-Q 2241 1281 2208 1462 
-Q 2175 1644 2097 1800 
-Q 2019 1956 1883 2050 
-Q 1747 2144 1550 2144 
-L 1125 2144 
-Q 1069 2144 1069 2203 
-L 1069 2259 
-Q 1069 2309 1125 2309 
-L 1478 2338 
-Q 1703 2338 1851 2506 
-Q 2000 2675 2069 2917 
-Q 2138 3159 2138 3378 
-Q 2138 3684 1994 3881 
-Q 1850 4078 1556 4078 
-Q 1313 4078 1091 3986 
-Q 869 3894 738 3706 
-Q 750 3709 759 3711 
-Q 769 3713 781 3713 
-Q 925 3713 1022 3613 
-Q 1119 3513 1119 3372 
-Q 1119 3234 1022 3134 
-Q 925 3034 781 3034 
-Q 641 3034 541 3134 
-Q 441 3234 441 3372 
-Q 441 3647 606 3850 
-Q 772 4053 1033 4158 
-Q 1294 4263 1556 4263 
-Q 1750 4263 1965 4205 
-Q 2181 4147 2356 4039 
-Q 2531 3931 2642 3762 
-Q 2753 3594 2753 3378 
-Q 2753 3109 2633 2881 
-Q 2513 2653 2303 2487 
-Q 2094 2322 1844 2241 
-Q 2122 2188 2372 2031 
-Q 2622 1875 2773 1631 
-Q 2925 1388 2925 1106 
-Q 2925 753 2731 467 
-Q 2538 181 2222 20 
-Q 1906 -141 1556 -141 
-Q 1256 -141 954 -26 
-Q 653 88 461 316 
-Q 269 544 269 863 
-Q 269 1022 375 1128 
-Q 481 1234 641 1234 
-Q 744 1234 830 1186 
-Q 916 1138 964 1050 
-Q 1013 963 1013 863 
-Q 1013 706 903 600 
-Q 794 494 641 494 
-L 609 494 
-z
-" transform="scale(0.015625)"/>
-     </defs>
-     <use xlink:href="#Cmr10-30"/>
-     <use xlink:href="#Cmr10-2e" transform="translate(50 0)"/>
-     <use xlink:href="#Cmr10-33" transform="translate(77.685547 0)"/>
-     <use xlink:href="#Cmr10-34" transform="translate(127.685547 0)"/>
-     <use xlink:href="#Cmr10-20" transform="translate(177.685547 0)"/>
-     <use xlink:href="#Cmr10-25" transform="translate(210.986328 0)"/>
-     <use xlink:href="#Cmr10-20" transform="translate(294.287109 0)"/>
-     <use xlink:href="#Cmr10-20" transform="translate(327.587891 0)"/>
-     <use xlink:href="#Cmr10-28" transform="translate(360.888672 0)"/>
-     <use xlink:href="#Cmr10-30" transform="translate(399.707031 0)"/>
-     <use xlink:href="#Cmr10-2e" transform="translate(449.707031 0)"/>
-     <use xlink:href="#Cmr10-30" transform="translate(477.392578 0)"/>
-     <use xlink:href="#Cmr10-30" transform="translate(527.392578 0)"/>
-     <use xlink:href="#Cmr10-32" transform="translate(577.392578 0)"/>
-     <use xlink:href="#Cmr10-33" transform="translate(627.392578 0)"/>
-     <use xlink:href="#Cmr10-29" transform="translate(677.392578 0)"/>
-    </g>
-   </g>
-   <g id="text_25">
+   <g id="text_13">
     <!-- 3 % of samples -->
-    <g style="fill: #737373" transform="translate(117.621666 140.254522) scale(0.075 -0.075)">
+    <g style="fill: #737373" transform="translate(365.708466 89.397562) scale(0.075 -0.075)">
      <use xlink:href="#Cmr10-33"/>
      <use xlink:href="#Cmr10-20" transform="translate(50 0)"/>
      <use xlink:href="#Cmr10-25" transform="translate(83.300781 0)"/>
@@ -1729,134 +1456,96 @@ z
      <use xlink:href="#Cmr10-73" transform="translate(614.013672 0)"/>
     </g>
    </g>
-   <g id="text_26">
-    <g id="patch_8">
-     <path d="M 216.490313 134.513622 
-L 233.149688 134.513622 
-Q 236.149688 134.513622 236.149688 131.513622 
-L 236.149688 122.635497 
-Q 236.149688 119.635497 233.149688 119.635497 
-L 216.490313 119.635497 
-Q 213.490313 119.635497 213.490313 122.635497 
-L 213.490313 131.513622 
-Q 213.490313 134.513622 216.490313 134.513622 
+   <g id="text_14">
+    <!-- case14   $H=6$ -->
+    <g transform="translate(11.5524 104.14608) scale(0.11 -0.11)">
+     <use xlink:href="#Cmr10-63" transform="translate(0 0.6875)"/>
+     <use xlink:href="#Cmr10-61" transform="translate(44.384766 0.6875)"/>
+     <use xlink:href="#Cmr10-73" transform="translate(94.384766 0.6875)"/>
+     <use xlink:href="#Cmr10-65" transform="translate(133.789062 0.6875)"/>
+     <use xlink:href="#Cmr10-31" transform="translate(178.173828 0.6875)"/>
+     <use xlink:href="#Cmr10-34" transform="translate(228.173828 0.6875)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(278.173828 0.6875)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(311.474609 0.6875)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(344.775391 0.6875)"/>
+     <use xlink:href="#Cmmi10-48" transform="translate(378.076172 0.6875)"/>
+     <use xlink:href="#Cmr10-3d" transform="translate(478.740234 0.6875)"/>
+     <use xlink:href="#Cmr10-36" transform="translate(573.984375 0.6875)"/>
+    </g>
+   </g>
+   <g id="text_15">
+    <!-- 2.2 %  (0.0029) -->
+    <g transform="translate(108.815025 104.14608) scale(0.1 -0.1)">
+     <defs>
+      <path id="Cmr10-39" d="M 722 269 
+Q 897 63 1331 63 
+Q 1575 63 1786 228 
+Q 1997 394 2113 634 
+Q 2247 906 2284 1214 
+Q 2322 1522 2322 1978 
+Q 2213 1719 2008 1553 
+Q 1803 1388 1538 1388 
+Q 1166 1388 873 1589 
+Q 581 1791 425 2120 
+Q 269 2450 269 2822 
+Q 269 3206 444 3539 
+Q 619 3872 928 4067 
+Q 1238 4263 1631 4263 
+Q 2019 4263 2280 4052 
+Q 2541 3841 2678 3508 
+Q 2816 3175 2870 2803 
+Q 2925 2431 2925 2069 
+Q 2925 1575 2744 1061 
+Q 2563 547 2202 203 
+Q 1841 -141 1331 -141 
+Q 953 -141 690 37 
+Q 428 216 428 575 
+Q 428 706 517 795 
+Q 606 884 738 884 
+Q 866 884 955 795 
+Q 1044 706 1044 575 
+Q 1044 450 953 359 
+Q 863 269 738 269 
+L 722 269 
 z
-" style="fill: #e6e6e6"/>
-    </g>
-    <!-- 0 % -->
-    <g transform="translate(216.490313 129.57456) scale(0.1 -0.1)">
-     <use xlink:href="#Cmr10-30"/>
-     <use xlink:href="#Cmr10-20" transform="translate(50 0)"/>
-     <use xlink:href="#Cmr10-25" transform="translate(83.300781 0)"/>
-    </g>
-   </g>
-   <g id="text_27">
-    <!-- 0 % of samples -->
-    <g style="fill: #737373" transform="translate(200.317266 140.254522) scale(0.075 -0.075)">
-     <use xlink:href="#Cmr10-30"/>
-     <use xlink:href="#Cmr10-20" transform="translate(50 0)"/>
-     <use xlink:href="#Cmr10-25" transform="translate(83.300781 0)"/>
-     <use xlink:href="#Cmr10-20" transform="translate(166.601562 0)"/>
-     <use xlink:href="#Cmr10-6f" transform="translate(199.902344 0)"/>
-     <use xlink:href="#Cmr10-66" transform="translate(249.902344 0)"/>
-     <use xlink:href="#Cmr10-20" transform="translate(280.419922 0)"/>
-     <use xlink:href="#Cmr10-73" transform="translate(313.720703 0)"/>
-     <use xlink:href="#Cmr10-61" transform="translate(353.125 0)"/>
-     <use xlink:href="#Cmr10-6d" transform="translate(403.125 0)"/>
-     <use xlink:href="#Cmr10-70" transform="translate(486.425781 0)"/>
-     <use xlink:href="#Cmr10-6c" transform="translate(541.943359 0)"/>
-     <use xlink:href="#Cmr10-65" transform="translate(569.628906 0)"/>
-     <use xlink:href="#Cmr10-73" transform="translate(614.013672 0)"/>
-    </g>
-   </g>
-   <g id="text_28">
-    <!-- &lt; 0.001 %  (0.0013) -->
-    <g transform="translate(266.157006 129.57456) scale(0.1 -0.1)">
-     <use xlink:href="#Cmr10-3c"/>
-     <use xlink:href="#Cmr10-20" transform="translate(27.685547 0)"/>
-     <use xlink:href="#Cmr10-30" transform="translate(60.986328 0)"/>
-     <use xlink:href="#Cmr10-2e" transform="translate(110.986328 0)"/>
-     <use xlink:href="#Cmr10-30" transform="translate(138.671875 0)"/>
-     <use xlink:href="#Cmr10-30" transform="translate(188.671875 0)"/>
-     <use xlink:href="#Cmr10-31" transform="translate(238.671875 0)"/>
-     <use xlink:href="#Cmr10-20" transform="translate(288.671875 0)"/>
-     <use xlink:href="#Cmr10-25" transform="translate(321.972656 0)"/>
-     <use xlink:href="#Cmr10-20" transform="translate(405.273438 0)"/>
-     <use xlink:href="#Cmr10-20" transform="translate(438.574219 0)"/>
-     <use xlink:href="#Cmr10-28" transform="translate(471.875 0)"/>
-     <use xlink:href="#Cmr10-30" transform="translate(510.693359 0)"/>
-     <use xlink:href="#Cmr10-2e" transform="translate(560.693359 0)"/>
-     <use xlink:href="#Cmr10-30" transform="translate(588.378906 0)"/>
-     <use xlink:href="#Cmr10-30" transform="translate(638.378906 0)"/>
-     <use xlink:href="#Cmr10-31" transform="translate(688.378906 0)"/>
-     <use xlink:href="#Cmr10-33" transform="translate(738.378906 0)"/>
-     <use xlink:href="#Cmr10-29" transform="translate(788.378906 0)"/>
-    </g>
-   </g>
-   <g id="text_29">
-    <!-- &lt; 1 % of samples -->
-    <g style="fill: #737373" transform="translate(280.725952 140.254522) scale(0.075 -0.075)">
-     <use xlink:href="#Cmr10-3c"/>
-     <use xlink:href="#Cmr10-20" transform="translate(27.685547 0)"/>
-     <use xlink:href="#Cmr10-31" transform="translate(60.986328 0)"/>
-     <use xlink:href="#Cmr10-20" transform="translate(110.986328 0)"/>
-     <use xlink:href="#Cmr10-25" transform="translate(144.287109 0)"/>
-     <use xlink:href="#Cmr10-20" transform="translate(227.587891 0)"/>
-     <use xlink:href="#Cmr10-6f" transform="translate(260.888672 0)"/>
-     <use xlink:href="#Cmr10-66" transform="translate(310.888672 0)"/>
-     <use xlink:href="#Cmr10-20" transform="translate(341.40625 0)"/>
-     <use xlink:href="#Cmr10-73" transform="translate(374.707031 0)"/>
-     <use xlink:href="#Cmr10-61" transform="translate(414.111328 0)"/>
-     <use xlink:href="#Cmr10-6d" transform="translate(464.111328 0)"/>
-     <use xlink:href="#Cmr10-70" transform="translate(547.412109 0)"/>
-     <use xlink:href="#Cmr10-6c" transform="translate(602.929688 0)"/>
-     <use xlink:href="#Cmr10-65" transform="translate(630.615234 0)"/>
-     <use xlink:href="#Cmr10-73" transform="translate(675 0)"/>
-    </g>
-   </g>
-   <g id="text_30">
-    <g id="patch_9">
-     <path d="M 381.881513 134.513622 
-L 398.540888 134.513622 
-Q 401.540888 134.513622 401.540888 131.513622 
-L 401.540888 122.635497 
-Q 401.540888 119.635497 398.540888 119.635497 
-L 381.881513 119.635497 
-Q 378.881513 119.635497 378.881513 122.635497 
-L 378.881513 131.513622 
-Q 378.881513 134.513622 381.881513 134.513622 
+M 1563 1556 
+Q 1825 1556 1992 1732 
+Q 2159 1909 2234 2171 
+Q 2309 2434 2309 2694 
+L 2309 2816 
+L 2309 2841 
+Q 2309 3322 2168 3700 
+Q 2028 4078 1631 4078 
+Q 1378 4078 1220 3967 
+Q 1063 3856 988 3672 
+Q 913 3488 892 3278 
+Q 872 3069 872 2822 
+Q 872 2459 906 2203 
+Q 941 1947 1094 1751 
+Q 1247 1556 1563 1556 
 z
-" style="fill: #e6e6e6"/>
-    </g>
-    <!-- 0 % -->
-    <g transform="translate(381.881513 129.57456) scale(0.1 -0.1)">
-     <use xlink:href="#Cmr10-30"/>
-     <use xlink:href="#Cmr10-20" transform="translate(50 0)"/>
-     <use xlink:href="#Cmr10-25" transform="translate(83.300781 0)"/>
-    </g>
-   </g>
-   <g id="text_31">
-    <!-- 0 % of samples -->
-    <g style="fill: #737373" transform="translate(365.708466 140.254522) scale(0.075 -0.075)">
-     <use xlink:href="#Cmr10-30"/>
-     <use xlink:href="#Cmr10-20" transform="translate(50 0)"/>
-     <use xlink:href="#Cmr10-25" transform="translate(83.300781 0)"/>
-     <use xlink:href="#Cmr10-20" transform="translate(166.601562 0)"/>
-     <use xlink:href="#Cmr10-6f" transform="translate(199.902344 0)"/>
-     <use xlink:href="#Cmr10-66" transform="translate(249.902344 0)"/>
-     <use xlink:href="#Cmr10-20" transform="translate(280.419922 0)"/>
-     <use xlink:href="#Cmr10-73" transform="translate(313.720703 0)"/>
-     <use xlink:href="#Cmr10-61" transform="translate(353.125 0)"/>
-     <use xlink:href="#Cmr10-6d" transform="translate(403.125 0)"/>
-     <use xlink:href="#Cmr10-70" transform="translate(486.425781 0)"/>
-     <use xlink:href="#Cmr10-6c" transform="translate(541.943359 0)"/>
-     <use xlink:href="#Cmr10-65" transform="translate(569.628906 0)"/>
-     <use xlink:href="#Cmr10-73" transform="translate(614.013672 0)"/>
+" transform="scale(0.015625)"/>
+     </defs>
+     <use xlink:href="#Cmr10-32"/>
+     <use xlink:href="#Cmr10-2e" transform="translate(50 0)"/>
+     <use xlink:href="#Cmr10-32" transform="translate(77.685547 0)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(127.685547 0)"/>
+     <use xlink:href="#Cmr10-25" transform="translate(160.986328 0)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(244.287109 0)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(277.587891 0)"/>
+     <use xlink:href="#Cmr10-28" transform="translate(310.888672 0)"/>
+     <use xlink:href="#Cmr10-30" transform="translate(349.707031 0)"/>
+     <use xlink:href="#Cmr10-2e" transform="translate(399.707031 0)"/>
+     <use xlink:href="#Cmr10-30" transform="translate(427.392578 0)"/>
+     <use xlink:href="#Cmr10-30" transform="translate(477.392578 0)"/>
+     <use xlink:href="#Cmr10-32" transform="translate(527.392578 0)"/>
+     <use xlink:href="#Cmr10-39" transform="translate(577.392578 0)"/>
+     <use xlink:href="#Cmr10-29" transform="translate(627.392578 0)"/>
     </g>
    </g>
-   <g id="text_32">
-    <!-- case118   $H=1$ -->
-    <g transform="translate(11.5524 167.51862) scale(0.11 -0.11)">
+   <g id="text_16">
+    <!-- 18 % of samples -->
+    <g style="fill: #737373" transform="translate(115.746666 114.826042) scale(0.075 -0.075)">
      <defs>
       <path id="Cmr10-38" d="M 269 972 
 Q 269 1356 522 1651 
@@ -1911,45 +1600,47 @@ Q 750 3131 1056 2925
 z
 " transform="scale(0.015625)"/>
      </defs>
-     <use xlink:href="#Cmr10-63" transform="translate(0 0.6875)"/>
-     <use xlink:href="#Cmr10-61" transform="translate(44.384766 0.6875)"/>
-     <use xlink:href="#Cmr10-73" transform="translate(94.384766 0.6875)"/>
-     <use xlink:href="#Cmr10-65" transform="translate(133.789062 0.6875)"/>
-     <use xlink:href="#Cmr10-31" transform="translate(178.173828 0.6875)"/>
-     <use xlink:href="#Cmr10-31" transform="translate(228.173828 0.6875)"/>
-     <use xlink:href="#Cmr10-38" transform="translate(278.173828 0.6875)"/>
-     <use xlink:href="#Cmr10-20" transform="translate(328.173828 0.6875)"/>
-     <use xlink:href="#Cmr10-20" transform="translate(361.474609 0.6875)"/>
-     <use xlink:href="#Cmr10-20" transform="translate(394.775391 0.6875)"/>
-     <use xlink:href="#Cmmi10-48" transform="translate(428.076172 0.6875)"/>
-     <use xlink:href="#Cmr10-3d" transform="translate(528.740234 0.6875)"/>
-     <use xlink:href="#Cmr10-31" transform="translate(623.984375 0.6875)"/>
+     <use xlink:href="#Cmr10-31"/>
+     <use xlink:href="#Cmr10-38" transform="translate(50 0)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(100 0)"/>
+     <use xlink:href="#Cmr10-25" transform="translate(133.300781 0)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(216.601562 0)"/>
+     <use xlink:href="#Cmr10-6f" transform="translate(249.902344 0)"/>
+     <use xlink:href="#Cmr10-66" transform="translate(299.902344 0)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(330.419922 0)"/>
+     <use xlink:href="#Cmr10-73" transform="translate(363.720703 0)"/>
+     <use xlink:href="#Cmr10-61" transform="translate(403.125 0)"/>
+     <use xlink:href="#Cmr10-6d" transform="translate(453.125 0)"/>
+     <use xlink:href="#Cmr10-70" transform="translate(536.425781 0)"/>
+     <use xlink:href="#Cmr10-6c" transform="translate(591.943359 0)"/>
+     <use xlink:href="#Cmr10-65" transform="translate(619.628906 0)"/>
+     <use xlink:href="#Cmr10-73" transform="translate(664.013672 0)"/>
     </g>
    </g>
-   <g id="text_33">
-    <g id="patch_10">
-     <path d="M 133.794713 172.457682 
-L 150.454088 172.457682 
-Q 153.454088 172.457682 153.454088 169.457682 
-L 153.454088 160.579557 
-Q 153.454088 157.579557 150.454088 157.579557 
-L 133.794713 157.579557 
-Q 130.794713 157.579557 130.794713 160.579557 
-L 130.794713 169.457682 
-Q 130.794713 172.457682 133.794713 172.457682 
+   <g id="text_17">
+    <g id="patch_4">
+     <path d="M 216.490313 109.085142 
+L 233.149688 109.085142 
+Q 236.149688 109.085142 236.149688 106.085142 
+L 236.149688 97.207017 
+Q 236.149688 94.207017 233.149688 94.207017 
+L 216.490313 94.207017 
+Q 213.490313 94.207017 213.490313 97.207017 
+L 213.490313 106.085142 
+Q 213.490313 109.085142 216.490313 109.085142 
 z
 " style="fill: #e6e6e6"/>
     </g>
     <!-- 0 % -->
-    <g transform="translate(133.794713 167.51862) scale(0.1 -0.1)">
+    <g transform="translate(216.490313 104.14608) scale(0.1 -0.1)">
      <use xlink:href="#Cmr10-30"/>
      <use xlink:href="#Cmr10-20" transform="translate(50 0)"/>
      <use xlink:href="#Cmr10-25" transform="translate(83.300781 0)"/>
     </g>
    </g>
-   <g id="text_34">
+   <g id="text_18">
     <!-- 0 % of samples -->
-    <g style="fill: #737373" transform="translate(117.621666 178.198582) scale(0.075 -0.075)">
+    <g style="fill: #737373" transform="translate(200.317266 114.826042) scale(0.075 -0.075)">
      <use xlink:href="#Cmr10-30"/>
      <use xlink:href="#Cmr10-20" transform="translate(50 0)"/>
      <use xlink:href="#Cmr10-25" transform="translate(83.300781 0)"/>
@@ -1966,8 +1657,375 @@ z
      <use xlink:href="#Cmr10-73" transform="translate(614.013672 0)"/>
     </g>
    </g>
+   <g id="text_19">
+    <!-- 0.17 %  (0.0027) -->
+    <g transform="translate(271.706225 104.14608) scale(0.1 -0.1)">
+     <defs>
+      <path id="Cmr10-37" d="M 1113 166 
+Q 1113 522 1175 862 
+Q 1238 1203 1358 1536 
+Q 1478 1869 1648 2189 
+Q 1819 2509 2022 2791 
+L 2606 3603 
+L 1875 3603 
+Q 738 3603 703 3572 
+Q 619 3469 544 2981 
+L 359 2981 
+L 569 4325 
+L 756 4325 
+L 756 4306 
+Q 756 4191 1147 4156 
+Q 1538 4122 1913 4122 
+L 3103 4122 
+L 3103 3956 
+Q 3103 3950 3101 3947 
+Q 3100 3944 3097 3938 
+L 2216 2700 
+Q 1891 2219 1809 1631 
+Q 1728 1044 1728 166 
+Q 1728 41 1637 -50 
+Q 1547 -141 1422 -141 
+Q 1294 -141 1203 -50 
+Q 1113 41 1113 166 
+z
+" transform="scale(0.015625)"/>
+     </defs>
+     <use xlink:href="#Cmr10-30"/>
+     <use xlink:href="#Cmr10-2e" transform="translate(50 0)"/>
+     <use xlink:href="#Cmr10-31" transform="translate(77.685547 0)"/>
+     <use xlink:href="#Cmr10-37" transform="translate(127.685547 0)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(177.685547 0)"/>
+     <use xlink:href="#Cmr10-25" transform="translate(210.986328 0)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(294.287109 0)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(327.587891 0)"/>
+     <use xlink:href="#Cmr10-28" transform="translate(360.888672 0)"/>
+     <use xlink:href="#Cmr10-30" transform="translate(399.707031 0)"/>
+     <use xlink:href="#Cmr10-2e" transform="translate(449.707031 0)"/>
+     <use xlink:href="#Cmr10-30" transform="translate(477.392578 0)"/>
+     <use xlink:href="#Cmr10-30" transform="translate(527.392578 0)"/>
+     <use xlink:href="#Cmr10-32" transform="translate(577.392578 0)"/>
+     <use xlink:href="#Cmr10-37" transform="translate(627.392578 0)"/>
+     <use xlink:href="#Cmr10-29" transform="translate(677.392578 0)"/>
+    </g>
+   </g>
+   <g id="text_20">
+    <!-- 2 % of samples -->
+    <g style="fill: #737373" transform="translate(283.012866 114.826042) scale(0.075 -0.075)">
+     <use xlink:href="#Cmr10-32"/>
+     <use xlink:href="#Cmr10-20" transform="translate(50 0)"/>
+     <use xlink:href="#Cmr10-25" transform="translate(83.300781 0)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(166.601562 0)"/>
+     <use xlink:href="#Cmr10-6f" transform="translate(199.902344 0)"/>
+     <use xlink:href="#Cmr10-66" transform="translate(249.902344 0)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(280.419922 0)"/>
+     <use xlink:href="#Cmr10-73" transform="translate(313.720703 0)"/>
+     <use xlink:href="#Cmr10-61" transform="translate(353.125 0)"/>
+     <use xlink:href="#Cmr10-6d" transform="translate(403.125 0)"/>
+     <use xlink:href="#Cmr10-70" transform="translate(486.425781 0)"/>
+     <use xlink:href="#Cmr10-6c" transform="translate(541.943359 0)"/>
+     <use xlink:href="#Cmr10-65" transform="translate(569.628906 0)"/>
+     <use xlink:href="#Cmr10-73" transform="translate(614.013672 0)"/>
+    </g>
+   </g>
+   <g id="text_21">
+    <!-- 1 %  (0.0023) -->
+    <g transform="translate(360.7862 104.14608) scale(0.1 -0.1)">
+     <use xlink:href="#Cmr10-31"/>
+     <use xlink:href="#Cmr10-20" transform="translate(50 0)"/>
+     <use xlink:href="#Cmr10-25" transform="translate(83.300781 0)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(166.601562 0)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(199.902344 0)"/>
+     <use xlink:href="#Cmr10-28" transform="translate(233.203125 0)"/>
+     <use xlink:href="#Cmr10-30" transform="translate(272.021484 0)"/>
+     <use xlink:href="#Cmr10-2e" transform="translate(322.021484 0)"/>
+     <use xlink:href="#Cmr10-30" transform="translate(349.707031 0)"/>
+     <use xlink:href="#Cmr10-30" transform="translate(399.707031 0)"/>
+     <use xlink:href="#Cmr10-32" transform="translate(449.707031 0)"/>
+     <use xlink:href="#Cmr10-33" transform="translate(499.707031 0)"/>
+     <use xlink:href="#Cmr10-29" transform="translate(549.707031 0)"/>
+    </g>
+   </g>
+   <g id="text_22">
+    <!-- 9 % of samples -->
+    <g style="fill: #737373" transform="translate(365.708466 114.826042) scale(0.075 -0.075)">
+     <use xlink:href="#Cmr10-39"/>
+     <use xlink:href="#Cmr10-20" transform="translate(50 0)"/>
+     <use xlink:href="#Cmr10-25" transform="translate(83.300781 0)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(166.601562 0)"/>
+     <use xlink:href="#Cmr10-6f" transform="translate(199.902344 0)"/>
+     <use xlink:href="#Cmr10-66" transform="translate(249.902344 0)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(280.419922 0)"/>
+     <use xlink:href="#Cmr10-73" transform="translate(313.720703 0)"/>
+     <use xlink:href="#Cmr10-61" transform="translate(353.125 0)"/>
+     <use xlink:href="#Cmr10-6d" transform="translate(403.125 0)"/>
+     <use xlink:href="#Cmr10-70" transform="translate(486.425781 0)"/>
+     <use xlink:href="#Cmr10-6c" transform="translate(541.943359 0)"/>
+     <use xlink:href="#Cmr10-65" transform="translate(569.628906 0)"/>
+     <use xlink:href="#Cmr10-73" transform="translate(614.013672 0)"/>
+    </g>
+   </g>
+   <g id="text_23">
+    <!-- case14   $H=24$ -->
+    <g transform="translate(11.5524 129.57456) scale(0.11 -0.11)">
+     <use xlink:href="#Cmr10-63" transform="translate(0 0.6875)"/>
+     <use xlink:href="#Cmr10-61" transform="translate(44.384766 0.6875)"/>
+     <use xlink:href="#Cmr10-73" transform="translate(94.384766 0.6875)"/>
+     <use xlink:href="#Cmr10-65" transform="translate(133.789062 0.6875)"/>
+     <use xlink:href="#Cmr10-31" transform="translate(178.173828 0.6875)"/>
+     <use xlink:href="#Cmr10-34" transform="translate(228.173828 0.6875)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(278.173828 0.6875)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(311.474609 0.6875)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(344.775391 0.6875)"/>
+     <use xlink:href="#Cmmi10-48" transform="translate(378.076172 0.6875)"/>
+     <use xlink:href="#Cmr10-3d" transform="translate(478.740234 0.6875)"/>
+     <use xlink:href="#Cmr10-32" transform="translate(573.984375 0.6875)"/>
+     <use xlink:href="#Cmr10-34" transform="translate(623.984375 0.6875)"/>
+    </g>
+   </g>
+   <g id="text_24">
+    <!-- 4.6 %  (0.0032) -->
+    <g transform="translate(108.815025 129.57456) scale(0.1 -0.1)">
+     <use xlink:href="#Cmr10-34"/>
+     <use xlink:href="#Cmr10-2e" transform="translate(50 0)"/>
+     <use xlink:href="#Cmr10-36" transform="translate(77.685547 0)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(127.685547 0)"/>
+     <use xlink:href="#Cmr10-25" transform="translate(160.986328 0)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(244.287109 0)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(277.587891 0)"/>
+     <use xlink:href="#Cmr10-28" transform="translate(310.888672 0)"/>
+     <use xlink:href="#Cmr10-30" transform="translate(349.707031 0)"/>
+     <use xlink:href="#Cmr10-2e" transform="translate(399.707031 0)"/>
+     <use xlink:href="#Cmr10-30" transform="translate(427.392578 0)"/>
+     <use xlink:href="#Cmr10-30" transform="translate(477.392578 0)"/>
+     <use xlink:href="#Cmr10-33" transform="translate(527.392578 0)"/>
+     <use xlink:href="#Cmr10-32" transform="translate(577.392578 0)"/>
+     <use xlink:href="#Cmr10-29" transform="translate(627.392578 0)"/>
+    </g>
+   </g>
+   <g id="text_25">
+    <!-- 35 % of samples -->
+    <g style="fill: #737373" transform="translate(115.746666 140.254522) scale(0.075 -0.075)">
+     <use xlink:href="#Cmr10-33"/>
+     <use xlink:href="#Cmr10-35" transform="translate(50 0)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(100 0)"/>
+     <use xlink:href="#Cmr10-25" transform="translate(133.300781 0)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(216.601562 0)"/>
+     <use xlink:href="#Cmr10-6f" transform="translate(249.902344 0)"/>
+     <use xlink:href="#Cmr10-66" transform="translate(299.902344 0)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(330.419922 0)"/>
+     <use xlink:href="#Cmr10-73" transform="translate(363.720703 0)"/>
+     <use xlink:href="#Cmr10-61" transform="translate(403.125 0)"/>
+     <use xlink:href="#Cmr10-6d" transform="translate(453.125 0)"/>
+     <use xlink:href="#Cmr10-70" transform="translate(536.425781 0)"/>
+     <use xlink:href="#Cmr10-6c" transform="translate(591.943359 0)"/>
+     <use xlink:href="#Cmr10-65" transform="translate(619.628906 0)"/>
+     <use xlink:href="#Cmr10-73" transform="translate(664.013672 0)"/>
+    </g>
+   </g>
+   <g id="text_26">
+    <g id="patch_5">
+     <path d="M 216.490313 134.513622 
+L 233.149688 134.513622 
+Q 236.149688 134.513622 236.149688 131.513622 
+L 236.149688 122.635497 
+Q 236.149688 119.635497 233.149688 119.635497 
+L 216.490313 119.635497 
+Q 213.490313 119.635497 213.490313 122.635497 
+L 213.490313 131.513622 
+Q 213.490313 134.513622 216.490313 134.513622 
+z
+" style="fill: #e6e6e6"/>
+    </g>
+    <!-- 0 % -->
+    <g transform="translate(216.490313 129.57456) scale(0.1 -0.1)">
+     <use xlink:href="#Cmr10-30"/>
+     <use xlink:href="#Cmr10-20" transform="translate(50 0)"/>
+     <use xlink:href="#Cmr10-25" transform="translate(83.300781 0)"/>
+    </g>
+   </g>
+   <g id="text_27">
+    <!-- 0 % of samples -->
+    <g style="fill: #737373" transform="translate(200.317266 140.254522) scale(0.075 -0.075)">
+     <use xlink:href="#Cmr10-30"/>
+     <use xlink:href="#Cmr10-20" transform="translate(50 0)"/>
+     <use xlink:href="#Cmr10-25" transform="translate(83.300781 0)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(166.601562 0)"/>
+     <use xlink:href="#Cmr10-6f" transform="translate(199.902344 0)"/>
+     <use xlink:href="#Cmr10-66" transform="translate(249.902344 0)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(280.419922 0)"/>
+     <use xlink:href="#Cmr10-73" transform="translate(313.720703 0)"/>
+     <use xlink:href="#Cmr10-61" transform="translate(353.125 0)"/>
+     <use xlink:href="#Cmr10-6d" transform="translate(403.125 0)"/>
+     <use xlink:href="#Cmr10-70" transform="translate(486.425781 0)"/>
+     <use xlink:href="#Cmr10-6c" transform="translate(541.943359 0)"/>
+     <use xlink:href="#Cmr10-65" transform="translate(569.628906 0)"/>
+     <use xlink:href="#Cmr10-73" transform="translate(614.013672 0)"/>
+    </g>
+   </g>
+   <g id="text_28">
+    <!-- 0.55 %  (0.0027) -->
+    <g transform="translate(271.706225 129.57456) scale(0.1 -0.1)">
+     <use xlink:href="#Cmr10-30"/>
+     <use xlink:href="#Cmr10-2e" transform="translate(50 0)"/>
+     <use xlink:href="#Cmr10-35" transform="translate(77.685547 0)"/>
+     <use xlink:href="#Cmr10-35" transform="translate(127.685547 0)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(177.685547 0)"/>
+     <use xlink:href="#Cmr10-25" transform="translate(210.986328 0)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(294.287109 0)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(327.587891 0)"/>
+     <use xlink:href="#Cmr10-28" transform="translate(360.888672 0)"/>
+     <use xlink:href="#Cmr10-30" transform="translate(399.707031 0)"/>
+     <use xlink:href="#Cmr10-2e" transform="translate(449.707031 0)"/>
+     <use xlink:href="#Cmr10-30" transform="translate(477.392578 0)"/>
+     <use xlink:href="#Cmr10-30" transform="translate(527.392578 0)"/>
+     <use xlink:href="#Cmr10-32" transform="translate(577.392578 0)"/>
+     <use xlink:href="#Cmr10-37" transform="translate(627.392578 0)"/>
+     <use xlink:href="#Cmr10-29" transform="translate(677.392578 0)"/>
+    </g>
+   </g>
+   <g id="text_29">
+    <!-- 5 % of samples -->
+    <g style="fill: #737373" transform="translate(283.012866 140.254522) scale(0.075 -0.075)">
+     <use xlink:href="#Cmr10-35"/>
+     <use xlink:href="#Cmr10-20" transform="translate(50 0)"/>
+     <use xlink:href="#Cmr10-25" transform="translate(83.300781 0)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(166.601562 0)"/>
+     <use xlink:href="#Cmr10-6f" transform="translate(199.902344 0)"/>
+     <use xlink:href="#Cmr10-66" transform="translate(249.902344 0)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(280.419922 0)"/>
+     <use xlink:href="#Cmr10-73" transform="translate(313.720703 0)"/>
+     <use xlink:href="#Cmr10-61" transform="translate(353.125 0)"/>
+     <use xlink:href="#Cmr10-6d" transform="translate(403.125 0)"/>
+     <use xlink:href="#Cmr10-70" transform="translate(486.425781 0)"/>
+     <use xlink:href="#Cmr10-6c" transform="translate(541.943359 0)"/>
+     <use xlink:href="#Cmr10-65" transform="translate(569.628906 0)"/>
+     <use xlink:href="#Cmr10-73" transform="translate(614.013672 0)"/>
+    </g>
+   </g>
+   <g id="text_30">
+    <!-- 0.89 %  (0.0026) -->
+    <g transform="translate(354.401825 129.57456) scale(0.1 -0.1)">
+     <use xlink:href="#Cmr10-30"/>
+     <use xlink:href="#Cmr10-2e" transform="translate(50 0)"/>
+     <use xlink:href="#Cmr10-38" transform="translate(77.685547 0)"/>
+     <use xlink:href="#Cmr10-39" transform="translate(127.685547 0)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(177.685547 0)"/>
+     <use xlink:href="#Cmr10-25" transform="translate(210.986328 0)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(294.287109 0)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(327.587891 0)"/>
+     <use xlink:href="#Cmr10-28" transform="translate(360.888672 0)"/>
+     <use xlink:href="#Cmr10-30" transform="translate(399.707031 0)"/>
+     <use xlink:href="#Cmr10-2e" transform="translate(449.707031 0)"/>
+     <use xlink:href="#Cmr10-30" transform="translate(477.392578 0)"/>
+     <use xlink:href="#Cmr10-30" transform="translate(527.392578 0)"/>
+     <use xlink:href="#Cmr10-32" transform="translate(577.392578 0)"/>
+     <use xlink:href="#Cmr10-36" transform="translate(627.392578 0)"/>
+     <use xlink:href="#Cmr10-29" transform="translate(677.392578 0)"/>
+    </g>
+   </g>
+   <g id="text_31">
+    <!-- 7 % of samples -->
+    <g style="fill: #737373" transform="translate(365.708466 140.254522) scale(0.075 -0.075)">
+     <use xlink:href="#Cmr10-37"/>
+     <use xlink:href="#Cmr10-20" transform="translate(50 0)"/>
+     <use xlink:href="#Cmr10-25" transform="translate(83.300781 0)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(166.601562 0)"/>
+     <use xlink:href="#Cmr10-6f" transform="translate(199.902344 0)"/>
+     <use xlink:href="#Cmr10-66" transform="translate(249.902344 0)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(280.419922 0)"/>
+     <use xlink:href="#Cmr10-73" transform="translate(313.720703 0)"/>
+     <use xlink:href="#Cmr10-61" transform="translate(353.125 0)"/>
+     <use xlink:href="#Cmr10-6d" transform="translate(403.125 0)"/>
+     <use xlink:href="#Cmr10-70" transform="translate(486.425781 0)"/>
+     <use xlink:href="#Cmr10-6c" transform="translate(541.943359 0)"/>
+     <use xlink:href="#Cmr10-65" transform="translate(569.628906 0)"/>
+     <use xlink:href="#Cmr10-73" transform="translate(614.013672 0)"/>
+    </g>
+   </g>
+   <g id="text_32">
+    <!-- case118   $H=1$ -->
+    <g transform="translate(11.5524 167.51862) scale(0.11 -0.11)">
+     <use xlink:href="#Cmr10-63" transform="translate(0 0.6875)"/>
+     <use xlink:href="#Cmr10-61" transform="translate(44.384766 0.6875)"/>
+     <use xlink:href="#Cmr10-73" transform="translate(94.384766 0.6875)"/>
+     <use xlink:href="#Cmr10-65" transform="translate(133.789062 0.6875)"/>
+     <use xlink:href="#Cmr10-31" transform="translate(178.173828 0.6875)"/>
+     <use xlink:href="#Cmr10-31" transform="translate(228.173828 0.6875)"/>
+     <use xlink:href="#Cmr10-38" transform="translate(278.173828 0.6875)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(328.173828 0.6875)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(361.474609 0.6875)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(394.775391 0.6875)"/>
+     <use xlink:href="#Cmmi10-48" transform="translate(428.076172 0.6875)"/>
+     <use xlink:href="#Cmr10-3d" transform="translate(528.740234 0.6875)"/>
+     <use xlink:href="#Cmr10-31" transform="translate(623.984375 0.6875)"/>
+    </g>
+   </g>
+   <g id="text_33">
+    <!-- $&lt;$ 0.001 %  (0.0011) -->
+    <g transform="translate(96.4744 167.51862) scale(0.1 -0.1)">
+     <defs>
+      <path id="Cmmi10-3c" d="M 594 1491 
+Q 531 1519 531 1600 
+Q 531 1681 616 1722 
+L 4269 3444 
+Q 4294 3456 4313 3456 
+Q 4369 3456 4405 3417 
+Q 4441 3378 4441 3328 
+Q 4441 3250 4366 3206 
+L 959 1600 
+L 4384 -19 
+Q 4441 -38 4441 -128 
+Q 4441 -178 4405 -217 
+Q 4369 -256 4313 -256 
+Q 4294 -256 4269 -244 
+L 594 1491 
+z
+" transform="scale(0.015625)"/>
+     </defs>
+     <use xlink:href="#Cmmi10-3c" transform="translate(17.558594 0)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(112.802734 0)"/>
+     <use xlink:href="#Cmr10-30" transform="translate(146.103516 0)"/>
+     <use xlink:href="#Cmr10-2e" transform="translate(196.103516 0)"/>
+     <use xlink:href="#Cmr10-30" transform="translate(223.789062 0)"/>
+     <use xlink:href="#Cmr10-30" transform="translate(273.789062 0)"/>
+     <use xlink:href="#Cmr10-31" transform="translate(323.789062 0)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(373.789062 0)"/>
+     <use xlink:href="#Cmr10-25" transform="translate(407.089844 0)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(490.390625 0)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(523.691406 0)"/>
+     <use xlink:href="#Cmr10-28" transform="translate(556.992188 0)"/>
+     <use xlink:href="#Cmr10-30" transform="translate(595.810547 0)"/>
+     <use xlink:href="#Cmr10-2e" transform="translate(645.810547 0)"/>
+     <use xlink:href="#Cmr10-30" transform="translate(673.496094 0)"/>
+     <use xlink:href="#Cmr10-30" transform="translate(723.496094 0)"/>
+     <use xlink:href="#Cmr10-31" transform="translate(773.496094 0)"/>
+     <use xlink:href="#Cmr10-31" transform="translate(823.496094 0)"/>
+     <use xlink:href="#Cmr10-29" transform="translate(873.496094 0)"/>
+    </g>
+   </g>
+   <g id="text_34">
+    <!-- $&lt;$ 1 % of samples -->
+    <g style="fill: #737373" transform="translate(112.1244 178.198582) scale(0.075 -0.075)">
+     <use xlink:href="#Cmmi10-3c" transform="translate(17.558594 0)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(112.802734 0)"/>
+     <use xlink:href="#Cmr10-31" transform="translate(146.103516 0)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(196.103516 0)"/>
+     <use xlink:href="#Cmr10-25" transform="translate(229.404297 0)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(312.705078 0)"/>
+     <use xlink:href="#Cmr10-6f" transform="translate(346.005859 0)"/>
+     <use xlink:href="#Cmr10-66" transform="translate(396.005859 0)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(426.523438 0)"/>
+     <use xlink:href="#Cmr10-73" transform="translate(459.824219 0)"/>
+     <use xlink:href="#Cmr10-61" transform="translate(499.228516 0)"/>
+     <use xlink:href="#Cmr10-6d" transform="translate(549.228516 0)"/>
+     <use xlink:href="#Cmr10-70" transform="translate(632.529297 0)"/>
+     <use xlink:href="#Cmr10-6c" transform="translate(688.046875 0)"/>
+     <use xlink:href="#Cmr10-65" transform="translate(715.732422 0)"/>
+     <use xlink:href="#Cmr10-73" transform="translate(760.117188 0)"/>
+    </g>
+   </g>
    <g id="text_35">
-    <g id="patch_11">
+    <g id="patch_6">
      <path d="M 216.490313 172.457682 
 L 233.149688 172.457682 
 Q 236.149688 172.457682 236.149688 169.457682 
@@ -2007,30 +2065,75 @@ z
     </g>
    </g>
    <g id="text_37">
-    <g id="patch_12">
-     <path d="M 299.185913 172.457682 
-L 315.845288 172.457682 
-Q 318.845288 172.457682 318.845288 169.457682 
-L 318.845288 160.579557 
-Q 318.845288 157.579557 315.845288 157.579557 
-L 299.185913 157.579557 
-Q 296.185913 157.579557 296.185913 160.579557 
-L 296.185913 169.457682 
-Q 296.185913 172.457682 299.185913 172.457682 
-z
-" style="fill: #e6e6e6"/>
-    </g>
-    <!-- 0 % -->
-    <g transform="translate(299.185913 167.51862) scale(0.1 -0.1)">
+    <!-- 0.0075 %  (0.0015) -->
+    <g transform="translate(266.706225 167.51862) scale(0.1 -0.1)">
      <use xlink:href="#Cmr10-30"/>
-     <use xlink:href="#Cmr10-20" transform="translate(50 0)"/>
-     <use xlink:href="#Cmr10-25" transform="translate(83.300781 0)"/>
+     <use xlink:href="#Cmr10-2e" transform="translate(50 0)"/>
+     <use xlink:href="#Cmr10-30" transform="translate(77.685547 0)"/>
+     <use xlink:href="#Cmr10-30" transform="translate(127.685547 0)"/>
+     <use xlink:href="#Cmr10-37" transform="translate(177.685547 0)"/>
+     <use xlink:href="#Cmr10-35" transform="translate(227.685547 0)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(277.685547 0)"/>
+     <use xlink:href="#Cmr10-25" transform="translate(310.986328 0)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(394.287109 0)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(427.587891 0)"/>
+     <use xlink:href="#Cmr10-28" transform="translate(460.888672 0)"/>
+     <use xlink:href="#Cmr10-30" transform="translate(499.707031 0)"/>
+     <use xlink:href="#Cmr10-2e" transform="translate(549.707031 0)"/>
+     <use xlink:href="#Cmr10-30" transform="translate(577.392578 0)"/>
+     <use xlink:href="#Cmr10-30" transform="translate(627.392578 0)"/>
+     <use xlink:href="#Cmr10-31" transform="translate(677.392578 0)"/>
+     <use xlink:href="#Cmr10-35" transform="translate(727.392578 0)"/>
+     <use xlink:href="#Cmr10-29" transform="translate(777.392578 0)"/>
     </g>
    </g>
    <g id="text_38">
-    <!-- 0 % of samples -->
-    <g style="fill: #737373" transform="translate(283.012866 178.198582) scale(0.075 -0.075)">
+    <!-- $&lt;$ 1 % of samples -->
+    <g style="fill: #737373" transform="translate(277.5156 178.198582) scale(0.075 -0.075)">
+     <use xlink:href="#Cmmi10-3c" transform="translate(17.558594 0)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(112.802734 0)"/>
+     <use xlink:href="#Cmr10-31" transform="translate(146.103516 0)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(196.103516 0)"/>
+     <use xlink:href="#Cmr10-25" transform="translate(229.404297 0)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(312.705078 0)"/>
+     <use xlink:href="#Cmr10-6f" transform="translate(346.005859 0)"/>
+     <use xlink:href="#Cmr10-66" transform="translate(396.005859 0)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(426.523438 0)"/>
+     <use xlink:href="#Cmr10-73" transform="translate(459.824219 0)"/>
+     <use xlink:href="#Cmr10-61" transform="translate(499.228516 0)"/>
+     <use xlink:href="#Cmr10-6d" transform="translate(549.228516 0)"/>
+     <use xlink:href="#Cmr10-70" transform="translate(632.529297 0)"/>
+     <use xlink:href="#Cmr10-6c" transform="translate(688.046875 0)"/>
+     <use xlink:href="#Cmr10-65" transform="translate(715.732422 0)"/>
+     <use xlink:href="#Cmr10-73" transform="translate(760.117188 0)"/>
+    </g>
+   </g>
+   <g id="text_39">
+    <!-- 0.055 %  (0.0018) -->
+    <g transform="translate(351.901825 167.51862) scale(0.1 -0.1)">
      <use xlink:href="#Cmr10-30"/>
+     <use xlink:href="#Cmr10-2e" transform="translate(50 0)"/>
+     <use xlink:href="#Cmr10-30" transform="translate(77.685547 0)"/>
+     <use xlink:href="#Cmr10-35" transform="translate(127.685547 0)"/>
+     <use xlink:href="#Cmr10-35" transform="translate(177.685547 0)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(227.685547 0)"/>
+     <use xlink:href="#Cmr10-25" transform="translate(260.986328 0)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(344.287109 0)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(377.587891 0)"/>
+     <use xlink:href="#Cmr10-28" transform="translate(410.888672 0)"/>
+     <use xlink:href="#Cmr10-30" transform="translate(449.707031 0)"/>
+     <use xlink:href="#Cmr10-2e" transform="translate(499.707031 0)"/>
+     <use xlink:href="#Cmr10-30" transform="translate(527.392578 0)"/>
+     <use xlink:href="#Cmr10-30" transform="translate(577.392578 0)"/>
+     <use xlink:href="#Cmr10-31" transform="translate(627.392578 0)"/>
+     <use xlink:href="#Cmr10-38" transform="translate(677.392578 0)"/>
+     <use xlink:href="#Cmr10-29" transform="translate(727.392578 0)"/>
+    </g>
+   </g>
+   <g id="text_40">
+    <!-- 3 % of samples -->
+    <g style="fill: #737373" transform="translate(365.708466 178.198582) scale(0.075 -0.075)">
+     <use xlink:href="#Cmr10-33"/>
      <use xlink:href="#Cmr10-20" transform="translate(50 0)"/>
      <use xlink:href="#Cmr10-25" transform="translate(83.300781 0)"/>
      <use xlink:href="#Cmr10-20" transform="translate(166.601562 0)"/>
@@ -2044,50 +2147,6 @@ z
      <use xlink:href="#Cmr10-6c" transform="translate(541.943359 0)"/>
      <use xlink:href="#Cmr10-65" transform="translate(569.628906 0)"/>
      <use xlink:href="#Cmr10-73" transform="translate(614.013672 0)"/>
-    </g>
-   </g>
-   <g id="text_39">
-    <!-- 0.0028 %  (0.0014) -->
-    <g transform="translate(349.401825 167.51862) scale(0.1 -0.1)">
-     <use xlink:href="#Cmr10-30"/>
-     <use xlink:href="#Cmr10-2e" transform="translate(50 0)"/>
-     <use xlink:href="#Cmr10-30" transform="translate(77.685547 0)"/>
-     <use xlink:href="#Cmr10-30" transform="translate(127.685547 0)"/>
-     <use xlink:href="#Cmr10-32" transform="translate(177.685547 0)"/>
-     <use xlink:href="#Cmr10-38" transform="translate(227.685547 0)"/>
-     <use xlink:href="#Cmr10-20" transform="translate(277.685547 0)"/>
-     <use xlink:href="#Cmr10-25" transform="translate(310.986328 0)"/>
-     <use xlink:href="#Cmr10-20" transform="translate(394.287109 0)"/>
-     <use xlink:href="#Cmr10-20" transform="translate(427.587891 0)"/>
-     <use xlink:href="#Cmr10-28" transform="translate(460.888672 0)"/>
-     <use xlink:href="#Cmr10-30" transform="translate(499.707031 0)"/>
-     <use xlink:href="#Cmr10-2e" transform="translate(549.707031 0)"/>
-     <use xlink:href="#Cmr10-30" transform="translate(577.392578 0)"/>
-     <use xlink:href="#Cmr10-30" transform="translate(627.392578 0)"/>
-     <use xlink:href="#Cmr10-31" transform="translate(677.392578 0)"/>
-     <use xlink:href="#Cmr10-34" transform="translate(727.392578 0)"/>
-     <use xlink:href="#Cmr10-29" transform="translate(777.392578 0)"/>
-    </g>
-   </g>
-   <g id="text_40">
-    <!-- &lt; 1 % of samples -->
-    <g style="fill: #737373" transform="translate(363.421552 178.198582) scale(0.075 -0.075)">
-     <use xlink:href="#Cmr10-3c"/>
-     <use xlink:href="#Cmr10-20" transform="translate(27.685547 0)"/>
-     <use xlink:href="#Cmr10-31" transform="translate(60.986328 0)"/>
-     <use xlink:href="#Cmr10-20" transform="translate(110.986328 0)"/>
-     <use xlink:href="#Cmr10-25" transform="translate(144.287109 0)"/>
-     <use xlink:href="#Cmr10-20" transform="translate(227.587891 0)"/>
-     <use xlink:href="#Cmr10-6f" transform="translate(260.888672 0)"/>
-     <use xlink:href="#Cmr10-66" transform="translate(310.888672 0)"/>
-     <use xlink:href="#Cmr10-20" transform="translate(341.40625 0)"/>
-     <use xlink:href="#Cmr10-73" transform="translate(374.707031 0)"/>
-     <use xlink:href="#Cmr10-61" transform="translate(414.111328 0)"/>
-     <use xlink:href="#Cmr10-6d" transform="translate(464.111328 0)"/>
-     <use xlink:href="#Cmr10-70" transform="translate(547.412109 0)"/>
-     <use xlink:href="#Cmr10-6c" transform="translate(602.929688 0)"/>
-     <use xlink:href="#Cmr10-65" transform="translate(630.615234 0)"/>
-     <use xlink:href="#Cmr10-73" transform="translate(675 0)"/>
     </g>
    </g>
    <g id="text_41">
@@ -2109,51 +2168,48 @@ z
     </g>
    </g>
    <g id="text_42">
-    <!-- 0.0033 %  (0.0013) -->
-    <g transform="translate(101.315025 192.9471) scale(0.1 -0.1)">
+    <!-- 0.039 %  (0.0015) -->
+    <g transform="translate(103.815025 192.9471) scale(0.1 -0.1)">
      <use xlink:href="#Cmr10-30"/>
      <use xlink:href="#Cmr10-2e" transform="translate(50 0)"/>
      <use xlink:href="#Cmr10-30" transform="translate(77.685547 0)"/>
-     <use xlink:href="#Cmr10-30" transform="translate(127.685547 0)"/>
-     <use xlink:href="#Cmr10-33" transform="translate(177.685547 0)"/>
-     <use xlink:href="#Cmr10-33" transform="translate(227.685547 0)"/>
-     <use xlink:href="#Cmr10-20" transform="translate(277.685547 0)"/>
-     <use xlink:href="#Cmr10-25" transform="translate(310.986328 0)"/>
-     <use xlink:href="#Cmr10-20" transform="translate(394.287109 0)"/>
-     <use xlink:href="#Cmr10-20" transform="translate(427.587891 0)"/>
-     <use xlink:href="#Cmr10-28" transform="translate(460.888672 0)"/>
-     <use xlink:href="#Cmr10-30" transform="translate(499.707031 0)"/>
-     <use xlink:href="#Cmr10-2e" transform="translate(549.707031 0)"/>
+     <use xlink:href="#Cmr10-33" transform="translate(127.685547 0)"/>
+     <use xlink:href="#Cmr10-39" transform="translate(177.685547 0)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(227.685547 0)"/>
+     <use xlink:href="#Cmr10-25" transform="translate(260.986328 0)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(344.287109 0)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(377.587891 0)"/>
+     <use xlink:href="#Cmr10-28" transform="translate(410.888672 0)"/>
+     <use xlink:href="#Cmr10-30" transform="translate(449.707031 0)"/>
+     <use xlink:href="#Cmr10-2e" transform="translate(499.707031 0)"/>
+     <use xlink:href="#Cmr10-30" transform="translate(527.392578 0)"/>
      <use xlink:href="#Cmr10-30" transform="translate(577.392578 0)"/>
-     <use xlink:href="#Cmr10-30" transform="translate(627.392578 0)"/>
-     <use xlink:href="#Cmr10-31" transform="translate(677.392578 0)"/>
-     <use xlink:href="#Cmr10-33" transform="translate(727.392578 0)"/>
-     <use xlink:href="#Cmr10-29" transform="translate(777.392578 0)"/>
+     <use xlink:href="#Cmr10-31" transform="translate(627.392578 0)"/>
+     <use xlink:href="#Cmr10-35" transform="translate(677.392578 0)"/>
+     <use xlink:href="#Cmr10-29" transform="translate(727.392578 0)"/>
     </g>
    </g>
    <g id="text_43">
-    <!-- &lt; 1 % of samples -->
-    <g style="fill: #737373" transform="translate(115.334752 203.627062) scale(0.075 -0.075)">
-     <use xlink:href="#Cmr10-3c"/>
-     <use xlink:href="#Cmr10-20" transform="translate(27.685547 0)"/>
-     <use xlink:href="#Cmr10-31" transform="translate(60.986328 0)"/>
-     <use xlink:href="#Cmr10-20" transform="translate(110.986328 0)"/>
-     <use xlink:href="#Cmr10-25" transform="translate(144.287109 0)"/>
-     <use xlink:href="#Cmr10-20" transform="translate(227.587891 0)"/>
-     <use xlink:href="#Cmr10-6f" transform="translate(260.888672 0)"/>
-     <use xlink:href="#Cmr10-66" transform="translate(310.888672 0)"/>
-     <use xlink:href="#Cmr10-20" transform="translate(341.40625 0)"/>
-     <use xlink:href="#Cmr10-73" transform="translate(374.707031 0)"/>
-     <use xlink:href="#Cmr10-61" transform="translate(414.111328 0)"/>
-     <use xlink:href="#Cmr10-6d" transform="translate(464.111328 0)"/>
-     <use xlink:href="#Cmr10-70" transform="translate(547.412109 0)"/>
-     <use xlink:href="#Cmr10-6c" transform="translate(602.929688 0)"/>
-     <use xlink:href="#Cmr10-65" transform="translate(630.615234 0)"/>
-     <use xlink:href="#Cmr10-73" transform="translate(675 0)"/>
+    <!-- 4 % of samples -->
+    <g style="fill: #737373" transform="translate(117.621666 203.627062) scale(0.075 -0.075)">
+     <use xlink:href="#Cmr10-34"/>
+     <use xlink:href="#Cmr10-20" transform="translate(50 0)"/>
+     <use xlink:href="#Cmr10-25" transform="translate(83.300781 0)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(166.601562 0)"/>
+     <use xlink:href="#Cmr10-6f" transform="translate(199.902344 0)"/>
+     <use xlink:href="#Cmr10-66" transform="translate(249.902344 0)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(280.419922 0)"/>
+     <use xlink:href="#Cmr10-73" transform="translate(313.720703 0)"/>
+     <use xlink:href="#Cmr10-61" transform="translate(353.125 0)"/>
+     <use xlink:href="#Cmr10-6d" transform="translate(403.125 0)"/>
+     <use xlink:href="#Cmr10-70" transform="translate(486.425781 0)"/>
+     <use xlink:href="#Cmr10-6c" transform="translate(541.943359 0)"/>
+     <use xlink:href="#Cmr10-65" transform="translate(569.628906 0)"/>
+     <use xlink:href="#Cmr10-73" transform="translate(614.013672 0)"/>
     </g>
    </g>
    <g id="text_44">
-    <g id="patch_13">
+    <g id="patch_7">
      <path d="M 216.490313 197.886162 
 L 233.149688 197.886162 
 Q 236.149688 197.886162 236.149688 194.886162 
@@ -2193,30 +2249,74 @@ z
     </g>
    </g>
    <g id="text_46">
-    <g id="patch_14">
-     <path d="M 299.185913 197.886162 
-L 315.845288 197.886162 
-Q 318.845288 197.886162 318.845288 194.886162 
-L 318.845288 186.008037 
-Q 318.845288 183.008037 315.845288 183.008037 
-L 299.185913 183.008037 
-Q 296.185913 183.008037 296.185913 186.008037 
-L 296.185913 194.886162 
-Q 296.185913 197.886162 299.185913 197.886162 
-z
-" style="fill: #e6e6e6"/>
-    </g>
-    <!-- 0 % -->
-    <g transform="translate(299.185913 192.9471) scale(0.1 -0.1)">
+    <!-- 0.008 %  (0.0015) -->
+    <g transform="translate(269.206225 192.9471) scale(0.1 -0.1)">
      <use xlink:href="#Cmr10-30"/>
-     <use xlink:href="#Cmr10-20" transform="translate(50 0)"/>
-     <use xlink:href="#Cmr10-25" transform="translate(83.300781 0)"/>
+     <use xlink:href="#Cmr10-2e" transform="translate(50 0)"/>
+     <use xlink:href="#Cmr10-30" transform="translate(77.685547 0)"/>
+     <use xlink:href="#Cmr10-30" transform="translate(127.685547 0)"/>
+     <use xlink:href="#Cmr10-38" transform="translate(177.685547 0)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(227.685547 0)"/>
+     <use xlink:href="#Cmr10-25" transform="translate(260.986328 0)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(344.287109 0)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(377.587891 0)"/>
+     <use xlink:href="#Cmr10-28" transform="translate(410.888672 0)"/>
+     <use xlink:href="#Cmr10-30" transform="translate(449.707031 0)"/>
+     <use xlink:href="#Cmr10-2e" transform="translate(499.707031 0)"/>
+     <use xlink:href="#Cmr10-30" transform="translate(527.392578 0)"/>
+     <use xlink:href="#Cmr10-30" transform="translate(577.392578 0)"/>
+     <use xlink:href="#Cmr10-31" transform="translate(627.392578 0)"/>
+     <use xlink:href="#Cmr10-35" transform="translate(677.392578 0)"/>
+     <use xlink:href="#Cmr10-29" transform="translate(727.392578 0)"/>
     </g>
    </g>
    <g id="text_47">
-    <!-- 0 % of samples -->
-    <g style="fill: #737373" transform="translate(283.012866 203.627062) scale(0.075 -0.075)">
+    <!-- $&lt;$ 1 % of samples -->
+    <g style="fill: #737373" transform="translate(277.5156 203.627062) scale(0.075 -0.075)">
+     <use xlink:href="#Cmmi10-3c" transform="translate(17.558594 0)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(112.802734 0)"/>
+     <use xlink:href="#Cmr10-31" transform="translate(146.103516 0)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(196.103516 0)"/>
+     <use xlink:href="#Cmr10-25" transform="translate(229.404297 0)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(312.705078 0)"/>
+     <use xlink:href="#Cmr10-6f" transform="translate(346.005859 0)"/>
+     <use xlink:href="#Cmr10-66" transform="translate(396.005859 0)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(426.523438 0)"/>
+     <use xlink:href="#Cmr10-73" transform="translate(459.824219 0)"/>
+     <use xlink:href="#Cmr10-61" transform="translate(499.228516 0)"/>
+     <use xlink:href="#Cmr10-6d" transform="translate(549.228516 0)"/>
+     <use xlink:href="#Cmr10-70" transform="translate(632.529297 0)"/>
+     <use xlink:href="#Cmr10-6c" transform="translate(688.046875 0)"/>
+     <use xlink:href="#Cmr10-65" transform="translate(715.732422 0)"/>
+     <use xlink:href="#Cmr10-73" transform="translate(760.117188 0)"/>
+    </g>
+   </g>
+   <g id="text_48">
+    <!-- 0.041 %  (0.0019) -->
+    <g transform="translate(351.901825 192.9471) scale(0.1 -0.1)">
      <use xlink:href="#Cmr10-30"/>
+     <use xlink:href="#Cmr10-2e" transform="translate(50 0)"/>
+     <use xlink:href="#Cmr10-30" transform="translate(77.685547 0)"/>
+     <use xlink:href="#Cmr10-34" transform="translate(127.685547 0)"/>
+     <use xlink:href="#Cmr10-31" transform="translate(177.685547 0)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(227.685547 0)"/>
+     <use xlink:href="#Cmr10-25" transform="translate(260.986328 0)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(344.287109 0)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(377.587891 0)"/>
+     <use xlink:href="#Cmr10-28" transform="translate(410.888672 0)"/>
+     <use xlink:href="#Cmr10-30" transform="translate(449.707031 0)"/>
+     <use xlink:href="#Cmr10-2e" transform="translate(499.707031 0)"/>
+     <use xlink:href="#Cmr10-30" transform="translate(527.392578 0)"/>
+     <use xlink:href="#Cmr10-30" transform="translate(577.392578 0)"/>
+     <use xlink:href="#Cmr10-31" transform="translate(627.392578 0)"/>
+     <use xlink:href="#Cmr10-39" transform="translate(677.392578 0)"/>
+     <use xlink:href="#Cmr10-29" transform="translate(727.392578 0)"/>
+    </g>
+   </g>
+   <g id="text_49">
+    <!-- 3 % of samples -->
+    <g style="fill: #737373" transform="translate(365.708466 203.627062) scale(0.075 -0.075)">
+     <use xlink:href="#Cmr10-33"/>
      <use xlink:href="#Cmr10-20" transform="translate(50 0)"/>
      <use xlink:href="#Cmr10-25" transform="translate(83.300781 0)"/>
      <use xlink:href="#Cmr10-20" transform="translate(166.601562 0)"/>
@@ -2230,50 +2330,6 @@ z
      <use xlink:href="#Cmr10-6c" transform="translate(541.943359 0)"/>
      <use xlink:href="#Cmr10-65" transform="translate(569.628906 0)"/>
      <use xlink:href="#Cmr10-73" transform="translate(614.013672 0)"/>
-    </g>
-   </g>
-   <g id="text_48">
-    <!-- 0.0014 %  (0.0012) -->
-    <g transform="translate(349.401825 192.9471) scale(0.1 -0.1)">
-     <use xlink:href="#Cmr10-30"/>
-     <use xlink:href="#Cmr10-2e" transform="translate(50 0)"/>
-     <use xlink:href="#Cmr10-30" transform="translate(77.685547 0)"/>
-     <use xlink:href="#Cmr10-30" transform="translate(127.685547 0)"/>
-     <use xlink:href="#Cmr10-31" transform="translate(177.685547 0)"/>
-     <use xlink:href="#Cmr10-34" transform="translate(227.685547 0)"/>
-     <use xlink:href="#Cmr10-20" transform="translate(277.685547 0)"/>
-     <use xlink:href="#Cmr10-25" transform="translate(310.986328 0)"/>
-     <use xlink:href="#Cmr10-20" transform="translate(394.287109 0)"/>
-     <use xlink:href="#Cmr10-20" transform="translate(427.587891 0)"/>
-     <use xlink:href="#Cmr10-28" transform="translate(460.888672 0)"/>
-     <use xlink:href="#Cmr10-30" transform="translate(499.707031 0)"/>
-     <use xlink:href="#Cmr10-2e" transform="translate(549.707031 0)"/>
-     <use xlink:href="#Cmr10-30" transform="translate(577.392578 0)"/>
-     <use xlink:href="#Cmr10-30" transform="translate(627.392578 0)"/>
-     <use xlink:href="#Cmr10-31" transform="translate(677.392578 0)"/>
-     <use xlink:href="#Cmr10-32" transform="translate(727.392578 0)"/>
-     <use xlink:href="#Cmr10-29" transform="translate(777.392578 0)"/>
-    </g>
-   </g>
-   <g id="text_49">
-    <!-- &lt; 1 % of samples -->
-    <g style="fill: #737373" transform="translate(363.421552 203.627062) scale(0.075 -0.075)">
-     <use xlink:href="#Cmr10-3c"/>
-     <use xlink:href="#Cmr10-20" transform="translate(27.685547 0)"/>
-     <use xlink:href="#Cmr10-31" transform="translate(60.986328 0)"/>
-     <use xlink:href="#Cmr10-20" transform="translate(110.986328 0)"/>
-     <use xlink:href="#Cmr10-25" transform="translate(144.287109 0)"/>
-     <use xlink:href="#Cmr10-20" transform="translate(227.587891 0)"/>
-     <use xlink:href="#Cmr10-6f" transform="translate(260.888672 0)"/>
-     <use xlink:href="#Cmr10-66" transform="translate(310.888672 0)"/>
-     <use xlink:href="#Cmr10-20" transform="translate(341.40625 0)"/>
-     <use xlink:href="#Cmr10-73" transform="translate(374.707031 0)"/>
-     <use xlink:href="#Cmr10-61" transform="translate(414.111328 0)"/>
-     <use xlink:href="#Cmr10-6d" transform="translate(464.111328 0)"/>
-     <use xlink:href="#Cmr10-70" transform="translate(547.412109 0)"/>
-     <use xlink:href="#Cmr10-6c" transform="translate(602.929688 0)"/>
-     <use xlink:href="#Cmr10-65" transform="translate(630.615234 0)"/>
-     <use xlink:href="#Cmr10-73" transform="translate(675 0)"/>
     </g>
    </g>
    <g id="text_50">
@@ -2296,78 +2352,48 @@ z
     </g>
    </g>
    <g id="text_51">
-    <!-- 0.017 %  (0.0014) -->
-    <g transform="translate(103.815025 218.37558) scale(0.1 -0.1)">
-     <defs>
-      <path id="Cmr10-37" d="M 1113 166 
-Q 1113 522 1175 862 
-Q 1238 1203 1358 1536 
-Q 1478 1869 1648 2189 
-Q 1819 2509 2022 2791 
-L 2606 3603 
-L 1875 3603 
-Q 738 3603 703 3572 
-Q 619 3469 544 2981 
-L 359 2981 
-L 569 4325 
-L 756 4325 
-L 756 4306 
-Q 756 4191 1147 4156 
-Q 1538 4122 1913 4122 
-L 3103 4122 
-L 3103 3956 
-Q 3103 3950 3101 3947 
-Q 3100 3944 3097 3938 
-L 2216 2700 
-Q 1891 2219 1809 1631 
-Q 1728 1044 1728 166 
-Q 1728 41 1637 -50 
-Q 1547 -141 1422 -141 
-Q 1294 -141 1203 -50 
-Q 1113 41 1113 166 
-z
-" transform="scale(0.015625)"/>
-     </defs>
+    <!-- 0.13 %  (0.0017) -->
+    <g transform="translate(106.315025 218.37558) scale(0.1 -0.1)">
      <use xlink:href="#Cmr10-30"/>
      <use xlink:href="#Cmr10-2e" transform="translate(50 0)"/>
-     <use xlink:href="#Cmr10-30" transform="translate(77.685547 0)"/>
-     <use xlink:href="#Cmr10-31" transform="translate(127.685547 0)"/>
-     <use xlink:href="#Cmr10-37" transform="translate(177.685547 0)"/>
-     <use xlink:href="#Cmr10-20" transform="translate(227.685547 0)"/>
-     <use xlink:href="#Cmr10-25" transform="translate(260.986328 0)"/>
-     <use xlink:href="#Cmr10-20" transform="translate(344.287109 0)"/>
-     <use xlink:href="#Cmr10-20" transform="translate(377.587891 0)"/>
-     <use xlink:href="#Cmr10-28" transform="translate(410.888672 0)"/>
-     <use xlink:href="#Cmr10-30" transform="translate(449.707031 0)"/>
-     <use xlink:href="#Cmr10-2e" transform="translate(499.707031 0)"/>
+     <use xlink:href="#Cmr10-31" transform="translate(77.685547 0)"/>
+     <use xlink:href="#Cmr10-33" transform="translate(127.685547 0)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(177.685547 0)"/>
+     <use xlink:href="#Cmr10-25" transform="translate(210.986328 0)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(294.287109 0)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(327.587891 0)"/>
+     <use xlink:href="#Cmr10-28" transform="translate(360.888672 0)"/>
+     <use xlink:href="#Cmr10-30" transform="translate(399.707031 0)"/>
+     <use xlink:href="#Cmr10-2e" transform="translate(449.707031 0)"/>
+     <use xlink:href="#Cmr10-30" transform="translate(477.392578 0)"/>
      <use xlink:href="#Cmr10-30" transform="translate(527.392578 0)"/>
-     <use xlink:href="#Cmr10-30" transform="translate(577.392578 0)"/>
-     <use xlink:href="#Cmr10-31" transform="translate(627.392578 0)"/>
-     <use xlink:href="#Cmr10-34" transform="translate(677.392578 0)"/>
-     <use xlink:href="#Cmr10-29" transform="translate(727.392578 0)"/>
+     <use xlink:href="#Cmr10-31" transform="translate(577.392578 0)"/>
+     <use xlink:href="#Cmr10-37" transform="translate(627.392578 0)"/>
+     <use xlink:href="#Cmr10-29" transform="translate(677.392578 0)"/>
     </g>
    </g>
    <g id="text_52">
-    <!-- 1 % of samples -->
-    <g style="fill: #737373" transform="translate(117.621666 229.055542) scale(0.075 -0.075)">
+    <!-- 11 % of samples -->
+    <g style="fill: #737373" transform="translate(115.746666 229.055542) scale(0.075 -0.075)">
      <use xlink:href="#Cmr10-31"/>
-     <use xlink:href="#Cmr10-20" transform="translate(50 0)"/>
-     <use xlink:href="#Cmr10-25" transform="translate(83.300781 0)"/>
-     <use xlink:href="#Cmr10-20" transform="translate(166.601562 0)"/>
-     <use xlink:href="#Cmr10-6f" transform="translate(199.902344 0)"/>
-     <use xlink:href="#Cmr10-66" transform="translate(249.902344 0)"/>
-     <use xlink:href="#Cmr10-20" transform="translate(280.419922 0)"/>
-     <use xlink:href="#Cmr10-73" transform="translate(313.720703 0)"/>
-     <use xlink:href="#Cmr10-61" transform="translate(353.125 0)"/>
-     <use xlink:href="#Cmr10-6d" transform="translate(403.125 0)"/>
-     <use xlink:href="#Cmr10-70" transform="translate(486.425781 0)"/>
-     <use xlink:href="#Cmr10-6c" transform="translate(541.943359 0)"/>
-     <use xlink:href="#Cmr10-65" transform="translate(569.628906 0)"/>
-     <use xlink:href="#Cmr10-73" transform="translate(614.013672 0)"/>
+     <use xlink:href="#Cmr10-31" transform="translate(50 0)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(100 0)"/>
+     <use xlink:href="#Cmr10-25" transform="translate(133.300781 0)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(216.601562 0)"/>
+     <use xlink:href="#Cmr10-6f" transform="translate(249.902344 0)"/>
+     <use xlink:href="#Cmr10-66" transform="translate(299.902344 0)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(330.419922 0)"/>
+     <use xlink:href="#Cmr10-73" transform="translate(363.720703 0)"/>
+     <use xlink:href="#Cmr10-61" transform="translate(403.125 0)"/>
+     <use xlink:href="#Cmr10-6d" transform="translate(453.125 0)"/>
+     <use xlink:href="#Cmr10-70" transform="translate(536.425781 0)"/>
+     <use xlink:href="#Cmr10-6c" transform="translate(591.943359 0)"/>
+     <use xlink:href="#Cmr10-65" transform="translate(619.628906 0)"/>
+     <use xlink:href="#Cmr10-73" transform="translate(664.013672 0)"/>
     </g>
    </g>
    <g id="text_53">
-    <g id="patch_15">
+    <g id="patch_8">
      <path d="M 216.490313 223.314642 
 L 233.149688 223.314642 
 Q 236.149688 223.314642 236.149688 220.314642 
@@ -2407,83 +2433,91 @@ z
     </g>
    </g>
    <g id="text_55">
-    <g id="patch_16">
-     <path d="M 299.185913 223.314642 
-L 315.845288 223.314642 
-Q 318.845288 223.314642 318.845288 220.314642 
-L 318.845288 211.436517 
-Q 318.845288 208.436517 315.845288 208.436517 
-L 299.185913 208.436517 
-Q 296.185913 208.436517 296.185913 211.436517 
-L 296.185913 220.314642 
-Q 296.185913 223.314642 299.185913 223.314642 
-z
-" style="fill: #e6e6e6"/>
-    </g>
-    <!-- 0 % -->
-    <g transform="translate(299.185913 218.37558) scale(0.1 -0.1)">
+    <!-- 0.0082 %  (0.0015) -->
+    <g transform="translate(266.706225 218.37558) scale(0.1 -0.1)">
      <use xlink:href="#Cmr10-30"/>
-     <use xlink:href="#Cmr10-20" transform="translate(50 0)"/>
-     <use xlink:href="#Cmr10-25" transform="translate(83.300781 0)"/>
+     <use xlink:href="#Cmr10-2e" transform="translate(50 0)"/>
+     <use xlink:href="#Cmr10-30" transform="translate(77.685547 0)"/>
+     <use xlink:href="#Cmr10-30" transform="translate(127.685547 0)"/>
+     <use xlink:href="#Cmr10-38" transform="translate(177.685547 0)"/>
+     <use xlink:href="#Cmr10-32" transform="translate(227.685547 0)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(277.685547 0)"/>
+     <use xlink:href="#Cmr10-25" transform="translate(310.986328 0)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(394.287109 0)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(427.587891 0)"/>
+     <use xlink:href="#Cmr10-28" transform="translate(460.888672 0)"/>
+     <use xlink:href="#Cmr10-30" transform="translate(499.707031 0)"/>
+     <use xlink:href="#Cmr10-2e" transform="translate(549.707031 0)"/>
+     <use xlink:href="#Cmr10-30" transform="translate(577.392578 0)"/>
+     <use xlink:href="#Cmr10-30" transform="translate(627.392578 0)"/>
+     <use xlink:href="#Cmr10-31" transform="translate(677.392578 0)"/>
+     <use xlink:href="#Cmr10-35" transform="translate(727.392578 0)"/>
+     <use xlink:href="#Cmr10-29" transform="translate(777.392578 0)"/>
     </g>
    </g>
    <g id="text_56">
-    <!-- 0 % of samples -->
-    <g style="fill: #737373" transform="translate(283.012866 229.055542) scale(0.075 -0.075)">
-     <use xlink:href="#Cmr10-30"/>
-     <use xlink:href="#Cmr10-20" transform="translate(50 0)"/>
-     <use xlink:href="#Cmr10-25" transform="translate(83.300781 0)"/>
-     <use xlink:href="#Cmr10-20" transform="translate(166.601562 0)"/>
-     <use xlink:href="#Cmr10-6f" transform="translate(199.902344 0)"/>
-     <use xlink:href="#Cmr10-66" transform="translate(249.902344 0)"/>
-     <use xlink:href="#Cmr10-20" transform="translate(280.419922 0)"/>
-     <use xlink:href="#Cmr10-73" transform="translate(313.720703 0)"/>
-     <use xlink:href="#Cmr10-61" transform="translate(353.125 0)"/>
-     <use xlink:href="#Cmr10-6d" transform="translate(403.125 0)"/>
-     <use xlink:href="#Cmr10-70" transform="translate(486.425781 0)"/>
-     <use xlink:href="#Cmr10-6c" transform="translate(541.943359 0)"/>
-     <use xlink:href="#Cmr10-65" transform="translate(569.628906 0)"/>
-     <use xlink:href="#Cmr10-73" transform="translate(614.013672 0)"/>
+    <!-- $&lt;$ 1 % of samples -->
+    <g style="fill: #737373" transform="translate(277.5156 229.055542) scale(0.075 -0.075)">
+     <use xlink:href="#Cmmi10-3c" transform="translate(17.558594 0)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(112.802734 0)"/>
+     <use xlink:href="#Cmr10-31" transform="translate(146.103516 0)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(196.103516 0)"/>
+     <use xlink:href="#Cmr10-25" transform="translate(229.404297 0)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(312.705078 0)"/>
+     <use xlink:href="#Cmr10-6f" transform="translate(346.005859 0)"/>
+     <use xlink:href="#Cmr10-66" transform="translate(396.005859 0)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(426.523438 0)"/>
+     <use xlink:href="#Cmr10-73" transform="translate(459.824219 0)"/>
+     <use xlink:href="#Cmr10-61" transform="translate(499.228516 0)"/>
+     <use xlink:href="#Cmr10-6d" transform="translate(549.228516 0)"/>
+     <use xlink:href="#Cmr10-70" transform="translate(632.529297 0)"/>
+     <use xlink:href="#Cmr10-6c" transform="translate(688.046875 0)"/>
+     <use xlink:href="#Cmr10-65" transform="translate(715.732422 0)"/>
+     <use xlink:href="#Cmr10-73" transform="translate(760.117188 0)"/>
     </g>
    </g>
    <g id="text_57">
-    <g id="patch_17">
-     <path d="M 381.881513 223.314642 
-L 398.540888 223.314642 
-Q 401.540888 223.314642 401.540888 220.314642 
-L 401.540888 211.436517 
-Q 401.540888 208.436517 398.540888 208.436517 
-L 381.881513 208.436517 
-Q 378.881513 208.436517 378.881513 211.436517 
-L 378.881513 220.314642 
-Q 378.881513 223.314642 381.881513 223.314642 
-z
-" style="fill: #e6e6e6"/>
-    </g>
-    <!-- 0 % -->
-    <g transform="translate(381.881513 218.37558) scale(0.1 -0.1)">
+    <!-- 0.0029 %  (0.0015) -->
+    <g transform="translate(349.401825 218.37558) scale(0.1 -0.1)">
      <use xlink:href="#Cmr10-30"/>
-     <use xlink:href="#Cmr10-20" transform="translate(50 0)"/>
-     <use xlink:href="#Cmr10-25" transform="translate(83.300781 0)"/>
+     <use xlink:href="#Cmr10-2e" transform="translate(50 0)"/>
+     <use xlink:href="#Cmr10-30" transform="translate(77.685547 0)"/>
+     <use xlink:href="#Cmr10-30" transform="translate(127.685547 0)"/>
+     <use xlink:href="#Cmr10-32" transform="translate(177.685547 0)"/>
+     <use xlink:href="#Cmr10-39" transform="translate(227.685547 0)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(277.685547 0)"/>
+     <use xlink:href="#Cmr10-25" transform="translate(310.986328 0)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(394.287109 0)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(427.587891 0)"/>
+     <use xlink:href="#Cmr10-28" transform="translate(460.888672 0)"/>
+     <use xlink:href="#Cmr10-30" transform="translate(499.707031 0)"/>
+     <use xlink:href="#Cmr10-2e" transform="translate(549.707031 0)"/>
+     <use xlink:href="#Cmr10-30" transform="translate(577.392578 0)"/>
+     <use xlink:href="#Cmr10-30" transform="translate(627.392578 0)"/>
+     <use xlink:href="#Cmr10-31" transform="translate(677.392578 0)"/>
+     <use xlink:href="#Cmr10-35" transform="translate(727.392578 0)"/>
+     <use xlink:href="#Cmr10-29" transform="translate(777.392578 0)"/>
     </g>
    </g>
    <g id="text_58">
-    <!-- 0 % of samples -->
-    <g style="fill: #737373" transform="translate(365.708466 229.055542) scale(0.075 -0.075)">
-     <use xlink:href="#Cmr10-30"/>
-     <use xlink:href="#Cmr10-20" transform="translate(50 0)"/>
-     <use xlink:href="#Cmr10-25" transform="translate(83.300781 0)"/>
-     <use xlink:href="#Cmr10-20" transform="translate(166.601562 0)"/>
-     <use xlink:href="#Cmr10-6f" transform="translate(199.902344 0)"/>
-     <use xlink:href="#Cmr10-66" transform="translate(249.902344 0)"/>
-     <use xlink:href="#Cmr10-20" transform="translate(280.419922 0)"/>
-     <use xlink:href="#Cmr10-73" transform="translate(313.720703 0)"/>
-     <use xlink:href="#Cmr10-61" transform="translate(353.125 0)"/>
-     <use xlink:href="#Cmr10-6d" transform="translate(403.125 0)"/>
-     <use xlink:href="#Cmr10-70" transform="translate(486.425781 0)"/>
-     <use xlink:href="#Cmr10-6c" transform="translate(541.943359 0)"/>
-     <use xlink:href="#Cmr10-65" transform="translate(569.628906 0)"/>
-     <use xlink:href="#Cmr10-73" transform="translate(614.013672 0)"/>
+    <!-- $&lt;$ 1 % of samples -->
+    <g style="fill: #737373" transform="translate(360.2112 229.055542) scale(0.075 -0.075)">
+     <use xlink:href="#Cmmi10-3c" transform="translate(17.558594 0)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(112.802734 0)"/>
+     <use xlink:href="#Cmr10-31" transform="translate(146.103516 0)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(196.103516 0)"/>
+     <use xlink:href="#Cmr10-25" transform="translate(229.404297 0)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(312.705078 0)"/>
+     <use xlink:href="#Cmr10-6f" transform="translate(346.005859 0)"/>
+     <use xlink:href="#Cmr10-66" transform="translate(396.005859 0)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(426.523438 0)"/>
+     <use xlink:href="#Cmr10-73" transform="translate(459.824219 0)"/>
+     <use xlink:href="#Cmr10-61" transform="translate(499.228516 0)"/>
+     <use xlink:href="#Cmr10-6d" transform="translate(549.228516 0)"/>
+     <use xlink:href="#Cmr10-70" transform="translate(632.529297 0)"/>
+     <use xlink:href="#Cmr10-6c" transform="translate(688.046875 0)"/>
+     <use xlink:href="#Cmr10-65" transform="translate(715.732422 0)"/>
+     <use xlink:href="#Cmr10-73" transform="translate(760.117188 0)"/>
     </g>
    </g>
    <g id="text_59">
@@ -2505,113 +2539,126 @@ z
     </g>
    </g>
    <g id="text_60">
-    <!-- 0.063 %  (0.0016) -->
-    <g transform="translate(103.815025 256.31964) scale(0.1 -0.1)">
-     <use xlink:href="#Cmr10-30"/>
-     <use xlink:href="#Cmr10-2e" transform="translate(50 0)"/>
-     <use xlink:href="#Cmr10-30" transform="translate(77.685547 0)"/>
-     <use xlink:href="#Cmr10-36" transform="translate(127.685547 0)"/>
-     <use xlink:href="#Cmr10-33" transform="translate(177.685547 0)"/>
-     <use xlink:href="#Cmr10-20" transform="translate(227.685547 0)"/>
-     <use xlink:href="#Cmr10-25" transform="translate(260.986328 0)"/>
-     <use xlink:href="#Cmr10-20" transform="translate(344.287109 0)"/>
-     <use xlink:href="#Cmr10-20" transform="translate(377.587891 0)"/>
-     <use xlink:href="#Cmr10-28" transform="translate(410.888672 0)"/>
-     <use xlink:href="#Cmr10-30" transform="translate(449.707031 0)"/>
-     <use xlink:href="#Cmr10-2e" transform="translate(499.707031 0)"/>
-     <use xlink:href="#Cmr10-30" transform="translate(527.392578 0)"/>
-     <use xlink:href="#Cmr10-30" transform="translate(577.392578 0)"/>
-     <use xlink:href="#Cmr10-31" transform="translate(627.392578 0)"/>
-     <use xlink:href="#Cmr10-36" transform="translate(677.392578 0)"/>
-     <use xlink:href="#Cmr10-29" transform="translate(727.392578 0)"/>
-    </g>
-   </g>
-   <g id="text_61">
-    <!-- 7 % of samples -->
-    <g style="fill: #737373" transform="translate(117.621666 266.999602) scale(0.075 -0.075)">
-     <use xlink:href="#Cmr10-37"/>
-     <use xlink:href="#Cmr10-20" transform="translate(50 0)"/>
-     <use xlink:href="#Cmr10-25" transform="translate(83.300781 0)"/>
-     <use xlink:href="#Cmr10-20" transform="translate(166.601562 0)"/>
-     <use xlink:href="#Cmr10-6f" transform="translate(199.902344 0)"/>
-     <use xlink:href="#Cmr10-66" transform="translate(249.902344 0)"/>
-     <use xlink:href="#Cmr10-20" transform="translate(280.419922 0)"/>
-     <use xlink:href="#Cmr10-73" transform="translate(313.720703 0)"/>
-     <use xlink:href="#Cmr10-61" transform="translate(353.125 0)"/>
-     <use xlink:href="#Cmr10-6d" transform="translate(403.125 0)"/>
-     <use xlink:href="#Cmr10-70" transform="translate(486.425781 0)"/>
-     <use xlink:href="#Cmr10-6c" transform="translate(541.943359 0)"/>
-     <use xlink:href="#Cmr10-65" transform="translate(569.628906 0)"/>
-     <use xlink:href="#Cmr10-73" transform="translate(614.013672 0)"/>
-    </g>
-   </g>
-   <g id="text_62">
-    <g id="patch_18">
-     <path d="M 216.490313 261.258702 
-L 233.149688 261.258702 
-Q 236.149688 261.258702 236.149688 258.258702 
-L 236.149688 249.380577 
-Q 236.149688 246.380577 233.149688 246.380577 
-L 216.490313 246.380577 
-Q 213.490313 246.380577 213.490313 249.380577 
-L 213.490313 258.258702 
-Q 213.490313 261.258702 216.490313 261.258702 
+    <g id="patch_9">
+     <path d="M 106.315025 261.81964 
+L 177.933775 261.81964 
+Q 180.933775 261.81964 180.933775 258.81964 
+L 180.933775 248.81964 
+Q 180.933775 245.81964 177.933775 245.81964 
+L 106.315025 245.81964 
+Q 103.315025 245.81964 103.315025 248.81964 
+L 103.315025 258.81964 
+Q 103.315025 261.81964 106.315025 261.81964 
 z
 " style="fill: #e6e6e6"/>
     </g>
-    <!-- 0 % -->
-    <g transform="translate(216.490313 256.31964) scale(0.1 -0.1)">
+    <!-- 0.15 %  (0.0025) -->
+    <g transform="translate(106.315025 256.31964) scale(0.1 -0.1)">
      <use xlink:href="#Cmr10-30"/>
-     <use xlink:href="#Cmr10-20" transform="translate(50 0)"/>
-     <use xlink:href="#Cmr10-25" transform="translate(83.300781 0)"/>
+     <use xlink:href="#Cmr10-2e" transform="translate(50 0)"/>
+     <use xlink:href="#Cmr10-31" transform="translate(77.685547 0)"/>
+     <use xlink:href="#Cmr10-35" transform="translate(127.685547 0)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(177.685547 0)"/>
+     <use xlink:href="#Cmr10-25" transform="translate(210.986328 0)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(294.287109 0)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(327.587891 0)"/>
+     <use xlink:href="#Cmr10-28" transform="translate(360.888672 0)"/>
+     <use xlink:href="#Cmr10-30" transform="translate(399.707031 0)"/>
+     <use xlink:href="#Cmr10-2e" transform="translate(449.707031 0)"/>
+     <use xlink:href="#Cmr10-30" transform="translate(477.392578 0)"/>
+     <use xlink:href="#Cmr10-30" transform="translate(527.392578 0)"/>
+     <use xlink:href="#Cmr10-32" transform="translate(577.392578 0)"/>
+     <use xlink:href="#Cmr10-35" transform="translate(627.392578 0)"/>
+     <use xlink:href="#Cmr10-29" transform="translate(677.392578 0)"/>
+    </g>
+   </g>
+   <g id="text_61">
+    <!-- 24 % of samples -->
+    <g style="fill: #737373" transform="translate(115.746666 266.999602) scale(0.075 -0.075)">
+     <use xlink:href="#Cmr10-32"/>
+     <use xlink:href="#Cmr10-34" transform="translate(50 0)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(100 0)"/>
+     <use xlink:href="#Cmr10-25" transform="translate(133.300781 0)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(216.601562 0)"/>
+     <use xlink:href="#Cmr10-6f" transform="translate(249.902344 0)"/>
+     <use xlink:href="#Cmr10-66" transform="translate(299.902344 0)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(330.419922 0)"/>
+     <use xlink:href="#Cmr10-73" transform="translate(363.720703 0)"/>
+     <use xlink:href="#Cmr10-61" transform="translate(403.125 0)"/>
+     <use xlink:href="#Cmr10-6d" transform="translate(453.125 0)"/>
+     <use xlink:href="#Cmr10-70" transform="translate(536.425781 0)"/>
+     <use xlink:href="#Cmr10-6c" transform="translate(591.943359 0)"/>
+     <use xlink:href="#Cmr10-65" transform="translate(619.628906 0)"/>
+     <use xlink:href="#Cmr10-73" transform="translate(664.013672 0)"/>
+    </g>
+   </g>
+   <g id="text_62">
+    <!-- 0.88 %  (0.0269) -->
+    <g transform="translate(189.010625 256.31964) scale(0.1 -0.1)">
+     <use xlink:href="#Cmr10-30"/>
+     <use xlink:href="#Cmr10-2e" transform="translate(50 0)"/>
+     <use xlink:href="#Cmr10-38" transform="translate(77.685547 0)"/>
+     <use xlink:href="#Cmr10-38" transform="translate(127.685547 0)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(177.685547 0)"/>
+     <use xlink:href="#Cmr10-25" transform="translate(210.986328 0)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(294.287109 0)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(327.587891 0)"/>
+     <use xlink:href="#Cmr10-28" transform="translate(360.888672 0)"/>
+     <use xlink:href="#Cmr10-30" transform="translate(399.707031 0)"/>
+     <use xlink:href="#Cmr10-2e" transform="translate(449.707031 0)"/>
+     <use xlink:href="#Cmr10-30" transform="translate(477.392578 0)"/>
+     <use xlink:href="#Cmr10-32" transform="translate(527.392578 0)"/>
+     <use xlink:href="#Cmr10-36" transform="translate(577.392578 0)"/>
+     <use xlink:href="#Cmr10-39" transform="translate(627.392578 0)"/>
+     <use xlink:href="#Cmr10-29" transform="translate(677.392578 0)"/>
     </g>
    </g>
    <g id="text_63">
-    <!-- 0 % of samples -->
-    <g style="fill: #737373" transform="translate(200.317266 266.999602) scale(0.075 -0.075)">
-     <use xlink:href="#Cmr10-30"/>
-     <use xlink:href="#Cmr10-20" transform="translate(50 0)"/>
-     <use xlink:href="#Cmr10-25" transform="translate(83.300781 0)"/>
-     <use xlink:href="#Cmr10-20" transform="translate(166.601562 0)"/>
-     <use xlink:href="#Cmr10-6f" transform="translate(199.902344 0)"/>
-     <use xlink:href="#Cmr10-66" transform="translate(249.902344 0)"/>
-     <use xlink:href="#Cmr10-20" transform="translate(280.419922 0)"/>
-     <use xlink:href="#Cmr10-73" transform="translate(313.720703 0)"/>
-     <use xlink:href="#Cmr10-61" transform="translate(353.125 0)"/>
-     <use xlink:href="#Cmr10-6d" transform="translate(403.125 0)"/>
-     <use xlink:href="#Cmr10-70" transform="translate(486.425781 0)"/>
-     <use xlink:href="#Cmr10-6c" transform="translate(541.943359 0)"/>
-     <use xlink:href="#Cmr10-65" transform="translate(569.628906 0)"/>
-     <use xlink:href="#Cmr10-73" transform="translate(614.013672 0)"/>
+    <!-- 52 % of samples -->
+    <g style="fill: #737373" transform="translate(198.442266 266.999602) scale(0.075 -0.075)">
+     <use xlink:href="#Cmr10-35"/>
+     <use xlink:href="#Cmr10-32" transform="translate(50 0)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(100 0)"/>
+     <use xlink:href="#Cmr10-25" transform="translate(133.300781 0)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(216.601562 0)"/>
+     <use xlink:href="#Cmr10-6f" transform="translate(249.902344 0)"/>
+     <use xlink:href="#Cmr10-66" transform="translate(299.902344 0)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(330.419922 0)"/>
+     <use xlink:href="#Cmr10-73" transform="translate(363.720703 0)"/>
+     <use xlink:href="#Cmr10-61" transform="translate(403.125 0)"/>
+     <use xlink:href="#Cmr10-6d" transform="translate(453.125 0)"/>
+     <use xlink:href="#Cmr10-70" transform="translate(536.425781 0)"/>
+     <use xlink:href="#Cmr10-6c" transform="translate(591.943359 0)"/>
+     <use xlink:href="#Cmr10-65" transform="translate(619.628906 0)"/>
+     <use xlink:href="#Cmr10-73" transform="translate(664.013672 0)"/>
     </g>
    </g>
    <g id="text_64">
-    <!-- 0.063 %  (0.0038) -->
-    <g transform="translate(269.206225 256.31964) scale(0.1 -0.1)">
+    <!-- 0.16 %  (0.0132) -->
+    <g transform="translate(271.706225 256.31964) scale(0.1 -0.1)">
      <use xlink:href="#Cmr10-30"/>
      <use xlink:href="#Cmr10-2e" transform="translate(50 0)"/>
-     <use xlink:href="#Cmr10-30" transform="translate(77.685547 0)"/>
+     <use xlink:href="#Cmr10-31" transform="translate(77.685547 0)"/>
      <use xlink:href="#Cmr10-36" transform="translate(127.685547 0)"/>
-     <use xlink:href="#Cmr10-33" transform="translate(177.685547 0)"/>
-     <use xlink:href="#Cmr10-20" transform="translate(227.685547 0)"/>
-     <use xlink:href="#Cmr10-25" transform="translate(260.986328 0)"/>
-     <use xlink:href="#Cmr10-20" transform="translate(344.287109 0)"/>
-     <use xlink:href="#Cmr10-20" transform="translate(377.587891 0)"/>
-     <use xlink:href="#Cmr10-28" transform="translate(410.888672 0)"/>
-     <use xlink:href="#Cmr10-30" transform="translate(449.707031 0)"/>
-     <use xlink:href="#Cmr10-2e" transform="translate(499.707031 0)"/>
-     <use xlink:href="#Cmr10-30" transform="translate(527.392578 0)"/>
-     <use xlink:href="#Cmr10-30" transform="translate(577.392578 0)"/>
-     <use xlink:href="#Cmr10-33" transform="translate(627.392578 0)"/>
-     <use xlink:href="#Cmr10-38" transform="translate(677.392578 0)"/>
-     <use xlink:href="#Cmr10-29" transform="translate(727.392578 0)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(177.685547 0)"/>
+     <use xlink:href="#Cmr10-25" transform="translate(210.986328 0)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(294.287109 0)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(327.587891 0)"/>
+     <use xlink:href="#Cmr10-28" transform="translate(360.888672 0)"/>
+     <use xlink:href="#Cmr10-30" transform="translate(399.707031 0)"/>
+     <use xlink:href="#Cmr10-2e" transform="translate(449.707031 0)"/>
+     <use xlink:href="#Cmr10-30" transform="translate(477.392578 0)"/>
+     <use xlink:href="#Cmr10-31" transform="translate(527.392578 0)"/>
+     <use xlink:href="#Cmr10-33" transform="translate(577.392578 0)"/>
+     <use xlink:href="#Cmr10-32" transform="translate(627.392578 0)"/>
+     <use xlink:href="#Cmr10-29" transform="translate(677.392578 0)"/>
     </g>
    </g>
    <g id="text_65">
-    <!-- 16 % of samples -->
+    <!-- 23 % of samples -->
     <g style="fill: #737373" transform="translate(281.137866 266.999602) scale(0.075 -0.075)">
-     <use xlink:href="#Cmr10-31"/>
-     <use xlink:href="#Cmr10-36" transform="translate(50 0)"/>
+     <use xlink:href="#Cmr10-32"/>
+     <use xlink:href="#Cmr10-33" transform="translate(50 0)"/>
      <use xlink:href="#Cmr10-20" transform="translate(100 0)"/>
      <use xlink:href="#Cmr10-25" transform="translate(133.300781 0)"/>
      <use xlink:href="#Cmr10-20" transform="translate(216.601562 0)"/>
@@ -2628,7 +2675,7 @@ z
     </g>
    </g>
    <g id="text_66">
-    <!-- 0.38 %  (0.0035) -->
+    <!-- 0.38 %  (0.0058) -->
     <g transform="translate(354.401825 256.31964) scale(0.1 -0.1)">
      <use xlink:href="#Cmr10-30"/>
      <use xlink:href="#Cmr10-2e" transform="translate(50 0)"/>
@@ -2643,16 +2690,16 @@ z
      <use xlink:href="#Cmr10-2e" transform="translate(449.707031 0)"/>
      <use xlink:href="#Cmr10-30" transform="translate(477.392578 0)"/>
      <use xlink:href="#Cmr10-30" transform="translate(527.392578 0)"/>
-     <use xlink:href="#Cmr10-33" transform="translate(577.392578 0)"/>
-     <use xlink:href="#Cmr10-35" transform="translate(627.392578 0)"/>
+     <use xlink:href="#Cmr10-35" transform="translate(577.392578 0)"/>
+     <use xlink:href="#Cmr10-38" transform="translate(627.392578 0)"/>
      <use xlink:href="#Cmr10-29" transform="translate(677.392578 0)"/>
     </g>
    </g>
    <g id="text_67">
-    <!-- 68 % of samples -->
+    <!-- 69 % of samples -->
     <g style="fill: #737373" transform="translate(363.833466 266.999602) scale(0.075 -0.075)">
      <use xlink:href="#Cmr10-36"/>
-     <use xlink:href="#Cmr10-38" transform="translate(50 0)"/>
+     <use xlink:href="#Cmr10-39" transform="translate(50 0)"/>
      <use xlink:href="#Cmr10-20" transform="translate(100 0)"/>
      <use xlink:href="#Cmr10-25" transform="translate(133.300781 0)"/>
      <use xlink:href="#Cmr10-20" transform="translate(216.601562 0)"/>
@@ -2687,12 +2734,12 @@ z
     </g>
    </g>
    <g id="text_69">
-    <!-- 0.36 %  (0.0027) -->
+    <!-- 0.42 %  (0.0046) -->
     <g transform="translate(106.315025 281.74812) scale(0.1 -0.1)">
      <use xlink:href="#Cmr10-30"/>
      <use xlink:href="#Cmr10-2e" transform="translate(50 0)"/>
-     <use xlink:href="#Cmr10-33" transform="translate(77.685547 0)"/>
-     <use xlink:href="#Cmr10-36" transform="translate(127.685547 0)"/>
+     <use xlink:href="#Cmr10-34" transform="translate(77.685547 0)"/>
+     <use xlink:href="#Cmr10-32" transform="translate(127.685547 0)"/>
      <use xlink:href="#Cmr10-20" transform="translate(177.685547 0)"/>
      <use xlink:href="#Cmr10-25" transform="translate(210.986328 0)"/>
      <use xlink:href="#Cmr10-20" transform="translate(294.287109 0)"/>
@@ -2702,147 +2749,15 @@ z
      <use xlink:href="#Cmr10-2e" transform="translate(449.707031 0)"/>
      <use xlink:href="#Cmr10-30" transform="translate(477.392578 0)"/>
      <use xlink:href="#Cmr10-30" transform="translate(527.392578 0)"/>
-     <use xlink:href="#Cmr10-32" transform="translate(577.392578 0)"/>
-     <use xlink:href="#Cmr10-37" transform="translate(627.392578 0)"/>
+     <use xlink:href="#Cmr10-34" transform="translate(577.392578 0)"/>
+     <use xlink:href="#Cmr10-36" transform="translate(627.392578 0)"/>
      <use xlink:href="#Cmr10-29" transform="translate(677.392578 0)"/>
     </g>
    </g>
    <g id="text_70">
-    <!-- 39 % of samples -->
+    <!-- 47 % of samples -->
     <g style="fill: #737373" transform="translate(115.746666 292.428082) scale(0.075 -0.075)">
-     <defs>
-      <path id="Cmr10-39" d="M 722 269 
-Q 897 63 1331 63 
-Q 1575 63 1786 228 
-Q 1997 394 2113 634 
-Q 2247 906 2284 1214 
-Q 2322 1522 2322 1978 
-Q 2213 1719 2008 1553 
-Q 1803 1388 1538 1388 
-Q 1166 1388 873 1589 
-Q 581 1791 425 2120 
-Q 269 2450 269 2822 
-Q 269 3206 444 3539 
-Q 619 3872 928 4067 
-Q 1238 4263 1631 4263 
-Q 2019 4263 2280 4052 
-Q 2541 3841 2678 3508 
-Q 2816 3175 2870 2803 
-Q 2925 2431 2925 2069 
-Q 2925 1575 2744 1061 
-Q 2563 547 2202 203 
-Q 1841 -141 1331 -141 
-Q 953 -141 690 37 
-Q 428 216 428 575 
-Q 428 706 517 795 
-Q 606 884 738 884 
-Q 866 884 955 795 
-Q 1044 706 1044 575 
-Q 1044 450 953 359 
-Q 863 269 738 269 
-L 722 269 
-z
-M 1563 1556 
-Q 1825 1556 1992 1732 
-Q 2159 1909 2234 2171 
-Q 2309 2434 2309 2694 
-L 2309 2816 
-L 2309 2841 
-Q 2309 3322 2168 3700 
-Q 2028 4078 1631 4078 
-Q 1378 4078 1220 3967 
-Q 1063 3856 988 3672 
-Q 913 3488 892 3278 
-Q 872 3069 872 2822 
-Q 872 2459 906 2203 
-Q 941 1947 1094 1751 
-Q 1247 1556 1563 1556 
-z
-" transform="scale(0.015625)"/>
-     </defs>
-     <use xlink:href="#Cmr10-33"/>
-     <use xlink:href="#Cmr10-39" transform="translate(50 0)"/>
-     <use xlink:href="#Cmr10-20" transform="translate(100 0)"/>
-     <use xlink:href="#Cmr10-25" transform="translate(133.300781 0)"/>
-     <use xlink:href="#Cmr10-20" transform="translate(216.601562 0)"/>
-     <use xlink:href="#Cmr10-6f" transform="translate(249.902344 0)"/>
-     <use xlink:href="#Cmr10-66" transform="translate(299.902344 0)"/>
-     <use xlink:href="#Cmr10-20" transform="translate(330.419922 0)"/>
-     <use xlink:href="#Cmr10-73" transform="translate(363.720703 0)"/>
-     <use xlink:href="#Cmr10-61" transform="translate(403.125 0)"/>
-     <use xlink:href="#Cmr10-6d" transform="translate(453.125 0)"/>
-     <use xlink:href="#Cmr10-70" transform="translate(536.425781 0)"/>
-     <use xlink:href="#Cmr10-6c" transform="translate(591.943359 0)"/>
-     <use xlink:href="#Cmr10-65" transform="translate(619.628906 0)"/>
-     <use xlink:href="#Cmr10-73" transform="translate(664.013672 0)"/>
-    </g>
-   </g>
-   <g id="text_71">
-    <g id="patch_19">
-     <path d="M 216.490313 286.687182 
-L 233.149688 286.687182 
-Q 236.149688 286.687182 236.149688 283.687182 
-L 236.149688 274.809057 
-Q 236.149688 271.809057 233.149688 271.809057 
-L 216.490313 271.809057 
-Q 213.490313 271.809057 213.490313 274.809057 
-L 213.490313 283.687182 
-Q 213.490313 286.687182 216.490313 286.687182 
-z
-" style="fill: #e6e6e6"/>
-    </g>
-    <!-- 0 % -->
-    <g transform="translate(216.490313 281.74812) scale(0.1 -0.1)">
-     <use xlink:href="#Cmr10-30"/>
-     <use xlink:href="#Cmr10-20" transform="translate(50 0)"/>
-     <use xlink:href="#Cmr10-25" transform="translate(83.300781 0)"/>
-    </g>
-   </g>
-   <g id="text_72">
-    <!-- 0 % of samples -->
-    <g style="fill: #737373" transform="translate(200.317266 292.428082) scale(0.075 -0.075)">
-     <use xlink:href="#Cmr10-30"/>
-     <use xlink:href="#Cmr10-20" transform="translate(50 0)"/>
-     <use xlink:href="#Cmr10-25" transform="translate(83.300781 0)"/>
-     <use xlink:href="#Cmr10-20" transform="translate(166.601562 0)"/>
-     <use xlink:href="#Cmr10-6f" transform="translate(199.902344 0)"/>
-     <use xlink:href="#Cmr10-66" transform="translate(249.902344 0)"/>
-     <use xlink:href="#Cmr10-20" transform="translate(280.419922 0)"/>
-     <use xlink:href="#Cmr10-73" transform="translate(313.720703 0)"/>
-     <use xlink:href="#Cmr10-61" transform="translate(353.125 0)"/>
-     <use xlink:href="#Cmr10-6d" transform="translate(403.125 0)"/>
-     <use xlink:href="#Cmr10-70" transform="translate(486.425781 0)"/>
-     <use xlink:href="#Cmr10-6c" transform="translate(541.943359 0)"/>
-     <use xlink:href="#Cmr10-65" transform="translate(569.628906 0)"/>
-     <use xlink:href="#Cmr10-73" transform="translate(614.013672 0)"/>
-    </g>
-   </g>
-   <g id="text_73">
-    <!-- 0.064 %  (0.0038) -->
-    <g transform="translate(269.206225 281.74812) scale(0.1 -0.1)">
-     <use xlink:href="#Cmr10-30"/>
-     <use xlink:href="#Cmr10-2e" transform="translate(50 0)"/>
-     <use xlink:href="#Cmr10-30" transform="translate(77.685547 0)"/>
-     <use xlink:href="#Cmr10-36" transform="translate(127.685547 0)"/>
-     <use xlink:href="#Cmr10-34" transform="translate(177.685547 0)"/>
-     <use xlink:href="#Cmr10-20" transform="translate(227.685547 0)"/>
-     <use xlink:href="#Cmr10-25" transform="translate(260.986328 0)"/>
-     <use xlink:href="#Cmr10-20" transform="translate(344.287109 0)"/>
-     <use xlink:href="#Cmr10-20" transform="translate(377.587891 0)"/>
-     <use xlink:href="#Cmr10-28" transform="translate(410.888672 0)"/>
-     <use xlink:href="#Cmr10-30" transform="translate(449.707031 0)"/>
-     <use xlink:href="#Cmr10-2e" transform="translate(499.707031 0)"/>
-     <use xlink:href="#Cmr10-30" transform="translate(527.392578 0)"/>
-     <use xlink:href="#Cmr10-30" transform="translate(577.392578 0)"/>
-     <use xlink:href="#Cmr10-33" transform="translate(627.392578 0)"/>
-     <use xlink:href="#Cmr10-38" transform="translate(677.392578 0)"/>
-     <use xlink:href="#Cmr10-29" transform="translate(727.392578 0)"/>
-    </g>
-   </g>
-   <g id="text_74">
-    <!-- 17 % of samples -->
-    <g style="fill: #737373" transform="translate(281.137866 292.428082) scale(0.075 -0.075)">
-     <use xlink:href="#Cmr10-31"/>
+     <use xlink:href="#Cmr10-34"/>
      <use xlink:href="#Cmr10-37" transform="translate(50 0)"/>
      <use xlink:href="#Cmr10-20" transform="translate(100 0)"/>
      <use xlink:href="#Cmr10-25" transform="translate(133.300781 0)"/>
@@ -2859,13 +2774,13 @@ z
      <use xlink:href="#Cmr10-73" transform="translate(664.013672 0)"/>
     </g>
    </g>
-   <g id="text_75">
-    <!-- 0.51 %  (0.0038) -->
-    <g transform="translate(354.401825 281.74812) scale(0.1 -0.1)">
+   <g id="text_71">
+    <!-- 0.93 %  (0.0256) -->
+    <g transform="translate(189.010625 281.74812) scale(0.1 -0.1)">
      <use xlink:href="#Cmr10-30"/>
      <use xlink:href="#Cmr10-2e" transform="translate(50 0)"/>
-     <use xlink:href="#Cmr10-35" transform="translate(77.685547 0)"/>
-     <use xlink:href="#Cmr10-31" transform="translate(127.685547 0)"/>
+     <use xlink:href="#Cmr10-39" transform="translate(77.685547 0)"/>
+     <use xlink:href="#Cmr10-33" transform="translate(127.685547 0)"/>
      <use xlink:href="#Cmr10-20" transform="translate(177.685547 0)"/>
      <use xlink:href="#Cmr10-25" transform="translate(210.986328 0)"/>
      <use xlink:href="#Cmr10-20" transform="translate(294.287109 0)"/>
@@ -2874,17 +2789,111 @@ z
      <use xlink:href="#Cmr10-30" transform="translate(399.707031 0)"/>
      <use xlink:href="#Cmr10-2e" transform="translate(449.707031 0)"/>
      <use xlink:href="#Cmr10-30" transform="translate(477.392578 0)"/>
-     <use xlink:href="#Cmr10-30" transform="translate(527.392578 0)"/>
-     <use xlink:href="#Cmr10-33" transform="translate(577.392578 0)"/>
-     <use xlink:href="#Cmr10-38" transform="translate(627.392578 0)"/>
+     <use xlink:href="#Cmr10-32" transform="translate(527.392578 0)"/>
+     <use xlink:href="#Cmr10-35" transform="translate(577.392578 0)"/>
+     <use xlink:href="#Cmr10-36" transform="translate(627.392578 0)"/>
      <use xlink:href="#Cmr10-29" transform="translate(677.392578 0)"/>
     </g>
    </g>
+   <g id="text_72">
+    <!-- 52 % of samples -->
+    <g style="fill: #737373" transform="translate(198.442266 292.428082) scale(0.075 -0.075)">
+     <use xlink:href="#Cmr10-35"/>
+     <use xlink:href="#Cmr10-32" transform="translate(50 0)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(100 0)"/>
+     <use xlink:href="#Cmr10-25" transform="translate(133.300781 0)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(216.601562 0)"/>
+     <use xlink:href="#Cmr10-6f" transform="translate(249.902344 0)"/>
+     <use xlink:href="#Cmr10-66" transform="translate(299.902344 0)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(330.419922 0)"/>
+     <use xlink:href="#Cmr10-73" transform="translate(363.720703 0)"/>
+     <use xlink:href="#Cmr10-61" transform="translate(403.125 0)"/>
+     <use xlink:href="#Cmr10-6d" transform="translate(453.125 0)"/>
+     <use xlink:href="#Cmr10-70" transform="translate(536.425781 0)"/>
+     <use xlink:href="#Cmr10-6c" transform="translate(591.943359 0)"/>
+     <use xlink:href="#Cmr10-65" transform="translate(619.628906 0)"/>
+     <use xlink:href="#Cmr10-73" transform="translate(664.013672 0)"/>
+    </g>
+   </g>
+   <g id="text_73">
+    <g id="patch_10">
+     <path d="M 271.706225 287.24812 
+L 343.324975 287.24812 
+Q 346.324975 287.24812 346.324975 284.24812 
+L 346.324975 274.24812 
+Q 346.324975 271.24812 343.324975 271.24812 
+L 271.706225 271.24812 
+Q 268.706225 271.24812 268.706225 274.24812 
+L 268.706225 284.24812 
+Q 268.706225 287.24812 271.706225 287.24812 
+z
+" style="fill: #e6e6e6"/>
+    </g>
+    <!-- 0.17 %  (0.0139) -->
+    <g transform="translate(271.706225 281.74812) scale(0.1 -0.1)">
+     <use xlink:href="#Cmr10-30"/>
+     <use xlink:href="#Cmr10-2e" transform="translate(50 0)"/>
+     <use xlink:href="#Cmr10-31" transform="translate(77.685547 0)"/>
+     <use xlink:href="#Cmr10-37" transform="translate(127.685547 0)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(177.685547 0)"/>
+     <use xlink:href="#Cmr10-25" transform="translate(210.986328 0)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(294.287109 0)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(327.587891 0)"/>
+     <use xlink:href="#Cmr10-28" transform="translate(360.888672 0)"/>
+     <use xlink:href="#Cmr10-30" transform="translate(399.707031 0)"/>
+     <use xlink:href="#Cmr10-2e" transform="translate(449.707031 0)"/>
+     <use xlink:href="#Cmr10-30" transform="translate(477.392578 0)"/>
+     <use xlink:href="#Cmr10-31" transform="translate(527.392578 0)"/>
+     <use xlink:href="#Cmr10-33" transform="translate(577.392578 0)"/>
+     <use xlink:href="#Cmr10-39" transform="translate(627.392578 0)"/>
+     <use xlink:href="#Cmr10-29" transform="translate(677.392578 0)"/>
+    </g>
+   </g>
+   <g id="text_74">
+    <!-- 23 % of samples -->
+    <g style="fill: #737373" transform="translate(281.137866 292.428082) scale(0.075 -0.075)">
+     <use xlink:href="#Cmr10-32"/>
+     <use xlink:href="#Cmr10-33" transform="translate(50 0)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(100 0)"/>
+     <use xlink:href="#Cmr10-25" transform="translate(133.300781 0)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(216.601562 0)"/>
+     <use xlink:href="#Cmr10-6f" transform="translate(249.902344 0)"/>
+     <use xlink:href="#Cmr10-66" transform="translate(299.902344 0)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(330.419922 0)"/>
+     <use xlink:href="#Cmr10-73" transform="translate(363.720703 0)"/>
+     <use xlink:href="#Cmr10-61" transform="translate(403.125 0)"/>
+     <use xlink:href="#Cmr10-6d" transform="translate(453.125 0)"/>
+     <use xlink:href="#Cmr10-70" transform="translate(536.425781 0)"/>
+     <use xlink:href="#Cmr10-6c" transform="translate(591.943359 0)"/>
+     <use xlink:href="#Cmr10-65" transform="translate(619.628906 0)"/>
+     <use xlink:href="#Cmr10-73" transform="translate(664.013672 0)"/>
+    </g>
+   </g>
+   <g id="text_75">
+    <!-- 0.5 %  (0.0065) -->
+    <g transform="translate(356.901825 281.74812) scale(0.1 -0.1)">
+     <use xlink:href="#Cmr10-30"/>
+     <use xlink:href="#Cmr10-2e" transform="translate(50 0)"/>
+     <use xlink:href="#Cmr10-35" transform="translate(77.685547 0)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(127.685547 0)"/>
+     <use xlink:href="#Cmr10-25" transform="translate(160.986328 0)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(244.287109 0)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(277.587891 0)"/>
+     <use xlink:href="#Cmr10-28" transform="translate(310.888672 0)"/>
+     <use xlink:href="#Cmr10-30" transform="translate(349.707031 0)"/>
+     <use xlink:href="#Cmr10-2e" transform="translate(399.707031 0)"/>
+     <use xlink:href="#Cmr10-30" transform="translate(427.392578 0)"/>
+     <use xlink:href="#Cmr10-30" transform="translate(477.392578 0)"/>
+     <use xlink:href="#Cmr10-36" transform="translate(527.392578 0)"/>
+     <use xlink:href="#Cmr10-35" transform="translate(577.392578 0)"/>
+     <use xlink:href="#Cmr10-29" transform="translate(627.392578 0)"/>
+    </g>
+   </g>
    <g id="text_76">
-    <!-- 70 % of samples -->
+    <!-- 71 % of samples -->
     <g style="fill: #737373" transform="translate(363.833466 292.428082) scale(0.075 -0.075)">
      <use xlink:href="#Cmr10-37"/>
-     <use xlink:href="#Cmr10-30" transform="translate(50 0)"/>
+     <use xlink:href="#Cmr10-31" transform="translate(50 0)"/>
      <use xlink:href="#Cmr10-20" transform="translate(100 0)"/>
      <use xlink:href="#Cmr10-25" transform="translate(133.300781 0)"/>
      <use xlink:href="#Cmr10-20" transform="translate(216.601562 0)"/>
@@ -2920,12 +2929,12 @@ z
     </g>
    </g>
    <g id="text_78">
-    <!-- 0.57 %  (0.0036) -->
+    <!-- 0.61 %  (0.0067) -->
     <g transform="translate(106.315025 307.1766) scale(0.1 -0.1)">
      <use xlink:href="#Cmr10-30"/>
      <use xlink:href="#Cmr10-2e" transform="translate(50 0)"/>
-     <use xlink:href="#Cmr10-35" transform="translate(77.685547 0)"/>
-     <use xlink:href="#Cmr10-37" transform="translate(127.685547 0)"/>
+     <use xlink:href="#Cmr10-36" transform="translate(77.685547 0)"/>
+     <use xlink:href="#Cmr10-31" transform="translate(127.685547 0)"/>
      <use xlink:href="#Cmr10-20" transform="translate(177.685547 0)"/>
      <use xlink:href="#Cmr10-25" transform="translate(210.986328 0)"/>
      <use xlink:href="#Cmr10-20" transform="translate(294.287109 0)"/>
@@ -2935,14 +2944,52 @@ z
      <use xlink:href="#Cmr10-2e" transform="translate(449.707031 0)"/>
      <use xlink:href="#Cmr10-30" transform="translate(477.392578 0)"/>
      <use xlink:href="#Cmr10-30" transform="translate(527.392578 0)"/>
-     <use xlink:href="#Cmr10-33" transform="translate(577.392578 0)"/>
-     <use xlink:href="#Cmr10-36" transform="translate(627.392578 0)"/>
+     <use xlink:href="#Cmr10-36" transform="translate(577.392578 0)"/>
+     <use xlink:href="#Cmr10-37" transform="translate(627.392578 0)"/>
      <use xlink:href="#Cmr10-29" transform="translate(677.392578 0)"/>
     </g>
    </g>
    <g id="text_79">
-    <!-- 51 % of samples -->
+    <!-- 54 % of samples -->
     <g style="fill: #737373" transform="translate(115.746666 317.856562) scale(0.075 -0.075)">
+     <use xlink:href="#Cmr10-35"/>
+     <use xlink:href="#Cmr10-34" transform="translate(50 0)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(100 0)"/>
+     <use xlink:href="#Cmr10-25" transform="translate(133.300781 0)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(216.601562 0)"/>
+     <use xlink:href="#Cmr10-6f" transform="translate(249.902344 0)"/>
+     <use xlink:href="#Cmr10-66" transform="translate(299.902344 0)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(330.419922 0)"/>
+     <use xlink:href="#Cmr10-73" transform="translate(363.720703 0)"/>
+     <use xlink:href="#Cmr10-61" transform="translate(403.125 0)"/>
+     <use xlink:href="#Cmr10-6d" transform="translate(453.125 0)"/>
+     <use xlink:href="#Cmr10-70" transform="translate(536.425781 0)"/>
+     <use xlink:href="#Cmr10-6c" transform="translate(591.943359 0)"/>
+     <use xlink:href="#Cmr10-65" transform="translate(619.628906 0)"/>
+     <use xlink:href="#Cmr10-73" transform="translate(664.013672 0)"/>
+    </g>
+   </g>
+   <g id="text_80">
+    <!-- 1 %  (0.0248) -->
+    <g transform="translate(195.395 307.1766) scale(0.1 -0.1)">
+     <use xlink:href="#Cmr10-31"/>
+     <use xlink:href="#Cmr10-20" transform="translate(50 0)"/>
+     <use xlink:href="#Cmr10-25" transform="translate(83.300781 0)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(166.601562 0)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(199.902344 0)"/>
+     <use xlink:href="#Cmr10-28" transform="translate(233.203125 0)"/>
+     <use xlink:href="#Cmr10-30" transform="translate(272.021484 0)"/>
+     <use xlink:href="#Cmr10-2e" transform="translate(322.021484 0)"/>
+     <use xlink:href="#Cmr10-30" transform="translate(349.707031 0)"/>
+     <use xlink:href="#Cmr10-32" transform="translate(399.707031 0)"/>
+     <use xlink:href="#Cmr10-34" transform="translate(449.707031 0)"/>
+     <use xlink:href="#Cmr10-38" transform="translate(499.707031 0)"/>
+     <use xlink:href="#Cmr10-29" transform="translate(549.707031 0)"/>
+    </g>
+   </g>
+   <g id="text_81">
+    <!-- 51 % of samples -->
+    <g style="fill: #737373" transform="translate(198.442266 317.856562) scale(0.075 -0.075)">
      <use xlink:href="#Cmr10-35"/>
      <use xlink:href="#Cmr10-31" transform="translate(50 0)"/>
      <use xlink:href="#Cmr10-20" transform="translate(100 0)"/>
@@ -2960,73 +3007,45 @@ z
      <use xlink:href="#Cmr10-73" transform="translate(664.013672 0)"/>
     </g>
    </g>
-   <g id="text_80">
-    <g id="patch_20">
-     <path d="M 216.490313 312.115662 
-L 233.149688 312.115662 
-Q 236.149688 312.115662 236.149688 309.115662 
-L 236.149688 300.237537 
-Q 236.149688 297.237537 233.149688 297.237537 
-L 216.490313 297.237537 
-Q 213.490313 297.237537 213.490313 300.237537 
-L 213.490313 309.115662 
-Q 213.490313 312.115662 216.490313 312.115662 
+   <g id="text_82">
+    <g id="patch_11">
+     <path d="M 271.706225 312.6766 
+L 343.324975 312.6766 
+Q 346.324975 312.6766 346.324975 309.6766 
+L 346.324975 299.6766 
+Q 346.324975 296.6766 343.324975 296.6766 
+L 271.706225 296.6766 
+Q 268.706225 296.6766 268.706225 299.6766 
+L 268.706225 309.6766 
+Q 268.706225 312.6766 271.706225 312.6766 
 z
 " style="fill: #e6e6e6"/>
     </g>
-    <!-- 0 % -->
-    <g transform="translate(216.490313 307.1766) scale(0.1 -0.1)">
-     <use xlink:href="#Cmr10-30"/>
-     <use xlink:href="#Cmr10-20" transform="translate(50 0)"/>
-     <use xlink:href="#Cmr10-25" transform="translate(83.300781 0)"/>
-    </g>
-   </g>
-   <g id="text_81">
-    <!-- 0 % of samples -->
-    <g style="fill: #737373" transform="translate(200.317266 317.856562) scale(0.075 -0.075)">
-     <use xlink:href="#Cmr10-30"/>
-     <use xlink:href="#Cmr10-20" transform="translate(50 0)"/>
-     <use xlink:href="#Cmr10-25" transform="translate(83.300781 0)"/>
-     <use xlink:href="#Cmr10-20" transform="translate(166.601562 0)"/>
-     <use xlink:href="#Cmr10-6f" transform="translate(199.902344 0)"/>
-     <use xlink:href="#Cmr10-66" transform="translate(249.902344 0)"/>
-     <use xlink:href="#Cmr10-20" transform="translate(280.419922 0)"/>
-     <use xlink:href="#Cmr10-73" transform="translate(313.720703 0)"/>
-     <use xlink:href="#Cmr10-61" transform="translate(353.125 0)"/>
-     <use xlink:href="#Cmr10-6d" transform="translate(403.125 0)"/>
-     <use xlink:href="#Cmr10-70" transform="translate(486.425781 0)"/>
-     <use xlink:href="#Cmr10-6c" transform="translate(541.943359 0)"/>
-     <use xlink:href="#Cmr10-65" transform="translate(569.628906 0)"/>
-     <use xlink:href="#Cmr10-73" transform="translate(614.013672 0)"/>
-    </g>
-   </g>
-   <g id="text_82">
-    <!-- 0.066 %  (0.0039) -->
-    <g transform="translate(269.206225 307.1766) scale(0.1 -0.1)">
+    <!-- 0.18 %  (0.0146) -->
+    <g transform="translate(271.706225 307.1766) scale(0.1 -0.1)">
      <use xlink:href="#Cmr10-30"/>
      <use xlink:href="#Cmr10-2e" transform="translate(50 0)"/>
-     <use xlink:href="#Cmr10-30" transform="translate(77.685547 0)"/>
-     <use xlink:href="#Cmr10-36" transform="translate(127.685547 0)"/>
-     <use xlink:href="#Cmr10-36" transform="translate(177.685547 0)"/>
-     <use xlink:href="#Cmr10-20" transform="translate(227.685547 0)"/>
-     <use xlink:href="#Cmr10-25" transform="translate(260.986328 0)"/>
-     <use xlink:href="#Cmr10-20" transform="translate(344.287109 0)"/>
-     <use xlink:href="#Cmr10-20" transform="translate(377.587891 0)"/>
-     <use xlink:href="#Cmr10-28" transform="translate(410.888672 0)"/>
-     <use xlink:href="#Cmr10-30" transform="translate(449.707031 0)"/>
-     <use xlink:href="#Cmr10-2e" transform="translate(499.707031 0)"/>
-     <use xlink:href="#Cmr10-30" transform="translate(527.392578 0)"/>
-     <use xlink:href="#Cmr10-30" transform="translate(577.392578 0)"/>
-     <use xlink:href="#Cmr10-33" transform="translate(627.392578 0)"/>
-     <use xlink:href="#Cmr10-39" transform="translate(677.392578 0)"/>
-     <use xlink:href="#Cmr10-29" transform="translate(727.392578 0)"/>
+     <use xlink:href="#Cmr10-31" transform="translate(77.685547 0)"/>
+     <use xlink:href="#Cmr10-38" transform="translate(127.685547 0)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(177.685547 0)"/>
+     <use xlink:href="#Cmr10-25" transform="translate(210.986328 0)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(294.287109 0)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(327.587891 0)"/>
+     <use xlink:href="#Cmr10-28" transform="translate(360.888672 0)"/>
+     <use xlink:href="#Cmr10-30" transform="translate(399.707031 0)"/>
+     <use xlink:href="#Cmr10-2e" transform="translate(449.707031 0)"/>
+     <use xlink:href="#Cmr10-30" transform="translate(477.392578 0)"/>
+     <use xlink:href="#Cmr10-31" transform="translate(527.392578 0)"/>
+     <use xlink:href="#Cmr10-34" transform="translate(577.392578 0)"/>
+     <use xlink:href="#Cmr10-36" transform="translate(627.392578 0)"/>
+     <use xlink:href="#Cmr10-29" transform="translate(677.392578 0)"/>
     </g>
    </g>
    <g id="text_83">
-    <!-- 17 % of samples -->
+    <!-- 23 % of samples -->
     <g style="fill: #737373" transform="translate(281.137866 317.856562) scale(0.075 -0.075)">
-     <use xlink:href="#Cmr10-31"/>
-     <use xlink:href="#Cmr10-37" transform="translate(50 0)"/>
+     <use xlink:href="#Cmr10-32"/>
+     <use xlink:href="#Cmr10-33" transform="translate(50 0)"/>
      <use xlink:href="#Cmr10-20" transform="translate(100 0)"/>
      <use xlink:href="#Cmr10-25" transform="translate(133.300781 0)"/>
      <use xlink:href="#Cmr10-20" transform="translate(216.601562 0)"/>
@@ -3043,12 +3062,12 @@ z
     </g>
    </g>
    <g id="text_84">
-    <!-- 0.43 %  (0.0045) -->
+    <!-- 0.48 %  (0.0083) -->
     <g transform="translate(354.401825 307.1766) scale(0.1 -0.1)">
      <use xlink:href="#Cmr10-30"/>
      <use xlink:href="#Cmr10-2e" transform="translate(50 0)"/>
      <use xlink:href="#Cmr10-34" transform="translate(77.685547 0)"/>
-     <use xlink:href="#Cmr10-33" transform="translate(127.685547 0)"/>
+     <use xlink:href="#Cmr10-38" transform="translate(127.685547 0)"/>
      <use xlink:href="#Cmr10-20" transform="translate(177.685547 0)"/>
      <use xlink:href="#Cmr10-25" transform="translate(210.986328 0)"/>
      <use xlink:href="#Cmr10-20" transform="translate(294.287109 0)"/>
@@ -3058,16 +3077,16 @@ z
      <use xlink:href="#Cmr10-2e" transform="translate(449.707031 0)"/>
      <use xlink:href="#Cmr10-30" transform="translate(477.392578 0)"/>
      <use xlink:href="#Cmr10-30" transform="translate(527.392578 0)"/>
-     <use xlink:href="#Cmr10-34" transform="translate(577.392578 0)"/>
-     <use xlink:href="#Cmr10-35" transform="translate(627.392578 0)"/>
+     <use xlink:href="#Cmr10-38" transform="translate(577.392578 0)"/>
+     <use xlink:href="#Cmr10-33" transform="translate(627.392578 0)"/>
      <use xlink:href="#Cmr10-29" transform="translate(677.392578 0)"/>
     </g>
    </g>
    <g id="text_85">
-    <!-- 64 % of samples -->
+    <!-- 65 % of samples -->
     <g style="fill: #737373" transform="translate(363.833466 317.856562) scale(0.075 -0.075)">
      <use xlink:href="#Cmr10-36"/>
-     <use xlink:href="#Cmr10-34" transform="translate(50 0)"/>
+     <use xlink:href="#Cmr10-35" transform="translate(50 0)"/>
      <use xlink:href="#Cmr10-20" transform="translate(100 0)"/>
      <use xlink:href="#Cmr10-25" transform="translate(133.300781 0)"/>
      <use xlink:href="#Cmr10-20" transform="translate(216.601562 0)"/>
@@ -3084,8 +3103,8 @@ z
     </g>
    </g>
    <g id="text_86">
-    <!-- After the ex-post AC power flow: share of PQ buses with a violation; brackets = mean violation per violating element [p.u.]; grey = share -->
-    <g style="fill: #595959" transform="translate(11.5524 354.372) scale(0.08 -0.08)">
+    <!-- After the ex-post AC power flow: share of buses with a violation; brackets = mean violation per violating element [p.u.]; grey = share of -->
+    <g style="fill: #595959" transform="translate(11.5524 354.468) scale(0.08 -0.08)">
      <defs>
       <path id="Cmr10-68" d="M 191 0 
 L 191 225 
@@ -3228,101 +3247,6 @@ Q 1241 2263 1139 2158
 Q 1038 2053 891 2053 
 Q 747 2053 642 2158 
 Q 538 2263 538 2406 
-z
-" transform="scale(0.015625)"/>
-      <path id="Cmr10-50" d="M 213 0 
-L 213 225 
-Q 872 225 872 428 
-L 872 3944 
-Q 872 4147 213 4147 
-L 213 4372 
-L 2491 4372 
-Q 2841 4372 3191 4228 
-Q 3541 4084 3767 3809 
-Q 3994 3534 3994 3169 
-Q 3994 2813 3766 2544 
-Q 3538 2275 3191 2136 
-Q 2844 1997 2491 1997 
-L 1466 1997 
-L 1466 428 
-Q 1466 225 2125 225 
-L 2125 0 
-L 213 0 
-z
-M 1447 2188 
-L 2316 2188 
-Q 2669 2188 2887 2289 
-Q 3106 2391 3207 2605 
-Q 3309 2819 3309 3169 
-Q 3309 3691 3079 3919 
-Q 2850 4147 2316 4147 
-L 1772 4147 
-Q 1656 4147 1592 4137 
-Q 1528 4128 1487 4083 
-Q 1447 4038 1447 3944 
-L 1447 2188 
-z
-" transform="scale(0.015625)"/>
-      <path id="Cmr10-51" d="M 2491 -141 
-Q 1881 -141 1395 182 
-Q 909 506 634 1042 
-Q 359 1578 359 2169 
-Q 359 2606 517 3034 
-Q 675 3463 958 3794 
-Q 1241 4125 1637 4319 
-Q 2034 4513 2491 4513 
-Q 2944 4513 3342 4317 
-Q 3741 4122 4025 3787 
-Q 4309 3453 4462 3037 
-Q 4616 2622 4616 2169 
-Q 4616 1728 4461 1309 
-Q 4306 891 4011 559 
-Q 3716 228 3322 44 
-Q 3444 -241 3572 -398 
-Q 3700 -556 3928 -556 
-Q 4169 -556 4341 -390 
-Q 4513 -225 4513 13 
-Q 4513 34 4536 53 
-Q 4559 72 4581 72 
-Q 4653 72 4653 -13 
-Q 4653 -472 4473 -856 
-Q 4294 -1241 3884 -1241 
-Q 3659 -1241 3512 -1130 
-Q 3366 -1019 3289 -848 
-Q 3213 -678 3169 -453 
-Q 3125 -228 3091 -44 
-Q 2809 -141 2491 -141 
-z
-M 2491 44 
-Q 2778 44 3047 191 
-Q 2988 466 2864 630 
-Q 2741 794 2491 794 
-Q 2338 794 2231 680 
-Q 2125 566 2125 416 
-Q 2125 253 2226 148 
-Q 2328 44 2491 44 
-z
-M 1959 416 
-Q 1959 556 2028 681 
-Q 2097 806 2220 882 
-Q 2344 959 2491 959 
-Q 2769 959 2931 779 
-Q 3094 600 3219 294 
-Q 3431 453 3575 670 
-Q 3719 888 3798 1127 
-Q 3878 1366 3914 1633 
-Q 3950 1900 3950 2169 
-Q 3950 2613 3861 3003 
-Q 3772 3394 3559 3706 
-Q 3375 3984 3090 4154 
-Q 2806 4325 2491 4325 
-Q 2169 4325 1886 4158 
-Q 1603 3991 1416 3706 
-Q 1197 3388 1111 2997 
-Q 1025 2606 1025 2169 
-Q 1025 1488 1256 930 
-Q 1488 372 2028 141 
-Q 1959 272 1959 416 
 z
 " transform="scale(0.015625)"/>
       <path id="Cmr10-62" d="M 666 0 
@@ -3621,103 +3545,103 @@ z
      <use xlink:href="#Cmr10-6f" transform="translate(1758.740234 0)"/>
      <use xlink:href="#Cmr10-66" transform="translate(1808.740234 0)"/>
      <use xlink:href="#Cmr10-20" transform="translate(1839.257812 0)"/>
-     <use xlink:href="#Cmr10-50" transform="translate(1872.558594 0)"/>
-     <use xlink:href="#Cmr10-51" transform="translate(1940.576172 0)"/>
-     <use xlink:href="#Cmr10-20" transform="translate(2018.261719 0)"/>
-     <use xlink:href="#Cmr10-62" transform="translate(2051.5625 0)"/>
-     <use xlink:href="#Cmr10-75" transform="translate(2107.080078 0)"/>
-     <use xlink:href="#Cmr10-73" transform="translate(2162.597656 0)"/>
-     <use xlink:href="#Cmr10-65" transform="translate(2202.001953 0)"/>
-     <use xlink:href="#Cmr10-73" transform="translate(2246.386719 0)"/>
-     <use xlink:href="#Cmr10-20" transform="translate(2285.791016 0)"/>
-     <use xlink:href="#Cmr10-77" transform="translate(2319.091797 0)"/>
-     <use xlink:href="#Cmr10-69" transform="translate(2391.308594 0)"/>
-     <use xlink:href="#Cmr10-74" transform="translate(2418.994141 0)"/>
-     <use xlink:href="#Cmr10-68" transform="translate(2457.8125 0)"/>
-     <use xlink:href="#Cmr10-20" transform="translate(2513.330078 0)"/>
-     <use xlink:href="#Cmr10-61" transform="translate(2546.630859 0)"/>
-     <use xlink:href="#Cmr10-20" transform="translate(2596.630859 0)"/>
-     <use xlink:href="#Cmr10-76" transform="translate(2629.931641 0)"/>
-     <use xlink:href="#Cmr10-69" transform="translate(2682.617188 0)"/>
-     <use xlink:href="#Cmr10-6f" transform="translate(2710.302734 0)"/>
-     <use xlink:href="#Cmr10-6c" transform="translate(2760.302734 0)"/>
-     <use xlink:href="#Cmr10-61" transform="translate(2787.988281 0)"/>
-     <use xlink:href="#Cmr10-74" transform="translate(2837.988281 0)"/>
-     <use xlink:href="#Cmr10-69" transform="translate(2876.806641 0)"/>
-     <use xlink:href="#Cmr10-6f" transform="translate(2904.492188 0)"/>
-     <use xlink:href="#Cmr10-6e" transform="translate(2954.492188 0)"/>
-     <use xlink:href="#Cmr10-3b" transform="translate(3010.009766 0)"/>
-     <use xlink:href="#Cmr10-20" transform="translate(3037.695312 0)"/>
-     <use xlink:href="#Cmr10-62" transform="translate(3070.996094 0)"/>
-     <use xlink:href="#Cmr10-72" transform="translate(3126.513672 0)"/>
-     <use xlink:href="#Cmr10-61" transform="translate(3165.625 0)"/>
-     <use xlink:href="#Cmr10-63" transform="translate(3215.625 0)"/>
-     <use xlink:href="#Cmr10-6b" transform="translate(3260.009766 0)"/>
-     <use xlink:href="#Cmr10-65" transform="translate(3312.695312 0)"/>
-     <use xlink:href="#Cmr10-74" transform="translate(3357.080078 0)"/>
-     <use xlink:href="#Cmr10-73" transform="translate(3395.898438 0)"/>
-     <use xlink:href="#Cmr10-20" transform="translate(3435.302734 0)"/>
-     <use xlink:href="#Cmr10-3d" transform="translate(3468.603516 0)"/>
-     <use xlink:href="#Cmr10-20" transform="translate(3546.289062 0)"/>
-     <use xlink:href="#Cmr10-6d" transform="translate(3579.589844 0)"/>
-     <use xlink:href="#Cmr10-65" transform="translate(3662.890625 0)"/>
-     <use xlink:href="#Cmr10-61" transform="translate(3707.275391 0)"/>
-     <use xlink:href="#Cmr10-6e" transform="translate(3757.275391 0)"/>
-     <use xlink:href="#Cmr10-20" transform="translate(3812.792969 0)"/>
-     <use xlink:href="#Cmr10-76" transform="translate(3846.09375 0)"/>
-     <use xlink:href="#Cmr10-69" transform="translate(3898.779297 0)"/>
-     <use xlink:href="#Cmr10-6f" transform="translate(3926.464844 0)"/>
-     <use xlink:href="#Cmr10-6c" transform="translate(3976.464844 0)"/>
-     <use xlink:href="#Cmr10-61" transform="translate(4004.150391 0)"/>
-     <use xlink:href="#Cmr10-74" transform="translate(4054.150391 0)"/>
-     <use xlink:href="#Cmr10-69" transform="translate(4092.96875 0)"/>
-     <use xlink:href="#Cmr10-6f" transform="translate(4120.654297 0)"/>
-     <use xlink:href="#Cmr10-6e" transform="translate(4170.654297 0)"/>
-     <use xlink:href="#Cmr10-20" transform="translate(4226.171875 0)"/>
-     <use xlink:href="#Cmr10-70" transform="translate(4259.472656 0)"/>
-     <use xlink:href="#Cmr10-65" transform="translate(4314.990234 0)"/>
-     <use xlink:href="#Cmr10-72" transform="translate(4359.375 0)"/>
-     <use xlink:href="#Cmr10-20" transform="translate(4398.486328 0)"/>
-     <use xlink:href="#Cmr10-76" transform="translate(4431.787109 0)"/>
-     <use xlink:href="#Cmr10-69" transform="translate(4484.472656 0)"/>
-     <use xlink:href="#Cmr10-6f" transform="translate(4512.158203 0)"/>
-     <use xlink:href="#Cmr10-6c" transform="translate(4562.158203 0)"/>
-     <use xlink:href="#Cmr10-61" transform="translate(4589.84375 0)"/>
-     <use xlink:href="#Cmr10-74" transform="translate(4639.84375 0)"/>
-     <use xlink:href="#Cmr10-69" transform="translate(4678.662109 0)"/>
-     <use xlink:href="#Cmr10-6e" transform="translate(4706.347656 0)"/>
-     <use xlink:href="#Cmr10-67" transform="translate(4761.865234 0)"/>
-     <use xlink:href="#Cmr10-20" transform="translate(4811.865234 0)"/>
-     <use xlink:href="#Cmr10-65" transform="translate(4845.166016 0)"/>
-     <use xlink:href="#Cmr10-6c" transform="translate(4889.550781 0)"/>
-     <use xlink:href="#Cmr10-65" transform="translate(4917.236328 0)"/>
-     <use xlink:href="#Cmr10-6d" transform="translate(4961.621094 0)"/>
-     <use xlink:href="#Cmr10-65" transform="translate(5044.921875 0)"/>
-     <use xlink:href="#Cmr10-6e" transform="translate(5089.306641 0)"/>
-     <use xlink:href="#Cmr10-74" transform="translate(5144.824219 0)"/>
-     <use xlink:href="#Cmr10-20" transform="translate(5183.642578 0)"/>
-     <use xlink:href="#Cmr10-5b" transform="translate(5216.943359 0)"/>
-     <use xlink:href="#Cmr10-70" transform="translate(5244.628906 0)"/>
-     <use xlink:href="#Cmr10-2e" transform="translate(5300.146484 0)"/>
-     <use xlink:href="#Cmr10-75" transform="translate(5327.832031 0)"/>
-     <use xlink:href="#Cmr10-2e" transform="translate(5383.349609 0)"/>
-     <use xlink:href="#Cmr10-5d" transform="translate(5411.035156 0)"/>
-     <use xlink:href="#Cmr10-3b" transform="translate(5438.720703 0)"/>
-     <use xlink:href="#Cmr10-20" transform="translate(5466.40625 0)"/>
-     <use xlink:href="#Cmr10-67" transform="translate(5499.707031 0)"/>
-     <use xlink:href="#Cmr10-72" transform="translate(5549.707031 0)"/>
-     <use xlink:href="#Cmr10-65" transform="translate(5588.818359 0)"/>
-     <use xlink:href="#Cmr10-79" transform="translate(5633.203125 0)"/>
-     <use xlink:href="#Cmr10-20" transform="translate(5685.888672 0)"/>
-     <use xlink:href="#Cmr10-3d" transform="translate(5719.189453 0)"/>
-     <use xlink:href="#Cmr10-20" transform="translate(5796.875 0)"/>
-     <use xlink:href="#Cmr10-73" transform="translate(5830.175781 0)"/>
-     <use xlink:href="#Cmr10-68" transform="translate(5869.580078 0)"/>
-     <use xlink:href="#Cmr10-61" transform="translate(5925.097656 0)"/>
-     <use xlink:href="#Cmr10-72" transform="translate(5975.097656 0)"/>
-     <use xlink:href="#Cmr10-65" transform="translate(6014.208984 0)"/>
+     <use xlink:href="#Cmr10-62" transform="translate(1872.558594 0)"/>
+     <use xlink:href="#Cmr10-75" transform="translate(1928.076172 0)"/>
+     <use xlink:href="#Cmr10-73" transform="translate(1983.59375 0)"/>
+     <use xlink:href="#Cmr10-65" transform="translate(2022.998047 0)"/>
+     <use xlink:href="#Cmr10-73" transform="translate(2067.382812 0)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(2106.787109 0)"/>
+     <use xlink:href="#Cmr10-77" transform="translate(2140.087891 0)"/>
+     <use xlink:href="#Cmr10-69" transform="translate(2212.304688 0)"/>
+     <use xlink:href="#Cmr10-74" transform="translate(2239.990234 0)"/>
+     <use xlink:href="#Cmr10-68" transform="translate(2278.808594 0)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(2334.326172 0)"/>
+     <use xlink:href="#Cmr10-61" transform="translate(2367.626953 0)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(2417.626953 0)"/>
+     <use xlink:href="#Cmr10-76" transform="translate(2450.927734 0)"/>
+     <use xlink:href="#Cmr10-69" transform="translate(2503.613281 0)"/>
+     <use xlink:href="#Cmr10-6f" transform="translate(2531.298828 0)"/>
+     <use xlink:href="#Cmr10-6c" transform="translate(2581.298828 0)"/>
+     <use xlink:href="#Cmr10-61" transform="translate(2608.984375 0)"/>
+     <use xlink:href="#Cmr10-74" transform="translate(2658.984375 0)"/>
+     <use xlink:href="#Cmr10-69" transform="translate(2697.802734 0)"/>
+     <use xlink:href="#Cmr10-6f" transform="translate(2725.488281 0)"/>
+     <use xlink:href="#Cmr10-6e" transform="translate(2775.488281 0)"/>
+     <use xlink:href="#Cmr10-3b" transform="translate(2831.005859 0)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(2858.691406 0)"/>
+     <use xlink:href="#Cmr10-62" transform="translate(2891.992188 0)"/>
+     <use xlink:href="#Cmr10-72" transform="translate(2947.509766 0)"/>
+     <use xlink:href="#Cmr10-61" transform="translate(2986.621094 0)"/>
+     <use xlink:href="#Cmr10-63" transform="translate(3036.621094 0)"/>
+     <use xlink:href="#Cmr10-6b" transform="translate(3081.005859 0)"/>
+     <use xlink:href="#Cmr10-65" transform="translate(3133.691406 0)"/>
+     <use xlink:href="#Cmr10-74" transform="translate(3178.076172 0)"/>
+     <use xlink:href="#Cmr10-73" transform="translate(3216.894531 0)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(3256.298828 0)"/>
+     <use xlink:href="#Cmr10-3d" transform="translate(3289.599609 0)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(3367.285156 0)"/>
+     <use xlink:href="#Cmr10-6d" transform="translate(3400.585938 0)"/>
+     <use xlink:href="#Cmr10-65" transform="translate(3483.886719 0)"/>
+     <use xlink:href="#Cmr10-61" transform="translate(3528.271484 0)"/>
+     <use xlink:href="#Cmr10-6e" transform="translate(3578.271484 0)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(3633.789062 0)"/>
+     <use xlink:href="#Cmr10-76" transform="translate(3667.089844 0)"/>
+     <use xlink:href="#Cmr10-69" transform="translate(3719.775391 0)"/>
+     <use xlink:href="#Cmr10-6f" transform="translate(3747.460938 0)"/>
+     <use xlink:href="#Cmr10-6c" transform="translate(3797.460938 0)"/>
+     <use xlink:href="#Cmr10-61" transform="translate(3825.146484 0)"/>
+     <use xlink:href="#Cmr10-74" transform="translate(3875.146484 0)"/>
+     <use xlink:href="#Cmr10-69" transform="translate(3913.964844 0)"/>
+     <use xlink:href="#Cmr10-6f" transform="translate(3941.650391 0)"/>
+     <use xlink:href="#Cmr10-6e" transform="translate(3991.650391 0)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(4047.167969 0)"/>
+     <use xlink:href="#Cmr10-70" transform="translate(4080.46875 0)"/>
+     <use xlink:href="#Cmr10-65" transform="translate(4135.986328 0)"/>
+     <use xlink:href="#Cmr10-72" transform="translate(4180.371094 0)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(4219.482422 0)"/>
+     <use xlink:href="#Cmr10-76" transform="translate(4252.783203 0)"/>
+     <use xlink:href="#Cmr10-69" transform="translate(4305.46875 0)"/>
+     <use xlink:href="#Cmr10-6f" transform="translate(4333.154297 0)"/>
+     <use xlink:href="#Cmr10-6c" transform="translate(4383.154297 0)"/>
+     <use xlink:href="#Cmr10-61" transform="translate(4410.839844 0)"/>
+     <use xlink:href="#Cmr10-74" transform="translate(4460.839844 0)"/>
+     <use xlink:href="#Cmr10-69" transform="translate(4499.658203 0)"/>
+     <use xlink:href="#Cmr10-6e" transform="translate(4527.34375 0)"/>
+     <use xlink:href="#Cmr10-67" transform="translate(4582.861328 0)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(4632.861328 0)"/>
+     <use xlink:href="#Cmr10-65" transform="translate(4666.162109 0)"/>
+     <use xlink:href="#Cmr10-6c" transform="translate(4710.546875 0)"/>
+     <use xlink:href="#Cmr10-65" transform="translate(4738.232422 0)"/>
+     <use xlink:href="#Cmr10-6d" transform="translate(4782.617188 0)"/>
+     <use xlink:href="#Cmr10-65" transform="translate(4865.917969 0)"/>
+     <use xlink:href="#Cmr10-6e" transform="translate(4910.302734 0)"/>
+     <use xlink:href="#Cmr10-74" transform="translate(4965.820312 0)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(5004.638672 0)"/>
+     <use xlink:href="#Cmr10-5b" transform="translate(5037.939453 0)"/>
+     <use xlink:href="#Cmr10-70" transform="translate(5065.625 0)"/>
+     <use xlink:href="#Cmr10-2e" transform="translate(5121.142578 0)"/>
+     <use xlink:href="#Cmr10-75" transform="translate(5148.828125 0)"/>
+     <use xlink:href="#Cmr10-2e" transform="translate(5204.345703 0)"/>
+     <use xlink:href="#Cmr10-5d" transform="translate(5232.03125 0)"/>
+     <use xlink:href="#Cmr10-3b" transform="translate(5259.716797 0)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(5287.402344 0)"/>
+     <use xlink:href="#Cmr10-67" transform="translate(5320.703125 0)"/>
+     <use xlink:href="#Cmr10-72" transform="translate(5370.703125 0)"/>
+     <use xlink:href="#Cmr10-65" transform="translate(5409.814453 0)"/>
+     <use xlink:href="#Cmr10-79" transform="translate(5454.199219 0)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(5506.884766 0)"/>
+     <use xlink:href="#Cmr10-3d" transform="translate(5540.185547 0)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(5617.871094 0)"/>
+     <use xlink:href="#Cmr10-73" transform="translate(5651.171875 0)"/>
+     <use xlink:href="#Cmr10-68" transform="translate(5690.576172 0)"/>
+     <use xlink:href="#Cmr10-61" transform="translate(5746.09375 0)"/>
+     <use xlink:href="#Cmr10-72" transform="translate(5796.09375 0)"/>
+     <use xlink:href="#Cmr10-65" transform="translate(5835.205078 0)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(5879.589844 0)"/>
+     <use xlink:href="#Cmr10-6f" transform="translate(5912.890625 0)"/>
+     <use xlink:href="#Cmr10-66" transform="translate(5962.890625 0)"/>
     </g>
-    <!-- of test samples with $\geq$1 violation; shaded = lowest element share. -->
+    <!-- test samples with $\geq$1 violation; shaded = lowest element share. -->
     <g style="fill: #595959" transform="translate(11.5524 363.188) scale(0.08 -0.08)">
      <defs>
       <path id="Cmsy10-b8" d="M 653 -878 
@@ -3791,77 +3715,74 @@ Q 822 738 909 556
 z
 " transform="scale(0.015625)"/>
      </defs>
-     <use xlink:href="#Cmr10-6f" transform="translate(0 0.484375)"/>
-     <use xlink:href="#Cmr10-66" transform="translate(50 0.484375)"/>
-     <use xlink:href="#Cmr10-20" transform="translate(80.517578 0.484375)"/>
-     <use xlink:href="#Cmr10-74" transform="translate(113.818359 0.484375)"/>
-     <use xlink:href="#Cmr10-65" transform="translate(152.636719 0.484375)"/>
-     <use xlink:href="#Cmr10-73" transform="translate(197.021484 0.484375)"/>
-     <use xlink:href="#Cmr10-74" transform="translate(236.425781 0.484375)"/>
-     <use xlink:href="#Cmr10-20" transform="translate(275.244141 0.484375)"/>
-     <use xlink:href="#Cmr10-73" transform="translate(308.544922 0.484375)"/>
-     <use xlink:href="#Cmr10-61" transform="translate(347.949219 0.484375)"/>
-     <use xlink:href="#Cmr10-6d" transform="translate(397.949219 0.484375)"/>
-     <use xlink:href="#Cmr10-70" transform="translate(481.25 0.484375)"/>
-     <use xlink:href="#Cmr10-6c" transform="translate(536.767578 0.484375)"/>
-     <use xlink:href="#Cmr10-65" transform="translate(564.453125 0.484375)"/>
-     <use xlink:href="#Cmr10-73" transform="translate(608.837891 0.484375)"/>
-     <use xlink:href="#Cmr10-20" transform="translate(648.242188 0.484375)"/>
-     <use xlink:href="#Cmr10-77" transform="translate(681.542969 0.484375)"/>
-     <use xlink:href="#Cmr10-69" transform="translate(753.759766 0.484375)"/>
-     <use xlink:href="#Cmr10-74" transform="translate(781.445312 0.484375)"/>
-     <use xlink:href="#Cmr10-68" transform="translate(820.263672 0.484375)"/>
-     <use xlink:href="#Cmr10-20" transform="translate(875.78125 0.484375)"/>
-     <use xlink:href="#Cmsy10-b8" transform="translate(926.640625 0.484375)"/>
-     <use xlink:href="#Cmr10-31" transform="translate(1021.884766 0.484375)"/>
-     <use xlink:href="#Cmr10-20" transform="translate(1071.884766 0.484375)"/>
-     <use xlink:href="#Cmr10-76" transform="translate(1105.185547 0.484375)"/>
-     <use xlink:href="#Cmr10-69" transform="translate(1157.871094 0.484375)"/>
-     <use xlink:href="#Cmr10-6f" transform="translate(1185.556641 0.484375)"/>
-     <use xlink:href="#Cmr10-6c" transform="translate(1235.556641 0.484375)"/>
-     <use xlink:href="#Cmr10-61" transform="translate(1263.242188 0.484375)"/>
-     <use xlink:href="#Cmr10-74" transform="translate(1313.242188 0.484375)"/>
-     <use xlink:href="#Cmr10-69" transform="translate(1352.060547 0.484375)"/>
-     <use xlink:href="#Cmr10-6f" transform="translate(1379.746094 0.484375)"/>
-     <use xlink:href="#Cmr10-6e" transform="translate(1429.746094 0.484375)"/>
-     <use xlink:href="#Cmr10-3b" transform="translate(1485.263672 0.484375)"/>
-     <use xlink:href="#Cmr10-20" transform="translate(1512.949219 0.484375)"/>
-     <use xlink:href="#Cmr10-73" transform="translate(1546.25 0.484375)"/>
-     <use xlink:href="#Cmr10-68" transform="translate(1585.654297 0.484375)"/>
-     <use xlink:href="#Cmr10-61" transform="translate(1641.171875 0.484375)"/>
-     <use xlink:href="#Cmr10-64" transform="translate(1691.171875 0.484375)"/>
-     <use xlink:href="#Cmr10-65" transform="translate(1746.689453 0.484375)"/>
-     <use xlink:href="#Cmr10-64" transform="translate(1791.074219 0.484375)"/>
-     <use xlink:href="#Cmr10-20" transform="translate(1846.591797 0.484375)"/>
-     <use xlink:href="#Cmr10-3d" transform="translate(1879.892578 0.484375)"/>
-     <use xlink:href="#Cmr10-20" transform="translate(1957.578125 0.484375)"/>
-     <use xlink:href="#Cmr10-6c" transform="translate(1990.878906 0.484375)"/>
-     <use xlink:href="#Cmr10-6f" transform="translate(2018.564453 0.484375)"/>
-     <use xlink:href="#Cmr10-77" transform="translate(2068.564453 0.484375)"/>
-     <use xlink:href="#Cmr10-65" transform="translate(2140.78125 0.484375)"/>
-     <use xlink:href="#Cmr10-73" transform="translate(2185.166016 0.484375)"/>
-     <use xlink:href="#Cmr10-74" transform="translate(2224.570312 0.484375)"/>
-     <use xlink:href="#Cmr10-20" transform="translate(2263.388672 0.484375)"/>
-     <use xlink:href="#Cmr10-65" transform="translate(2296.689453 0.484375)"/>
-     <use xlink:href="#Cmr10-6c" transform="translate(2341.074219 0.484375)"/>
-     <use xlink:href="#Cmr10-65" transform="translate(2368.759766 0.484375)"/>
-     <use xlink:href="#Cmr10-6d" transform="translate(2413.144531 0.484375)"/>
-     <use xlink:href="#Cmr10-65" transform="translate(2496.445312 0.484375)"/>
-     <use xlink:href="#Cmr10-6e" transform="translate(2540.830078 0.484375)"/>
-     <use xlink:href="#Cmr10-74" transform="translate(2596.347656 0.484375)"/>
-     <use xlink:href="#Cmr10-20" transform="translate(2635.166016 0.484375)"/>
-     <use xlink:href="#Cmr10-73" transform="translate(2668.466797 0.484375)"/>
-     <use xlink:href="#Cmr10-68" transform="translate(2707.871094 0.484375)"/>
-     <use xlink:href="#Cmr10-61" transform="translate(2763.388672 0.484375)"/>
-     <use xlink:href="#Cmr10-72" transform="translate(2813.388672 0.484375)"/>
-     <use xlink:href="#Cmr10-65" transform="translate(2852.5 0.484375)"/>
-     <use xlink:href="#Cmr10-2e" transform="translate(2896.884766 0.484375)"/>
+     <use xlink:href="#Cmr10-74" transform="translate(0 0.609375)"/>
+     <use xlink:href="#Cmr10-65" transform="translate(38.818359 0.609375)"/>
+     <use xlink:href="#Cmr10-73" transform="translate(83.203125 0.609375)"/>
+     <use xlink:href="#Cmr10-74" transform="translate(122.607422 0.609375)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(161.425781 0.609375)"/>
+     <use xlink:href="#Cmr10-73" transform="translate(194.726562 0.609375)"/>
+     <use xlink:href="#Cmr10-61" transform="translate(234.130859 0.609375)"/>
+     <use xlink:href="#Cmr10-6d" transform="translate(284.130859 0.609375)"/>
+     <use xlink:href="#Cmr10-70" transform="translate(367.431641 0.609375)"/>
+     <use xlink:href="#Cmr10-6c" transform="translate(422.949219 0.609375)"/>
+     <use xlink:href="#Cmr10-65" transform="translate(450.634766 0.609375)"/>
+     <use xlink:href="#Cmr10-73" transform="translate(495.019531 0.609375)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(534.423828 0.609375)"/>
+     <use xlink:href="#Cmr10-77" transform="translate(567.724609 0.609375)"/>
+     <use xlink:href="#Cmr10-69" transform="translate(639.941406 0.609375)"/>
+     <use xlink:href="#Cmr10-74" transform="translate(667.626953 0.609375)"/>
+     <use xlink:href="#Cmr10-68" transform="translate(706.445312 0.609375)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(761.962891 0.609375)"/>
+     <use xlink:href="#Cmsy10-b8" transform="translate(812.822266 0.609375)"/>
+     <use xlink:href="#Cmr10-31" transform="translate(908.066406 0.609375)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(958.066406 0.609375)"/>
+     <use xlink:href="#Cmr10-76" transform="translate(991.367188 0.609375)"/>
+     <use xlink:href="#Cmr10-69" transform="translate(1044.052734 0.609375)"/>
+     <use xlink:href="#Cmr10-6f" transform="translate(1071.738281 0.609375)"/>
+     <use xlink:href="#Cmr10-6c" transform="translate(1121.738281 0.609375)"/>
+     <use xlink:href="#Cmr10-61" transform="translate(1149.423828 0.609375)"/>
+     <use xlink:href="#Cmr10-74" transform="translate(1199.423828 0.609375)"/>
+     <use xlink:href="#Cmr10-69" transform="translate(1238.242188 0.609375)"/>
+     <use xlink:href="#Cmr10-6f" transform="translate(1265.927734 0.609375)"/>
+     <use xlink:href="#Cmr10-6e" transform="translate(1315.927734 0.609375)"/>
+     <use xlink:href="#Cmr10-3b" transform="translate(1371.445312 0.609375)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(1399.130859 0.609375)"/>
+     <use xlink:href="#Cmr10-73" transform="translate(1432.431641 0.609375)"/>
+     <use xlink:href="#Cmr10-68" transform="translate(1471.835938 0.609375)"/>
+     <use xlink:href="#Cmr10-61" transform="translate(1527.353516 0.609375)"/>
+     <use xlink:href="#Cmr10-64" transform="translate(1577.353516 0.609375)"/>
+     <use xlink:href="#Cmr10-65" transform="translate(1632.871094 0.609375)"/>
+     <use xlink:href="#Cmr10-64" transform="translate(1677.255859 0.609375)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(1732.773438 0.609375)"/>
+     <use xlink:href="#Cmr10-3d" transform="translate(1766.074219 0.609375)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(1843.759766 0.609375)"/>
+     <use xlink:href="#Cmr10-6c" transform="translate(1877.060547 0.609375)"/>
+     <use xlink:href="#Cmr10-6f" transform="translate(1904.746094 0.609375)"/>
+     <use xlink:href="#Cmr10-77" transform="translate(1954.746094 0.609375)"/>
+     <use xlink:href="#Cmr10-65" transform="translate(2026.962891 0.609375)"/>
+     <use xlink:href="#Cmr10-73" transform="translate(2071.347656 0.609375)"/>
+     <use xlink:href="#Cmr10-74" transform="translate(2110.751953 0.609375)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(2149.570312 0.609375)"/>
+     <use xlink:href="#Cmr10-65" transform="translate(2182.871094 0.609375)"/>
+     <use xlink:href="#Cmr10-6c" transform="translate(2227.255859 0.609375)"/>
+     <use xlink:href="#Cmr10-65" transform="translate(2254.941406 0.609375)"/>
+     <use xlink:href="#Cmr10-6d" transform="translate(2299.326172 0.609375)"/>
+     <use xlink:href="#Cmr10-65" transform="translate(2382.626953 0.609375)"/>
+     <use xlink:href="#Cmr10-6e" transform="translate(2427.011719 0.609375)"/>
+     <use xlink:href="#Cmr10-74" transform="translate(2482.529297 0.609375)"/>
+     <use xlink:href="#Cmr10-20" transform="translate(2521.347656 0.609375)"/>
+     <use xlink:href="#Cmr10-73" transform="translate(2554.648438 0.609375)"/>
+     <use xlink:href="#Cmr10-68" transform="translate(2594.052734 0.609375)"/>
+     <use xlink:href="#Cmr10-61" transform="translate(2649.570312 0.609375)"/>
+     <use xlink:href="#Cmr10-72" transform="translate(2699.570312 0.609375)"/>
+     <use xlink:href="#Cmr10-65" transform="translate(2738.681641 0.609375)"/>
+     <use xlink:href="#Cmr10-2e" transform="translate(2783.066406 0.609375)"/>
     </g>
    </g>
   </g>
  </g>
  <defs>
-  <clipPath id="p7f86649a9f">
+  <clipPath id="pd5e9fbc44e">
    <rect x="7.2" y="7.2" width="435.24" height="357.588"/>
   </clipPath>
  </defs>

@@ -277,7 +277,17 @@ RETRACTED entries stay so they are not re-proposed. ML-arm findings: `~/gridfm-g
   - Diverged, case500 only (% of samples, H1 / H6 / H24): DC 2.5 / 2.4 / 2.5, surrogate 0.6 / 0.7 / 0.9,
     E2E 0.03 / 0.13 / 0.19, AC 0 / 0.01 / 0.03. case14 / case118: 0.
   - Ranking E2E vs AC on |V|: E2E fewer violating samples on case14 / case118 at H6 + H24, slightly more at H1
-    (3.2 vs 3.0 %, 3.4 vs 2.5 %), more on case500 at every H (gap narrows at H6 + H24). DC: case14 / case118 show no |V| or Qg violation any more (case-file
+    (3.2 vs 3.0 %, 3.4 vs 2.5 %), more on case500 at every H (gap narrows at H6 + H24).
+  - 2026-11-17, **lost voltage control** (gen bus with a unit ≥ 1 MVAr Q range, |V| off its setpoint = units at their
+    Q limit; corrgap 41954076, cb8522d), % samples (% buses), H1 / H6 / H24:
+    - case14: AC 3 / 19 / 38 (1.0 / 6.4 / 12.3), E2E 38 / 32 / 34 (10.7 / 10.6 / 11.3), surrogate 17 / 25 / 38, DC 100 (50)
+    - case118: AC 0.3 / 26 / 52 (0.01 / 0.95 / 2.4), E2E 65 / 67 / 86 (3.0 / 3.3 / 5.1), surrogate 51 / 63 / 75, DC 100 (25)
+    - case500: AC 21 / 60 / 79 (3.6 / 10.3 / 15.3), E2E 94 / 96 / 98 (10.8 / 14.7 / 16.8), surrogate 100 (27–28), DC 100 (56–57)
+    - E2E above AC in every cell except case14 H24 (34 vs 38 % samples, 11.3 vs 12.3 % buses); gap shrinks with H
+      (bus share case118 300× / 3.5× / 2.2×, case500 3.0× / 1.4× / 1.1×). DC worst everywhere → the Qg ranking of v3
+      (DC worst, AC best) carries over. DC's reactive shortfall stays inside the |V| band on case14 / case118 only.
+  - Thesis outputs switched to Q limits on (2026-11-17, `plot_rmse.VARIANT`, `EXPOST_VARIANT=v3` → limits off); v3
+    snapshot committed cb8522d. supply_error_h6 unchanged (ΔP from P̂; best forecaster identical in every cell). DC: case14 / case118 show no |V| or Qg violation any more (case-file
     VG 1.0 mid-band; reactive shortfall absorbed by voltage drift within the band).
 
 ## 8. Rebalanced optimality gap (2026-10-12, `exp1/generate_metrics/corrected_gap.py`)
@@ -417,6 +427,16 @@ RETRACTED entries stay so they are not re-proposed. ML-arm findings: `~/gridfm-g
   0.473 / 0.572 (p 0.005); case14 0.085 / 0.114 (p 0.073), 0.306 / 0.444 (p 0.030), 0.724 / 0.723 (p 0.96)
   → significant in 3/6 (H=6 both, case118 H=24); H=1 lower but n.s. (seed std 0.009 / 0.014 vs gaps ≈ 0.1 %).
   No-refund gap: significant in 6/6 (−8 … −40 %, p ≤ 0.025). case500: 2 / 1 / 1 seeds, not testable.
+- 2026-11-17, **seed summary instead of t-tests** (user decision: no tests at n = 3; barnard 41954220: per-seed
+  corrected_gap on expost_pf_v4_qlim + per-seed Pg RMSE from exp 764191360493391788; seed means == aggregated means).
+  E2E vs 2-step AC (best forecaster per metric): relative difference / difference in E2E seed std / all seeds better.
+  - Pg RMSE: case14 −36 / −29 / −7 % (12 / 19 / 3 std), case118 −5 / −24 % (5 / 28 std), all seeds better;
+    case118 H24 +1.6 % (0.45 std, seeds 8.58–9.20 vs 8.77 → within spread); case500 H1 +5.8 % (both seeds worse),
+    H6 −17 %, H24 −11 % (one seed).
+  - Rebalanced gap (qlim): case14 −26 / −31 % (2.1 / 3.3 std), case118 −18 / −32 / −17 % (2.2 / 15 / 7.8 std), all
+    seeds better; case14 H24 −0.2 % (0.05 std, seeds 0.70–0.76 vs 0.72 → tie); case500 −7.4 / −21 / −13 % (all seeds
+    better; 2 / 1 / 1 seeds). Range over the 8 non-tie cells 7–32 % (v3 text said 8–32 %).
+  - No-refund gap (qlim): all seeds better in all 9 cells; case14 / case118 3.6–17 std, −8 … −40 %.
 - 2026-11-15, rebalancing volume = mean |ΔP| = |ΣP̂ − ΣP*| (table-8 selection, best forecaster by rebalanced gap):
   E2E lowest of all arms in 9/9 cells; vs 2-step AC case14 0.7 / 2.9 / 6.9 vs 1.1 / 4.7 / 7.9 MW, case118 11.0 /
   33.9 / 81.4 vs 14.9 / 50.6 / 89.0, case500 66.1 / 187.6 / 379.3 vs 71.9 / 235.5 / 420.9 (H1 / H6 / H24).
