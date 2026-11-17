@@ -250,6 +250,35 @@ RETRACTED entries stay so they are not re-proposed. ML-arm findings: `~/gridfm-g
 - 2026-10-13: `resolve_run` picks the newest run (dir mtime) with that name across ALL experiments. case118 h24 →
   `e2e_derived_qgmse` be27fb31… (ablation), not the final model's dump `state-dump` cb29a9a9…. h1/h6 unaffected.
   Pin the experiment before the full run (`dispatch_diag.E2E_RUNS` does).
+- 2026-11-16: **Q limits on** (`--q-limits`, supervisor request: operators' PF enforces Q limits, PV→PQ at the limit).
+  Smoke barnard 41857341–44: H6, seed 0, n = 640 per arm, case118 + case500, on vs off on the same samples.
+  - Qg violations 0 in every arm (limits enforced). case118 label + exact_true: 0 violations, 0 buses lost control.
+  - case500 artefact: bus 291 (2 units, Q range 0.22 MVAr). OLF never lets a unit with Q range < 1 MVAr control
+    voltage when Q limits are on (`reactiveRangeCheckMode`, every mode tests against 1 MVAr). Its |V| drifts
+    (label: 1.100 → 1.092 p.u.) in 98 % of label samples. Vm violations at bus 291 ≤ 0.3 % of violating elements
+    in every arm. Label floor: 3 / 640 samples with a Vm violation (buses 392/393, max 0.0034 p.u.).
+    `vctl_lost_n` now counts only buses with a unit ≥ 1 MVAr range (code after bb35f9f).
+  - γ_reb |Δ| ≤ 0.012 pp, thermal share within ±1.1 pp; except case500 DC (diverged samples drop out): γ_reb
+    −0.05 to −0.12 pp, thermal −1.2 to −3.9 pp. Wall time per config +3–5 % → full run ≈ v3.
+  - Vm share of samples, off → on: case118 AC 0.2–5.6 → 3.4–24 %, E2E 0 → 2.7 %, surrogate 0 → 0.5–0.6 %, DC 0 → 0;
+    case500 AC 33–52 → 42–53 %, DC 0 → 47–52 %, E2E 68 → 69 %, surrogate 26–27 → 29–30 %.
+  - Diverged (case500, on): DC 13–19 / 640, surrogate 2–4 / 640; AC + E2E 0; case118 0. All 0 with limits off.
+  - Lost voltage control, share of samples (case118): AC 26–27 % (snaive 68 %), surrogate 50–83 %, E2E 69 %, DC 100 %.
+- 2026-11-16: **Q limits on, FULL RUN** (fa08475; barnard 41857873–81, case × H, seeds 0–2, same 117 arms as v3;
+  corrgap 41862959, gates ok) → `phase_1c/expost_pf_v4_qlim`, `exp1/results/combined/corrected_gap_qlim.csv` +
+  `violation_ccdf_qlim.csv`. v3 (limits off) untouched. Thesis selection (best forecaster by v3 γ_reb), v3 → Q limits:
+  - γ_reb: |Δ| ≤ 0.02 pp for AC / surrogate / E2E; DC lower: case14 −0.34 to −0.36 pp, case118 −0.01, case500 −0.06 to −0.11.
+  - Thermal share: within ±0.4 pp except DC (case118 −0.4 to −0.6 pp, case500 6.3–7.3 → 2.5–5.6 %). Qg share 0 everywhere.
+  - |V| violation, % of samples (H1 / H6 / H24): case14 AC 0→3.0 / 1.2→18.3 / 2.9→34.6, E2E 0→3.2 / 0→9.2 / 0→6.5,
+    surrogate 0→0 / 0→1.5 / 0→4.5, DC 0; case118 AC 0→2.5 / 0.2→3.8 / 1.1→10.8, E2E 0.2→3.4 / 0.1→2.6 / 0→0.3,
+    surrogate 0→0.6, DC 0; case500 AC 7→24 / 39→47 / 51→54, E2E 68→69 / 70→71 / 64→65, surrogate 16→23, DC 0→51–52.
+  - |V| magnitude, mean per violating element: ≤ 0.009 p.u. except case500 surrogate 0.013–0.015, DC 0.025–0.027;
+    P99 case500 DC 0.144–0.162, surrogate 0.076–0.082, E2E 0.055–0.065, AC 0.015–0.052.
+  - Diverged, case500 only (% of samples, H1 / H6 / H24): DC 2.5 / 2.4 / 2.5, surrogate 0.6 / 0.7 / 0.9,
+    E2E 0.03 / 0.13 / 0.19, AC 0 / 0.01 / 0.03. case14 / case118: 0.
+  - Ranking E2E vs AC on |V|: E2E fewer violating samples on case14 / case118 at H6 + H24, slightly more at H1
+    (3.2 vs 3.0 %, 3.4 vs 2.5 %), more on case500 at every H (gap narrows at H6 + H24). DC: case14 / case118 show no |V| or Qg violation any more (case-file
+    VG 1.0 mid-band; reactive shortfall absorbed by voltage drift within the band).
 
 ## 8. Rebalanced optimality gap (2026-10-12, `exp1/generate_metrics/corrected_gap.py`)
 
@@ -370,6 +399,18 @@ RETRACTED entries stay so they are not re-proposed. ML-arm findings: `~/gridfm-g
       3.39 / 2.26 / 5.22 / 5.12 (≤ 7 % of samples).
     - Vm case500 [1e-3 p.u.] median 2.09 / 3.25 / 3.87 / –, P99 10.6 / 11.8 / 12.1 / – (DC: none); case14 AC only
       (median 1.79, P99 6.68); case118 < 100 violating elements in every arm.
+  - 2026-11-16: **H=6 is not representative for E2E vs 2-step AC** (same data, all H; quantiles interpolated on the
+    violation_ccdf levels, max = P99.99 / top element; `violation_box_h<H>`). E2E / AC:
+    - Holds at all H: DC worst on Qg (median 8–29 MVAr, flat over H) and case118 thermal; surrogate case500 Qg (P99
+      ≈ 106 MVAr, flat) and thermal (median 2.9–3.9 %, above DC); E2E median > AC for Qg (1.4–4.9×) and case500 |V|
+      (1.3–2.0×); case118 thermal % el E2E > AC (0.23 / 0.28 / 0.31 vs 0.20 / 0.23 / 0.24, H1 / H6 / H24).
+    - Tail depends on H: Qg P99 1.5–3.8× at H1, 0.77–1.26× at H6, 0.97–1.11× at H24; case500 |V| P99 2.8× at H1,
+      ≈ 1 at H6 / H24; case118 thermal P99 1.5× / 0.92× / 1.5×, max 3.3 vs 1.9 / 8.0 vs 7.4 / 18.8 vs 10.0 % (E2E H24 =
+      largest thermal overload of all arms, DC 11.9); case500 thermal E2E < AC at H6 / H24 (P99 2.3 vs 3.4, 3.5 vs 7.2).
+    - Qg % el E2E > AC at H1 / H6, below AC at H24 on case14 (14.9 vs 17.4) and case118 (10.9 vs 11.4).
+    → AC's violations grow with the forecast error (H); E2E starts higher (H-independent part) and grows less, so the
+      E2E–AC difference shrinks with H. Exception: case118 thermal widens again at H24. H6 statements on DC / surrogate
+      generalise; on E2E vs AC they must be given per H.
 - 2026-11-14, gap significance E2E vs 2-step AC (best forecaster by the metric, treated as fixed): corrected_gap per
   seed (romeo 9483961, `--seeds 0/1/2` on expost_pf_v3; per-seed means == committed corrected_gap.csv), one-sample
   t-test, n = 3, df = 2. Rebalanced gap E2E / AC (%): case118 0.082 / 0.102 (p 0.057), 0.221 / 0.327 (p 0.001),
@@ -379,6 +420,11 @@ RETRACTED entries stay so they are not re-proposed. ML-arm findings: `~/gridfm-g
 - 2026-11-15, rebalancing volume = mean |ΔP| = |ΣP̂ − ΣP*| (table-8 selection, best forecaster by rebalanced gap):
   E2E lowest of all arms in 9/9 cells; vs 2-step AC case14 0.7 / 2.9 / 6.9 vs 1.1 / 4.7 / 7.9 MW, case118 11.0 /
   33.9 / 81.4 vs 14.9 / 50.6 / 89.0, case500 66.1 / 187.6 / 379.3 vs 71.9 / 235.5 / 420.9 (H1 / H6 / H24).
+- 2026-11-16, why no-refund favours E2E (same selection, corrected_gap.csv): the added term is the over-supply cost,
+  driven by mean max(ΔP, 0) = (mean |ΔP| + mean ΔP) / 2, not by mean ΔP. E2E vs AC (MW): case118 5.4 / 16.1 / 46.7 vs
+  7.6 / 26.9 / 46.8, case14 0.39 / 1.49 / 3.30 vs 0.56 / 2.37 / 3.70, case500 32.2 / 95.2 / 213.3 vs 36.3 / 112.9 /
+  211.2 → E2E smaller in 8/9, exception case500 H24 (bias +47.3 vs +1.5 MW) = the one cell where its over-supply
+  refund |R⁻| is larger (1.34 vs 1.27 %). |mean ΔP| E2E < AC in only 3/9 → the mean is not the reason.
 
 ## 9. Dispatch structure: why E2E barely beats 2-step on Pg (2026-10-13, `exp1/generate_metrics/dispatch_diag.py`)
 
@@ -613,6 +659,24 @@ RETRACTED entries stay so they are not re-proposed. ML-arm findings: `~/gridfm-g
     ×4.4–6.7 H1→H24 (load error ×6.6–7.1; Qd ∝ Pd, so |V| follows the load), E2E only ×1.2–3.5 → E2E's voltage error
     is dominated by learning the physics (already 2.3–4.9e-3 p.u. at H1), 2-step AC's by the (small) load error.
     Surrogate |V| +166 … +4094 % vs 2-step AC.
+  - 2026-11-16, naive baselines on the final GT test hours (≥ 22338 of 26280, all buses pooled; romeo 9491728,
+    `<data>/notes/vm_baseline_2026-11-16.py`): per-bus train mean / persistence (value at the origin) H1 / H6 / H24.
+    |V| [1e-3 p.u.] case14 4.65 / 1.32 / 3.69 / 4.90, case118 5.01 / 1.07 / 3.33 / 4.60, case500 13.60 / 3.11 / 9.38 /
+    13.21; θ [deg] case14 2.06 / 0.37 / 1.27 / 1.87, case118 2.42 / 0.54 / 1.74 / 2.47, case500 3.18 / 1.62 / 3.34 / 3.90.
+    → E2E |V| worse than persistence at H1 on all grids (2.3 / 4.1 / 4.9 vs 1.3 / 1.1 / 3.1) and worse than the
+    constant train mean at H24 on case14 / case118 (6.4 / 7.4 vs 4.7 / 5.0); case500 E2E beats both at H6 / H24.
+    θ: E2E below both baselines on all grids and H. 2-step AC below both everywhere. |V| varies by only 4.7–13.6e-3
+    p.u. around its per-bus mean (gen buses more than PQ: 5.3–19.6 vs 3.4–11.3). Supersedes the local-GT numbers
+    (memory voltage-section-checks; case14/118 train-mean identical).
+  - 2026-11-16, same vs 2-step AC with the SNaive load forecast (combined CSV, ≈ constant over H): |V| [1e-3 p.u.]
+    case14 2.58, case118 2.49, case500 6.07–6.09; θ [deg] 0.80 / 1.06 / 2.90. E2E |V| above it on case118 at all H
+    (4.12 / 4.46 / 7.35) and on case14 at H6 / H24 (3.70 / 6.42), below it on case14 H1 (2.29) and case500 (4.91 /
+    4.92 / 6.04, H24 ≈ tie). E2E θ below it on all grids and H.
+  - 2026-11-16, loss scale (graphkit `HeteroDataMVANormalizer` family: Pd/Qd/Pg/Qg / baseMVA, Vm stays p.u., Va
+    deg → rad; no per-variable standardisation): variance around the per-bus mean (train-mean RMSE², above) |V|
+    2.2e-5 / 2.5e-5 / 1.8e-4 p.u.², θ 1.3e-3 / 1.8e-3 / 3.1e-3 rad² → θ carries ~59 / 71 / 17× the loss scale of |V|
+    (case14 / 118 / 500) at equal relative error. case500 (lowest ratio) is where E2E |V| beats SNaive → consistent with
+    "|V| under-weighted in the loss"; not a controlled test (no loss-scaling ablation).
   - 2026-11-14, Pg significance E2E vs 2-step AC (deterministic): one-sample t-test over E2E seeds, n = 3, df = 2,
     significant at 5 % if |diff| > 4.30/√3 = 2.48 seed std. case14 / case118: diff = 12.3 / 18.9 / 3.3 and 5.2 / 28.4 /
     0.5 std (h1 / h6 / h24) → all significant except case118 h24 (+1.6 %, p = 0.52). case500: 2 / 1 / 1 seeds, not

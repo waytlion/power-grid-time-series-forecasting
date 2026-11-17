@@ -18,6 +18,8 @@
      - row 2: Pg RMSE per optimizer (log y), best forecaster per metric; E2E vs AC in % per horizon
 """
 import math
+import os
+from pathlib import Path
 
 import pandas as pd
 import matplotlib
@@ -54,6 +56,17 @@ def h_label(h):
 
 
 EXCLUDED_FC = ("true", "xgb")  # oracle (no realistic counterpart); plain XGB, replaced by xgb_tot (labelled "XGB")
+
+# ex-post AC-PF behind every Q2 / Q3 figure + table (env EXPOST_VARIANT):
+# - "qlim" (default, main): generator Q limits enforced (PV -> PQ), expost_pf_v4_qlim
+# - "v3": no Q limits (setpoints held) -> reproduces the outputs before 2026-11-17
+VARIANT = os.environ.get("EXPOST_VARIANT", "qlim")
+assert VARIANT in ("qlim", "v3"), f"EXPOST_VARIANT={VARIANT}: use qlim or v3"
+QLIM = VARIANT == "qlim"
+CORR_IN = f"exp1/results/combined/corrected_gap{'_qlim' * QLIM}.csv"  # exp1/generate_metrics/corrected_gap.py
+CCDF_IN = f"exp1/results/combined/violation_ccdf{'_qlim' * QLIM}.csv"
+EXPOST_DIR = Path(os.environ.get("EXPOST_DIR", "/data/horse/ws/tibo990i-thesis_data/2019-2021/phase_1c/expost_pf_"
+                                 + ("v4_qlim" if QLIM else "v3")))  # per-timestep outputs (cluster only)
 
 
 def keep_forecasters(df):

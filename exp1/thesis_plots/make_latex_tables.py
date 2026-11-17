@@ -8,18 +8,20 @@
 # Table 6: core metrics (as Table 1), case118 fixed, over all horizons, best forecaster per optimizer
 # Table 7: raw + rebalanced opt gap (ex-post AC-PF, distributed slack), case118, all horizons, best forecaster
 # Table 8 (appendix, Q2): gap + supply, all grids and horizons
-# Table 9 (Q3): limit violations after the ex-post AC-PF, all grids, horizon = 6 (frequency + magnitude)
+# Table 9 (Q3): rebalanced gap + limit violations after the ex-post AC-PF, all grids, horizon = 6 (frequency + magnitude)
 # Table 10 / 11 (appendix, Q3): violation frequency / magnitude, all grids and horizons
 # Table 12 (appendix, Q1): RMSE of the predicted state, all grids and horizons (forecaster rule of rmse_slide)
 
-"""One-shot: combined CSV (+ corrected_gap.csv) -> 12 LaTeX tables (metrics as columns, models as rows). No config, just run it."""
+"""One-shot: combined CSV (+ corrected_gap CSV) -> 12 LaTeX tables (metrics as columns, models as rows). No config, just run it.
+Ex-post variant (Q limits on / off) of tables 7-11: plot_rmse.VARIANT (env EXPOST_VARIANT)."""
+import math
+
 import pandas as pd
 
 from colors import OPT_LABELS as ARM_LABELS
-from plot_rmse import best_forecaster_pd, best_forecaster_per_metric, h_label, keep_forecasters
+from plot_rmse import CORR_IN, QLIM, best_forecaster_pd, best_forecaster_per_metric, h_label, keep_forecasters
 
 IN = "exp1/results/combined/case118_combined.csv"
-CORR_IN = "exp1/results/combined/corrected_gap.csv"  # exp1/generate_metrics/corrected_gap.py
 OUT_DIR = "exp1/results/combined"
 
 CASE_LABELS = {"case14_ieee": "case14", "case118_ieee": "case118", "case500_goc": "case500"}
@@ -76,6 +78,13 @@ df = keep_forecasters(df)
 vm = df[df["metric"].str.match(r"Vm Violation (Mean|Median|P99) \(p\.u\.\)")]
 df = pd.concat([df, vm.assign(metric=vm["metric"].str.replace("(p.u.)", "(1e-3 p.u.)", regex=False),
                               mean=vm["mean"] * 1e3)], ignore_index=True)  # 3-decimal tables flatten p.u. values
+# Q3 mean per violating element: same rule as the quantiles (>= corrected_gap.MIN_EL elements, seeds pooled; P99 NaN below)
+p99 = df[df["metric"].str.contains(" P99 (", regex=False)].dropna(subset=["mean"])
+enough = set(zip(p99["case"], p99["horizon"], p99["optimizer"], p99["forecaster"],
+                 p99["metric"].str.replace(" P99 (", " Mean (", regex=False)))
+key = zip(df["case"], df["horizon"], df["optimizer"], df["forecaster"], df["metric"])
+df = df[~df["metric"].str.match(r"(Thermal Overload|Vm Violation|Qg Violation) Mean \(")
+        | pd.Series([k in enough for k in key], index=df.index)]
 df["model"] =df["forecaster"].map(FC_LABELS) + "-" + df["optimizer"].map(OPT_LABELS)
 df.loc[df["optimizer"] == "e2e", "model"] = "E2E"
 df["case_label"] = df["case"].map(CASE_LABELS)
@@ -96,7 +105,7 @@ def filter_best_forecaster(d, metric="Mean Optimality Gap"):
 
 def write_table(sub, metrics, out_path, caption, label, group_col=None, group_labels=None,
                 sub_group_col=None, sub_group_labels=None, longtable=False, fmt=None, header_groups=None,
-                with_std=False):
+                with_std=False, bold_best=False):
     """group_col: optional column ('case_label' or 'horizon') whose distinct values get their
     own \\multicolumn section header, so it's clear where each case/horizon's rows start.
     sub_group_col: optional second-level column, emitted as an indented sub-header within
@@ -107,7 +116,9 @@ def write_table(sub, metrics, out_path, caption, label, group_col=None, group_la
     Requires \\usepackage{longtable} (+ booktabs) in the preamble.
     fmt: value -> str (default: rounded to 3 decimals).
     header_groups: [(title, n_columns), ...] over the metric columns -> extra header row with \\cmidrule
-    with_std: append ' ± std' where a std over seeds exists (> 1 seed); needs fmt"""
+    with_std: append ' ± std' where a std over seeds exists (> 1 seed); needs fmt
+    bold_best: lowest value per row block + column in bold (ties at the printed precision all bold; skipped when
+      all rows print the same)"""
     sub = sub[sub["metric"].isin(metrics)].dropna(subset=["mean"]).copy()  # undefined (e.g. no violation) -> "--"
     sub["val"] = sub["mean"].map(fmt) if fmt else sub["mean"].round(3).astype(str)
     if with_std:
@@ -161,6 +172,12 @@ def write_table(sub, metrics, out_path, caption, label, group_col=None, group_la
             return sorted(vals)
 
     def emit_rows(block):
+        if bold_best:
+            block = block.copy()
+            for _, g in block.groupby("metric"):
+                if g["val"].nunique() > 1:
+                    best = g.loc[g["mean"].idxmin(), "val"]
+                    block.loc[g.index[g["val"] == best], "val"] = f"\\textbf{{{best}}}"
         piv = block.pivot_table(index=["model", "model_order"], columns="metric",
                                  values="val", aggfunc="first")
         piv = piv.reindex(columns=cols).fillna("--")
@@ -282,7 +299,7 @@ write_table(
     "per optimizer; ML arms: mean over seeds). Rebal.: AC power flow on the realised load with the predicted "
     "dispatch as setpoints; the mismatch (forecast error and losses) is distributed over all in-service "
     "units in proportion to $P_{\\max}$ within their limits (distributed slack), and the PF-solved dispatch "
-    "is re-costed. DC-OPF has no voltages: its dispatch runs with the case-file generator voltage setpoints. "
+    "is re-costed. " + ("Generator reactive limits are enforced. " if QLIM else "") + "DC-OPF has no voltages: its dispatch runs with the case-file generator voltage setpoints. "
     "$R^{+}$/$R^{-}$: under-/over-supply contributions to the mean rebalancing cost (sum = mean). "
     "Thermal: share of samples with a line overload.",
     "tab:corr_gap_case118_horizons",
@@ -312,47 +329,70 @@ write_table(
 
 
 # Q3: limit violations after the ex-post AC-PF; forecaster per arm = lowest rebalanced gap (same operating state as Q2)
-Q3_GROUPS = {  # constraint group -> (header, magnitude unit)
+Q3_GROUPS = {  # constraint group -> (header, magnitude unit; None = frequency only)
     "Thermal Overload": ("Thermal (lines)", "% of rating"),
-    "Vm Violation": ("$V_m$ (PQ buses)", "1e-3 p.u."),
-    "Qg Violation": ("$Q_g$ (generator buses)", "MVAr"),
+    # Q limits on: Qg violation 0 by construction -> the shortfall shows as units at their limit (lost voltage control)
+    **({"Vm Violation": ("$|V|$ (buses)", "1e-3 p.u."),
+        "Lost Voltage Control": ("Lost volt. control (gen. buses)", None)} if QLIM else
+       {"Vm Violation": ("$|V|$ (PQ buses)", "1e-3 p.u."),
+        "Qg Violation": ("$Q_{\\mathrm{g}}$ (generator buses)", "MVAr")}),
 }
+EL_SETS = ("lines, all buses, generator buses that can control voltage" if QLIM else
+           "lines, PQ buses, generator buses without the reference bus")
+QLIM_NOTE = ("Generator reactive limits enforced: a unit at its limit stops controlling its bus voltage (lost volt. "
+             "control: voltage off its setpoint). Diverged: no power-flow solution (infeasible; share of test samples, "
+             "not in the other columns). ")
 Q3_COLS = {  # column kind -> (metric template (group, unit), label, caption term)
     "smp": ("{} (%)", "\\% smp.", "share of test samples with at least one violation (\\% smp.)"),
-    "el": ("{} (% elements)", "\\% el.",
-           "share of elements with a violation (\\% el.; $Q_g$: without the reference bus)"),
+    "el": ("{} (% elements)", "\\% el.", f"mean share of elements violated per sample (\\% el.; {EL_SETS})"),
     "mean": ("{} Mean ({})", "mean", "mean"),
     "median": ("{} Median ({})", "median", "median"),
     "p99": ("{} P99 ({})", "P99", "99th percentile (P99)"),
 }
 SEVERITY = ("mean", "median", "p99")  # statistics of the violation over the violating elements
+GAP_REB = "$\\gamma^{\\mathrm{reb}}$"  # = MA-tex \gapreb (tables_to_svg has no notation.tex)
 
 
 def q3_fmt(v):
-    """2 decimals; exact 0 -> '0', so tiny nonzero values ('0.00') stay distinguishable"""
-    return "0" if v == 0 else f"{v:.2f}"
+    """exact 0 -> '0'; < 0.1: 2 significant digits (tiny shares stay visible); else 2 decimals"""
+    if v == 0:
+        return "0"
+    return f"{v:.{1 - math.floor(math.log10(abs(v)))}f}" if abs(v) < 0.1 else f"{v:.2f}"
 
 
-def q3_table(d, kinds, name, title, label, **kw):
-    """one Q3 table: per constraint group the columns `kinds` (keys of Q3_COLS)"""
-    metrics = {Q3_COLS[k][0].format(g, unit): Q3_COLS[k][1] for g, (_, unit) in Q3_GROUPS.items() for k in kinds}
+def q3_table(d, kinds, name, title, label, gap=False, **kw):
+    """one Q3 table: per constraint group the columns `kinds` (keys of Q3_COLS); gap: rebalanced gap first;
+    Q limits on: + diverged share in frequency tables"""
+    cols = {g: [k for k in kinds if unit or k not in SEVERITY] for g, (_, unit) in Q3_GROUPS.items()}
+    div = QLIM and "smp" in kinds
+    metrics = {"Rebalanced Gap": "\\%"} if gap else {}
+    metrics |= {Q3_COLS[k][0].format(g, Q3_GROUPS[g][1]): Q3_COLS[k][1] for g, ks in cols.items() for k in ks}
+    metrics |= {"Diverged (%)": "\\% smp."} if div else {}
     terms = [Q3_COLS[k][2] for k in kinds if k not in SEVERITY]
     if sev := [Q3_COLS[k][2] for k in kinds if k in SEVERITY]:
-        terms.append(", ".join(sev) + " of the violation over the violating elements (thermal in \\% of the rating "
-                     "above 100\\,\\%, $V_m$ in $10^{-3}$\\,p.u., $Q_g$ in MVAr; quantiles pool the ML seeds and need "
-                     "at least 100 violating elements)")
-    caption = (f"Limit violations after the ex-post AC power flow{title}. Per constraint group: " + "; ".join(terms)
-               + ". 0 = none, 0.00 = rounds to zero, -- = no violation or too few. 2-step: forecaster with the "
-               "lowest rebalanced gap per optimizer; ML arms: shares averaged over seeds.")
+        terms.append(", ".join(sev) + " of the violation over all violating elements (thermal in \\% of the rating "
+                     "above 100\\,\\%, $|V|$ in $10^{-3}$\\,p.u." + ("" if QLIM else ", $Q_{\\mathrm{g}}$ in MVAr")
+                     + "; only with at least 100 violating elements, ML seeds pooled)")
+    block = "grid, horizon" if "sub_group_col" in kw else "grid"
+    caption = (("Rebalanced optimality gap and limit" if gap else "Limit")
+               + f" violations after the ex-post AC power flow{title}. Lower is better for every metric; bold: best "
+               f"arm per {block} and column. " + (f"{GAP_REB}: rebalanced optimality gap (\\%). " if gap else "")
+               + (QLIM_NOTE if QLIM else "")
+               + "Per constraint group: " + "; ".join(terms) + ". 0 = no violation"
+               + ("; -- = fewer than 100 violating elements" if sev else "")
+               + ". 2-step: forecaster with the lowest rebalanced gap per optimizer; ML arms: mean over seeds"
+               + (" (quantiles: pooled seeds)" if sev else "")
+               + ". DC: generator voltage setpoints from the case file (1.0\\,p.u.), since DC-OPF has no voltages.")
     write_table(filter_best_forecaster(d, "Rebalanced Gap"), metrics, f"{OUT_DIR}/{name}.tex", caption, label,
-                group_col="case_label", group_labels=lambda g: g, fmt=q3_fmt,
-                header_groups=[(h, len(kinds)) for h, _ in Q3_GROUPS.values()], **kw)
+                group_col="case_label", group_labels=lambda g: g, fmt=q3_fmt, bold_best=True,
+                header_groups=[(GAP_REB, 1)] * gap + [(Q3_GROUPS[g][0], len(ks)) for g, ks in cols.items() if ks]
+                + [("Diverged", 1)] * div, **kw)
 
 
 ALL_H = dict(sub_group_col="horizon", sub_group_labels=lambda h: f"Horizon {h_label(int(h))}", longtable=True)
-# Table 9 (main text, Q3): H = 6, frequency + severity
-q3_table(df[df["horizon"] == 6], ("smp", "el", "median", "p99"), "table9_violations_h6", f" ({h_label(6)})",
-         "tab:violations_h6")
+# Table 9 (main text, Q3): H = 6, rebalanced gap + frequency + severity
+q3_table(df[df["horizon"] == 6], ("smp", "el", "mean", "p99"), "table9_violations_h6", f" ({h_label(6)})",
+         "tab:violations_h6", gap=True)
 # Tables 10 + 11 (appendix, Q3): all horizons, frequency / severity (one table would be too wide)
 q3_table(df, ("smp", "el"), "table10_violations_share_all_horizons", ": frequency",
          "tab:violations_share_all_horizons", **ALL_H)
@@ -361,18 +401,22 @@ q3_table(df, ("mean", "median", "p99"), "table11_violations_magnitude_all_horizo
 
 # Table 12 (appendix, Q1): RMSE per arm, all grids and horizons; 2-step forecaster per variable as in rmse_slide
 # - Pd: the shared 2-step forecast (best forecaster, same for all 2-step arms) repeated per 2-step row
-Q1_RMSE = {"RMSE Pd": "$P_d$ [MW]", "Generator Pg RMSE": "$P_g$ [MW]", "Vm RMSE": "$V_m$ [$10^{-3}$\\,p.u.]",
-           "Va RMSE": "$V_a$ [deg]"}
+# - reference row: 2-step AC with the SNaive load forecast (load-driven error of a naive forecast, Q1 voltages)
+Q1_RMSE = {"RMSE Pd": "$P_d$ [MW]", "Generator Pg RMSE": "$P_g$ [MW]", "Vm RMSE": "$|V|$ [$10^{-3}$\\,p.u.]",
+           "Va RMSE": "$\\theta$ [deg]"}
 fc = best_forecaster_pd(df)
 pd_e2e = best_forecaster_per_metric(df, "RMSE Pd").query("optimizer == 'e2e'")  # keeps its seed std
 q1 = pd.concat([fc[fc["series"] != "E2E"].assign(optimizer=o, metric="RMSE Pd") for o in ("ac", "dc", "surrogate")]
                + [pd_e2e] + [best_forecaster_per_metric(df, m) for m in list(Q1_RMSE)[1:]], ignore_index=True)
+q1 = q1.assign(model=q1["optimizer"].map(ARM_LABELS), model_order=q1["optimizer"].map(OPT_ORDER))
+sn = df[(df["optimizer"] == "ac") & (df["forecaster"] == "snaive") & df["metric"].isin(Q1_RMSE)]
+q1 = pd.concat([q1, sn.assign(model="2-step AC (SNaive)", model_order=OPT_ORDER["ac"] + 0.5)], ignore_index=True)
 q1.loc[q1["metric"] == "Vm RMSE", ["mean", "std"]] *= 1e3
-q1 = q1.assign(model=q1["optimizer"].map(ARM_LABELS), model_order=q1["optimizer"].map(OPT_ORDER),
-               case_label=q1["case"].map(CASE_LABELS))
+q1["case_label"] = q1["case"].map(CASE_LABELS)
 write_table(q1, Q1_RMSE, f"{OUT_DIR}/table12_rmse_all_horizons.tex",
             "RMSE of the predicted operating state per arm across grids and horizons. 2-step: best forecaster per "
-            "variable; $P_d$ is the forecast shared by all 2-step arms. ML arms: mean $\\pm$ std over three seeds (E2E "
+            "variable; $P_d$ is the forecast shared by all 2-step arms. 2-step AC (SNaive): 2-step AC with the "
+            "seasonal naive load forecast, as a reference. ML arms: mean $\\pm$ std over three seeds (E2E "
             "on case500: two seeds at $H=1$, one seed at $H=6$ and $H=24$, no std). -- = not predicted (DC-OPF has no "
             "voltage magnitudes).",
             "tab:rmse_all_horizons", group_col="case_label", group_labels=lambda g: g, fmt=lambda v: f"{v:.2f}",

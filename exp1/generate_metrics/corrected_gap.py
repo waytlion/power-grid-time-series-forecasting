@@ -11,7 +11,7 @@ losses included); its PF-solved dispatch P̃ is the rebalanced dispatch, re-cost
 - γ_reb, R over converged samples, incl. insufficient headroom (remainder on the REF unit beyond its limit, priced on
   its cost curve = lower bound)
 - Q3: thermal overload share over converged; insufficient headroom (remainder > TOL_P on the slack) and
-  diverged (no solution = infeasible) / no_dispatch counted per arm, case, horizon
+  diverged (no solution = infeasible; n + % of the samples with a PF) / no_dispatch counted per arm, case, horizon
 - Q3 per constraint group (thermal, voltage, Qg), over converged samples, element sets as in expost_pf
   (in-service lines, PQ buses (all buses with --q-limits), non-REF gen buses): share of samples / of elements with a violation, worst violation
   per violating sample (mean), violation per violating element (mean; needs the *_sum columns, expost_pf ≥ 2026-11-01)
@@ -97,7 +97,7 @@ def gap_metrics(d, n_el):
           **violation_metrics("Qg Violation", "MVAr", c.qg_n, c.qg_max_viol_mvar, col("qg_sum_mvar"), n_el["qg"])}
     if "vctl_lost_n" in c and d.q_limits.iloc[0]:  # units at their Q limit: the Qg shortfall once limits are enforced
         q3 |= {"Lost Voltage Control (%)": (c.vctl_lost_n > 0).mean() * 100,
-               "Lost Voltage Control (% buses)": c.vctl_lost_n.sum() / (len(c) * n_el["vctl"]) * 100}
+               "Lost Voltage Control (% elements)": c.vctl_lost_n.sum() / (len(c) * n_el["vctl"]) * 100}
     return {
         "Optimality Gap (recomputed)": raw.abs().mean(),
         "Signed Optimality Gap": raw.mean(),
@@ -109,6 +109,7 @@ def gap_metrics(d, n_el):
         "Insufficient Headroom (n)": int(c.slack_mismatch_flag.sum()),
         "Pred. Pg out of limits (%)": (disp.pg_pred_out_n > 0).mean() * 100,
         "Diverged (n)": int((d.status == "diverged").sum()),
+        "Diverged (%)": (disp.status == "diverged").mean() * 100,
         "No Dispatch (n)": int((d.status == "no_dispatch").sum()),
         "Rebalancing Cost (under-supply)": r.clip(lower=0).mean(),
         "Rebalancing Cost (over-supply)": r.clip(upper=0).mean(),

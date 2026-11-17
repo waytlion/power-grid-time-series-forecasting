@@ -1,31 +1,31 @@
 \begin{table}[t]
 \centering
-\caption{Limit violations after the ex-post AC power flow ($H=6$). Per constraint group: share of test samples with at least one violation (\% smp.); share of elements with a violation (\% el.; $Q_g$: without the reference bus); median, 99th percentile (P99) of the violation over the violating elements (thermal in \% of the rating above 100\,\%, $V_m$ in $10^{-3}$\,p.u., $Q_g$ in MVAr; quantiles pool the ML seeds and need at least 100 violating elements). 0 = none, 0.00 = rounds to zero, -- = no violation or too few. 2-step: forecaster with the lowest rebalanced gap per optimizer; ML arms: shares averaged over seeds.}
+\caption{Rebalanced optimality gap and limit violations after the ex-post AC power flow ($H=6$). Lower is better for every metric; bold: best arm per grid and column. $\gamma^{\mathrm{reb}}$: rebalanced optimality gap (\%). Per constraint group: share of test samples with at least one violation (\% smp.); mean share of elements violated per sample (\% el.; lines, PQ buses, generator buses without the reference bus); mean, 99th percentile (P99) of the violation over all violating elements (thermal in \% of the rating above 100\,\%, $|V|$ in $10^{-3}$\,p.u., $Q_{\mathrm{g}}$ in MVAr; only with at least 100 violating elements, ML seeds pooled). 0 = no violation; -- = fewer than 100 violating elements. 2-step: forecaster with the lowest rebalanced gap per optimizer; ML arms: mean over seeds (quantiles: pooled seeds). DC: generator voltage setpoints from the case file (1.0\,p.u.), since DC-OPF has no voltages.}
 \label{tab:violations_h6}
 \resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{%
-\begin{tabular}{lrrrrrrrrrrrr}
+\begin{tabular}{lrrrrrrrrrrrrr}
 \toprule
- & \multicolumn{4}{c}{Thermal (lines)} & \multicolumn{4}{c}{$V_m$ (PQ buses)} & \multicolumn{4}{c}{$Q_g$ (generator buses)} \\
-\cmidrule(lr){2-5} \cmidrule(lr){6-9} \cmidrule(lr){10-13}
-Model & \% smp. & \% el. & median & P99 & \% smp. & \% el. & median & P99 & \% smp. & \% el. & median & P99 \\
+ & \multicolumn{1}{c}{$\gamma^{\mathrm{reb}}$} & \multicolumn{4}{c}{Thermal (lines)} & \multicolumn{4}{c}{$|V|$ (PQ buses)} & \multicolumn{4}{c}{$Q_{\mathrm{g}}$ (generator buses)} \\
+\cmidrule(lr){2-2} \cmidrule(lr){3-6} \cmidrule(lr){7-10} \cmidrule(lr){11-14}
+Model & \% & \% smp. & \% el. & mean & P99 & \% smp. & \% el. & mean & P99 & \% smp. & \% el. & mean & P99 \\
 \midrule
-\multicolumn{13}{@{}l}{\textit{case14}} \\[2pt]
-SARIMA-AC & 0 & 0 & -- & -- & 1.24 & 0.15 & 1.79 & 6.68 & 29.62 & 11.39 & 0.42 & 3.29 \\
-SARIMA-DC & 0 & 0 & -- & -- & 0 & 0 & -- & -- & 100.00 & 45.07 & 8.40 & 35.38 \\
-SARIMA-Surrogate & 0 & 0 & -- & -- & 0.01 & 0.00 & -- & -- & 37.73 & 14.49 & 0.39 & 2.90 \\
-E2E & 0 & 0 & -- & -- & 0 & 0 & -- & -- & 39.72 & 15.82 & 0.59 & 2.55 \\
+\multicolumn{14}{@{}l}{\textit{case14}} \\[2pt]
+SARIMA-AC & 0.44 & 0 & 0 & -- & -- & 1.24 & 0.15 & 2.14 & 6.68 & \textbf{29.62} & \textbf{11.39} & 0.67 & 3.29 \\
+SARIMA-DC & 1.80 & 0 & 0 & -- & -- & \textbf{0} & \textbf{0} & -- & -- & 100.00 & 45.07 & 9.89 & 35.38 \\
+SARIMA-Surrogate & 0.60 & 0 & 0 & -- & -- & 0.0071 & 0.00078 & -- & -- & 37.73 & 14.49 & \textbf{0.59} & 2.90 \\
+E2E & \textbf{0.31} & 0 & 0 & -- & -- & \textbf{0} & \textbf{0} & -- & -- & 39.72 & 15.82 & 0.72 & \textbf{2.55} \\
 \midrule
-\multicolumn{13}{@{}l}{\textit{case118}} \\[2pt]
-XGB-AC & 42.32 & 0.23 & 0.76 & 4.53 & 0.21 & 0.00 & -- & -- & 99.67 & 9.86 & 0.68 & 5.43 \\
-XGB-DC & 96.42 & 0.95 & 3.58 & 7.64 & 0 & 0 & -- & -- & 100.00 & 25.12 & 15.49 & 118.13 \\
-XGB-Surrogate & 53.01 & 0.28 & 1.02 & 4.77 & 0 & 0 & -- & -- & 99.87 & 10.65 & 1.22 & 7.61 \\
-E2E & 51.83 & 0.28 & 0.74 & 4.19 & 0.09 & 0.00 & -- & -- & 99.69 & 10.63 & 1.42 & 6.84 \\
+\multicolumn{14}{@{}l}{\textit{case118}} \\[2pt]
+XGB-AC & 0.33 & \textbf{42.32} & \textbf{0.23} & 1.05 & 4.53 & 0.21 & 0.0033 & -- & -- & \textbf{99.67} & \textbf{9.86} & \textbf{1.04} & \textbf{5.43} \\
+XGB-DC & 2.35 & 96.42 & 0.95 & 3.68 & 7.64 & \textbf{0} & \textbf{0} & -- & -- & 100.00 & 25.12 & 31.83 & 118.13 \\
+XGB-Surrogate & 0.43 & 53.01 & 0.28 & 1.31 & 4.77 & \textbf{0} & \textbf{0} & -- & -- & 99.87 & 10.65 & 1.68 & 7.61 \\
+E2E & \textbf{0.22} & 51.83 & 0.28 & \textbf{1.01} & \textbf{4.19} & 0.089 & 0.0014 & -- & -- & 99.69 & 10.63 & 1.79 & 6.84 \\
 \midrule
-\multicolumn{13}{@{}l}{\textit{case500}} \\[2pt]
-XGB-AC & 5.55 & 0.01 & 0.38 & 3.39 & 39.41 & 0.36 & 2.09 & 10.56 & 99.94 & 18.14 & 0.84 & 18.80 \\
-XGB-DC & 6.59 & 0.02 & 1.31 & 5.12 & 0 & 0 & -- & -- & 100.00 & 46.84 & 29.24 & 389.60 \\
-XGB-Surrogate & 2.21 & 0.00 & 3.05 & 5.22 & 16.71 & 0.06 & 3.87 & 12.12 & 100.00 & 25.74 & 7.28 & 106.01 \\
-E2E & 3.45 & 0.00 & 0.53 & 2.26 & 69.72 & 0.51 & 3.25 & 11.81 & 100.00 & 20.33 & 1.60 & 22.85 \\
+\multicolumn{14}{@{}l}{\textit{case500}} \\[2pt]
+XGB-AC & 0.84 & 5.55 & 0.0087 & \textbf{0.58} & 3.39 & 39.41 & 0.36 & \textbf{2.69} & \textbf{10.56} & \textbf{99.94} & \textbf{18.14} & \textbf{2.11} & \textbf{18.80} \\
+XGB-DC & 1.79 & 6.59 & 0.015 & 1.57 & 5.12 & \textbf{0} & \textbf{0} & -- & -- & 100.00 & 46.84 & 60.56 & 389.60 \\
+XGB-Surrogate & 1.56 & \textbf{2.21} & \textbf{0.0031} & 1.87 & 5.22 & 16.71 & 0.064 & 3.84 & 12.12 & 100.00 & 25.74 & 13.27 & 106.01 \\
+E2E & \textbf{0.66} & 3.45 & 0.0049 & 0.66 & \textbf{2.26} & 69.72 & 0.51 & 3.84 & 11.81 & 100.00 & 20.33 & 3.21 & 22.85 \\
 \bottomrule
 \end{tabular}}
 \end{table}

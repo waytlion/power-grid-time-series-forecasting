@@ -4,21 +4,18 @@
   - supply_error_h<H>: per forecast timestep, supply error ΔP = ΣP̂ − ΣP* (what rebalancing corrects), step
     histograms per arm (best forecaster by rebalanced gap, as table 8; ML seeds pooled); density over all
     timesteps, view = 0.5–99.5 % of all arms pooled (clipping the view drops no data)
-    - needs the per-timestep ex-post outputs (cluster: expost_pf_v3; override EXPOST_DIR) -> skipped if absent
+    - needs the per-timestep ex-post outputs (cluster: plot_rmse.EXPOST_DIR; override EXPOST_DIR) -> skipped if absent
+  - ex-post variant (Q limits on / off): plot_rmse.VARIANT
 """
-import os
-from pathlib import Path
-
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 
 from colors import ARM_COLORS, OPT_ORDER
-from plot_rmse import (CASE_LABELS, CASE_ORDER, LS, SLIDE_RC, best_forecaster_per_metric, finish_slide, h_label,
-                       keep_forecasters, optimizer_handles, optimizer_lines, save, style_slide_axes)
+from plot_rmse import (CASE_LABELS, CASE_ORDER, CORR_IN, EXPOST_DIR as EXPOST, LS, SLIDE_RC, best_forecaster_per_metric,
+                       finish_slide, h_label, keep_forecasters, optimizer_handles, optimizer_lines, save,
+                       style_slide_axes)
 
-IN = "exp1/results/combined/corrected_gap.csv"
-EXPOST = Path(os.environ.get("EXPOST_DIR", "/data/horse/ws/tibo990i-thesis_data/2019-2021/phase_1c/expost_pf_v3"))
 FILES = {"ac": "exact_{}", "dc": "dc_{}", "surrogate": "surrogate_{}_s*", "e2e": "e2e_s*"}  # expost_pf tags
 SUPPLY_H = 6
 
@@ -66,7 +63,7 @@ def plot_supply_error(df, h=SUPPLY_H):
 
 
 def main():
-    df = keep_forecasters(pd.read_csv(IN))
+    df = keep_forecasters(pd.read_csv(CORR_IN))
     plot_gap(df)
     if EXPOST.exists():
         plot_supply_error(df)

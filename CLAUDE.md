@@ -25,7 +25,8 @@ exp1/ml_surrogate/build_eval_set.py   forecast profiles → graphkit HeteroData 
 exp1/thesis_plots/       ALL thesis figures/tables (make_latex_tables.py, plot_*.py, run_residual_pipeline_h1.py,
                          extract_residuals_2step.py) → thesis_plots/figures/; tables_to_svg.py (local, needs
                          latex + dvisvgm) → figures/tables/*.svg + flags tables wider than the thesis text width;
-                         plot_gap.py supply_error_h6 needs the per-timestep ex-post outputs (cluster, or EXPOST_DIR)
+                         plot_gap.py supply_error_h6 needs the per-timestep ex-post outputs (cluster, or EXPOST_DIR);
+                         Q2/Q3 outputs use the Q-limit ex-post (corrected_gap_qlim.csv); EXPOST_VARIANT=v3 → limits off
 exp1/results/            compare.py output; _archiv/ = superseded runs; _e2e_pd/, _dispatch_diag/ = control arm +
                          copies of <data>/.../dispatch_diag_final step1 outputs (slide plots; '_' -> not aggregated)
 scripts/                 sbatch + helpers: phase1a_*, phase1b.sbatch, phase1c*.sbatch, phase1c_transform_forecasts.py,
@@ -76,4 +77,5 @@ sbatch scripts/backup_pack.sh core                       # backup tar after ever
 - `--sarima-fit-hours` default is 26280 (3yr) but all reported results used 17520 (2yr).
 - case500 is `case500_goc` on disk / as network key; phase1a needs SCALE ≈ 1.22 for it.
 - Check sum(PMIN) vs scenario demand before blaming the solver when a scale sweep fails.
-- Barnard jobs must be submitted by me from login1.barnard (no ssh key from capella).
+- Barnard jobs: submit via `ssh tu-barnard` from the laptop (no ssh key from capella). Romeo whole-node (`--exclusive`)
+  jobs can wait > 1 day → small non-exclusive jobs (`--wrap "bash scripts/<x>.sbatch"`) or barnard.
