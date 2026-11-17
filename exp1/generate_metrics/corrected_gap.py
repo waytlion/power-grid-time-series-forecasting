@@ -15,6 +15,8 @@ losses included); its PF-solved dispatch P̃ is the rebalanced dispatch, re-cost
 - Q3 per constraint group (thermal, voltage, Qg), over converged samples, element sets as in expost_pf
   (in-service lines, PQ buses (all buses with --q-limits), non-REF gen buses): share of samples / of elements with a violation, worst violation
   per violating sample (mean), violation per violating element (mean; needs the *_sum columns, expost_pf ≥ 2026-11-01)
+  - lost voltage control (--q-limits outputs): share of samples / of voltage-controlling buses with |V| off its
+    setpoint (units at their Q limit) = the Qg shortfall once Q limits are enforced
   - thermal magnitudes in % of the rating above 100 %
   - per violating element, ML seeds pooled (needs h<H>/elements/, expost_pf ≥ v3): median, P99, max (≥ MIN_EL elements)
     and the exceedance curve (share of violating elements above a violation) -> --ccdf-out
@@ -32,6 +34,8 @@ from gridfm_datakit.network import load_net_from_pglib
 from gridfm_datakit.utils.idx_bus import BUS_TYPE, PQ
 from gridfm_datakit.utils.idx_gen import GEN_BUS
 
+from expost_pf import vctl_buses
+
 KEY = ["case", "horizon", "optimizer", "forecaster"]
 OPT = {"exact": "ac", "dc": "dc", "surrogate": "surrogate", "e2e": "e2e"}
 EXPOST = Path("/data/horse/ws/tibo990i-thesis_data/2019-2021/phase_1c/expost_pf")
@@ -43,11 +47,11 @@ LEVELS = np.logspace(0, -4, 81)  # exceedance-curve levels (share of violating e
 
 def element_counts(case):
     """size of the element sets expost_pf checks: in-service lines, PQ buses (vm_all: all buses, --q-limits),
-    non-REF gen buses"""
+    non-REF gen buses, voltage-controlling buses (vctl)"""
     net = load_net_from_pglib(case)
     gb = np.unique(net.gens[net.idx_gens_in_service, GEN_BUS].astype(int))
     return dict(thermal=len(net.idx_branches_in_service), vm=int((net.buses[:, BUS_TYPE] == PQ).sum()),
-                vm_all=len(net.buses), qg=len(gb) - int(net.ref_bus_idx in gb))
+                vm_all=len(net.buses), qg=len(gb) - int(net.ref_bus_idx in gb), vctl=int(vctl_buses(net).sum()))
 
 
 def violation_metrics(name, unit, n, worst, total, n_el):
@@ -91,6 +95,9 @@ def gap_metrics(d, n_el):
                               col("thermal_sum", 100), n_el["thermal"]),
           **violation_metrics("Vm Violation", "p.u.", c.vm_n, c.vm_max_viol, col("vm_sum"), n_el["vm"]),
           **violation_metrics("Qg Violation", "MVAr", c.qg_n, c.qg_max_viol_mvar, col("qg_sum_mvar"), n_el["qg"])}
+    if "vctl_lost_n" in c and d.q_limits.iloc[0]:  # units at their Q limit: the Qg shortfall once limits are enforced
+        q3 |= {"Lost Voltage Control (%)": (c.vctl_lost_n > 0).mean() * 100,
+               "Lost Voltage Control (% buses)": c.vctl_lost_n.sum() / (len(c) * n_el["vctl"]) * 100}
     return {
         "Optimality Gap (recomputed)": raw.abs().mean(),
         "Signed Optimality Gap": raw.mean(),

@@ -196,14 +196,20 @@ def load_ml(arm, case, H, run):
 _NET = _PP = _MAP = _REF = _LF = _VCTL = None
 
 
+def vctl_buses(net):
+    """bus mask: buses that can control voltage; OLF (Q limits on) drops units with a Q range < 1 MVAr
+    (reactiveRangeCheckMode)"""
+    g = net.gens[net.idx_gens_in_service]
+    m = np.zeros(len(net.buses), bool)
+    m[g[g[:, QMAX] - g[:, QMIN] >= 1, GEN_BUS].astype(int)] = True
+    return m
+
+
 def _init_worker(case, q_limits):
     global _NET, _PP, _MAP, _REF, _LF, _VCTL
     _LF = lf_params(q_limits)
     _NET = load_net_from_pglib(case)
-    # buses that can control voltage: OLF (Q limits on) drops units with a Q range < 1 MVAr (reactiveRangeCheckMode)
-    g = _NET.gens[_NET.idx_gens_in_service]
-    _VCTL = np.zeros(len(_NET.buses), bool)
-    _VCTL[g[g[:, QMAX] - g[:, QMIN] >= 1, GEN_BUS].astype(int)] = True
+    _VCTL = vctl_buses(_NET)
     conv = to_powsybl(_NET)
     _PP, _MAP = conv.pp_net, conv.mapping_p2g
     _REF = next(b for b, i in _MAP.bus.items() if i == _NET.ref_bus_idx)
