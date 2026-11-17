@@ -286,6 +286,9 @@ RETRACTED entries stay so they are not re-proposed. ML-arm findings: `~/gridfm-g
     - E2E above AC in every cell except case14 H24 (34 vs 38 % samples, 11.3 vs 12.3 % buses); gap shrinks with H
       (bus share case118 300× / 3.5× / 2.2×, case500 3.0× / 1.4× / 1.1×). DC worst everywhere → the Qg ranking of v3
       (DC worst, AC best) carries over. DC's reactive shortfall stays inside the |V| band on case14 / case118 only.
+  - 2026-11-17 decision: lost voltage control (= PV→PQ switch) NOT a Q3 metric (colleague: switching is the PF's way
+    to satisfy Q limits, not a violation). Q3 = thermal, |V| (all buses), diverged; the switch shares above stay as
+    diagnostic (DC: 100 % → explains its case500 |V| + divergence). Still in corrected_gap_qlim.csv, not in tables.
   - Thesis outputs switched to Q limits on (2026-11-17, `plot_rmse.VARIANT`, `EXPOST_VARIANT=v3` → limits off); v3
     snapshot committed cb8522d. supply_error_h6 unchanged (ΔP from P̂; best forecaster identical in every cell). DC: case14 / case118 show no |V| or Qg violation any more (case-file
     VG 1.0 mid-band; reactive shortfall absorbed by voltage drift within the band).

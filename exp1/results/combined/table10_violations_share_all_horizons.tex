@@ -1,79 +1,79 @@
 \begingroup\footnotesize\setlength{\tabcolsep}{3pt}
-\begin{longtable}{lrrrrrrr}
-\caption{Limit violations after the ex-post AC power flow: frequency. Lower is better for every metric; bold: best arm per grid, horizon and column. Generator reactive limits enforced: a PV bus whose generators reach their limit switches to PQ (PV$\to$PQ: voltage off its setpoint). Diverged: no power-flow solution (infeasible; share of test samples, not in the other columns). Per constraint group: share of test samples with at least one violation (\% smp.); mean share of elements violated per sample (\% el.; lines, all buses, PV buses). 0 = no violation. 2-step: forecaster with the lowest rebalanced gap per optimizer; ML arms: mean over seeds. DC: generator voltage setpoints from the case file (1.0\,p.u.), since DC-OPF has no voltages.}\label{tab:violations_share_all_horizons}\\
+\begin{longtable}{lrrrrr}
+\caption{Limit violations after the ex-post AC power flow: frequency. Lower is better for every metric; bold: best arm per grid, horizon and column. Generator reactive limits enforced (PV--PQ switching), so a reactive shortfall shows in $|V|$. Diverged: no power-flow solution (infeasible; share of test samples, not in the other columns). Per constraint group: share of test samples with at least one violation (\% smp.); mean share of elements violated per sample (\% el.; lines, all buses). 0 = no violation. 2-step: forecaster with the lowest rebalanced gap per optimizer; ML arms: mean over seeds. DC: generator voltage setpoints from the case file (1.0\,p.u.), since DC-OPF has no voltages.}\label{tab:violations_share_all_horizons}\\
 \toprule
- & \multicolumn{2}{c}{Thermal (lines)} & \multicolumn{2}{c}{$|V|$ (buses)} & \multicolumn{2}{c}{PV$\to$PQ (PV buses)} & \multicolumn{1}{c}{Diverged} \\
-\cmidrule(lr){2-3} \cmidrule(lr){4-5} \cmidrule(lr){6-7} \cmidrule(lr){8-8}
-Model & \% smp. & \% el. & \% smp. & \% el. & \% smp. & \% el. & \% smp. \\
+ & \multicolumn{2}{c}{Thermal (lines)} & \multicolumn{2}{c}{$|V|$ (buses)} & \multicolumn{1}{c}{Diverged} \\
+\cmidrule(lr){2-3} \cmidrule(lr){4-5} \cmidrule(lr){6-6}
+Model & \% smp. & \% el. & \% smp. & \% el. & \% smp. \\
 \midrule
 \endfirsthead
-\multicolumn{8}{c}{\tablename\ \thetable{} -- continued} \\
+\multicolumn{6}{c}{\tablename\ \thetable{} -- continued} \\
 \toprule
- & \multicolumn{2}{c}{Thermal (lines)} & \multicolumn{2}{c}{$|V|$ (buses)} & \multicolumn{2}{c}{PV$\to$PQ (PV buses)} & \multicolumn{1}{c}{Diverged} \\
-\cmidrule(lr){2-3} \cmidrule(lr){4-5} \cmidrule(lr){6-7} \cmidrule(lr){8-8}
-Model & \% smp. & \% el. & \% smp. & \% el. & \% smp. & \% el. & \% smp. \\
+ & \multicolumn{2}{c}{Thermal (lines)} & \multicolumn{2}{c}{$|V|$ (buses)} & \multicolumn{1}{c}{Diverged} \\
+\cmidrule(lr){2-3} \cmidrule(lr){4-5} \cmidrule(lr){6-6}
+Model & \% smp. & \% el. & \% smp. & \% el. & \% smp. \\
 \midrule
 \endhead
 \midrule
-\multicolumn{8}{r}{\textit{continued on next page}} \\
+\multicolumn{6}{r}{\textit{continued on next page}} \\
 \endfoot
 \bottomrule
 \endlastfoot
-\multicolumn{8}{@{}l}{\textit{case14}} \\[2pt]
-\multicolumn{8}{@{}l}{\quad Horizon $H=1$} \\[2pt]
-SARIMA-AC & 0 & 0 & 2.97 & 0.22 & \textbf{2.97} & \textbf{0.96} & 0 \\
-SARIMA-DC & 0 & 0 & \textbf{0} & \textbf{0} & 100.00 & 49.72 & 0 \\
-SARIMA-Surrogate & 0 & 0 & \textbf{0} & \textbf{0} & 16.54 & 4.71 & 0 \\
-E2E & 0 & 0 & 3.21 & 0.23 & 37.71 & 10.67 & 0 \\
+\multicolumn{6}{@{}l}{\textit{case14}} \\[2pt]
+\multicolumn{6}{@{}l}{\quad Horizon $H=1$} \\[2pt]
+SARIMA-AC & 0 & 0 & 2.97 & 0.22 & 0 \\
+SARIMA-DC & 0 & 0 & \textbf{0} & \textbf{0} & 0 \\
+SARIMA-Surrogate & 0 & 0 & \textbf{0} & \textbf{0} & 0 \\
+E2E & 0 & 0 & 3.21 & 0.23 & 0 \\
 \addlinespace[2pt]
-\multicolumn{8}{@{}l}{\quad Horizon $H=6$} \\[2pt]
-SARIMA-AC & 0 & 0 & 18.25 & 2.22 & \textbf{19.12} & \textbf{6.42} & 0 \\
-SARIMA-DC & 0 & 0 & \textbf{0} & \textbf{0} & 100.00 & 49.72 & 0 \\
-SARIMA-Surrogate & 0 & 0 & 1.53 & 0.17 & 24.65 & 8.00 & 0 \\
-E2E & 0 & 0 & 9.20 & 1.02 & 31.82 & 10.63 & 0 \\
+\multicolumn{6}{@{}l}{\quad Horizon $H=6$} \\[2pt]
+SARIMA-AC & 0 & 0 & 18.25 & 2.22 & 0 \\
+SARIMA-DC & 0 & 0 & \textbf{0} & \textbf{0} & 0 \\
+SARIMA-Surrogate & 0 & 0 & 1.53 & 0.17 & 0 \\
+E2E & 0 & 0 & 9.20 & 1.02 & 0 \\
 \addlinespace[2pt]
-\multicolumn{8}{@{}l}{\quad Horizon $H=24$} \\[2pt]
-XGB-AC & 0 & 0 & 34.58 & 4.63 & 37.50 & 12.26 & 0 \\
-XGB-DC & 0 & 0 & \textbf{0} & \textbf{0} & 100.00 & 49.71 & 0 \\
-XGB-Surrogate & 0 & 0 & 4.53 & 0.55 & 38.19 & 12.58 & 0 \\
-E2E & 0 & 0 & 6.52 & 0.89 & \textbf{33.69} & \textbf{11.32} & 0 \\
+\multicolumn{6}{@{}l}{\quad Horizon $H=24$} \\[2pt]
+XGB-AC & 0 & 0 & 34.58 & 4.63 & 0 \\
+XGB-DC & 0 & 0 & \textbf{0} & \textbf{0} & 0 \\
+XGB-Surrogate & 0 & 0 & 4.53 & 0.55 & 0 \\
+E2E & 0 & 0 & 6.52 & 0.89 & 0 \\
 \midrule
-\multicolumn{8}{@{}l}{\textit{case118}} \\[2pt]
-\multicolumn{8}{@{}l}{\quad Horizon $H=1$} \\[2pt]
-SARIMA-AC & \textbf{36.71} & \textbf{0.20} & 0.025 & 0.00021 & \textbf{0.25} & \textbf{0.0061} & 0 \\
-XGB-DC & 99.59 & 0.95 & \textbf{0} & \textbf{0} & 100.00 & 25.10 & 0 \\
-XGB-Surrogate & 53.56 & 0.29 & 0.58 & 0.0075 & 50.63 & 2.29 & 0 \\
-E2E & 43.88 & 0.24 & 3.41 & 0.055 & 65.25 & 2.98 & 0 \\
+\multicolumn{6}{@{}l}{\textit{case118}} \\[2pt]
+\multicolumn{6}{@{}l}{\quad Horizon $H=1$} \\[2pt]
+SARIMA-AC & \textbf{36.71} & \textbf{0.20} & 0.025 & 0.00021 & 0 \\
+XGB-DC & 99.59 & 0.95 & \textbf{0} & \textbf{0} & 0 \\
+XGB-Surrogate & 53.56 & 0.29 & 0.58 & 0.0075 & 0 \\
+E2E & 43.88 & 0.24 & 3.41 & 0.055 & 0 \\
 \addlinespace[2pt]
-\multicolumn{8}{@{}l}{\quad Horizon $H=6$} \\[2pt]
-XGB-AC & \textbf{42.33} & \textbf{0.23} & 3.80 & 0.039 & \textbf{26.09} & \textbf{0.95} & 0 \\
-XGB-DC & 95.81 & 0.92 & \textbf{0} & \textbf{0} & 100.00 & 25.09 & 0 \\
-XGB-Surrogate & 53.05 & 0.29 & 0.60 & 0.0080 & 63.22 & 3.08 & 0 \\
-E2E & 51.95 & 0.28 & 2.63 & 0.041 & 67.37 & 3.30 & 0 \\
+\multicolumn{6}{@{}l}{\quad Horizon $H=6$} \\[2pt]
+XGB-AC & \textbf{42.33} & \textbf{0.23} & 3.80 & 0.039 & 0 \\
+XGB-DC & 95.81 & 0.92 & \textbf{0} & \textbf{0} & 0 \\
+XGB-Surrogate & 53.05 & 0.29 & 0.60 & 0.0080 & 0 \\
+E2E & 51.95 & 0.28 & 2.63 & 0.041 & 0 \\
 \addlinespace[2pt]
-\multicolumn{8}{@{}l}{\quad Horizon $H=24$} \\[2pt]
-XGB-AC & \textbf{44.34} & \textbf{0.24} & 10.77 & 0.13 & \textbf{51.83} & \textbf{2.36} & 0 \\
-XGB-DC & 88.86 & 0.86 & \textbf{0} & \textbf{0} & 100.00 & 25.09 & 0 \\
-XGB-Surrogate & 52.28 & 0.28 & 0.59 & 0.0082 & 75.06 & 4.12 & 0 \\
-E2E & 57.84 & 0.31 & 0.26 & 0.0029 & 86.27 & 5.09 & 0 \\
+\multicolumn{6}{@{}l}{\quad Horizon $H=24$} \\[2pt]
+XGB-AC & \textbf{44.34} & \textbf{0.24} & 10.77 & 0.13 & 0 \\
+XGB-DC & 88.86 & 0.86 & \textbf{0} & \textbf{0} & 0 \\
+XGB-Surrogate & 52.28 & 0.28 & 0.59 & 0.0082 & 0 \\
+E2E & 57.84 & 0.31 & 0.26 & 0.0029 & 0 \\
 \midrule
-\multicolumn{8}{@{}l}{\textit{case500}} \\[2pt]
-\multicolumn{8}{@{}l}{\quad Horizon $H=1$} \\[2pt]
-SARIMA-AC & \textbf{0.91} & \textbf{0.0013} & 24.15 & \textbf{0.15} & \textbf{21.23} & \textbf{3.61} & \textbf{0} \\
-SARIMA-DC & 2.55 & 0.0065 & 52.39 & 0.88 & 100.00 & 56.24 & 2.49 \\
-SARIMA-Surrogate & 1.66 & 0.0023 & \textbf{23.32} & 0.16 & 100.00 & 27.38 & 0.60 \\
-E2E & 2.87 & 0.0043 & 68.89 & 0.38 & 93.77 & 10.78 & 0.025 \\
+\multicolumn{6}{@{}l}{\textit{case500}} \\[2pt]
+\multicolumn{6}{@{}l}{\quad Horizon $H=1$} \\[2pt]
+SARIMA-AC & \textbf{0.91} & \textbf{0.0013} & 24.15 & \textbf{0.15} & \textbf{0} \\
+SARIMA-DC & 2.55 & 0.0065 & 52.39 & 0.88 & 2.49 \\
+SARIMA-Surrogate & 1.66 & 0.0023 & \textbf{23.32} & 0.16 & 0.60 \\
+E2E & 2.87 & 0.0043 & 68.89 & 0.38 & 0.025 \\
 \addlinespace[2pt]
-\multicolumn{8}{@{}l}{\quad Horizon $H=6$} \\[2pt]
-XGB-AC & 5.66 & 0.0089 & 47.48 & 0.42 & \textbf{60.21} & \textbf{10.28} & \textbf{0.0085} \\
-XGB-DC & 3.76 & 0.0083 & 51.74 & 0.93 & 100.00 & 56.49 & 2.43 \\
-XGB-Surrogate & \textbf{2.26} & \textbf{0.0032} & \textbf{23.29} & \textbf{0.17} & 100.00 & 27.59 & 0.70 \\
-E2E & 3.44 & 0.0049 & 70.52 & 0.50 & 96.08 & 14.66 & 0.13 \\
+\multicolumn{6}{@{}l}{\quad Horizon $H=6$} \\[2pt]
+XGB-AC & 5.66 & 0.0089 & 47.48 & 0.42 & \textbf{0.0085} \\
+XGB-DC & 3.76 & 0.0083 & 51.74 & 0.93 & 2.43 \\
+XGB-Surrogate & \textbf{2.26} & \textbf{0.0032} & \textbf{23.29} & \textbf{0.17} & 0.70 \\
+E2E & 3.44 & 0.0049 & 70.52 & 0.50 & 0.13 \\
 \addlinespace[2pt]
-\multicolumn{8}{@{}l}{\quad Horizon $H=24$} \\[2pt]
-XGB-AC & 5.83 & 0.010 & 53.79 & 0.61 & \textbf{78.64} & \textbf{15.27} & \textbf{0.034} \\
-XGB-DC & 5.57 & 0.012 & 50.75 & 1.05 & 100.00 & 56.71 & 2.53 \\
-XGB-Surrogate & \textbf{2.74} & \textbf{0.0042} & \textbf{23.45} & \textbf{0.18} & 100.00 & 27.74 & 0.89 \\
-E2E & 4.07 & 0.0059 & 65.12 & 0.48 & 97.50 & 16.78 & 0.19 \\
+\multicolumn{6}{@{}l}{\quad Horizon $H=24$} \\[2pt]
+XGB-AC & 5.83 & 0.010 & 53.79 & 0.61 & \textbf{0.034} \\
+XGB-DC & 5.57 & 0.012 & 50.75 & 1.05 & 2.53 \\
+XGB-Surrogate & \textbf{2.74} & \textbf{0.0042} & \textbf{23.45} & \textbf{0.18} & 0.89 \\
+E2E & 4.07 & 0.0059 & 65.12 & 0.48 & 0.19 \\
 \end{longtable}
 \endgroup

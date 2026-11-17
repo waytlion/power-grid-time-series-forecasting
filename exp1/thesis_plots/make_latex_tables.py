@@ -331,17 +331,15 @@ write_table(
 # Q3: limit violations after the ex-post AC-PF; forecaster per arm = lowest rebalanced gap (same operating state as Q2)
 Q3_GROUPS = {  # constraint group -> (header, magnitude unit; None = frequency only)
     "Thermal Overload": ("Thermal (lines)", "% of rating"),
-    # Q limits on: Qg violation 0 by construction -> the shortfall shows as PV->PQ switches
-    **({"Vm Violation": ("$|V|$ (buses)", "1e-3 p.u."),
-        "Lost Voltage Control": ("PV$\\to$PQ (PV buses)", None)} if QLIM else
+    # Q limits on: Qg violation 0 by construction -> the shortfall shows in |V| or a diverged PF
+    **({"Vm Violation": ("$|V|$ (buses)", "1e-3 p.u.")} if QLIM else
        {"Vm Violation": ("$|V|$ (PQ buses)", "1e-3 p.u."),
         "Qg Violation": ("$Q_{\\mathrm{g}}$ (generator buses)", "MVAr")}),
 }
-EL_SETS = ("lines, all buses, PV buses" if QLIM else
+EL_SETS = ("lines, all buses" if QLIM else
            "lines, PQ buses, generator buses without the reference bus")
-QLIM_NOTE = ("Generator reactive limits enforced: a PV bus whose generators reach their limit switches to PQ "
-             "(PV$\\to$PQ: voltage off its setpoint). Diverged: no power-flow solution (infeasible; share of test samples, "
-             "not in the other columns). ")
+QLIM_NOTE = ("Generator reactive limits enforced (PV--PQ switching), so a reactive shortfall shows in $|V|$. "
+             "Diverged: no power-flow solution (infeasible; share of test samples, not in the other columns). ")
 Q3_COLS = {  # column kind -> (metric template (group, unit), label, caption term)
     "smp": ("{} (%)", "\\% smp.", "share of test samples with at least one violation (\\% smp.)"),
     "el": ("{} (% elements)", "\\% el.", f"mean share of elements violated per sample (\\% el.; {EL_SETS})"),
