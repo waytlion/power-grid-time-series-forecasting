@@ -159,10 +159,10 @@ def load_exact(case, H, fc, dc=False):
 RUN_EXPERIMENTS = ("state-dump", "final_thesis_runs", "final_e2e_qgmse", "2-step-surrogate-eval")  # thesis models only; ablation exps reuse run names
 
 
-def resolve_run(names, case):
-    """newest run named any of <names> with a state dump, within RUN_EXPERIMENTS"""
+def resolve_run(names, case, experiments=RUN_EXPERIMENTS):
+    """newest run named any of <names> with a state dump, within <experiments>"""
     exps = [m.parent for m in MLRUNS.glob("*/meta.yaml")
-            if any(line.strip() in [f"name: {e}" for e in RUN_EXPERIMENTS] for line in m.read_text().splitlines())]
+            if any(line.strip() in [f"name: {e}" for e in experiments] for line in m.read_text().splitlines())]
     runs = [Path(t).parents[1] for e in exps for t in glob.glob(f"{e}/*/tags/mlflow.runName")
             if open(t).read().strip() in names
             and (Path(t).parents[1] / f"artifacts/test/{case}_state_gen.parquet").exists()]
@@ -352,6 +352,9 @@ def main():
     p.add_argument("--limit", type=int, default=None, help="smoke test: N samples per config")
     p.add_argument("--out-dir", type=Path, default=OUT)
     p.add_argument("--q-limits", action="store_true", help="enforce generator Q limits (PV -> PQ switching)")
+    p.add_argument("--experiments", nargs="+", default=list(RUN_EXPERIMENTS),
+                   help="MLflow experiments searched for ML runs (ablations: own exp + own --out-dir)")
+    p.add_argument("--e2e-prefix", default="base_e2e", help="E2E run-name prefix, e.g. ablation_nophys_e2e")
     a = p.parse_args()
 
     # (arm, horizon, forecaster, seed) configs; label = phase1a labels on the 2-step h1 test hours
@@ -384,8 +387,8 @@ def main():
                 else:
                     # E2E: case500 retrain uses the full case name (base_e2e_case500_goc_h*), older runs the short one
                     names = ([f"surrogate_{a.case}_{fc}_h{H}_s{seed}"] if arm == "surrogate" else
-                             [f"base_e2e_{n}_h{H}_s{seed}" for n in (a.case, a.case.split('_')[0])])
-                    run = resolve_run(names, a.case)
+                             [f"{a.e2e_prefix}_{n}_h{H}_s{seed}" for n in (a.case, a.case.split('_')[0])])
+                    run = resolve_run(names, a.case, a.experiments)
                     if run is None:
                         raise FileNotFoundError(f"no run with state dump named {names}")
                     print(f"[{a.case} h{H} {tag}] run {run}", flush=True)

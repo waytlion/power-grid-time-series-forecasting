@@ -27,6 +27,8 @@ SEEDS=${SEEDS:-0}
 LIMIT=${LIMIT:-}
 OUT_DIR=${OUT_DIR:-}
 Q_LIMITS=${Q_LIMITS:-}
+EXPERIMENTS=${EXPERIMENTS:-}   # ablation, e.g. EXPERIMENTS=ablation_nophys E2E_PREFIX=ablation_nophys_e2e ARMS=e2e OUT_DIR=<own dir>
+E2E_PREFIX=${E2E_PREFIX:-}
 
 set +u
 module --force purge
@@ -39,4 +41,5 @@ source "$SLURM_SUBMIT_DIR/../thesis_env/bin/activate"
 mkdir -p logs
 
 python -u exp1/generate_metrics/expost_pf.py --case "$CASE" --horizons $HORIZONS --arms $ARMS \
-    --forecasters $FORECASTERS --seeds $SEEDS --workers "$SLURM_CPUS_PER_TASK" ${LIMIT:+--limit $LIMIT} ${OUT_DIR:+--out-dir $OUT_DIR} ${Q_LIMITS:+--q-limits}
+    --forecasters $FORECASTERS --seeds $SEEDS --workers "$SLURM_CPUS_PER_TASK" ${LIMIT:+--limit $LIMIT} ${OUT_DIR:+--out-dir $OUT_DIR} ${Q_LIMITS:+--q-limits} \
+    ${EXPERIMENTS:+--experiments $EXPERIMENTS} ${E2E_PREFIX:+--e2e-prefix $E2E_PREFIX}
