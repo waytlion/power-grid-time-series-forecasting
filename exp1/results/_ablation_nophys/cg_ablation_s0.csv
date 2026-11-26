@@ -1,0 +1,40 @@
+case,horizon,optimizer,forecaster,metric,mean,count
+case118_ieee,24,e2e,none,Diverged (%),0.0,1
+case118_ieee,24,e2e,none,Diverged (n),0.0,1
+case118_ieee,24,e2e,none,Insufficient Headroom (%),0.0,1
+case118_ieee,24,e2e,none,Insufficient Headroom (n),0.0,1
+case118_ieee,24,e2e,none,Lost Voltage Control (% elements),18.795518999029557,1
+case118_ieee,24,e2e,none,Lost Voltage Control (%),100.0,1
+case118_ieee,24,e2e,none,Mean dPg (MW),11.959854659917806,1
+case118_ieee,24,e2e,none,Mean |dPg| (%),3.616292881227782,1
+case118_ieee,24,e2e,none,Mean |dPg| (MW),83.11791768775306,1
+case118_ieee,24,e2e,none,No Dispatch (n),0.0,1
+case118_ieee,24,e2e,none,No-refund Gap,2.9795711864926466,1
+case118_ieee,24,e2e,none,Optimality Gap (recomputed),4.4124216803927006,1
+case118_ieee,24,e2e,none,Pred. Pg out of limits (%),0.0,1
+case118_ieee,24,e2e,none,Qg Violation (% elements),0.0,1
+case118_ieee,24,e2e,none,Qg Violation (%),0.0,1
+case118_ieee,24,e2e,none,Qg Violation Mean (MVAr),,0
+case118_ieee,24,e2e,none,Qg Violation Worst (MVAr),,0
+case118_ieee,24,e2e,none,Rebalanced Gap,0.5398018880003308,1
+case118_ieee,24,e2e,none,Rebalancing Cost (over-supply),-2.442464589752621,1
+case118_ieee,24,e2e,none,Rebalancing Cost (under-supply),1.982057347818399,1
+case118_ieee,24,e2e,none,Signed Optimality Gap,0.9957393905624471,1
+case118_ieee,24,e2e,none,Signed Rebalanced Gap,0.535332148628225,1
+case118_ieee,24,e2e,none,Thermal Overload (% elements),0.2588160554511561,1
+case118_ieee,24,e2e,none,Thermal Overload (%),48.13872636309675,1
+case118_ieee,24,e2e,none,Thermal Overload Mean (% of rating),2.0132125795835702,1
+case118_ieee,24,e2e,none,Thermal Overload Worst (% of rating),2.013252741144363,1
+case118_ieee,24,e2e,none,Vm Violation (% elements),0.5493150202576363,1
+case118_ieee,24,e2e,none,Vm Violation (%),26.780717374713813,1
+case118_ieee,24,e2e,none,Vm Violation Mean (p.u.),0.002819578314139919,1
+case118_ieee,24,e2e,none,Vm Violation Worst (p.u.),0.0028353093030157525,1
+case118_ieee,24,e2e,none,Thermal Overload Median (% of rating),1.4558137287932427,1
+case118_ieee,24,e2e,none,Thermal Overload P99 (% of rating),9.199538650740633,1
+case118_ieee,24,e2e,none,Thermal Overload Max (% of rating),19.22988834213788,1
+case118_ieee,24,e2e,none,Vm Violation Median (p.u.),0.00249495081308182,1
+case118_ieee,24,e2e,none,Vm Violation P99 (p.u.),0.00709953837983592,1
+case118_ieee,24,e2e,none,Vm Violation Max (p.u.),0.00901996931779836,1
+case118_ieee,24,e2e,none,Qg Violation Median (MVAr),,1
+case118_ieee,24,e2e,none,Qg Violation P99 (MVAr),,1
+case118_ieee,24,e2e,none,Qg Violation Max (MVAr),,1

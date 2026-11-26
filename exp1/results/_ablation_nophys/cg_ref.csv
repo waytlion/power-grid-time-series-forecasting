@@ -1,0 +1,1522 @@
+case,horizon,optimizer,forecaster,metric,mean,count
+case118_ieee,1,ac,sarima,Diverged (%),0.0,1
+case118_ieee,1,ac,sarima,Diverged (n),0.0,1
+case118_ieee,1,ac,sarima,Insufficient Headroom (%),0.0,1
+case118_ieee,1,ac,sarima,Insufficient Headroom (n),0.0,1
+case118_ieee,1,ac,sarima,Lost Voltage Control (% elements),0.006107071048725031,1
+case118_ieee,1,ac,sarima,Lost Voltage Control (%),0.2536783358701167,1
+case118_ieee,1,ac,sarima,Mean dPg (MW),0.29289070543915113,1
+case118_ieee,1,ac,sarima,Mean |dPg| (%),0.6750936541891668,1
+case118_ieee,1,ac,sarima,Mean |dPg| (MW),14.90451123691861,1
+case118_ieee,1,ac,sarima,No Dispatch (n),0.0,1
+case118_ieee,1,ac,sarima,No-refund Gap,0.4856829775694615,1
+case118_ieee,1,ac,sarima,Optimality Gap (recomputed),0.8221728846526258,1
+case118_ieee,1,ac,sarima,Pred. Pg out of limits (%),0.0,1
+case118_ieee,1,ac,sarima,Qg Violation (% elements),0.0,1
+case118_ieee,1,ac,sarima,Qg Violation (%),0.0,1
+case118_ieee,1,ac,sarima,Qg Violation Mean (MVAr),,0
+case118_ieee,1,ac,sarima,Qg Violation Worst (MVAr),,0
+case118_ieee,1,ac,sarima,Rebalanced Gap,0.1019617689043268,1
+case118_ieee,1,ac,sarima,Rebalancing Cost (over-supply),-0.38387933050415707,1
+case118_ieee,1,ac,sarima,Rebalancing Cost (under-supply),0.4611306633504909,1
+case118_ieee,1,ac,sarima,Signed Optimality Gap,0.02442878802851165,1
+case118_ieee,1,ac,sarima,Signed Rebalanced Gap,0.1016801208748455,1
+case118_ieee,1,ac,sarima,Thermal Overload (% elements),0.19735083441078435,1
+case118_ieee,1,ac,sarima,Thermal Overload (%),36.70725520040589,1
+case118_ieee,1,ac,sarima,Thermal Overload Mean (% of rating),0.34472974021985414,1
+case118_ieee,1,ac,sarima,Thermal Overload Worst (% of rating),0.34472974021985414,1
+case118_ieee,1,ac,sarima,Vm Violation (% elements),0.00021498164056789551,1
+case118_ieee,1,ac,sarima,Vm Violation (%),0.025367833587011668,1
+case118_ieee,1,ac,sarima,Vm Violation Mean (p.u.),0.0011125386900072698,1
+case118_ieee,1,ac,sarima,Vm Violation Worst (p.u.),0.0011125386900072698,1
+case118_ieee,1,ac,snaive,Diverged (%),0.0,1
+case118_ieee,1,ac,snaive,Diverged (n),0.0,1
+case118_ieee,1,ac,snaive,Insufficient Headroom (%),0.0,1
+case118_ieee,1,ac,snaive,Insufficient Headroom (n),0.0,1
+case118_ieee,1,ac,snaive,Lost Voltage Control (% elements),4.1809947948963675,1
+case118_ieee,1,ac,snaive,Lost Voltage Control (%),67.93505834601726,1
+case118_ieee,1,ac,snaive,Mean dPg (MW),8.541971557989678,1
+case118_ieee,1,ac,snaive,Mean |dPg| (%),7.595712241850715,1
+case118_ieee,1,ac,snaive,Mean |dPg| (MW),172.67533560981502,1
+case118_ieee,1,ac,snaive,No Dispatch (n),0.0,1
+case118_ieee,1,ac,snaive,No-refund Gap,5.83624172740341,1
+case118_ieee,1,ac,snaive,Optimality Gap (recomputed),9.234944158981362,1
+case118_ieee,1,ac,snaive,Pred. Pg out of limits (%),0.0,1
+case118_ieee,1,ac,snaive,Qg Violation (% elements),0.0,1
+case118_ieee,1,ac,snaive,Qg Violation (%),0.0,1
+case118_ieee,1,ac,snaive,Qg Violation Mean (MVAr),,0
+case118_ieee,1,ac,snaive,Qg Violation Worst (MVAr),,0
+case118_ieee,1,ac,snaive,Rebalanced Gap,1.1032356520240025,1
+case118_ieee,1,ac,snaive,Rebalancing Cost (over-supply),-4.734244243584241,1
+case118_ieee,1,ac,snaive,Rebalancing Cost (under-supply),4.664857125244837,1
+case118_ieee,1,ac,snaive,Signed Optimality Gap,1.1706140312646083,1
+case118_ieee,1,ac,snaive,Signed Rebalanced Gap,1.1012269129252046,1
+case118_ieee,1,ac,snaive,Thermal Overload (% elements),0.26158873559079776,1
+case118_ieee,1,ac,snaive,Thermal Overload (%),48.65550481988838,1
+case118_ieee,1,ac,snaive,Thermal Overload Mean (% of rating),2.9159872305245536,1
+case118_ieee,1,ac,snaive,Thermal Overload Worst (% of rating),2.9159872305245536,1
+case118_ieee,1,ac,snaive,Vm Violation (% elements),0.3678335870116692,1
+case118_ieee,1,ac,snaive,Vm Violation (%),25.2156265854896,1
+case118_ieee,1,ac,snaive,Vm Violation Mean (p.u.),0.0021550500944868107,1
+case118_ieee,1,ac,snaive,Vm Violation Worst (p.u.),0.002087857268360427,1
+case118_ieee,1,ac,xgb,Diverged (%),0.0,1
+case118_ieee,1,ac,xgb,Diverged (n),0.0,1
+case118_ieee,1,ac,xgb,Insufficient Headroom (%),0.0,1
+case118_ieee,1,ac,xgb,Insufficient Headroom (n),0.0,1
+case118_ieee,1,ac,xgb,Lost Voltage Control (% elements),0.027716707067290527,1
+case118_ieee,1,ac,xgb,Lost Voltage Control (%),1.3191273465246067,1
+case118_ieee,1,ac,xgb,Mean dPg (MW),0.7480213449825457,1
+case118_ieee,1,ac,xgb,Mean |dPg| (%),0.9266767803013146,1
+case118_ieee,1,ac,xgb,Mean |dPg| (MW),21.404828059503764,1
+case118_ieee,1,ac,xgb,No Dispatch (n),0.0,1
+case118_ieee,1,ac,xgb,No-refund Gap,0.6801231926649371,1
+case118_ieee,1,ac,xgb,Optimality Gap (recomputed),1.126795823572792,1
+case118_ieee,1,ac,xgb,Pred. Pg out of limits (%),0.0,1
+case118_ieee,1,ac,xgb,Qg Violation (% elements),0.0,1
+case118_ieee,1,ac,xgb,Qg Violation (%),0.0,1
+case118_ieee,1,ac,xgb,Qg Violation Mean (MVAr),,0
+case118_ieee,1,ac,xgb,Qg Violation Worst (MVAr),,0
+case118_ieee,1,ac,xgb,Rebalanced Gap,0.13741429567970073,1
+case118_ieee,1,ac,xgb,Rebalancing Cost (over-supply),-0.5432835706321799,1
+case118_ieee,1,ac,xgb,Rebalancing Cost (under-supply),0.6078768375362876,1
+case118_ieee,1,ac,xgb,Signed Optimality Gap,0.07176370211389707,1
+case118_ieee,1,ac,xgb,Signed Rebalanced Gap,0.1363569690180049,1
+case118_ieee,1,ac,xgb,Thermal Overload (% elements),0.21794515092497121,1
+case118_ieee,1,ac,xgb,Thermal Overload (%),40.537798072044644,1
+case118_ieee,1,ac,xgb,Thermal Overload Mean (% of rating),0.5512499537383339,1
+case118_ieee,1,ac,xgb,Thermal Overload Worst (% of rating),0.5512499537383339,1
+case118_ieee,1,ac,xgb,Vm Violation (% elements),0.00042996328113579103,1
+case118_ieee,1,ac,xgb,Vm Violation (%),0.050735667174023336,1
+case118_ieee,1,ac,xgb,Vm Violation Mean (p.u.),0.0011731492597774063,1
+case118_ieee,1,ac,xgb,Vm Violation Worst (p.u.),0.0011731492597774063,1
+case118_ieee,1,ac,xgb_tot,Diverged (%),0.0,1
+case118_ieee,1,ac,xgb_tot,Diverged (n),0.0,1
+case118_ieee,1,ac,xgb_tot,Insufficient Headroom (%),0.0,1
+case118_ieee,1,ac,xgb_tot,Insufficient Headroom (n),0.0,1
+case118_ieee,1,ac,xgb_tot,Lost Voltage Control (% elements),0.034293552812071325,1
+case118_ieee,1,ac,xgb_tot,Lost Voltage Control (%),1.5981735159817352,1
+case118_ieee,1,ac,xgb_tot,Mean dPg (MW),2.5407304813848604,1
+case118_ieee,1,ac,xgb_tot,Mean |dPg| (%),0.7675699172038071,1
+case118_ieee,1,ac,xgb_tot,Mean |dPg| (MW),17.64344011659544,1
+case118_ieee,1,ac,xgb_tot,No Dispatch (n),0.0,1
+case118_ieee,1,ac,xgb_tot,No-refund Gap,0.5923864846395218,1
+case118_ieee,1,ac,xgb_tot,Optimality Gap (recomputed),0.9310165869848603,1
+case118_ieee,1,ac,xgb_tot,Pred. Pg out of limits (%),0.0,1
+case118_ieee,1,ac,xgb_tot,Qg Violation (% elements),0.0,1
+case118_ieee,1,ac,xgb_tot,Qg Violation (%),0.0,1
+case118_ieee,1,ac,xgb_tot,Qg Violation Mean (MVAr),,0
+case118_ieee,1,ac,xgb_tot,Qg Violation Worst (MVAr),,0
+case118_ieee,1,ac,xgb_tot,Rebalanced Gap,0.11208149847813467,1
+case118_ieee,1,ac,xgb_tot,Rebalancing Cost (over-supply),-0.4811225164195837,1
+case118_ieee,1,ac,xgb_tot,Rebalancing Cost (under-supply),0.46349908420870584,1
+case118_ieee,1,ac,xgb_tot,Signed Optimality Gap,0.1282647258903318,1
+case118_ieee,1,ac,xgb_tot,Signed Rebalanced Gap,0.11064129367945388,1
+case118_ieee,1,ac,xgb_tot,Thermal Overload (% elements),0.1950322689754123,1
+case118_ieee,1,ac,xgb_tot,Thermal Overload (%),36.276002029426685,1
+case118_ieee,1,ac,xgb_tot,Thermal Overload Mean (% of rating),0.43233890840697425,1
+case118_ieee,1,ac,xgb_tot,Thermal Overload Worst (% of rating),0.43233890840697425,1
+case118_ieee,1,ac,xgb_tot,Vm Violation (% elements),0.00042996328113579103,1
+case118_ieee,1,ac,xgb_tot,Vm Violation (%),0.050735667174023336,1
+case118_ieee,1,ac,xgb_tot,Vm Violation Mean (p.u.),0.001197149646907536,1
+case118_ieee,1,ac,xgb_tot,Vm Violation Worst (p.u.),0.001197149646907536,1
+case118_ieee,1,dc,sarima,Diverged (%),0.0,1
+case118_ieee,1,dc,sarima,Diverged (n),0.0,1
+case118_ieee,1,dc,sarima,Insufficient Headroom (%),0.0,1
+case118_ieee,1,dc,sarima,Insufficient Headroom (n),0.0,1
+case118_ieee,1,dc,sarima,Lost Voltage Control (% elements),25.091606065730875,1
+case118_ieee,1,dc,sarima,Lost Voltage Control (%),100.0,1
+case118_ieee,1,dc,sarima,Mean dPg (MW),-53.82509159731358,1
+case118_ieee,1,dc,sarima,Mean |dPg| (%),2.25885627709603,1
+case118_ieee,1,dc,sarima,Mean |dPg| (MW),54.73561622177526,1
+case118_ieee,1,dc,sarima,No Dispatch (n),0.0,1
+case118_ieee,1,dc,sarima,No-refund Gap,2.294172576488244,1
+case118_ieee,1,dc,sarima,Optimality Gap (recomputed),3.7692410652268498,1
+case118_ieee,1,dc,sarima,Pred. Pg out of limits (%),0.0,1
+case118_ieee,1,dc,sarima,Qg Violation (% elements),0.0,1
+case118_ieee,1,dc,sarima,Qg Violation (%),0.0,1
+case118_ieee,1,dc,sarima,Qg Violation Mean (MVAr),,0
+case118_ieee,1,dc,sarima,Qg Violation Worst (MVAr),,0
+case118_ieee,1,dc,sarima,Rebalanced Gap,2.290575115934259,1
+case118_ieee,1,dc,sarima,Rebalancing Cost (over-supply),-0.003597460553985221,1
+case118_ieee,1,dc,sarima,Rebalancing Cost (under-supply),6.043809557276273,1
+case118_ieee,1,dc,sarima,Signed Optimality Gap,-3.7496369807880288,1
+case118_ieee,1,dc,sarima,Signed Rebalanced Gap,2.290575115934259,1
+case118_ieee,1,dc,sarima,Thermal Overload (% elements),0.948702421673404,1
+case118_ieee,1,dc,sarima,Thermal Overload (%),99.94926433282598,1
+case118_ieee,1,dc,sarima,Thermal Overload Mean (% of rating),3.3582926898457193,1
+case118_ieee,1,dc,sarima,Thermal Overload Worst (% of rating),3.4434971941207304,1
+case118_ieee,1,dc,sarima,Vm Violation (% elements),0.0,1
+case118_ieee,1,dc,sarima,Vm Violation (%),0.0,1
+case118_ieee,1,dc,sarima,Vm Violation Mean (p.u.),,0
+case118_ieee,1,dc,sarima,Vm Violation Worst (p.u.),,0
+case118_ieee,1,dc,snaive,Diverged (%),0.0,1
+case118_ieee,1,dc,snaive,Diverged (n),0.0,1
+case118_ieee,1,dc,snaive,Insufficient Headroom (%),0.0,1
+case118_ieee,1,dc,snaive,Insufficient Headroom (n),0.0,1
+case118_ieee,1,dc,snaive,Lost Voltage Control (% elements),25.07516395136892,1
+case118_ieee,1,dc,snaive,Lost Voltage Control (%),100.0,1
+case118_ieee,1,dc,snaive,Mean dPg (MW),-45.80302800928448,1
+case118_ieee,1,dc,snaive,Mean |dPg| (%),7.676831393259969,1
+case118_ieee,1,dc,snaive,Mean |dPg| (MW),177.0621133317667,1
+case118_ieee,1,dc,snaive,No Dispatch (n),0.0,1
+case118_ieee,1,dc,snaive,No-refund Gap,5.511582994724204,1
+case118_ieee,1,dc,snaive,Optimality Gap (recomputed),9.462704686025068,1
+case118_ieee,1,dc,snaive,Pred. Pg out of limits (%),0.0,1
+case118_ieee,1,dc,snaive,Qg Violation (% elements),0.0,1
+case118_ieee,1,dc,snaive,Qg Violation (%),0.0,1
+case118_ieee,1,dc,snaive,Qg Violation Mean (MVAr),,0
+case118_ieee,1,dc,snaive,Qg Violation Worst (MVAr),,0
+case118_ieee,1,dc,snaive,Rebalanced Gap,2.907285497785392,1
+case118_ieee,1,dc,snaive,Rebalancing Cost (over-supply),-2.6042974969388117,1
+case118_ieee,1,dc,snaive,Rebalancing Cost (under-supply),8.157091269964901,1
+case118_ieee,1,dc,snaive,Signed Optimality Gap,-2.6455082752406986,1
+case118_ieee,1,dc,snaive,Signed Rebalanced Gap,2.907285497785392,1
+case118_ieee,1,dc,snaive,Thermal Overload (% elements),0.7251654364631239,1
+case118_ieee,1,dc,snaive,Thermal Overload (%),76.63622526636226,1
+case118_ieee,1,dc,snaive,Thermal Overload Mean (% of rating),4.23684867198555,1
+case118_ieee,1,dc,snaive,Thermal Overload Worst (% of rating),4.72222108770252,1
+case118_ieee,1,dc,snaive,Vm Violation (% elements),0.0,1
+case118_ieee,1,dc,snaive,Vm Violation (%),0.0,1
+case118_ieee,1,dc,snaive,Vm Violation Mean (p.u.),,0
+case118_ieee,1,dc,snaive,Vm Violation Worst (p.u.),,0
+case118_ieee,1,dc,xgb,Diverged (%),0.0,1
+case118_ieee,1,dc,xgb,Diverged (n),0.0,1
+case118_ieee,1,dc,xgb,Insufficient Headroom (%),0.0,1
+case118_ieee,1,dc,xgb,Insufficient Headroom (n),0.0,1
+case118_ieee,1,dc,xgb,Lost Voltage Control (% elements),25.088317642858488,1
+case118_ieee,1,dc,xgb,Lost Voltage Control (%),100.0,1
+case118_ieee,1,dc,xgb,Mean dPg (MW),-53.35364997643648,1
+case118_ieee,1,dc,xgb,Mean |dPg| (%),2.233488508746897,1
+case118_ieee,1,dc,xgb,Mean |dPg| (MW),54.5621409486617,1
+case118_ieee,1,dc,xgb,No Dispatch (n),0.0,1
+case118_ieee,1,dc,xgb,No-refund Gap,2.287832177958514,1
+case118_ieee,1,dc,xgb,Optimality Gap (recomputed),3.7285784638743364,1
+case118_ieee,1,dc,xgb,Pred. Pg out of limits (%),0.0,1
+case118_ieee,1,dc,xgb,Qg Violation (% elements),0.0,1
+case118_ieee,1,dc,xgb,Qg Violation (%),0.0,1
+case118_ieee,1,dc,xgb,Qg Violation Mean (MVAr),,0
+case118_ieee,1,dc,xgb,Qg Violation Worst (MVAr),,0
+case118_ieee,1,dc,xgb,Rebalanced Gap,2.284316526198304,1
+case118_ieee,1,dc,xgb,Rebalancing Cost (over-supply),-0.0035156517602093615,1
+case118_ieee,1,dc,xgb,Rebalancing Cost (under-supply),5.993095991847771,1
+case118_ieee,1,dc,xgb,Signed Optimality Gap,-3.7052638138892586,1
+case118_ieee,1,dc,xgb,Signed Rebalanced Gap,2.284316526198304,1
+case118_ieee,1,dc,xgb,Thermal Overload (% elements),0.9473385596525971,1
+case118_ieee,1,dc,xgb,Thermal Overload (%),99.77168949771689,1
+case118_ieee,1,dc,xgb,Thermal Overload Mean (% of rating),3.327623342430021,1
+case118_ieee,1,dc,xgb,Thermal Overload Worst (% of rating),3.4839884665715575,1
+case118_ieee,1,dc,xgb,Vm Violation (% elements),0.0,1
+case118_ieee,1,dc,xgb,Vm Violation (%),0.0,1
+case118_ieee,1,dc,xgb,Vm Violation Mean (p.u.),,0
+case118_ieee,1,dc,xgb,Vm Violation Worst (p.u.),,0
+case118_ieee,1,dc,xgb_tot,Diverged (%),0.0,1
+case118_ieee,1,dc,xgb_tot,Diverged (n),0.0,1
+case118_ieee,1,dc,xgb_tot,Insufficient Headroom (%),0.0,1
+case118_ieee,1,dc,xgb_tot,Insufficient Headroom (n),0.0,1
+case118_ieee,1,dc,xgb_tot,Lost Voltage Control (% elements),25.101471334348048,1
+case118_ieee,1,dc,xgb_tot,Lost Voltage Control (%),100.0,1
+case118_ieee,1,dc,xgb_tot,Mean dPg (MW),-51.58748867722232,1
+case118_ieee,1,dc,xgb_tot,Mean |dPg| (%),2.1634581681752625,1
+case118_ieee,1,dc,xgb_tot,Mean |dPg| (MW),52.34105829004599,1
+case118_ieee,1,dc,xgb_tot,No Dispatch (n),0.0,1
+case118_ieee,1,dc,xgb_tot,No-refund Gap,2.273551171254452,1
+case118_ieee,1,dc,xgb_tot,Optimality Gap (recomputed),3.6624511773711657,1
+case118_ieee,1,dc,xgb_tot,Pred. Pg out of limits (%),0.0,1
+case118_ieee,1,dc,xgb_tot,Qg Violation (% elements),0.0,1
+case118_ieee,1,dc,xgb_tot,Qg Violation (%),0.0,1
+case118_ieee,1,dc,xgb_tot,Qg Violation Mean (MVAr),,0
+case118_ieee,1,dc,xgb_tot,Qg Violation Worst (MVAr),,0
+case118_ieee,1,dc,xgb_tot,Rebalanced Gap,2.2712713209464743,1
+case118_ieee,1,dc,xgb_tot,Rebalancing Cost (over-supply),-0.0022798503079778086,1
+case118_ieee,1,dc,xgb_tot,Rebalancing Cost (under-supply),5.923168128636974,1
+case118_ieee,1,dc,xgb_tot,Signed Optimality Gap,-3.6496169573825217,1
+case118_ieee,1,dc,xgb_tot,Signed Rebalanced Gap,2.2712713209464743,1
+case118_ieee,1,dc,xgb_tot,Thermal Overload (% elements),0.9452927666213865,1
+case118_ieee,1,dc,xgb_tot,Thermal Overload (%),99.59411466260781,1
+case118_ieee,1,dc,xgb_tot,Thermal Overload Mean (% of rating),3.3144166368995727,1
+case118_ieee,1,dc,xgb_tot,Thermal Overload Worst (% of rating),3.4638058971918593,1
+case118_ieee,1,dc,xgb_tot,Vm Violation (% elements),0.0,1
+case118_ieee,1,dc,xgb_tot,Vm Violation (%),0.0,1
+case118_ieee,1,dc,xgb_tot,Vm Violation Mean (p.u.),,0
+case118_ieee,1,dc,xgb_tot,Vm Violation Worst (p.u.),,0
+case118_ieee,1,e2e,none,Diverged (%),0.0,3
+case118_ieee,1,e2e,none,Diverged (n),0.0,3
+case118_ieee,1,e2e,none,Insufficient Headroom (%),0.0,3
+case118_ieee,1,e2e,none,Insufficient Headroom (n),0.0,3
+case118_ieee,1,e2e,none,Lost Voltage Control (% elements),2.977524211213416,3
+case118_ieee,1,e2e,none,Lost Voltage Control (%),65.25165226232842,3
+case118_ieee,1,e2e,none,Mean dPg (MW),-0.32811172685738715,3
+case118_ieee,1,e2e,none,Mean |dPg| (%),0.4680978544002136,3
+case118_ieee,1,e2e,none,Mean |dPg| (MW),11.035240371253474,3
+case118_ieee,1,e2e,none,No Dispatch (n),0.0,3
+case118_ieee,1,e2e,none,No-refund Gap,0.338177494793652,3
+case118_ieee,1,e2e,none,Optimality Gap (recomputed),0.5669127395871015,3
+case118_ieee,1,e2e,none,Pred. Pg out of limits (%),0.0,3
+case118_ieee,1,e2e,none,Qg Violation (% elements),0.0,3
+case118_ieee,1,e2e,none,Qg Violation (%),0.0,3
+case118_ieee,1,e2e,none,Qg Violation Mean (MVAr),,0
+case118_ieee,1,e2e,none,Qg Violation Worst (MVAr),,0
+case118_ieee,1,e2e,none,Rebalanced Gap,0.08326512718344874,3
+case118_ieee,1,e2e,none,Rebalancing Cost (over-supply),-0.25561683950819414,3
+case118_ieee,1,e2e,none,Rebalancing Cost (under-supply),0.33265136842119064,3
+case118_ieee,1,e2e,none,Signed Optimality Gap,0.005227580781788814,3
+case118_ieee,1,e2e,none,Signed Rebalanced Gap,0.08226210969478533,3
+case118_ieee,1,e2e,none,Thermal Overload (% elements),0.23592684309019976,3
+case118_ieee,1,e2e,none,Thermal Overload (%),43.882392814777155,3
+case118_ieee,1,e2e,none,Thermal Overload Mean (% of rating),0.43019700146301415,3
+case118_ieee,1,e2e,none,Thermal Overload Worst (% of rating),0.43019700146301415,3
+case118_ieee,1,e2e,none,Vm Violation (% elements),0.055219023492140085,3
+case118_ieee,1,e2e,none,Vm Violation (%),3.4146754787324185,3
+case118_ieee,1,e2e,none,Vm Violation Mean (p.u.),0.0017869155169445365,3
+case118_ieee,1,e2e,none,Vm Violation Worst (p.u.),0.0018353291297675503,3
+case118_ieee,1,surrogate,sarima,Diverged (%),0.0,3
+case118_ieee,1,surrogate,sarima,Diverged (n),0.0,3
+case118_ieee,1,surrogate,sarima,Insufficient Headroom (%),0.0,3
+case118_ieee,1,surrogate,sarima,Insufficient Headroom (n),0.0,3
+case118_ieee,1,surrogate,sarima,Lost Voltage Control (% elements),2.25053397723785,3
+case118_ieee,1,surrogate,sarima,Lost Voltage Control (%),49.52646710637578,3
+case118_ieee,1,surrogate,sarima,Mean dPg (MW),5.7049656001647735,3
+case118_ieee,1,surrogate,sarima,Mean |dPg| (%),0.7784394208667562,3
+case118_ieee,1,surrogate,sarima,Mean |dPg| (MW),17.248147064512608,3
+case118_ieee,1,surrogate,sarima,No Dispatch (n),0.0,3
+case118_ieee,1,surrogate,sarima,No-refund Gap,0.8753576953085633,3
+case118_ieee,1,surrogate,sarima,Optimality Gap (recomputed),1.010738199817149,3
+case118_ieee,1,surrogate,sarima,Pred. Pg out of limits (%),0.0,3
+case118_ieee,1,surrogate,sarima,Qg Violation (% elements),0.0,3
+case118_ieee,1,surrogate,sarima,Qg Violation (%),0.0,3
+case118_ieee,1,surrogate,sarima,Qg Violation Mean (MVAr),,0
+case118_ieee,1,surrogate,sarima,Qg Violation Worst (MVAr),,0
+case118_ieee,1,surrogate,sarima,Rebalanced Gap,0.2409214457785637,3
+case118_ieee,1,surrogate,sarima,Rebalancing Cost (over-supply),-0.6345933430615759,3
+case118_ieee,1,surrogate,sarima,Rebalancing Cost (under-supply),0.35760717247413426,3
+case118_ieee,1,surrogate,sarima,Signed Optimality Gap,0.5177485624958974,3
+case118_ieee,1,surrogate,sarima,Signed Rebalanced Gap,0.2407623919084557,3
+case118_ieee,1,surrogate,sarima,Thermal Overload (% elements),0.28900236220902004,3
+case118_ieee,1,surrogate,sarima,Thermal Overload (%),53.754439370877726,3
+case118_ieee,1,surrogate,sarima,Thermal Overload Mean (% of rating),0.9723506955125166,3
+case118_ieee,1,surrogate,sarima,Thermal Overload Worst (% of rating),0.9723506955125166,3
+case118_ieee,1,surrogate,sarima,Vm Violation (% elements),0.007739339060444238,3
+case118_ieee,1,surrogate,sarima,Vm Violation (%),0.5834601725012684,3
+case118_ieee,1,surrogate,sarima,Vm Violation Mean (p.u.),0.0014945819988587804,3
+case118_ieee,1,surrogate,sarima,Vm Violation Worst (p.u.),0.0015700675420978374,3
+case118_ieee,1,surrogate,snaive,Diverged (%),0.0,3
+case118_ieee,1,surrogate,snaive,Diverged (n),0.0,3
+case118_ieee,1,surrogate,snaive,Insufficient Headroom (%),0.0,3
+case118_ieee,1,surrogate,snaive,Insufficient Headroom (n),0.0,3
+case118_ieee,1,surrogate,snaive,Lost Voltage Control (% elements),5.216847999699344,3
+case118_ieee,1,surrogate,snaive,Lost Voltage Control (%),82.42854726872993,3
+case118_ieee,1,surrogate,snaive,Mean dPg (MW),13.924491066004812,3
+case118_ieee,1,surrogate,snaive,Mean |dPg| (%),7.581675468802349,3
+case118_ieee,1,surrogate,snaive,Mean |dPg| (MW),172.19530708529905,3
+case118_ieee,1,surrogate,snaive,No Dispatch (n),0.0,3
+case118_ieee,1,surrogate,snaive,No-refund Gap,6.131651294640977,3
+case118_ieee,1,surrogate,snaive,Optimality Gap (recomputed),9.249282628936356,3
+case118_ieee,1,surrogate,snaive,Pred. Pg out of limits (%),0.0,3
+case118_ieee,1,surrogate,snaive,Qg Violation (% elements),0.0,3
+case118_ieee,1,surrogate,snaive,Qg Violation (%),0.0,3
+case118_ieee,1,surrogate,snaive,Qg Violation Mean (MVAr),,0
+case118_ieee,1,surrogate,snaive,Qg Violation Worst (MVAr),,0
+case118_ieee,1,surrogate,snaive,Rebalanced Gap,1.1751084829067566,3
+case118_ieee,1,surrogate,snaive,Rebalancing Cost (over-supply),-4.956889406208013,3
+case118_ieee,1,surrogate,snaive,Rebalancing Cost (under-supply),4.475786237172195,3
+case118_ieee,1,surrogate,snaive,Signed Optimality Gap,1.6558551456266646,3
+case118_ieee,1,surrogate,snaive,Signed Rebalanced Gap,1.174751976590846,3
+case118_ieee,1,surrogate,snaive,Thermal Overload (% elements),0.28054641768001615,3
+case118_ieee,1,surrogate,snaive,Thermal Overload (%),52.181633688483004,3
+case118_ieee,1,surrogate,snaive,Thermal Overload Mean (% of rating),2.8911012661740094,3
+case118_ieee,1,surrogate,snaive,Thermal Overload Worst (% of rating),2.8911012661740094,3
+case118_ieee,1,surrogate,snaive,Vm Violation (% elements),0.008814247263283715,3
+case118_ieee,1,surrogate,snaive,Vm Violation (%),0.60882800608828,3
+case118_ieee,1,surrogate,snaive,Vm Violation Mean (p.u.),0.0014957945709254336,3
+case118_ieee,1,surrogate,snaive,Vm Violation Worst (p.u.),0.0015840170673279248,3
+case118_ieee,1,surrogate,xgb,Diverged (%),0.0,3
+case118_ieee,1,surrogate,xgb,Diverged (n),0.0,3
+case118_ieee,1,surrogate,xgb,Insufficient Headroom (%),0.0,3
+case118_ieee,1,surrogate,xgb,Insufficient Headroom (n),0.0,3
+case118_ieee,1,surrogate,xgb,Lost Voltage Control (% elements),2.312544237117212,3
+case118_ieee,1,surrogate,xgb,Lost Voltage Control (%),51.42905462540167,3
+case118_ieee,1,surrogate,xgb,Mean dPg (MW),5.917941166933023,3
+case118_ieee,1,surrogate,xgb,Mean |dPg| (%),1.0249793151902158,3
+case118_ieee,1,surrogate,xgb,Mean |dPg| (MW),23.50651577179882,3
+case118_ieee,1,surrogate,xgb,No Dispatch (n),0.0,3
+case118_ieee,1,surrogate,xgb,No-refund Gap,1.0602006439384597,3
+case118_ieee,1,surrogate,xgb,Optimality Gap (recomputed),1.2917397818043541,3
+case118_ieee,1,surrogate,xgb,Pred. Pg out of limits (%),0.0,3
+case118_ieee,1,surrogate,xgb,Qg Violation (% elements),0.0,3
+case118_ieee,1,surrogate,xgb,Qg Violation (%),0.0,3
+case118_ieee,1,surrogate,xgb,Qg Violation Mean (MVAr),,0
+case118_ieee,1,surrogate,xgb,Qg Violation Worst (MVAr),,0
+case118_ieee,1,surrogate,xgb,Rebalanced Gap,0.2634231317469891,3
+case118_ieee,1,surrogate,xgb,Rebalancing Cost (over-supply),-0.7969249041695258,3
+case118_ieee,1,surrogate,xgb,Rebalancing Cost (under-supply),0.5049649210651783,3
+case118_ieee,1,surrogate,xgb,Signed Optimality Gap,0.5552281961126445,3
+case118_ieee,1,surrogate,xgb,Signed Rebalanced Gap,0.263268213008297,3
+case118_ieee,1,surrogate,xgb,Thermal Overload (% elements),0.289957065623585,3
+case118_ieee,1,surrogate,xgb,Thermal Overload (%),53.93201420598681,3
+case118_ieee,1,surrogate,xgb,Thermal Overload Mean (% of rating),1.0357414182167617,3
+case118_ieee,1,surrogate,xgb,Thermal Overload Worst (% of rating),1.0357414182167617,3
+case118_ieee,1,surrogate,xgb,Vm Violation (% elements),0.007739339060444238,3
+case118_ieee,1,surrogate,xgb,Vm Violation (%),0.6003720615592761,3
+case118_ieee,1,surrogate,xgb,Vm Violation Mean (p.u.),0.001492737209539298,3
+case118_ieee,1,surrogate,xgb,Vm Violation Worst (p.u.),0.001555716056827505,3
+case118_ieee,1,surrogate,xgb_tot,Diverged (%),0.0,3
+case118_ieee,1,surrogate,xgb_tot,Diverged (n),0.0,3
+case118_ieee,1,surrogate,xgb_tot,Insufficient Headroom (%),0.0,3
+case118_ieee,1,surrogate,xgb_tot,Insufficient Headroom (n),0.0,3
+case118_ieee,1,surrogate,xgb_tot,Lost Voltage Control (% elements),2.291717558925406,3
+case118_ieee,1,surrogate,xgb_tot,Lost Voltage Control (%),50.62573989514629,3
+case118_ieee,1,surrogate,xgb_tot,Mean dPg (MW),7.744858919858359,3
+case118_ieee,1,surrogate,xgb_tot,Mean |dPg| (%),0.8715499453548275,3
+case118_ieee,1,surrogate,xgb_tot,Mean |dPg| (MW),19.927223352205512,3
+case118_ieee,1,surrogate,xgb_tot,No Dispatch (n),0.0,3
+case118_ieee,1,surrogate,xgb_tot,No-refund Gap,0.9785464477630534,3
+case118_ieee,1,surrogate,xgb_tot,Optimality Gap (recomputed),1.1271469776226082,3
+case118_ieee,1,surrogate,xgb_tot,Pred. Pg out of limits (%),0.0,3
+case118_ieee,1,surrogate,xgb_tot,Qg Violation (% elements),0.0,3
+case118_ieee,1,surrogate,xgb_tot,Qg Violation (%),0.0,3
+case118_ieee,1,surrogate,xgb_tot,Qg Violation Mean (MVAr),,0
+case118_ieee,1,surrogate,xgb_tot,Qg Violation Worst (MVAr),,0
+case118_ieee,1,surrogate,xgb_tot,Rebalanced Gap,0.24033912720982345,3
+case118_ieee,1,surrogate,xgb_tot,Rebalancing Cost (over-supply),-0.73841030606695,3
+case118_ieee,1,surrogate,xgb_tot,Rebalancing Cost (under-supply),0.3639501963554479,3
+case118_ieee,1,surrogate,xgb_tot,Signed Optimality Gap,0.6145942215117791,3
+case118_ieee,1,surrogate,xgb_tot,Signed Rebalanced Gap,0.24013411180027697,3
+case118_ieee,1,surrogate,xgb_tot,Thermal Overload (% elements),0.28795673465973465,3
+case118_ieee,1,surrogate,xgb_tot,Thermal Overload (%),53.559952646710634,3
+case118_ieee,1,surrogate,xgb_tot,Thermal Overload Mean (% of rating),0.9302715077686502,3
+case118_ieee,1,surrogate,xgb_tot,Thermal Overload Worst (% of rating),0.9302715077686502,3
+case118_ieee,1,surrogate,xgb_tot,Vm Violation (% elements),0.007524357419876342,3
+case118_ieee,1,surrogate,xgb_tot,Vm Violation (%),0.5834601725012684,3
+case118_ieee,1,surrogate,xgb_tot,Vm Violation Mean (p.u.),0.001485790702973148,3
+case118_ieee,1,surrogate,xgb_tot,Vm Violation Worst (p.u.),0.0015494972594142398,3
+case118_ieee,6,ac,sarima,Diverged (%),0.0,1
+case118_ieee,6,ac,sarima,Diverged (n),0.0,1
+case118_ieee,6,ac,sarima,Insufficient Headroom (%),0.0,1
+case118_ieee,6,ac,sarima,Insufficient Headroom (n),0.0,1
+case118_ieee,6,ac,sarima,Lost Voltage Control (% elements),1.196703010689972,1
+case118_ieee,6,ac,sarima,Lost Voltage Control (%),25.366184065701464,1
+case118_ieee,6,ac,sarima,Mean dPg (MW),2.0320101596845106,1
+case118_ieee,6,ac,sarima,Mean |dPg| (%),2.7801605549939556,1
+case118_ieee,6,ac,sarima,Mean |dPg| (MW),62.50608276212437,1
+case118_ieee,6,ac,sarima,No Dispatch (n),0.0,1
+case118_ieee,6,ac,sarima,No-refund Gap,2.0798992764005932,1
+case118_ieee,6,ac,sarima,Optimality Gap (recomputed),3.3785601456452445,1
+case118_ieee,6,ac,sarima,Pred. Pg out of limits (%),0.0,1
+case118_ieee,6,ac,sarima,Qg Violation (% elements),0.0,1
+case118_ieee,6,ac,sarima,Qg Violation (%),0.0,1
+case118_ieee,6,ac,sarima,Qg Violation Mean (MVAr),,0
+case118_ieee,6,ac,sarima,Qg Violation Worst (MVAr),,0
+case118_ieee,6,ac,sarima,Rebalanced Gap,0.40799170636617665,1
+case118_ieee,6,ac,sarima,Rebalancing Cost (over-supply),-1.6726420226968342,1
+case118_ieee,6,ac,sarima,Rebalancing Cost (under-supply),1.7790248023086317,1
+case118_ieee,6,ac,sarima,Signed Optimality Gap,0.3002962795479413,1
+case118_ieee,6,ac,sarima,Signed Rebalanced Gap,0.40667905915973906,1
+case118_ieee,6,ac,sarima,Thermal Overload (% elements),0.25347703025155155,1
+case118_ieee,6,ac,sarima,Thermal Overload (%),47.14672762678859,1
+case118_ieee,6,ac,sarima,Thermal Overload Mean (% of rating),1.1642316780870434,1
+case118_ieee,6,ac,sarima,Thermal Overload Worst (% of rating),1.1642316780870434,1
+case118_ieee,6,ac,sarima,Vm Violation (% elements),0.06475577922907258,1
+case118_ieee,6,ac,sarima,Vm Violation (%),6.108712217424435,1
+case118_ieee,6,ac,sarima,Vm Violation Mean (p.u.),0.0016367578072113437,1
+case118_ieee,6,ac,sarima,Vm Violation Worst (p.u.),0.0016393198241649721,1
+case118_ieee,6,ac,snaive,Diverged (%),0.0,1
+case118_ieee,6,ac,snaive,Diverged (n),0.0,1
+case118_ieee,6,ac,snaive,Insufficient Headroom (%),0.0,1
+case118_ieee,6,ac,snaive,Insufficient Headroom (n),0.0,1
+case118_ieee,6,ac,snaive,Lost Voltage Control (% elements),4.183639231475994,1
+case118_ieee,6,ac,snaive,Lost Voltage Control (%),67.95783591567182,1
+case118_ieee,6,ac,snaive,Mean dPg (MW),8.568433998085126,1
+case118_ieee,6,ac,snaive,Mean |dPg| (%),7.604299899799191,1
+case118_ieee,6,ac,snaive,Mean |dPg| (MW),172.86219140434616,1
+case118_ieee,6,ac,snaive,No Dispatch (n),0.0,1
+case118_ieee,6,ac,snaive,No-refund Gap,5.843254704945199,1
+case118_ieee,6,ac,snaive,Optimality Gap (recomputed),9.245337039084989,1
+case118_ieee,6,ac,snaive,Pred. Pg out of limits (%),0.0,1
+case118_ieee,6,ac,snaive,Qg Violation (% elements),0.0,1
+case118_ieee,6,ac,snaive,Qg Violation (%),0.0,1
+case118_ieee,6,ac,snaive,Qg Violation Mean (MVAr),,0
+case118_ieee,6,ac,snaive,Qg Violation Worst (MVAr),,0
+case118_ieee,6,ac,snaive,Rebalanced Gap,1.1044519262902546,1
+case118_ieee,6,ac,snaive,Rebalancing Cost (over-supply),-4.7399431984649105,1
+case118_ieee,6,ac,snaive,Rebalancing Cost (under-supply),4.669741431746208,1
+case118_ieee,6,ac,snaive,Signed Optimality Gap,1.1729084626970236,1
+case118_ieee,6,ac,snaive,Signed Rebalanced Gap,1.1027066959783203,1
+case118_ieee,6,ac,snaive,Thermal Overload (% elements),0.2612381568849159,1
+case118_ieee,6,ac,snaive,Thermal Overload (%),48.59029718059436,1
+case118_ieee,6,ac,snaive,Thermal Overload Mean (% of rating),2.9154359616542287,1
+case118_ieee,6,ac,snaive,Thermal Overload Worst (% of rating),2.915435961654229,1
+case118_ieee,6,ac,snaive,Vm Violation (% elements),0.36830073660147317,1
+case118_ieee,6,ac,snaive,Vm Violation (%),25.247650495300988,1
+case118_ieee,6,ac,snaive,Vm Violation Mean (p.u.),0.0021550500944868107,1
+case118_ieee,6,ac,snaive,Vm Violation Worst (p.u.),0.0020878572683604275,1
+case118_ieee,6,ac,xgb,Diverged (%),0.0,1
+case118_ieee,6,ac,xgb,Diverged (n),0.0,1
+case118_ieee,6,ac,xgb,Insufficient Headroom (%),0.0,1
+case118_ieee,6,ac,xgb,Insufficient Headroom (n),0.0,1
+case118_ieee,6,ac,xgb,Lost Voltage Control (% elements),0.9998526169891846,1
+case118_ieee,6,ac,xgb,Lost Voltage Control (%),26.79282025230717,1
+case118_ieee,6,ac,xgb,Mean dPg (MW),1.3639238012457031,1
+case118_ieee,6,ac,xgb,Mean |dPg| (%),2.495547208774783,1
+case118_ieee,6,ac,xgb,Mean |dPg| (MW),56.94039123973634,1
+case118_ieee,6,ac,xgb,No Dispatch (n),0.0,1
+case118_ieee,6,ac,xgb,No-refund Gap,1.874328815126845,1
+case118_ieee,6,ac,xgb,Optimality Gap (recomputed),3.034931205114645,1
+case118_ieee,6,ac,xgb,Pred. Pg out of limits (%),0.0,1
+case118_ieee,6,ac,xgb,Qg Violation (% elements),0.0,1
+case118_ieee,6,ac,xgb,Qg Violation (%),0.0,1
+case118_ieee,6,ac,xgb,Qg Violation Mean (MVAr),,0
+case118_ieee,6,ac,xgb,Qg Violation Worst (MVAr),,0
+case118_ieee,6,ac,xgb,Rebalanced Gap,0.36716540735710634,1
+case118_ieee,6,ac,xgb,Rebalancing Cost (over-supply),-1.508339293711272,1
+case118_ieee,6,ac,xgb,Rebalancing Cost (under-supply),1.584732060513182,1
+case118_ieee,6,ac,xgb,Signed Optimality Gap,0.2888049546368817,1
+case118_ieee,6,ac,xgb,Signed Rebalanced Gap,0.36519772143879176,1
+case118_ieee,6,ac,xgb,Thermal Overload (% elements),0.24271159653430416,1
+case118_ieee,6,ac,xgb,Thermal Overload (%),45.14435695538058,1
+case118_ieee,6,ac,xgb,Thermal Overload Mean (% of rating),1.2064361899366227,1
+case118_ieee,6,ac,xgb,Thermal Overload Worst (% of rating),1.2064361899366227,1
+case118_ieee,6,ac,xgb,Vm Violation (% elements),0.041113641549316994,1
+case118_ieee,6,ac,xgb,Vm Violation (%),3.9539412412158157,1
+case118_ieee,6,ac,xgb,Vm Violation Mean (p.u.),0.0015128963182802248,1
+case118_ieee,6,ac,xgb,Vm Violation Worst (p.u.),0.0015368523811044627,1
+case118_ieee,6,ac,xgb_tot,Diverged (%),0.0,1
+case118_ieee,6,ac,xgb_tot,Diverged (n),0.0,1
+case118_ieee,6,ac,xgb_tot,Insufficient Headroom (%),0.0,1
+case118_ieee,6,ac,xgb_tot,Insufficient Headroom (n),0.0,1
+case118_ieee,6,ac,xgb_tot,Lost Voltage Control (% elements),0.9545401806852996,1
+case118_ieee,6,ac,xgb_tot,Lost Voltage Control (%),26.094318855304376,1
+case118_ieee,6,ac,xgb_tot,Mean dPg (MW),3.1931834601358173,1
+case118_ieee,6,ac,xgb_tot,Mean |dPg| (%),2.229777219283948,1
+case118_ieee,6,ac,xgb_tot,Mean |dPg| (MW),50.577299730980045,1
+case118_ieee,6,ac,xgb_tot,No Dispatch (n),0.0,1
+case118_ieee,6,ac,xgb_tot,No-refund Gap,1.7130775199805193,1
+case118_ieee,6,ac,xgb_tot,Optimality Gap (recomputed),2.7102775192598796,1
+case118_ieee,6,ac,xgb_tot,Pred. Pg out of limits (%),0.0,1
+case118_ieee,6,ac,xgb_tot,Qg Violation (% elements),0.0,1
+case118_ieee,6,ac,xgb_tot,Qg Violation (%),0.0,1
+case118_ieee,6,ac,xgb_tot,Qg Violation Mean (MVAr),,0
+case118_ieee,6,ac,xgb_tot,Qg Violation Worst (MVAr),,0
+case118_ieee,6,ac,xgb_tot,Rebalanced Gap,0.32721904871409546,1
+case118_ieee,6,ac,xgb_tot,Rebalancing Cost (over-supply),-1.3871156687559307,1
+case118_ieee,6,ac,xgb_tot,Rebalancing Cost (under-supply),1.3673446560094078,1
+case118_ieee,6,ac,xgb_tot,Signed Optimality Gap,0.3447970272188663,1
+case118_ieee,6,ac,xgb_tot,Signed Rebalanced Gap,0.32502601447234325,1
+case118_ieee,6,ac,xgb_tot,Thermal Overload (% elements),0.22759902150628675,1
+case118_ieee,6,ac,xgb_tot,Thermal Overload (%),42.33341800016933,1
+case118_ieee,6,ac,xgb_tot,Thermal Overload Mean (% of rating),1.052602012378284,1
+case118_ieee,6,ac,xgb_tot,Thermal Overload Worst (% of rating),1.052602012378284,1
+case118_ieee,6,ac,xgb_tot,Vm Violation (% elements),0.038889343315409795,1
+case118_ieee,6,ac,xgb_tot,Vm Violation (%),3.8015409364152064,1
+case118_ieee,6,ac,xgb_tot,Vm Violation Mean (p.u.),0.0015471068475730653,1
+case118_ieee,6,ac,xgb_tot,Vm Violation Worst (p.u.),0.001563028785761746,1
+case118_ieee,6,dc,sarima,Diverged (%),0.0,1
+case118_ieee,6,dc,sarima,Diverged (n),0.0,1
+case118_ieee,6,dc,sarima,Insufficient Headroom (%),0.0,1
+case118_ieee,6,dc,sarima,Insufficient Headroom (n),0.0,1
+case118_ieee,6,dc,sarima,Lost Voltage Control (% elements),25.110223677237475,1
+case118_ieee,6,dc,sarima,Lost Voltage Control (%),100.0,1
+case118_ieee,6,dc,sarima,Mean dPg (MW),-52.062872968776695,1
+case118_ieee,6,dc,sarima,Mean |dPg| (%),3.5888306994764085,1
+case118_ieee,6,dc,sarima,Mean |dPg| (MW),84.57935677282477,1
+case118_ieee,6,dc,sarima,No Dispatch (n),0.0,1
+case118_ieee,6,dc,sarima,No-refund Gap,2.905087258932892,1
+case118_ieee,6,dc,sarima,Optimality Gap (recomputed),4.989400358629522,1
+case118_ieee,6,dc,sarima,Pred. Pg out of limits (%),0.0,1
+case118_ieee,6,dc,sarima,Qg Violation (% elements),0.0,1
+case118_ieee,6,dc,sarima,Qg Violation (%),0.0,1
+case118_ieee,6,dc,sarima,Qg Violation Mean (MVAr),,0
+case118_ieee,6,dc,sarima,Qg Violation Worst (MVAr),,0
+case118_ieee,6,dc,sarima,Rebalanced Gap,2.410737992678836,1
+case118_ieee,6,dc,sarima,Rebalancing Cost (over-supply),-0.49434926625405556,1
+case118_ieee,6,dc,sarima,Rebalancing Cost (under-supply),6.393185823749662,1
+case118_ieee,6,dc,sarima,Signed Optimality Gap,-3.488098564816771,1
+case118_ieee,6,dc,sarima,Signed Rebalanced Gap,2.410737992678836,1
+case118_ieee,6,dc,sarima,Thermal Overload (% elements),0.889798374578828,1
+case118_ieee,6,dc,sarima,Thermal Overload (%),93.53568707137414,1
+case118_ieee,6,dc,sarima,Thermal Overload Mean (% of rating),3.4971710606053734,1
+case118_ieee,6,dc,sarima,Thermal Overload Worst (% of rating),3.691041862272266,1
+case118_ieee,6,dc,sarima,Vm Violation (% elements),0.0,1
+case118_ieee,6,dc,sarima,Vm Violation (%),0.0,1
+case118_ieee,6,dc,sarima,Vm Violation Mean (p.u.),,0
+case118_ieee,6,dc,sarima,Vm Violation Worst (p.u.),,0
+case118_ieee,6,dc,snaive,Diverged (%),0.0,1
+case118_ieee,6,dc,snaive,Diverged (n),0.0,1
+case118_ieee,6,dc,snaive,Insufficient Headroom (%),0.0,1
+case118_ieee,6,dc,snaive,Insufficient Headroom (n),0.0,1
+case118_ieee,6,dc,snaive,Lost Voltage Control (% elements),25.07032051101139,1
+case118_ieee,6,dc,snaive,Lost Voltage Control (%),100.0,1
+case118_ieee,6,dc,snaive,Mean dPg (MW),-45.763444518860155,1
+case118_ieee,6,dc,snaive,Mean |dPg| (%),7.683299097768791,1
+case118_ieee,6,dc,snaive,Mean |dPg| (MW),177.18922921310067,1
+case118_ieee,6,dc,snaive,No Dispatch (n),0.0,1
+case118_ieee,6,dc,snaive,No-refund Gap,5.5155047980155105,1
+case118_ieee,6,dc,snaive,Optimality Gap (recomputed),9.469229172351564,1
+case118_ieee,6,dc,snaive,Pred. Pg out of limits (%),0.0,1
+case118_ieee,6,dc,snaive,Qg Violation (% elements),0.0,1
+case118_ieee,6,dc,snaive,Qg Violation (%),0.0,1
+case118_ieee,6,dc,snaive,Qg Violation Mean (MVAr),,0
+case118_ieee,6,dc,snaive,Qg Violation Worst (MVAr),,0
+case118_ieee,6,dc,snaive,Rebalanced Gap,2.907899836640657,1
+case118_ieee,6,dc,snaive,Rebalancing Cost (over-supply),-2.6076049613748533,1
+case118_ieee,6,dc,snaive,Rebalancing Cost (under-supply),8.158879702825296,1
+case118_ieee,6,dc,snaive,Signed Optimality Gap,-2.6433749048097854,1
+case118_ieee,6,dc,snaive,Signed Rebalanced Gap,2.907899836640657,1
+case118_ieee,6,dc,snaive,Thermal Overload (% elements),0.7245159651609626,1
+case118_ieee,6,dc,snaive,Thermal Overload (%),76.60655321310642,1
+case118_ieee,6,dc,snaive,Thermal Overload Mean (% of rating),4.235513494428263,1
+case118_ieee,6,dc,snaive,Thermal Overload Worst (% of rating),4.719950333033007,1
+case118_ieee,6,dc,snaive,Vm Violation (% elements),0.0,1
+case118_ieee,6,dc,snaive,Vm Violation (%),0.0,1
+case118_ieee,6,dc,snaive,Vm Violation Mean (p.u.),,0
+case118_ieee,6,dc,snaive,Vm Violation Worst (p.u.),,0
+case118_ieee,6,dc,xgb,Diverged (%),0.0,1
+case118_ieee,6,dc,xgb,Diverged (n),0.0,1
+case118_ieee,6,dc,xgb,Insufficient Headroom (%),0.0,1
+case118_ieee,6,dc,xgb,Insufficient Headroom (n),0.0,1
+case118_ieee,6,dc,xgb,Lost Voltage Control (% elements),25.074867433685483,1
+case118_ieee,6,dc,xgb,Lost Voltage Control (%),100.0,1
+case118_ieee,6,dc,xgb,Mean dPg (MW),-52.6576645745641,1
+case118_ieee,6,dc,xgb,Mean |dPg| (%),3.1531684015983275,1
+case118_ieee,6,dc,xgb,Mean |dPg| (MW),75.76583003509337,1
+case118_ieee,6,dc,xgb,No Dispatch (n),0.0,1
+case118_ieee,6,dc,xgb,No-refund Gap,2.6614220965237125,1
+case118_ieee,6,dc,xgb,Optimality Gap (recomputed),4.490348848510084,1
+case118_ieee,6,dc,xgb,Pred. Pg out of limits (%),0.0,1
+case118_ieee,6,dc,xgb,Qg Violation (% elements),0.0,1
+case118_ieee,6,dc,xgb,Qg Violation (%),0.0,1
+case118_ieee,6,dc,xgb,Qg Violation Mean (MVAr),,0
+case118_ieee,6,dc,xgb,Qg Violation Worst (MVAr),,0
+case118_ieee,6,dc,xgb,Rebalanced Gap,2.363036630510951,1
+case118_ieee,6,dc,xgb,Rebalancing Cost (over-supply),-0.29838546601276117,1
+case118_ieee,6,dc,xgb,Rebalancing Cost (under-supply),6.1660603600291175,1
+case118_ieee,6,dc,xgb,Signed Optimality Gap,-3.5046382635054063,1
+case118_ieee,6,dc,xgb,Signed Rebalanced Gap,2.363036630510951,1
+case118_ieee,6,dc,xgb,Thermal Overload (% elements),0.9167688586273229,1
+case118_ieee,6,dc,xgb,Thermal Overload (%),95.46609093218187,1
+case118_ieee,6,dc,xgb,Thermal Overload Mean (% of rating),3.43187489949442,1
+case118_ieee,6,dc,xgb,Thermal Overload Worst (% of rating),3.7316239247873932,1
+case118_ieee,6,dc,xgb,Vm Violation (% elements),0.0,1
+case118_ieee,6,dc,xgb,Vm Violation (%),0.0,1
+case118_ieee,6,dc,xgb,Vm Violation Mean (p.u.),,0
+case118_ieee,6,dc,xgb,Vm Violation Worst (p.u.),,0
+case118_ieee,6,dc,xgb_tot,Diverged (%),0.0,1
+case118_ieee,6,dc,xgb_tot,Diverged (n),0.0,1
+case118_ieee,6,dc,xgb_tot,Insufficient Headroom (%),0.0,1
+case118_ieee,6,dc,xgb_tot,Insufficient Headroom (n),0.0,1
+case118_ieee,6,dc,xgb_tot,Lost Voltage Control (% elements),25.088743387363316,1
+case118_ieee,6,dc,xgb_tot,Lost Voltage Control (%),100.0,1
+case118_ieee,6,dc,xgb_tot,Mean dPg (MW),-50.83464309501459,1
+case118_ieee,6,dc,xgb_tot,Mean |dPg| (%),2.979064033631966,1
+case118_ieee,6,dc,xgb_tot,Mean |dPg| (MW),71.2943861309888,1
+case118_ieee,6,dc,xgb_tot,No Dispatch (n),0.0,1
+case118_ieee,6,dc,xgb_tot,No-refund Gap,2.6065649525259658,1
+case118_ieee,6,dc,xgb_tot,Optimality Gap (recomputed),4.3282142291082115,1
+case118_ieee,6,dc,xgb_tot,Pred. Pg out of limits (%),0.0,1
+case118_ieee,6,dc,xgb_tot,Qg Violation (% elements),0.0,1
+case118_ieee,6,dc,xgb_tot,Qg Violation (%),0.0,1
+case118_ieee,6,dc,xgb_tot,Qg Violation Mean (MVAr),,0
+case118_ieee,6,dc,xgb_tot,Qg Violation Worst (MVAr),,0
+case118_ieee,6,dc,xgb_tot,Rebalanced Gap,2.3374734459827375,1
+case118_ieee,6,dc,xgb_tot,Rebalancing Cost (over-supply),-0.26909150654322805,1
+case118_ieee,6,dc,xgb_tot,Rebalancing Cost (under-supply),6.053040259881484,1
+case118_ieee,6,dc,xgb_tot,Signed Optimality Gap,-3.4464753073555174,1
+case118_ieee,6,dc,xgb_tot,Signed Rebalanced Gap,2.3374734459827375,1
+case118_ieee,6,dc,xgb_tot,Thermal Overload (% elements),0.9175882151047455,1
+case118_ieee,6,dc,xgb_tot,Thermal Overload (%),95.80899161798324,1
+case118_ieee,6,dc,xgb_tot,Thermal Overload Mean (% of rating),3.3887935600876116,1
+case118_ieee,6,dc,xgb_tot,Thermal Overload Worst (% of rating),3.682797723270653,1
+case118_ieee,6,dc,xgb_tot,Vm Violation (% elements),0.0,1
+case118_ieee,6,dc,xgb_tot,Vm Violation (%),0.0,1
+case118_ieee,6,dc,xgb_tot,Vm Violation Mean (p.u.),,0
+case118_ieee,6,dc,xgb_tot,Vm Violation Worst (p.u.),,0
+case118_ieee,6,e2e,none,Diverged (%),0.0,3
+case118_ieee,6,e2e,none,Diverged (n),0.0,3
+case118_ieee,6,e2e,none,Insufficient Headroom (%),0.0,3
+case118_ieee,6,e2e,none,Insufficient Headroom (n),0.0,3
+case118_ieee,6,e2e,none,Lost Voltage Control (% elements),3.304027775162611,3
+case118_ieee,6,e2e,none,Lost Voltage Control (%),67.36711291871434,3
+case118_ieee,6,e2e,none,Mean dPg (MW),-1.792135653653648,3
+case118_ieee,6,e2e,none,Mean |dPg| (%),1.455504407050214,3
+case118_ieee,6,e2e,none,Mean |dPg| (MW),33.89908212566175,3
+case118_ieee,6,e2e,none,No Dispatch (n),0.0,3
+case118_ieee,6,e2e,none,No-refund Gap,1.022133665626268,3
+case118_ieee,6,e2e,none,Optimality Gap (recomputed),1.7668788954679815,3
+case118_ieee,6,e2e,none,Pred. Pg out of limits (%),0.0,3
+case118_ieee,6,e2e,none,Qg Violation (% elements),0.0,3
+case118_ieee,6,e2e,none,Qg Violation (%),0.0,3
+case118_ieee,6,e2e,none,Qg Violation Mean (MVAr),,0
+case118_ieee,6,e2e,none,Qg Violation Worst (MVAr),,0
+case118_ieee,6,e2e,none,Rebalanced Gap,0.2224533914534921,3
+case118_ieee,6,e2e,none,Rebalancing Cost (over-supply),-0.8023905921670362,3
+case118_ieee,6,e2e,none,Rebalancing Cost (under-supply),1.0200590027811602,3
+case118_ieee,6,e2e,none,Signed Optimality Gap,0.0002770360583128362,3
+case118_ieee,6,e2e,none,Signed Rebalanced Gap,0.21794544667243695,3
+case118_ieee,6,e2e,none,Thermal Overload (% elements),0.27932511286890804,3
+case118_ieee,6,e2e,none,Thermal Overload (%),51.954470993616894,3
+case118_ieee,6,e2e,none,Thermal Overload Mean (% of rating),1.012235973909936,3
+case118_ieee,6,e2e,none,Thermal Overload Worst (% of rating),1.012235973909936,3
+case118_ieee,6,e2e,none,Vm Violation (% elements),0.04055857620608209,3
+case118_ieee,6,e2e,none,Vm Violation (%),2.632322205275942,3
+case118_ieee,6,e2e,none,Vm Violation Mean (p.u.),0.0018634073247430025,3
+case118_ieee,6,e2e,none,Vm Violation Worst (p.u.),0.0019154521323445145,3
+case118_ieee,6,surrogate,sarima,Diverged (%),0.0,3
+case118_ieee,6,surrogate,sarima,Diverged (n),0.0,3
+case118_ieee,6,surrogate,sarima,Insufficient Headroom (%),0.0,3
+case118_ieee,6,surrogate,sarima,Insufficient Headroom (n),0.0,3
+case118_ieee,6,surrogate,sarima,Lost Voltage Control (% elements),3.1980806759967435,3
+case118_ieee,6,surrogate,sarima,Lost Voltage Control (%),64.0575170039229,3
+case118_ieee,6,surrogate,sarima,Mean dPg (MW),7.271677630352385,3
+case118_ieee,6,surrogate,sarima,Mean |dPg| (%),2.8063302227457174,3
+case118_ieee,6,surrogate,sarima,Mean |dPg| (MW),63.06021447426169,3
+case118_ieee,6,surrogate,sarima,No Dispatch (n),0.0,3
+case118_ieee,6,surrogate,sarima,No-refund Gap,2.399030374960368,3
+case118_ieee,6,surrogate,sarima,Optimality Gap (recomputed),3.4337145606884696,3
+case118_ieee,6,surrogate,sarima,Pred. Pg out of limits (%),0.0,3
+case118_ieee,6,surrogate,sarima,Qg Violation (% elements),0.0,3
+case118_ieee,6,surrogate,sarima,Qg Violation (%),0.0,3
+case118_ieee,6,surrogate,sarima,Qg Violation Mean (MVAr),,0
+case118_ieee,6,surrogate,sarima,Qg Violation Worst (MVAr),,0
+case118_ieee,6,surrogate,sarima,Rebalanced Gap,0.5105020284232603,3
+case118_ieee,6,surrogate,sarima,Rebalancing Cost (over-supply),-1.8887354469106192,3
+case118_ieee,6,surrogate,sarima,Rebalancing Cost (under-supply),1.6231333766971374,3
+case118_ieee,6,surrogate,sarima,Signed Optimality Gap,0.7758847755581697,3
+case118_ieee,6,surrogate,sarima,Signed Rebalanced Gap,0.5102827053446876,3
+case118_ieee,6,surrogate,sarima,Thermal Overload (% elements),0.2990044211868591,3
+case118_ieee,6,surrogate,sarima,Thermal Overload (%),55.6148223407558,3
+case118_ieee,6,surrogate,sarima,Thermal Overload Mean (% of rating),1.4784462053954204,3
+case118_ieee,6,surrogate,sarima,Thermal Overload Worst (% of rating),1.4784462053954204,3
+case118_ieee,6,surrogate,sarima,Vm Violation (% elements),0.00804813285709434,3
+case118_ieee,6,surrogate,sarima,Vm Violation (%),0.6053678774024215,3
+case118_ieee,6,surrogate,sarima,Vm Violation Mean (p.u.),0.0015108197775818,3
+case118_ieee,6,surrogate,sarima,Vm Violation Worst (p.u.),0.0015797684272706837,3
+case118_ieee,6,surrogate,snaive,Diverged (%),0.0,3
+case118_ieee,6,surrogate,snaive,Diverged (n),0.0,3
+case118_ieee,6,surrogate,snaive,Insufficient Headroom (%),0.0,3
+case118_ieee,6,surrogate,snaive,Insufficient Headroom (n),0.0,3
+case118_ieee,6,surrogate,snaive,Lost Voltage Control (% elements),5.220834104219649,3
+case118_ieee,6,surrogate,snaive,Lost Voltage Control (%),82.43868709959644,3
+case118_ieee,6,surrogate,snaive,Mean dPg (MW),13.949003579620566,3
+case118_ieee,6,surrogate,snaive,Mean |dPg| (%),7.589986145481291,3
+case118_ieee,6,surrogate,snaive,Mean |dPg| (MW),172.37582500955477,3
+case118_ieee,6,surrogate,snaive,No Dispatch (n),0.0,3
+case118_ieee,6,surrogate,snaive,No-refund Gap,6.138597664008933,3
+case118_ieee,6,surrogate,snaive,Optimality Gap (recomputed),9.25950950517084,3
+case118_ieee,6,surrogate,snaive,Pred. Pg out of limits (%),0.0,3
+case118_ieee,6,surrogate,snaive,Qg Violation (% elements),0.0,3
+case118_ieee,6,surrogate,snaive,Qg Violation (%),0.0,3
+case118_ieee,6,surrogate,snaive,Qg Violation Mean (MVAr),,0
+case118_ieee,6,surrogate,snaive,Qg Violation Worst (MVAr),,0
+case118_ieee,6,surrogate,snaive,Rebalanced Gap,1.1764067361342745,3
+case118_ieee,6,surrogate,snaive,Rebalancing Cost (over-supply),-4.962488069577994,3
+case118_ieee,6,surrogate,snaive,Rebalancing Cost (under-supply),4.48048127511016,3
+case118_ieee,6,surrogate,snaive,Signed Optimality Gap,1.6581079342479585,3
+case118_ieee,6,surrogate,snaive,Signed Rebalanced Gap,1.1761011397801246,3
+case118_ieee,6,surrogate,snaive,Thermal Overload (% elements),0.2801971553763896,3
+case118_ieee,6,surrogate,snaive,Thermal Overload (%),52.116670900008465,3
+case118_ieee,6,surrogate,snaive,Thermal Overload Mean (% of rating),2.8911702763270024,3
+case118_ieee,6,surrogate,snaive,Thermal Overload Worst (% of rating),2.8911702763270024,3
+case118_ieee,6,surrogate,snaive,Vm Violation (% elements),0.008825441379696318,3
+case118_ieee,6,surrogate,snaive,Vm Violation (%),0.6096012192024384,3
+case118_ieee,6,surrogate,snaive,Vm Violation Mean (p.u.),0.0014958022635645253,3
+case118_ieee,6,surrogate,snaive,Vm Violation Worst (p.u.),0.0015840232029557565,3
+case118_ieee,6,surrogate,xgb,Diverged (%),0.0,3
+case118_ieee,6,surrogate,xgb,Diverged (n),0.0,3
+case118_ieee,6,surrogate,xgb,Insufficient Headroom (%),0.0,3
+case118_ieee,6,surrogate,xgb,Insufficient Headroom (n),0.0,3
+case118_ieee,6,surrogate,xgb,Lost Voltage Control (% elements),3.1301642850199283,3
+case118_ieee,6,surrogate,xgb,Lost Voltage Control (%),64.58668472892502,3
+case118_ieee,6,surrogate,xgb,Mean dPg (MW),6.99122759330056,3
+case118_ieee,6,surrogate,xgb,Mean |dPg| (%),2.5297432607775927,3
+case118_ieee,6,surrogate,xgb,Mean |dPg| (MW),57.503913813069744,3
+case118_ieee,6,surrogate,xgb,No Dispatch (n),0.0,3
+case118_ieee,6,surrogate,xgb,No-refund Gap,2.207752106338333,3
+case118_ieee,6,surrogate,xgb,Optimality Gap (recomputed),3.1070830287078253,3
+case118_ieee,6,surrogate,xgb,Pred. Pg out of limits (%),0.0,3
+case118_ieee,6,surrogate,xgb,Qg Violation (% elements),0.0,3
+case118_ieee,6,surrogate,xgb,Qg Violation (%),0.0,3
+case118_ieee,6,surrogate,xgb,Qg Violation Mean (MVAr),,0
+case118_ieee,6,surrogate,xgb,Qg Violation Worst (MVAr),,0
+case118_ieee,6,surrogate,xgb,Rebalanced Gap,0.46251728527348107,3
+case118_ieee,6,surrogate,xgb,Rebalancing Cost (over-supply),-1.7455442821574845,3
+case118_ieee,6,surrogate,xgb,Rebalancing Cost (under-supply),1.42514520902008,3
+case118_ieee,6,surrogate,xgb,Signed Optimality Gap,0.7825927513354559,3
+case118_ieee,6,surrogate,xgb,Signed Rebalanced Gap,0.46219367819805157,3
+case118_ieee,6,surrogate,xgb,Thermal Overload (% elements),0.2910384554341391,3
+case118_ieee,6,surrogate,xgb,Thermal Overload (%),54.13315271074987,3
+case118_ieee,6,surrogate,xgb,Thermal Overload Mean (% of rating),1.4600960474761637,3
+case118_ieee,6,surrogate,xgb,Thermal Overload Worst (% of rating),1.4600960474761637,3
+case118_ieee,6,surrogate,xgb,Vm Violation (% elements),0.00819163596895932,3
+case118_ieee,6,surrogate,xgb,Vm Violation (%),0.6011345356024046,3
+case118_ieee,6,surrogate,xgb,Vm Violation Mean (p.u.),0.0014884142065569878,3
+case118_ieee,6,surrogate,xgb,Vm Violation Worst (p.u.),0.0015713356523050653,3
+case118_ieee,6,surrogate,xgb_tot,Diverged (%),0.0,3
+case118_ieee,6,surrogate,xgb_tot,Diverged (n),0.0,3
+case118_ieee,6,surrogate,xgb_tot,Insufficient Headroom (%),0.0,3
+case118_ieee,6,surrogate,xgb_tot,Insufficient Headroom (n),0.0,3
+case118_ieee,6,surrogate,xgb_tot,Lost Voltage Control (% elements),3.07855409949503,3
+case118_ieee,6,surrogate,xgb_tot,Lost Voltage Control (%),63.2179042135862,3
+case118_ieee,6,surrogate,xgb_tot,Mean dPg (MW),8.596412789020041,3
+case118_ieee,6,surrogate,xgb_tot,Mean |dPg| (%),2.2826669210489325,3
+case118_ieee,6,surrogate,xgb_tot,Mean |dPg| (MW),51.668711569899976,3
+case118_ieee,6,surrogate,xgb_tot,No Dispatch (n),0.0,3
+case118_ieee,6,surrogate,xgb_tot,No-refund Gap,2.056235661443564,3
+case118_ieee,6,surrogate,xgb_tot,Optimality Gap (recomputed),2.8125582818187507,3
+case118_ieee,6,surrogate,xgb_tot,Pred. Pg out of limits (%),0.0,3
+case118_ieee,6,surrogate,xgb_tot,Qg Violation (% elements),0.0,3
+case118_ieee,6,surrogate,xgb_tot,Qg Violation (%),0.0,3
+case118_ieee,6,surrogate,xgb_tot,Qg Violation Mean (MVAr),,0
+case118_ieee,6,surrogate,xgb_tot,Qg Violation Worst (MVAr),,0
+case118_ieee,6,surrogate,xgb_tot,Rebalanced Gap,0.4265267024231489,3
+case118_ieee,6,surrogate,xgb_tot,Rebalancing Cost (over-supply),-1.6300317140410991,3
+case118_ieee,6,surrogate,xgb_tot,Rebalancing Cost (under-supply),1.2255117170775394,3
+case118_ieee,6,surrogate,xgb_tot,Signed Optimality Gap,0.8307097650442382,3
+case118_ieee,6,surrogate,xgb_tot,Signed Rebalanced Gap,0.4261897680806784,3
+case118_ieee,6,surrogate,xgb_tot,Thermal Overload (% elements),0.28521950711762833,3
+case118_ieee,6,surrogate,xgb_tot,Thermal Overload (%),53.05082832387887,3
+case118_ieee,6,surrogate,xgb_tot,Thermal Overload Mean (% of rating),1.3162171551333697,3
+case118_ieee,6,surrogate,xgb_tot,Thermal Overload Worst (% of rating),1.3162171551333697,3
+case118_ieee,6,surrogate,xgb_tot,Vm Violation (% elements),0.008036174264438924,3
+case118_ieee,6,surrogate,xgb_tot,Vm Violation (%),0.6011345356024046,3
+case118_ieee,6,surrogate,xgb_tot,Vm Violation Mean (p.u.),0.0014897445301595641,3
+case118_ieee,6,surrogate,xgb_tot,Vm Violation Worst (p.u.),0.0015635174694221007,3
+case118_ieee,24,ac,sarima,Diverged (%),0.0,1
+case118_ieee,24,ac,sarima,Diverged (n),0.0,1
+case118_ieee,24,ac,sarima,Insufficient Headroom (%),0.0,1
+case118_ieee,24,ac,sarima,Insufficient Headroom (n),0.0,1
+case118_ieee,24,ac,sarima,Lost Voltage Control (% elements),3.4503282520421243,1
+case118_ieee,24,ac,sarima,Lost Voltage Control (%),56.74385472484478,1
+case118_ieee,24,ac,sarima,Mean dPg (MW),7.538609563520115,1
+case118_ieee,24,ac,sarima,Mean |dPg| (%),5.5971405627536575,1
+case118_ieee,24,ac,sarima,Mean |dPg| (MW),127.87388542477547,1
+case118_ieee,24,ac,sarima,No Dispatch (n),0.0,1
+case118_ieee,24,ac,sarima,No-refund Gap,4.401817275935008,1
+case118_ieee,24,ac,sarima,Optimality Gap (recomputed),6.80055074989393,1
+case118_ieee,24,ac,sarima,Pred. Pg out of limits (%),0.0,1
+case118_ieee,24,ac,sarima,Qg Violation (% elements),0.0,1
+case118_ieee,24,ac,sarima,Qg Violation (%),0.0,1
+case118_ieee,24,ac,sarima,Qg Violation Mean (MVAr),,0
+case118_ieee,24,ac,sarima,Qg Violation Worst (MVAr),,0
+case118_ieee,24,ac,sarima,Rebalanced Gap,0.7901291809793427,1
+case118_ieee,24,ac,sarima,Rebalancing Cost (over-supply),-3.612506786648915,1
+case118_ieee,24,ac,sarima,Rebalancing Cost (under-supply),3.271985436659905,1
+case118_ieee,24,ac,sarima,Signed Optimality Gap,1.1292162148692209,1
+case118_ieee,24,ac,sarima,Signed Rebalanced Gap,0.788694864880211,1
+case118_ieee,24,ac,sarima,Thermal Overload (% elements),0.2699547101200749,1
+case118_ieee,24,ac,sarima,Thermal Overload (%),50.211576082333934,1
+case118_ieee,24,ac,sarima,Thermal Overload Mean (% of rating),2.192067103786552,1
+case118_ieee,24,ac,sarima,Thermal Overload Worst (% of rating),2.192067103786552,1
+case118_ieee,24,ac,sarima,Vm Violation (% elements),0.281296537367569,1
+case118_ieee,24,ac,sarima,Vm Violation (%),20.837586118907886,1
+case118_ieee,24,ac,sarima,Vm Violation Mean (p.u.),0.0019373590870074258,1
+case118_ieee,24,ac,sarima,Vm Violation Worst (p.u.),0.0019344760843062229,1
+case118_ieee,24,ac,snaive,Diverged (%),0.0,1
+case118_ieee,24,ac,snaive,Diverged (n),0.0,1
+case118_ieee,24,ac,snaive,Insufficient Headroom (%),0.0,1
+case118_ieee,24,ac,snaive,Insufficient Headroom (n),0.0,1
+case118_ieee,24,ac,snaive,Lost Voltage Control (% elements),4.195569857515932,1
+case118_ieee,24,ac,snaive,Lost Voltage Control (%),68.04563238921494,1
+case118_ieee,24,ac,snaive,Mean dPg (MW),8.652577260964604,1
+case118_ieee,24,ac,snaive,Mean |dPg| (%),7.623872245880227,1
+case118_ieee,24,ac,snaive,Mean |dPg| (MW),173.31340925810923,1
+case118_ieee,24,ac,snaive,No Dispatch (n),0.0,1
+case118_ieee,24,ac,snaive,No-refund Gap,5.861566138341435,1
+case118_ieee,24,ac,snaive,Optimality Gap (recomputed),9.269475744355915,1
+case118_ieee,24,ac,snaive,Pred. Pg out of limits (%),0.0,1
+case118_ieee,24,ac,snaive,Qg Violation (% elements),0.0,1
+case118_ieee,24,ac,snaive,Qg Violation (%),0.0,1
+case118_ieee,24,ac,snaive,Qg Violation Mean (MVAr),,0
+case118_ieee,24,ac,snaive,Qg Violation Worst (MVAr),,0
+case118_ieee,24,ac,snaive,Rebalanced Gap,1.1072424365757696,1
+case118_ieee,24,ac,snaive,Rebalancing Cost (over-supply),-4.755283561588129,1
+case118_ieee,24,ac,snaive,Rebalancing Cost (under-supply),4.677874315483927,1
+case118_ieee,24,ac,snaive,Signed Optimality Gap,1.1831568168220936,1
+case118_ieee,24,ac,snaive,Signed Rebalanced Gap,1.105747570717891,1
+case118_ieee,24,ac,snaive,Thermal Overload (% elements),0.26038022646769116,1
+case118_ieee,24,ac,snaive,Thermal Overload (%),48.43072212299056,1
+case118_ieee,24,ac,snaive,Thermal Overload Mean (% of rating),2.9233138060441344,1
+case118_ieee,24,ac,snaive,Thermal Overload Worst (% of rating),2.9233138060441344,1
+case118_ieee,24,ac,snaive,Vm Violation (% elements),0.3694247062334303,1
+case118_ieee,24,ac,snaive,Vm Violation (%),25.296631793824954,1
+case118_ieee,24,ac,snaive,Vm Violation Mean (p.u.),0.002156120912046248,1
+case118_ieee,24,ac,snaive,Vm Violation Worst (p.u.),0.002089524626100457,1
+case118_ieee,24,ac,xgb,Diverged (%),0.0,1
+case118_ieee,24,ac,xgb,Diverged (n),0.0,1
+case118_ieee,24,ac,xgb,Insufficient Headroom (%),0.0,1
+case118_ieee,24,ac,xgb,Insufficient Headroom (n),0.0,1
+case118_ieee,24,ac,xgb,Lost Voltage Control (% elements),2.4125501277410777,1
+case118_ieee,24,ac,xgb,Lost Voltage Control (%),53.02054095432508,1
+case118_ieee,24,ac,xgb,Mean dPg (MW),2.2496914588952497,1
+case118_ieee,24,ac,xgb,Mean |dPg| (%),4.101764113706232,1
+case118_ieee,24,ac,xgb,Mean |dPg| (MW),93.99237770652567,1
+case118_ieee,24,ac,xgb,No Dispatch (n),0.0,1
+case118_ieee,24,ac,xgb,No-refund Gap,3.1405169414909953,1
+case118_ieee,24,ac,xgb,Optimality Gap (recomputed),4.986543169138874,1
+case118_ieee,24,ac,xgb,Pred. Pg out of limits (%),0.0,1
+case118_ieee,24,ac,xgb,Qg Violation (% elements),0.0,1
+case118_ieee,24,ac,xgb,Qg Violation (%),0.0,1
+case118_ieee,24,ac,xgb,Qg Violation Mean (MVAr),,0
+case118_ieee,24,ac,xgb,Qg Violation Worst (MVAr),,0
+case118_ieee,24,ac,xgb,Rebalanced Gap,0.6025620380400661,1
+case118_ieee,24,ac,xgb,Rebalancing Cost (over-supply),-2.5388953174969617,1
+case118_ieee,24,ac,xgb,Rebalancing Cost (under-supply),2.528309801312806,1
+case118_ieee,24,ac,xgb,Signed Optimality Gap,0.6114926264252204,1
+case118_ieee,24,ac,xgb,Signed Rebalanced Gap,0.6009071102410647,1
+case118_ieee,24,ac,xgb,Thermal Overload (% elements),0.23923633689744203,1
+case118_ieee,24,ac,xgb,Thermal Overload (%),44.49795866292421,1
+case118_ieee,24,ac,xgb,Thermal Overload Mean (% of rating),1.836528166299838,1
+case118_ieee,24,ac,xgb,Thermal Overload Worst (% of rating),1.836528166299838,1
+case118_ieee,24,ac,xgb,Vm Violation (% elements),0.13435919171124883,1
+case118_ieee,24,ac,xgb,Vm Violation (%),11.211405970910947,1
+case118_ieee,24,ac,xgb,Vm Violation Mean (p.u.),0.0017068120375758695,1
+case118_ieee,24,ac,xgb,Vm Violation Worst (p.u.),0.0017539525176187116,1
+case118_ieee,24,ac,xgb_tot,Diverged (%),0.0,1
+case118_ieee,24,ac,xgb_tot,Diverged (n),0.0,1
+case118_ieee,24,ac,xgb_tot,Insufficient Headroom (%),0.0,1
+case118_ieee,24,ac,xgb_tot,Insufficient Headroom (n),0.0,1
+case118_ieee,24,ac,xgb_tot,Lost Voltage Control (% elements),2.356377918277212,1
+case118_ieee,24,ac,xgb_tot,Lost Voltage Control (%),51.83188738623799,1
+case118_ieee,24,ac,xgb_tot,Mean dPg (MW),4.6775774094049245,1
+case118_ieee,24,ac,xgb_tot,Mean |dPg| (%),3.919442033748856,1
+case118_ieee,24,ac,xgb_tot,Mean |dPg| (MW),89.0066697469267,1
+case118_ieee,24,ac,xgb_tot,No Dispatch (n),0.0,1
+case118_ieee,24,ac,xgb_tot,No-refund Gap,3.0754773423658914,1
+case118_ieee,24,ac,xgb_tot,Optimality Gap (recomputed),4.771346799296462,1
+case118_ieee,24,ac,xgb_tot,Pred. Pg out of limits (%),0.0,1
+case118_ieee,24,ac,xgb_tot,Qg Violation (% elements),0.0,1
+case118_ieee,24,ac,xgb_tot,Qg Violation (%),0.0,1
+case118_ieee,24,ac,xgb_tot,Qg Violation Mean (MVAr),,0
+case118_ieee,24,ac,xgb_tot,Qg Violation Worst (MVAr),,0
+case118_ieee,24,ac,xgb_tot,Rebalanced Gap,0.5724923693228693,1
+case118_ieee,24,ac,xgb_tot,Rebalancing Cost (over-supply),-2.504126079918338,1
+case118_ieee,24,ac,xgb_tot,Rebalancing Cost (under-supply),2.3222796558091647,1
+case118_ieee,24,ac,xgb_tot,Signed Optimality Gap,0.7522506231407327,1
+case118_ieee,24,ac,xgb_tot,Signed Rebalanced Gap,0.5704041990315597,1
+case118_ieee,24,ac,xgb_tot,Thermal Overload (% elements),0.23837892045095987,1
+case118_ieee,24,ac,xgb_tot,Thermal Overload (%),44.33847920387854,1
+case118_ieee,24,ac,xgb_tot,Thermal Overload Mean (% of rating),1.702391999620151,1
+case118_ieee,24,ac,xgb_tot,Thermal Overload Worst (% of rating),1.702391999620151,1
+case118_ieee,24,ac,xgb_tot,Vm Violation (% elements),0.13335906629011496,1
+case118_ieee,24,ac,xgb_tot,Vm Violation (%),10.769116271157609,1
+case118_ieee,24,ac,xgb_tot,Vm Violation Mean (p.u.),0.001702607375840411,1
+case118_ieee,24,ac,xgb_tot,Vm Violation Worst (p.u.),0.0017477455565732582,1
+case118_ieee,24,dc,sarima,Diverged (%),0.0,1
+case118_ieee,24,dc,sarima,Diverged (n),0.0,1
+case118_ieee,24,dc,sarima,Insufficient Headroom (%),0.0,1
+case118_ieee,24,dc,sarima,Insufficient Headroom (n),0.0,1
+case118_ieee,24,dc,sarima,Lost Voltage Control (% elements),25.091080491054974,1
+case118_ieee,24,dc,sarima,Lost Voltage Control (%),100.0,1
+case118_ieee,24,dc,sarima,Mean dPg (MW),-46.47967827051267,1
+case118_ieee,24,dc,sarima,Mean |dPg| (%),5.908543476675178,1
+case118_ieee,24,dc,sarima,Mean |dPg| (MW),139.251861820685,1
+case118_ieee,24,dc,sarima,No Dispatch (n),0.0,1
+case118_ieee,24,dc,sarima,No-refund Gap,4.463144886427514,1
+case118_ieee,24,dc,sarima,Optimality Gap (recomputed),7.4623631767857574,1
+case118_ieee,24,dc,sarima,Pred. Pg out of limits (%),0.0,1
+case118_ieee,24,dc,sarima,Qg Violation (% elements),0.0,1
+case118_ieee,24,dc,sarima,Qg Violation (%),0.0,1
+case118_ieee,24,dc,sarima,Qg Violation Mean (MVAr),,0
+case118_ieee,24,dc,sarima,Qg Violation Worst (MVAr),,0
+case118_ieee,24,dc,sarima,Rebalanced Gap,2.697993885884918,1
+case118_ieee,24,dc,sarima,Rebalancing Cost (over-supply),-1.7651510005425965,1
+case118_ieee,24,dc,sarima,Rebalancing Cost (under-supply),7.163171729171367,1
+case118_ieee,24,dc,sarima,Signed Optimality Gap,-2.700026842743853,1
+case118_ieee,24,dc,sarima,Signed Rebalanced Gap,2.697993885884918,1
+case118_ieee,24,dc,sarima,Thermal Overload (% elements),0.8061029302149898,1
+case118_ieee,24,dc,sarima,Thermal Overload (%),82.51148252105129,1
+case118_ieee,24,dc,sarima,Thermal Overload Mean (% of rating),3.934785471678747,1
+case118_ieee,24,dc,sarima,Thermal Overload Worst (% of rating),4.298265690554622,1
+case118_ieee,24,dc,sarima,Vm Violation (% elements),0.0,1
+case118_ieee,24,dc,sarima,Vm Violation (%),0.0,1
+case118_ieee,24,dc,sarima,Vm Violation Mean (p.u.),,0
+case118_ieee,24,dc,sarima,Vm Violation Worst (p.u.),,0
+case118_ieee,24,dc,snaive,Diverged (%),0.0,1
+case118_ieee,24,dc,snaive,Diverged (n),0.0,1
+case118_ieee,24,dc,snaive,Insufficient Headroom (%),0.0,1
+case118_ieee,24,dc,snaive,Insufficient Headroom (n),0.0,1
+case118_ieee,24,dc,snaive,Lost Voltage Control (% elements),25.071529490705302,1
+case118_ieee,24,dc,snaive,Lost Voltage Control (%),100.0,1
+case118_ieee,24,dc,snaive,Mean dPg (MW),-45.678419747534555,1
+case118_ieee,24,dc,snaive,Mean |dPg| (%),7.7001652246130865,1
+case118_ieee,24,dc,snaive,Mean |dPg| (MW),177.59621878423042,1
+case118_ieee,24,dc,snaive,No Dispatch (n),0.0,1
+case118_ieee,24,dc,snaive,No-refund Gap,5.528845943633791,1
+case118_ieee,24,dc,snaive,Optimality Gap (recomputed),9.486975788841683,1
+case118_ieee,24,dc,snaive,Pred. Pg out of limits (%),0.0,1
+case118_ieee,24,dc,snaive,Qg Violation (% elements),0.0,1
+case118_ieee,24,dc,snaive,Qg Violation (%),0.0,1
+case118_ieee,24,dc,snaive,Qg Violation Mean (MVAr),,0
+case118_ieee,24,dc,snaive,Qg Violation Worst (MVAr),,0
+case118_ieee,24,dc,snaive,Rebalanced Gap,2.910112620177105,1
+case118_ieee,24,dc,snaive,Rebalancing Cost (over-supply),-2.6187333234566856,1
+case118_ieee,24,dc,snaive,Rebalancing Cost (under-supply),8.16244768055512,1
+case118_ieee,24,dc,snaive,Signed Optimality Gap,-2.6336017369213267,1
+case118_ieee,24,dc,snaive,Signed Rebalanced Gap,2.910112620177105,1
+case118_ieee,24,dc,snaive,Thermal Overload (% elements),0.7231736115112388,1
+case118_ieee,24,dc,snaive,Thermal Overload (%),76.49910691502934,1
+case118_ieee,24,dc,snaive,Thermal Overload Mean (% of rating),4.234622784036585,1
+case118_ieee,24,dc,snaive,Thermal Overload Worst (% of rating),4.719954469998193,1
+case118_ieee,24,dc,snaive,Vm Violation (% elements),0.0,1
+case118_ieee,24,dc,snaive,Vm Violation (%),0.0,1
+case118_ieee,24,dc,snaive,Vm Violation Mean (p.u.),,0
+case118_ieee,24,dc,snaive,Vm Violation Worst (p.u.),,0
+case118_ieee,24,dc,xgb,Diverged (%),0.0,1
+case118_ieee,24,dc,xgb,Diverged (n),0.0,1
+case118_ieee,24,dc,xgb,Insufficient Headroom (%),0.0,1
+case118_ieee,24,dc,xgb,Insufficient Headroom (n),0.0,1
+case118_ieee,24,dc,xgb,Lost Voltage Control (% elements),25.072435176522102,1
+case118_ieee,24,dc,xgb,Lost Voltage Control (%),100.0,1
+case118_ieee,24,dc,xgb,Mean dPg (MW),-51.67661770646137,1
+case118_ieee,24,dc,xgb,Mean |dPg| (%),4.456972306992165,1
+case118_ieee,24,dc,xgb,Mean |dPg| (MW),106.39816392460247,1
+case118_ieee,24,dc,xgb,No Dispatch (n),0.0,1
+case118_ieee,24,dc,xgb,No-refund Gap,3.399061405282508,1
+case118_ieee,24,dc,xgb,Optimality Gap (recomputed),5.80358640487291,1
+case118_ieee,24,dc,xgb,Pred. Pg out of limits (%),0.0,1
+case118_ieee,24,dc,xgb,Qg Violation (% elements),0.0,1
+case118_ieee,24,dc,xgb,Qg Violation (%),0.0,1
+case118_ieee,24,dc,xgb,Qg Violation Mean (MVAr),,0
+case118_ieee,24,dc,xgb,Qg Violation Worst (MVAr),,0
+case118_ieee,24,dc,xgb,Rebalanced Gap,2.522068696665894,1
+case118_ieee,24,dc,xgb,Rebalancing Cost (over-supply),-0.8769927086166142,1
+case118_ieee,24,dc,xgb,Rebalancing Cost (under-supply),6.600935819156422,1
+case118_ieee,24,dc,xgb,Signed Optimality Gap,-3.201874413873913,1
+case118_ieee,24,dc,xgb,Signed Rebalanced Gap,2.522068696665894,1
+case118_ieee,24,dc,xgb,Thermal Overload (% elements),0.8613719943552274,1
+case118_ieee,24,dc,xgb,Thermal Overload (%),88.65569447988433,1
+case118_ieee,24,dc,xgb,Thermal Overload Mean (% of rating),3.5871837735833516,1
+case118_ieee,24,dc,xgb,Thermal Overload Worst (% of rating),4.007365890178114,1
+case118_ieee,24,dc,xgb,Vm Violation (% elements),0.0,1
+case118_ieee,24,dc,xgb,Vm Violation (%),0.0,1
+case118_ieee,24,dc,xgb,Vm Violation Mean (p.u.),,0
+case118_ieee,24,dc,xgb,Vm Violation Worst (p.u.),,0
+case118_ieee,24,dc,xgb_tot,Diverged (%),0.0,1
+case118_ieee,24,dc,xgb_tot,Diverged (n),0.0,1
+case118_ieee,24,dc,xgb_tot,Insufficient Headroom (%),0.0,1
+case118_ieee,24,dc,xgb_tot,Insufficient Headroom (n),0.0,1
+case118_ieee,24,dc,xgb_tot,Lost Voltage Control (% elements),25.08686708312463,1
+case118_ieee,24,dc,xgb_tot,Lost Voltage Control (%),100.0,1
+case118_ieee,24,dc,xgb_tot,Mean dPg (MW),-49.252028592736785,1
+case118_ieee,24,dc,xgb_tot,Mean |dPg| (%),4.307841488445836,1
+case118_ieee,24,dc,xgb_tot,Mean |dPg| (MW),102.41559011019072,1
+case118_ieee,24,dc,xgb_tot,No Dispatch (n),0.0,1
+case118_ieee,24,dc,xgb_tot,No-refund Gap,3.375272800976985,1
+case118_ieee,24,dc,xgb_tot,Optimality Gap (recomputed),5.6469246688632255,1
+case118_ieee,24,dc,xgb_tot,Pred. Pg out of limits (%),0.0,1
+case118_ieee,24,dc,xgb_tot,Qg Violation (% elements),0.0,1
+case118_ieee,24,dc,xgb_tot,Qg Violation (%),0.0,1
+case118_ieee,24,dc,xgb_tot,Qg Violation Mean (MVAr),,0
+case118_ieee,24,dc,xgb_tot,Qg Violation Worst (MVAr),,0
+case118_ieee,24,dc,xgb_tot,Rebalanced Gap,2.498045117800564,1
+case118_ieee,24,dc,xgb_tot,Rebalancing Cost (over-supply),-0.877227683176421,1
+case118_ieee,24,dc,xgb_tot,Rebalancing Cost (under-supply),6.437052100335689,1
+case118_ieee,24,dc,xgb_tot,Signed Optimality Gap,-3.0617792993587045,1
+case118_ieee,24,dc,xgb_tot,Signed Rebalanced Gap,2.498045117800564,1
+case118_ieee,24,dc,xgb_tot,Thermal Overload (% elements),0.8625323646127999,1
+case118_ieee,24,dc,xgb_tot,Thermal Overload (%),88.85770179467552,1
+case118_ieee,24,dc,xgb_tot,Thermal Overload Mean (% of rating),3.5784379786208027,1
+case118_ieee,24,dc,xgb_tot,Thermal Overload Worst (% of rating),4.019310562332946,1
+case118_ieee,24,dc,xgb_tot,Vm Violation (% elements),0.0,1
+case118_ieee,24,dc,xgb_tot,Vm Violation (%),0.0,1
+case118_ieee,24,dc,xgb_tot,Vm Violation Mean (p.u.),,0
+case118_ieee,24,dc,xgb_tot,Vm Violation Worst (p.u.),,0
+case118_ieee,24,e2e,none,Diverged (%),0.0,3
+case118_ieee,24,e2e,none,Diverged (n),0.0,3
+case118_ieee,24,e2e,none,Insufficient Headroom (%),0.0,3
+case118_ieee,24,e2e,none,Insufficient Headroom (n),0.0,3
+case118_ieee,24,e2e,none,Lost Voltage Control (% elements),5.08509442198919,3
+case118_ieee,24,e2e,none,Lost Voltage Control (%),86.26551061364086,3
+case118_ieee,24,e2e,none,Mean dPg (MW),12.008529164631204,3
+case118_ieee,24,e2e,none,Mean |dPg| (%),3.5450921833744804,3
+case118_ieee,24,e2e,none,Mean |dPg| (MW),81.3816879870482,3
+case118_ieee,24,e2e,none,No Dispatch (n),0.0,3
+case118_ieee,24,e2e,none,No-refund Gap,2.8403061856631635,3
+case118_ieee,24,e2e,none,Optimality Gap (recomputed),4.310030014744673,3
+case118_ieee,24,e2e,none,Pred. Pg out of limits (%),0.0,3
+case118_ieee,24,e2e,none,Qg Violation (% elements),0.0,3
+case118_ieee,24,e2e,none,Qg Violation (%),0.0,3
+case118_ieee,24,e2e,none,Qg Violation Mean (MVAr),,0
+case118_ieee,24,e2e,none,Qg Violation Worst (MVAr),,0
+case118_ieee,24,e2e,none,Rebalanced Gap,0.4749510698442978,3
+case118_ieee,24,e2e,none,Rebalancing Cost (over-supply),-2.37147773736611,3
+case118_ieee,24,e2e,none,Rebalancing Cost (under-supply),1.9691577898735666,3
+case118_ieee,24,e2e,none,Signed Optimality Gap,0.8672550132335561,3
+case118_ieee,24,e2e,none,Signed Rebalanced Gap,0.46493506574101295,3
+case118_ieee,24,e2e,none,Thermal Overload (% elements),0.3109644959785694,3
+case118_ieee,24,e2e,none,Thermal Overload (%),57.839396252013906,3
+case118_ieee,24,e2e,none,Thermal Overload Mean (% of rating),2.096090094603506,3
+case118_ieee,24,e2e,none,Thermal Overload Worst (% of rating),2.096090094603506,3
+case118_ieee,24,e2e,none,Vm Violation (% elements),0.0028624660516317012,3
+case118_ieee,24,e2e,none,Vm Violation (%),0.255801464145397,3
+case118_ieee,24,e2e,none,Vm Violation Mean (p.u.),0.0014585098001615804,3
+case118_ieee,24,e2e,none,Vm Violation Worst (p.u.),0.001476581260027925,3
+case118_ieee,24,surrogate,sarima,Diverged (%),0.0,3
+case118_ieee,24,surrogate,sarima,Diverged (n),0.0,3
+case118_ieee,24,surrogate,sarima,Insufficient Headroom (%),0.0,3
+case118_ieee,24,surrogate,sarima,Insufficient Headroom (n),0.0,3
+case118_ieee,24,surrogate,sarima,Lost Voltage Control (% elements),4.714088113516823,3
+case118_ieee,24,surrogate,sarima,Lost Voltage Control (%),77.57151767741205,3
+case118_ieee,24,surrogate,sarima,Mean dPg (MW),12.023952516340445,3
+case118_ieee,24,surrogate,sarima,Mean |dPg| (%),5.614744506159268,3
+case118_ieee,24,surrogate,sarima,Mean |dPg| (MW),128.0555494089185,3
+case118_ieee,24,surrogate,sarima,No Dispatch (n),0.0,3
+case118_ieee,24,surrogate,sarima,No-refund Gap,4.678619295351695,3
+case118_ieee,24,surrogate,sarima,Optimality Gap (recomputed),6.840044739816612,3
+case118_ieee,24,surrogate,sarima,Pred. Pg out of limits (%),0.0,3
+case118_ieee,24,surrogate,sarima,Qg Violation (% elements),0.0,3
+case118_ieee,24,surrogate,sarima,Qg Violation (%),0.0,3
+case118_ieee,24,surrogate,sarima,Qg Violation Mean (MVAr),,0
+case118_ieee,24,surrogate,sarima,Qg Violation Worst (MVAr),,0
+case118_ieee,24,surrogate,sarima,Rebalanced Gap,0.8634266493786287,3
+case118_ieee,24,surrogate,sarima,Rebalancing Cost (over-supply),-3.8153782763932633,3
+case118_ieee,24,surrogate,sarima,Rebalancing Cost (under-supply),3.1421962523405242,3
+case118_ieee,24,surrogate,sarima,Signed Optimality Gap,1.5364152475878932,3
+case118_ieee,24,surrogate,sarima,Signed Rebalanced Gap,0.8632332235351544,3
+case118_ieee,24,surrogate,sarima,Thermal Overload (% elements),0.30003668980242987,3
+case118_ieee,24,surrogate,sarima,Thermal Overload (%),55.80682430325195,3
+case118_ieee,24,surrogate,sarima,Thermal Overload Mean (% of rating),2.3578974173312983,3
+case118_ieee,24,surrogate,sarima,Thermal Overload Worst (% of rating),2.3578974173312983,3
+case118_ieee,24,surrogate,sarima,Vm Violation (% elements),0.00880891249305018,3
+case118_ieee,24,surrogate,sarima,Vm Violation (%),0.629412265033597,3
+case118_ieee,24,surrogate,sarima,Vm Violation Mean (p.u.),0.0015223503792030338,3
+case118_ieee,24,surrogate,sarima,Vm Violation Worst (p.u.),0.001600386837275258,3
+case118_ieee,24,surrogate,snaive,Diverged (%),0.0,3
+case118_ieee,24,surrogate,snaive,Diverged (n),0.0,3
+case118_ieee,24,surrogate,snaive,Insufficient Headroom (%),0.0,3
+case118_ieee,24,surrogate,snaive,Insufficient Headroom (n),0.0,3
+case118_ieee,24,surrogate,snaive,Lost Voltage Control (% elements),5.237298872119262,3
+case118_ieee,24,surrogate,snaive,Lost Voltage Control (%),82.53912562728588,3
+case118_ieee,24,surrogate,snaive,Mean dPg (MW),14.03263237406641,3
+case118_ieee,24,surrogate,snaive,Mean |dPg| (%),7.609622331369174,3
+case118_ieee,24,surrogate,snaive,Mean |dPg| (MW),172.82693120529268,3
+case118_ieee,24,surrogate,snaive,No Dispatch (n),0.0,3
+case118_ieee,24,surrogate,snaive,No-refund Gap,6.157031821169404,3
+case118_ieee,24,surrogate,snaive,Optimality Gap (recomputed),9.283999184133222,3
+case118_ieee,24,surrogate,snaive,Pred. Pg out of limits (%),0.0,3
+case118_ieee,24,surrogate,snaive,Qg Violation (% elements),0.0,3
+case118_ieee,24,surrogate,snaive,Qg Violation (%),0.0,3
+case118_ieee,24,surrogate,snaive,Qg Violation Mean (MVAr),,0
+case118_ieee,24,surrogate,snaive,Qg Violation Worst (MVAr),,0
+case118_ieee,24,surrogate,snaive,Rebalanced Gap,1.1792724473413305,3
+case118_ieee,24,surrogate,snaive,Rebalancing Cost (over-supply),-4.9780207583749485,3
+case118_ieee,24,surrogate,snaive,Rebalancing Cost (under-supply),4.488732278281307,3
+case118_ieee,24,surrogate,snaive,Signed Optimality Gap,1.6682921568850329,3
+case118_ieee,24,surrogate,snaive,Signed Rebalanced Gap,1.1790036767913916,3
+case118_ieee,24,surrogate,snaive,Thermal Overload (% elements),0.27955967969055573,3
+case118_ieee,24,surrogate,snaive,Thermal Overload (%),51.998100422443365,3
+case118_ieee,24,surrogate,snaive,Thermal Overload Mean (% of rating),2.8981420765995938,3
+case118_ieee,24,surrogate,snaive,Thermal Overload Worst (% of rating),2.8981420765995938,3
+case118_ieee,24,surrogate,snaive,Vm Violation (% elements),0.00886597670626803,3
+case118_ieee,24,surrogate,snaive,Vm Violation (%),0.6124011227353917,3
+case118_ieee,24,surrogate,snaive,Vm Violation Mean (p.u.),0.0014958044138005389,3
+case118_ieee,24,surrogate,snaive,Vm Violation Worst (p.u.),0.0015840252144576049,3
+case118_ieee,24,surrogate,xgb,Diverged (%),0.0,3
+case118_ieee,24,surrogate,xgb,Diverged (n),0.0,3
+case118_ieee,24,surrogate,xgb,Insufficient Headroom (%),0.0,3
+case118_ieee,24,surrogate,xgb,Insufficient Headroom (n),0.0,3
+case118_ieee,24,surrogate,xgb,Lost Voltage Control (% elements),3.9731911747873867,3
+case118_ieee,24,surrogate,xgb,Lost Voltage Control (%),73.56114088061014,3
+case118_ieee,24,surrogate,xgb,Mean dPg (MW),4.4501927938497055,3
+case118_ieee,24,surrogate,xgb,Mean |dPg| (%),4.0804437257430175,3
+case118_ieee,24,surrogate,xgb,Mean |dPg| (MW),93.63291029810341,3
+case118_ieee,24,surrogate,xgb,No Dispatch (n),0.0,3
+case118_ieee,24,surrogate,xgb,No-refund Gap,3.328221911547395,3
+case118_ieee,24,surrogate,xgb,Optimality Gap (recomputed),4.972764753558981,3
+case118_ieee,24,surrogate,xgb,Pred. Pg out of limits (%),0.0,3
+case118_ieee,24,surrogate,xgb,Qg Violation (% elements),0.0,3
+case118_ieee,24,surrogate,xgb,Qg Violation (%),0.0,3
+case118_ieee,24,surrogate,xgb,Qg Violation Mean (MVAr),,0
+case118_ieee,24,surrogate,xgb,Qg Violation Worst (MVAr),,0
+case118_ieee,24,surrogate,xgb,Rebalanced Gap,0.6742723789017132,3
+case118_ieee,24,surrogate,xgb,Rebalancing Cost (over-supply),-2.6542710988572993,3
+case118_ieee,24,surrogate,xgb,Rebalancing Cost (under-supply),2.447692017659529,3
+case118_ieee,24,surrogate,xgb,Signed Optimality Gap,0.8805042028427964,3
+case118_ieee,24,surrogate,xgb,Signed Rebalanced Gap,0.6739251216450258,3
+case118_ieee,24,surrogate,xgb,Thermal Overload (% elements),0.2931125756546165,3
+case118_ieee,24,surrogate,xgb,Thermal Overload (%),54.518939071758666,3
+case118_ieee,24,surrogate,xgb,Thermal Overload Mean (% of rating),1.9984345668498946,3
+case118_ieee,24,surrogate,xgb,Thermal Overload Worst (% of rating),1.9984345668498944,3
+case118_ieee,24,surrogate,xgb,Vm Violation (% elements),0.00873382800197406,3
+case118_ieee,24,surrogate,xgb,Vm Violation (%),0.6173627059057015,3
+case118_ieee,24,surrogate,xgb,Vm Violation Mean (p.u.),0.0015111902612904803,3
+case118_ieee,24,surrogate,xgb,Vm Violation Worst (p.u.),0.0016005773801587506,3
+case118_ieee,24,surrogate,xgb_tot,Diverged (%),0.0,3
+case118_ieee,24,surrogate,xgb_tot,Diverged (n),0.0,3
+case118_ieee,24,surrogate,xgb_tot,Insufficient Headroom (%),0.0,3
+case118_ieee,24,surrogate,xgb_tot,Insufficient Headroom (n),0.0,3
+case118_ieee,24,surrogate,xgb_tot,Lost Voltage Control (% elements),4.124762290287793,3
+case118_ieee,24,surrogate,xgb_tot,Lost Voltage Control (%),75.05741260525645,3
+case118_ieee,24,surrogate,xgb_tot,Mean dPg (MW),9.49724613928922,3
+case118_ieee,24,surrogate,xgb_tot,Mean |dPg| (%),3.943046111546107,3
+case118_ieee,24,surrogate,xgb_tot,Mean |dPg| (MW),89.34307923694776,3
+case118_ieee,24,surrogate,xgb_tot,No Dispatch (n),0.0,3
+case118_ieee,24,surrogate,xgb_tot,No-refund Gap,3.37403360370236,3
+case118_ieee,24,surrogate,xgb_tot,Optimality Gap (recomputed),4.826404190941446,3
+case118_ieee,24,surrogate,xgb_tot,Pred. Pg out of limits (%),0.0,3
+case118_ieee,24,surrogate,xgb_tot,Qg Violation (% elements),0.0,3
+case118_ieee,24,surrogate,xgb_tot,Qg Violation (%),0.0,3
+case118_ieee,24,surrogate,xgb_tot,Qg Violation Mean (MVAr),,0
+case118_ieee,24,surrogate,xgb_tot,Qg Violation Worst (MVAr),,0
+case118_ieee,24,surrogate,xgb_tot,Rebalanced Gap,0.6532933372371086,3
+case118_ieee,24,surrogate,xgb_tot,Rebalancing Cost (over-supply),-2.7212162277140948,3
+case118_ieee,24,surrogate,xgb_tot,Rebalancing Cost (under-supply),2.1809630127478545,3
+case118_ieee,24,surrogate,xgb_tot,Signed Optimality Gap,1.193051355541798,3
+case118_ieee,24,surrogate,xgb_tot,Signed Rebalanced Gap,0.6527981405755581,3
+case118_ieee,24,surrogate,xgb_tot,Thermal Overload (% elements),0.28109350244481823,3
+case118_ieee,24,surrogate,xgb_tot,Thermal Overload (%),52.28339145473618,3
+case118_ieee,24,surrogate,xgb_tot,Thermal Overload Mean (% of rating),1.878476719690739,3
+case118_ieee,24,surrogate,xgb_tot,Thermal Overload Worst (% of rating),1.878476719690739,3
+case118_ieee,24,surrogate,xgb_tot,Vm Violation (% elements),0.008175199388367742,3
+case118_ieee,24,surrogate,xgb_tot,Vm Violation (%),0.5858212128944459,3
+case118_ieee,24,surrogate,xgb_tot,Vm Violation Mean (p.u.),0.0015005702550857463,3
+case118_ieee,24,surrogate,xgb_tot,Vm Violation Worst (p.u.),0.0015820269332554766,3
+case118_ieee,1,dc,sarima,Thermal Overload Median (% of rating),3.468072414396206,1
+case118_ieee,1,dc,sarima,Thermal Overload P99 (% of rating),4.906883370023903,1
+case118_ieee,1,dc,sarima,Thermal Overload Max (% of rating),5.615064761317723,1
+case118_ieee,1,dc,sarima,Vm Violation Median (p.u.),,1
+case118_ieee,1,dc,sarima,Vm Violation P99 (p.u.),,1
+case118_ieee,1,dc,sarima,Vm Violation Max (p.u.),,1
+case118_ieee,1,dc,sarima,Qg Violation Median (MVAr),,1
+case118_ieee,1,dc,sarima,Qg Violation P99 (MVAr),,1
+case118_ieee,1,dc,sarima,Qg Violation Max (MVAr),,1
+case118_ieee,1,dc,snaive,Thermal Overload Median (% of rating),3.970170165778786,1
+case118_ieee,1,dc,snaive,Thermal Overload P99 (% of rating),11.15640072256781,1
+case118_ieee,1,dc,snaive,Thermal Overload Max (% of rating),15.634847840467735,1
+case118_ieee,1,dc,snaive,Vm Violation Median (p.u.),,1
+case118_ieee,1,dc,snaive,Vm Violation P99 (p.u.),,1
+case118_ieee,1,dc,snaive,Vm Violation Max (p.u.),,1
+case118_ieee,1,dc,snaive,Qg Violation Median (MVAr),,1
+case118_ieee,1,dc,snaive,Qg Violation P99 (MVAr),,1
+case118_ieee,1,dc,snaive,Qg Violation Max (MVAr),,1
+case118_ieee,1,dc,xgb,Thermal Overload Median (% of rating),3.3952961853262353,1
+case118_ieee,1,dc,xgb,Thermal Overload P99 (% of rating),5.286696118810522,1
+case118_ieee,1,dc,xgb,Thermal Overload Max (% of rating),7.015398823548757,1
+case118_ieee,1,dc,xgb,Vm Violation Median (p.u.),,1
+case118_ieee,1,dc,xgb,Vm Violation P99 (p.u.),,1
+case118_ieee,1,dc,xgb,Vm Violation Max (p.u.),,1
+case118_ieee,1,dc,xgb,Qg Violation Median (MVAr),,1
+case118_ieee,1,dc,xgb,Qg Violation P99 (MVAr),,1
+case118_ieee,1,dc,xgb,Qg Violation Max (MVAr),,1
+case118_ieee,1,dc,xgb_tot,Thermal Overload Median (% of rating),3.3750430488413308,1
+case118_ieee,1,dc,xgb_tot,Thermal Overload P99 (% of rating),5.117482918145219,1
+case118_ieee,1,dc,xgb_tot,Thermal Overload Max (% of rating),6.331264932652281,1
+case118_ieee,1,dc,xgb_tot,Vm Violation Median (p.u.),,1
+case118_ieee,1,dc,xgb_tot,Vm Violation P99 (p.u.),,1
+case118_ieee,1,dc,xgb_tot,Vm Violation Max (p.u.),,1
+case118_ieee,1,dc,xgb_tot,Qg Violation Median (MVAr),,1
+case118_ieee,1,dc,xgb_tot,Qg Violation P99 (MVAr),,1
+case118_ieee,1,dc,xgb_tot,Qg Violation Max (MVAr),,1
+case118_ieee,1,e2e,none,Thermal Overload Median (% of rating),0.3221094553370829,3
+case118_ieee,1,e2e,none,Thermal Overload P99 (% of rating),2.080652756297445,3
+case118_ieee,1,e2e,none,Thermal Overload Max (% of rating),3.3520782987914277,3
+case118_ieee,1,e2e,none,Vm Violation Median (p.u.),0.0016616577231272078,3
+case118_ieee,1,e2e,none,Vm Violation P99 (p.u.),0.004001276863856738,3
+case118_ieee,1,e2e,none,Vm Violation Max (p.u.),0.004360842114899954,3
+case118_ieee,1,e2e,none,Qg Violation Median (MVAr),,3
+case118_ieee,1,e2e,none,Qg Violation P99 (MVAr),,3
+case118_ieee,1,e2e,none,Qg Violation Max (MVAr),,3
+case118_ieee,1,ac,sarima,Thermal Overload Median (% of rating),0.2733148877723801,1
+case118_ieee,1,ac,sarima,Thermal Overload P99 (% of rating),1.374552469534061,1
+case118_ieee,1,ac,sarima,Thermal Overload Max (% of rating),2.0250993076740276,1
+case118_ieee,1,ac,sarima,Vm Violation Median (p.u.),,1
+case118_ieee,1,ac,sarima,Vm Violation P99 (p.u.),,1
+case118_ieee,1,ac,sarima,Vm Violation Max (p.u.),,1
+case118_ieee,1,ac,sarima,Qg Violation Median (MVAr),,1
+case118_ieee,1,ac,sarima,Qg Violation P99 (MVAr),,1
+case118_ieee,1,ac,sarima,Qg Violation Max (MVAr),,1
+case118_ieee,1,ac,snaive,Thermal Overload Median (% of rating),2.465154549099069,1
+case118_ieee,1,ac,snaive,Thermal Overload P99 (% of rating),9.373100869742848,1
+case118_ieee,1,ac,snaive,Thermal Overload Max (% of rating),12.769007581002946,1
+case118_ieee,1,ac,snaive,Vm Violation Median (p.u.),0.0018059896080775406,1
+case118_ieee,1,ac,snaive,Vm Violation P99 (p.u.),0.005974171499568565,1
+case118_ieee,1,ac,snaive,Vm Violation Max (p.u.),0.007063353215428503,1
+case118_ieee,1,ac,snaive,Qg Violation Median (MVAr),,1
+case118_ieee,1,ac,snaive,Qg Violation P99 (MVAr),,1
+case118_ieee,1,ac,snaive,Qg Violation Max (MVAr),,1
+case118_ieee,1,ac,xgb,Thermal Overload Median (% of rating),0.4551877269701188,1
+case118_ieee,1,ac,xgb,Thermal Overload P99 (% of rating),2.012945807522926,1
+case118_ieee,1,ac,xgb,Thermal Overload Max (% of rating),2.887086852916654,1
+case118_ieee,1,ac,xgb,Vm Violation Median (p.u.),,1
+case118_ieee,1,ac,xgb,Vm Violation P99 (p.u.),,1
+case118_ieee,1,ac,xgb,Vm Violation Max (p.u.),,1
+case118_ieee,1,ac,xgb,Qg Violation Median (MVAr),,1
+case118_ieee,1,ac,xgb,Qg Violation P99 (MVAr),,1
+case118_ieee,1,ac,xgb,Qg Violation Max (MVAr),,1
+case118_ieee,1,ac,xgb_tot,Thermal Overload Median (% of rating),0.3605159527037549,1
+case118_ieee,1,ac,xgb_tot,Thermal Overload P99 (% of rating),1.3100964841115104,1
+case118_ieee,1,ac,xgb_tot,Thermal Overload Max (% of rating),2.473247933977407,1
+case118_ieee,1,ac,xgb_tot,Vm Violation Median (p.u.),,1
+case118_ieee,1,ac,xgb_tot,Vm Violation P99 (p.u.),,1
+case118_ieee,1,ac,xgb_tot,Vm Violation Max (p.u.),,1
+case118_ieee,1,ac,xgb_tot,Qg Violation Median (MVAr),,1
+case118_ieee,1,ac,xgb_tot,Qg Violation P99 (MVAr),,1
+case118_ieee,1,ac,xgb_tot,Qg Violation Max (MVAr),,1
+case118_ieee,1,surrogate,sarima,Thermal Overload Median (% of rating),0.7101873212977727,3
+case118_ieee,1,surrogate,sarima,Thermal Overload P99 (% of rating),3.963774103053982,3
+case118_ieee,1,surrogate,sarima,Thermal Overload Max (% of rating),5.0696273139338555,3
+case118_ieee,1,surrogate,sarima,Vm Violation Median (p.u.),0.0014115702812019792,3
+case118_ieee,1,surrogate,sarima,Vm Violation P99 (p.u.),0.0027830188303102315,3
+case118_ieee,1,surrogate,sarima,Vm Violation Max (p.u.),0.0028647857438948154,3
+case118_ieee,1,surrogate,sarima,Qg Violation Median (MVAr),,3
+case118_ieee,1,surrogate,sarima,Qg Violation P99 (MVAr),,3
+case118_ieee,1,surrogate,sarima,Qg Violation Max (MVAr),,3
+case118_ieee,1,surrogate,snaive,Thermal Overload Median (% of rating),2.4906070229943067,3
+case118_ieee,1,surrogate,snaive,Thermal Overload P99 (% of rating),9.157741924714045,3
+case118_ieee,1,surrogate,snaive,Thermal Overload Max (% of rating),11.908274545886322,3
+case118_ieee,1,surrogate,snaive,Vm Violation Median (p.u.),0.0014451320625989972,3
+case118_ieee,1,surrogate,snaive,Vm Violation P99 (p.u.),0.002604129602499006,3
+case118_ieee,1,surrogate,snaive,Vm Violation Max (p.u.),0.002725420771238385,3
+case118_ieee,1,surrogate,snaive,Qg Violation Median (MVAr),,3
+case118_ieee,1,surrogate,snaive,Qg Violation P99 (MVAr),,3
+case118_ieee,1,surrogate,snaive,Qg Violation Max (MVAr),,3
+case118_ieee,1,surrogate,xgb,Thermal Overload Median (% of rating),0.7469225094422272,3
+case118_ieee,1,surrogate,xgb,Thermal Overload P99 (% of rating),4.237510184258827,3
+case118_ieee,1,surrogate,xgb,Thermal Overload Max (% of rating),5.848925758689338,3
+case118_ieee,1,surrogate,xgb,Vm Violation Median (p.u.),0.001420026292959231,3
+case118_ieee,1,surrogate,xgb,Vm Violation P99 (p.u.),0.0027739383799952025,3
+case118_ieee,1,surrogate,xgb,Vm Violation Max (p.u.),0.002859006838811906,3
+case118_ieee,1,surrogate,xgb,Qg Violation Median (MVAr),,3
+case118_ieee,1,surrogate,xgb,Qg Violation P99 (MVAr),,3
+case118_ieee,1,surrogate,xgb,Qg Violation Max (MVAr),,3
+case118_ieee,1,surrogate,xgb_tot,Thermal Overload Median (% of rating),0.687391692202155,3
+case118_ieee,1,surrogate,xgb_tot,Thermal Overload P99 (% of rating),3.7102878872187306,3
+case118_ieee,1,surrogate,xgb_tot,Thermal Overload Max (% of rating),4.990256175853602,3
+case118_ieee,1,surrogate,xgb_tot,Vm Violation Median (p.u.),0.0013952447618579278,3
+case118_ieee,1,surrogate,xgb_tot,Vm Violation P99 (p.u.),0.0027734030757132614,3
+case118_ieee,1,surrogate,xgb_tot,Vm Violation Max (p.u.),0.0028711908631717797,3
+case118_ieee,1,surrogate,xgb_tot,Qg Violation Median (MVAr),,3
+case118_ieee,1,surrogate,xgb_tot,Qg Violation P99 (MVAr),,3
+case118_ieee,1,surrogate,xgb_tot,Qg Violation Max (MVAr),,3
+case118_ieee,24,dc,sarima,Thermal Overload Median (% of rating),3.775302738720865,1
+case118_ieee,24,dc,sarima,Thermal Overload P99 (% of rating),9.244697500262784,1
+case118_ieee,24,dc,sarima,Thermal Overload Max (% of rating),13.560515385888937,1
+case118_ieee,24,dc,sarima,Vm Violation Median (p.u.),,1
+case118_ieee,24,dc,sarima,Vm Violation P99 (p.u.),,1
+case118_ieee,24,dc,sarima,Vm Violation Max (p.u.),,1
+case118_ieee,24,dc,sarima,Qg Violation Median (MVAr),,1
+case118_ieee,24,dc,sarima,Qg Violation P99 (MVAr),,1
+case118_ieee,24,dc,sarima,Qg Violation Max (MVAr),,1
+case118_ieee,24,dc,snaive,Thermal Overload Median (% of rating),3.9651574451850857,1
+case118_ieee,24,dc,snaive,Thermal Overload P99 (% of rating),11.27154834080919,1
+case118_ieee,24,dc,snaive,Thermal Overload Max (% of rating),15.634847840467735,1
+case118_ieee,24,dc,snaive,Vm Violation Median (p.u.),,1
+case118_ieee,24,dc,snaive,Vm Violation P99 (p.u.),,1
+case118_ieee,24,dc,snaive,Vm Violation Max (p.u.),,1
+case118_ieee,24,dc,snaive,Qg Violation Median (MVAr),,1
+case118_ieee,24,dc,snaive,Qg Violation P99 (MVAr),,1
+case118_ieee,24,dc,snaive,Qg Violation Max (MVAr),,1
+case118_ieee,24,dc,xgb,Thermal Overload Median (% of rating),3.4685541179526824,1
+case118_ieee,24,dc,xgb,Thermal Overload P99 (% of rating),8.428407048970456,1
+case118_ieee,24,dc,xgb,Thermal Overload Max (% of rating),14.314674194411147,1
+case118_ieee,24,dc,xgb,Vm Violation Median (p.u.),,1
+case118_ieee,24,dc,xgb,Vm Violation P99 (p.u.),,1
+case118_ieee,24,dc,xgb,Vm Violation Max (p.u.),,1
+case118_ieee,24,dc,xgb,Qg Violation Median (MVAr),,1
+case118_ieee,24,dc,xgb,Qg Violation P99 (MVAr),,1
+case118_ieee,24,dc,xgb,Qg Violation Max (MVAr),,1
+case118_ieee,24,dc,xgb_tot,Thermal Overload Median (% of rating),3.4781866758900826,1
+case118_ieee,24,dc,xgb_tot,Thermal Overload P99 (% of rating),8.358214376662614,1
+case118_ieee,24,dc,xgb_tot,Thermal Overload Max (% of rating),13.33307921264204,1
+case118_ieee,24,dc,xgb_tot,Vm Violation Median (p.u.),,1
+case118_ieee,24,dc,xgb_tot,Vm Violation P99 (p.u.),,1
+case118_ieee,24,dc,xgb_tot,Vm Violation Max (p.u.),,1
+case118_ieee,24,dc,xgb_tot,Qg Violation Median (MVAr),,1
+case118_ieee,24,dc,xgb_tot,Qg Violation P99 (MVAr),,1
+case118_ieee,24,dc,xgb_tot,Qg Violation Max (MVAr),,1
+case118_ieee,24,e2e,none,Thermal Overload Median (% of rating),1.5680865623595275,3
+case118_ieee,24,e2e,none,Thermal Overload P99 (% of rating),9.478355954140607,3
+case118_ieee,24,e2e,none,Thermal Overload Max (% of rating),19.716387659865788,3
+case118_ieee,24,e2e,none,Vm Violation Median (p.u.),0.0014953012296127222,3
+case118_ieee,24,e2e,none,Vm Violation P99 (p.u.),0.0032058007963136296,3
+case118_ieee,24,e2e,none,Vm Violation Max (p.u.),0.0037912541948335043,3
+case118_ieee,24,e2e,none,Qg Violation Median (MVAr),,3
+case118_ieee,24,e2e,none,Qg Violation P99 (MVAr),,3
+case118_ieee,24,e2e,none,Qg Violation Max (MVAr),,3
+case118_ieee,24,ac,sarima,Thermal Overload Median (% of rating),1.7339847558363264,1
+case118_ieee,24,ac,sarima,Thermal Overload P99 (% of rating),7.136693374971835,1
+case118_ieee,24,ac,sarima,Thermal Overload Max (% of rating),10.097158570048869,1
+case118_ieee,24,ac,sarima,Vm Violation Median (p.u.),0.001662321719107851,1
+case118_ieee,24,ac,sarima,Vm Violation P99 (p.u.),0.005387855385241387,1
+case118_ieee,24,ac,sarima,Vm Violation Max (p.u.),0.007784313063448511,1
+case118_ieee,24,ac,sarima,Qg Violation Median (MVAr),,1
+case118_ieee,24,ac,sarima,Qg Violation P99 (MVAr),,1
+case118_ieee,24,ac,sarima,Qg Violation Max (MVAr),,1
+case118_ieee,24,ac,snaive,Thermal Overload Median (% of rating),2.471310323580056,1
+case118_ieee,24,ac,snaive,Thermal Overload P99 (% of rating),9.414194976682492,1
+case118_ieee,24,ac,snaive,Thermal Overload Max (% of rating),12.769007581002946,1
+case118_ieee,24,ac,snaive,Vm Violation Median (p.u.),0.0018063721691632395,1
+case118_ieee,24,ac,snaive,Vm Violation P99 (p.u.),0.005980557588497026,1
+case118_ieee,24,ac,snaive,Vm Violation Max (p.u.),0.007063353215428503,1
+case118_ieee,24,ac,snaive,Qg Violation Median (MVAr),,1
+case118_ieee,24,ac,snaive,Qg Violation P99 (MVAr),,1
+case118_ieee,24,ac,snaive,Qg Violation Max (MVAr),,1
+case118_ieee,24,ac,xgb,Thermal Overload Median (% of rating),1.428012559323455,1
+case118_ieee,24,ac,xgb,Thermal Overload P99 (% of rating),7.014539980196023,1
+case118_ieee,24,ac,xgb,Thermal Overload Max (% of rating),10.926403348350666,1
+case118_ieee,24,ac,xgb,Vm Violation Median (p.u.),0.0014931445686984235,1
+case118_ieee,24,ac,xgb,Vm Violation P99 (p.u.),0.0038863692183562933,1
+case118_ieee,24,ac,xgb,Vm Violation Max (p.u.),0.00484598982044071,1
+case118_ieee,24,ac,xgb,Qg Violation Median (MVAr),,1
+case118_ieee,24,ac,xgb,Qg Violation P99 (MVAr),,1
+case118_ieee,24,ac,xgb,Qg Violation Max (MVAr),,1
+case118_ieee,24,ac,xgb_tot,Thermal Overload Median (% of rating),1.3259621071684657,1
+case118_ieee,24,ac,xgb_tot,Thermal Overload P99 (% of rating),6.458107402302253,1
+case118_ieee,24,ac,xgb_tot,Thermal Overload Max (% of rating),10.299221390416346,1
+case118_ieee,24,ac,xgb_tot,Vm Violation Median (p.u.),0.0015257453030923518,1
+case118_ieee,24,ac,xgb_tot,Vm Violation P99 (p.u.),0.0036823373701941886,1
+case118_ieee,24,ac,xgb_tot,Vm Violation Max (p.u.),0.004487799995885444,1
+case118_ieee,24,ac,xgb_tot,Qg Violation Median (MVAr),,1
+case118_ieee,24,ac,xgb_tot,Qg Violation P99 (MVAr),,1
+case118_ieee,24,ac,xgb_tot,Qg Violation Max (MVAr),,1
+case118_ieee,24,surrogate,sarima,Thermal Overload Median (% of rating),1.9739385248058516,3
+case118_ieee,24,surrogate,sarima,Thermal Overload P99 (% of rating),7.3931303007294025,3
+case118_ieee,24,surrogate,sarima,Thermal Overload Max (% of rating),10.590135766301634,3
+case118_ieee,24,surrogate,sarima,Vm Violation Median (p.u.),0.0014653547464245076,3
+case118_ieee,24,surrogate,sarima,Vm Violation P99 (p.u.),0.002555682943931758,3
+case118_ieee,24,surrogate,sarima,Vm Violation Max (p.u.),0.002957973976900341,3
+case118_ieee,24,surrogate,sarima,Qg Violation Median (MVAr),,3
+case118_ieee,24,surrogate,sarima,Qg Violation P99 (MVAr),,3
+case118_ieee,24,surrogate,sarima,Qg Violation Max (MVAr),,3
+case118_ieee,24,surrogate,snaive,Thermal Overload Median (% of rating),2.5024382485450247,3
+case118_ieee,24,surrogate,snaive,Thermal Overload P99 (% of rating),9.163323608990044,3
+case118_ieee,24,surrogate,snaive,Thermal Overload Max (% of rating),11.908421527673774,3
+case118_ieee,24,surrogate,snaive,Vm Violation Median (p.u.),0.0014451325088908895,3
+case118_ieee,24,surrogate,snaive,Vm Violation P99 (p.u.),0.002674136739900772,3
+case118_ieee,24,surrogate,snaive,Vm Violation Max (p.u.),0.002725461589129452,3
+case118_ieee,24,surrogate,snaive,Qg Violation Median (MVAr),,3
+case118_ieee,24,surrogate,snaive,Qg Violation P99 (MVAr),,3
+case118_ieee,24,surrogate,snaive,Qg Violation Max (MVAr),,3
+case118_ieee,24,surrogate,xgb,Thermal Overload Median (% of rating),1.6061262225485873,3
+case118_ieee,24,surrogate,xgb,Thermal Overload P99 (% of rating),6.74523269906102,3
+case118_ieee,24,surrogate,xgb,Thermal Overload Max (% of rating),10.777482226121693,3
+case118_ieee,24,surrogate,xgb,Vm Violation Median (p.u.),0.0014529005802113026,3
+case118_ieee,24,surrogate,xgb,Vm Violation P99 (p.u.),0.0026907994137515432,3
+case118_ieee,24,surrogate,xgb,Vm Violation Max (p.u.),0.0028649208282138794,3
+case118_ieee,24,surrogate,xgb,Qg Violation Median (MVAr),,3
+case118_ieee,24,surrogate,xgb,Qg Violation P99 (MVAr),,3
+case118_ieee,24,surrogate,xgb,Qg Violation Max (MVAr),,3
+case118_ieee,24,surrogate,xgb_tot,Thermal Overload Median (% of rating),1.5349121687619816,3
+case118_ieee,24,surrogate,xgb_tot,Thermal Overload P99 (% of rating),6.562224330765029,3
+case118_ieee,24,surrogate,xgb_tot,Thermal Overload Max (% of rating),11.812378987312666,3
+case118_ieee,24,surrogate,xgb_tot,Vm Violation Median (p.u.),0.0014462512530788452,3
+case118_ieee,24,surrogate,xgb_tot,Vm Violation P99 (p.u.),0.002680014406638049,3
+case118_ieee,24,surrogate,xgb_tot,Vm Violation Max (p.u.),0.0028583147700724787,3
+case118_ieee,24,surrogate,xgb_tot,Qg Violation Median (MVAr),,3
+case118_ieee,24,surrogate,xgb_tot,Qg Violation P99 (MVAr),,3
+case118_ieee,24,surrogate,xgb_tot,Qg Violation Max (MVAr),,3
+case118_ieee,6,dc,sarima,Thermal Overload Median (% of rating),3.5157707883997302,1
+case118_ieee,6,dc,sarima,Thermal Overload P99 (% of rating),7.376057129033827,1
+case118_ieee,6,dc,sarima,Thermal Overload Max (% of rating),11.902174874202686,1
+case118_ieee,6,dc,sarima,Vm Violation Median (p.u.),,1
+case118_ieee,6,dc,sarima,Vm Violation P99 (p.u.),,1
+case118_ieee,6,dc,sarima,Vm Violation Max (p.u.),,1
+case118_ieee,6,dc,sarima,Qg Violation Median (MVAr),,1
+case118_ieee,6,dc,sarima,Qg Violation P99 (MVAr),,1
+case118_ieee,6,dc,sarima,Qg Violation Max (MVAr),,1
+case118_ieee,6,dc,snaive,Thermal Overload Median (% of rating),3.969237367349665,1
+case118_ieee,6,dc,snaive,Thermal Overload P99 (% of rating),11.15648917938401,1
+case118_ieee,6,dc,snaive,Thermal Overload Max (% of rating),15.634847840467735,1
+case118_ieee,6,dc,snaive,Vm Violation Median (p.u.),,1
+case118_ieee,6,dc,snaive,Vm Violation P99 (p.u.),,1
+case118_ieee,6,dc,snaive,Vm Violation Max (p.u.),,1
+case118_ieee,6,dc,snaive,Qg Violation Median (MVAr),,1
+case118_ieee,6,dc,snaive,Qg Violation P99 (MVAr),,1
+case118_ieee,6,dc,snaive,Qg Violation Max (MVAr),,1
+case118_ieee,6,dc,xgb,Thermal Overload Median (% of rating),3.4400779917302504,1
+case118_ieee,6,dc,xgb,Thermal Overload P99 (% of rating),6.820743180381041,1
+case118_ieee,6,dc,xgb,Thermal Overload Max (% of rating),9.992669416775213,1
+case118_ieee,6,dc,xgb,Vm Violation Median (p.u.),,1
+case118_ieee,6,dc,xgb,Vm Violation P99 (p.u.),,1
+case118_ieee,6,dc,xgb,Vm Violation Max (p.u.),,1
+case118_ieee,6,dc,xgb,Qg Violation Median (MVAr),,1
+case118_ieee,6,dc,xgb,Qg Violation P99 (MVAr),,1
+case118_ieee,6,dc,xgb,Qg Violation Max (MVAr),,1
+case118_ieee,6,dc,xgb_tot,Thermal Overload Median (% of rating),3.3850506689554916,1
+case118_ieee,6,dc,xgb_tot,Thermal Overload P99 (% of rating),6.857598628687916,1
+case118_ieee,6,dc,xgb_tot,Thermal Overload Max (% of rating),10.658648167199992,1
+case118_ieee,6,dc,xgb_tot,Vm Violation Median (p.u.),,1
+case118_ieee,6,dc,xgb_tot,Vm Violation P99 (p.u.),,1
+case118_ieee,6,dc,xgb_tot,Vm Violation Max (p.u.),,1
+case118_ieee,6,dc,xgb_tot,Qg Violation Median (MVAr),,1
+case118_ieee,6,dc,xgb_tot,Qg Violation P99 (MVAr),,1
+case118_ieee,6,dc,xgb_tot,Qg Violation Max (MVAr),,1
+case118_ieee,6,e2e,none,Thermal Overload Median (% of rating),0.7380858068900431,3
+case118_ieee,6,e2e,none,Thermal Overload P99 (% of rating),4.1943430801789345,3
+case118_ieee,6,e2e,none,Thermal Overload Max (% of rating),9.173216648767957,3
+case118_ieee,6,e2e,none,Vm Violation Median (p.u.),0.0016933286899116773,3
+case118_ieee,6,e2e,none,Vm Violation P99 (p.u.),0.003792832263130092,3
+case118_ieee,6,e2e,none,Vm Violation Max (p.u.),0.004445786224084758,3
+case118_ieee,6,e2e,none,Qg Violation Median (MVAr),,3
+case118_ieee,6,e2e,none,Qg Violation P99 (MVAr),,3
+case118_ieee,6,e2e,none,Qg Violation Max (MVAr),,3
+case118_ieee,6,ac,sarima,Thermal Overload Median (% of rating),0.8181500544755416,1
+case118_ieee,6,ac,sarima,Thermal Overload P99 (% of rating),5.171393971794219,1
+case118_ieee,6,ac,sarima,Thermal Overload Max (% of rating),8.583809135451425,1
+case118_ieee,6,ac,sarima,Vm Violation Median (p.u.),0.0014452442911945251,1
+case118_ieee,6,ac,sarima,Vm Violation P99 (p.u.),0.004029353530403324,1
+case118_ieee,6,ac,sarima,Vm Violation Max (p.u.),0.005940149662102101,1
+case118_ieee,6,ac,sarima,Qg Violation Median (MVAr),,1
+case118_ieee,6,ac,sarima,Qg Violation P99 (MVAr),,1
+case118_ieee,6,ac,sarima,Qg Violation Max (MVAr),,1
+case118_ieee,6,ac,snaive,Thermal Overload Median (% of rating),2.4631491142285356,1
+case118_ieee,6,ac,snaive,Thermal Overload P99 (% of rating),9.385033748738113,1
+case118_ieee,6,ac,snaive,Thermal Overload Max (% of rating),12.769007581002946,1
+case118_ieee,6,ac,snaive,Vm Violation Median (p.u.),0.0018059896080775406,1
+case118_ieee,6,ac,snaive,Vm Violation P99 (p.u.),0.005980557588497026,1
+case118_ieee,6,ac,snaive,Vm Violation Max (p.u.),0.007063353215428503,1
+case118_ieee,6,ac,snaive,Qg Violation Median (MVAr),,1
+case118_ieee,6,ac,snaive,Qg Violation P99 (MVAr),,1
+case118_ieee,6,ac,snaive,Qg Violation Max (MVAr),,1
+case118_ieee,6,ac,xgb,Thermal Overload Median (% of rating),0.9109985470802551,1
+case118_ieee,6,ac,xgb,Thermal Overload P99 (% of rating),4.491050504102362,1
+case118_ieee,6,ac,xgb,Thermal Overload Max (% of rating),6.770935284420454,1
+case118_ieee,6,ac,xgb,Vm Violation Median (p.u.),0.001363012491153226,1
+case118_ieee,6,ac,xgb,Vm Violation P99 (p.u.),0.003342525669683158,1
+case118_ieee,6,ac,xgb,Vm Violation Max (p.u.),0.004184256634051087,1
+case118_ieee,6,ac,xgb,Qg Violation Median (MVAr),,1
+case118_ieee,6,ac,xgb,Qg Violation P99 (MVAr),,1
+case118_ieee,6,ac,xgb,Qg Violation Max (MVAr),,1
+case118_ieee,6,ac,xgb_tot,Thermal Overload Median (% of rating),0.7597096236676926,1
+case118_ieee,6,ac,xgb_tot,Thermal Overload P99 (% of rating),4.533074485775779,1
+case118_ieee,6,ac,xgb_tot,Thermal Overload Max (% of rating),8.828981891695298,1
+case118_ieee,6,ac,xgb_tot,Vm Violation Median (p.u.),0.0014108341469284413,1
+case118_ieee,6,ac,xgb_tot,Vm Violation P99 (p.u.),0.0033437733190563234,1
+case118_ieee,6,ac,xgb_tot,Vm Violation Max (p.u.),0.004463359741180284,1
+case118_ieee,6,ac,xgb_tot,Qg Violation Median (MVAr),,1
+case118_ieee,6,ac,xgb_tot,Qg Violation P99 (MVAr),,1
+case118_ieee,6,ac,xgb_tot,Qg Violation Max (MVAr),,1
+case118_ieee,6,surrogate,sarima,Thermal Overload Median (% of rating),1.1774614037692532,3
+case118_ieee,6,surrogate,sarima,Thermal Overload P99 (% of rating),5.093208345590854,3
+case118_ieee,6,surrogate,sarima,Thermal Overload Max (% of rating),9.381921470659371,3
+case118_ieee,6,surrogate,sarima,Vm Violation Median (p.u.),0.0014120261476087137,3
+case118_ieee,6,surrogate,sarima,Vm Violation P99 (p.u.),0.002790653655851143,3
+case118_ieee,6,surrogate,sarima,Vm Violation Max (p.u.),0.0029579827915471313,3
+case118_ieee,6,surrogate,sarima,Qg Violation Median (MVAr),,3
+case118_ieee,6,surrogate,sarima,Qg Violation P99 (MVAr),,3
+case118_ieee,6,surrogate,sarima,Qg Violation Max (MVAr),,3
+case118_ieee,6,surrogate,snaive,Thermal Overload Median (% of rating),2.4909746276423173,3
+case118_ieee,6,surrogate,snaive,Thermal Overload P99 (% of rating),9.163245433119442,3
+case118_ieee,6,surrogate,snaive,Thermal Overload Max (% of rating),11.90833217208973,3
+case118_ieee,6,surrogate,snaive,Vm Violation Median (p.u.),0.0014451201795088187,3
+case118_ieee,6,surrogate,snaive,Vm Violation P99 (p.u.),0.0026741292946427598,3
+case118_ieee,6,surrogate,snaive,Vm Violation Max (p.u.),0.002725450808894747,3
+case118_ieee,6,surrogate,snaive,Qg Violation Median (MVAr),,3
+case118_ieee,6,surrogate,snaive,Qg Violation P99 (MVAr),,3
+case118_ieee,6,surrogate,snaive,Qg Violation Max (MVAr),,3
+case118_ieee,6,surrogate,xgb,Thermal Overload Median (% of rating),1.1629788028155952,3
+case118_ieee,6,surrogate,xgb,Thermal Overload P99 (% of rating),5.112824995431626,3
+case118_ieee,6,surrogate,xgb,Thermal Overload Max (% of rating),7.404408008449903,3
+case118_ieee,6,surrogate,xgb,Vm Violation Median (p.u.),0.0014113968003723887,3
+case118_ieee,6,surrogate,xgb,Vm Violation P99 (p.u.),0.0027208420516794795,3
+case118_ieee,6,surrogate,xgb,Vm Violation Max (p.u.),0.0028016074780143896,3
+case118_ieee,6,surrogate,xgb,Qg Violation Median (MVAr),,3
+case118_ieee,6,surrogate,xgb,Qg Violation P99 (MVAr),,3
+case118_ieee,6,surrogate,xgb,Qg Violation Max (MVAr),,3
+case118_ieee,6,surrogate,xgb_tot,Thermal Overload Median (% of rating),1.0211743397186002,3
+case118_ieee,6,surrogate,xgb_tot,Thermal Overload P99 (% of rating),4.784211077762215,3
+case118_ieee,6,surrogate,xgb_tot,Thermal Overload Max (% of rating),9.035860202742828,3
+case118_ieee,6,surrogate,xgb_tot,Vm Violation Median (p.u.),0.0014081571380749613,3
+case118_ieee,6,surrogate,xgb_tot,Vm Violation P99 (p.u.),0.0027281764188424903,3
+case118_ieee,6,surrogate,xgb_tot,Vm Violation Max (p.u.),0.002867490721546462,3
+case118_ieee,6,surrogate,xgb_tot,Qg Violation Median (MVAr),,3
+case118_ieee,6,surrogate,xgb_tot,Qg Violation P99 (MVAr),,3
+case118_ieee,6,surrogate,xgb_tot,Qg Violation Max (MVAr),,3

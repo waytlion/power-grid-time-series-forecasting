@@ -1,0 +1,52 @@
+Metric,Value,Unit
+Mean Optimality Gap,4.335455894470215,%
+Residual P (MAE),2.299476385116577,MW
+Residual Q (MAE),0.7639702558517456,MVAr
+MAE Pd,1.3039666414260864,MW
+RMSE Pd,2.3234879970550537,MW
+MAE Qd,0.41145098209381104,MVAr
+RMSE Qd,0.8125678300857544,MVAr
+Vm MAE,0.006604995010262829,p.u.
+Vm RMSE,0.00745002295602307,p.u.
+Va MAE,0.46199481339561727,deg
+Va RMSE,0.7030584934310681,deg
+Pg bus MAE,0.7804865028898594,MW
+Pg bus RMSE,6.050892458771325,MW
+Qg MAE,0.7550882747617819,MVAr
+Qg RMSE,1.8071793081381622,MVAr
+Generator Pg MAE,1.7055073976516724,MW
+Generator Pg RMSE,8.944654895315361,MW
+vm viol. count,0.0,count
+vm viol. mean,0.0,p.u.
+vm viol. max,0.0,p.u.
+vm viol. rate,0.0,frac
+vm scenario viol. rate,0.0,frac
+pg viol. count,0.0,count
+pg viol. mean,0.0,MW
+pg viol. max,0.0,MW
+pg viol. rate,0.0,frac
+pg scenario viol. rate,0.0,frac
+qg viol. count,411965.0,count
+qg viol. mean,0.062369180950420204,MVAr
+qg viol. max,8.881683349609375,MVAr
+qg viol. rate,0.08086345163954763,frac
+qg scenario viol. rate,0.9985584668871365,frac
+thermal viol. count,72108.0,count
+thermal viol. mean,0.012058322604820615,MVA
+thermal viol. max,10.441848754882812,MVA
+thermal viol. rate,0.004109189978746277,frac
+thermal scenario viol. rate,0.48604044772322563,frac
+angle viol. count,0.0,count
+angle viol. mean,0.0,deg
+angle viol. max,0.0,deg
+angle viol. rate,0.0,frac
+angle scenario viol. rate,0.0,frac
+fully feasible scenario viol. rate,0.9992262359026541,frac
+total_pd_true,221634144.0,MW
+total_pd_pred,225215200.0,MW
+total_pg_true,226740512.0,MW
+total_pg_pred,228074304.0,MW
+Training time model-only (s),22424.148653006938,s
+Training time model-only per sample (s),0.02656864467280753,s
+Inference time model-only (s),57.337951980065554,s
+Inference time model-only per sample (s),0.0006077540911988633,s
